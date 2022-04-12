@@ -1,13 +1,56 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+    font-family: 'Inter-ExtraBold';
+    src: url("../src/assets/fonts/Inter-ExtraBold.ttf")
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+@font-face {
+    font-family: 'Inter-Bold';
+    src: url("../src/assets/fonts/Inter-Bold.ttf")
 }
+
+@font-face {
+    font-family: 'Inter-Medium';
+    src: url("../src/assets/fonts/Inter-Medium.ttf")
+}
+
+@font-face {
+    font-family: 'Inter-Regular';
+    src: url("../src/assets/fonts/Inter-Regular.ttf")
+}
+
+@font-face {
+    font-family: 'Inter-SemiBold';
+    src: url("../src/assets/fonts/Inter-SemiBold.ttf")
+}
+
+ 
+input:focus { 
+    outline: none !important;
+    border-color: #719ECE;
+    box-shadow: 0 0 10px #719ECE;
+}  
+  
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+    ::-webkit-scrollbar-track {
+    background: #DDE2E5;
+}
+
+/* Handle */
+    ::-webkit-scrollbar-thumb {
+    background: #ACB5BD;
+    border-radius: 25%;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+
+} 
