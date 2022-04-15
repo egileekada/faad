@@ -42,11 +42,36 @@ input:focus {
 /* Track */
     ::-webkit-scrollbar-track {
     background: #DDE2E5;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
 }
 
 /* Handle */
     ::-webkit-scrollbar-thumb {
     background: #ACB5BD;
+    border-radius: 25%;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+
+} 
+
+
+/* Track */
+.darknote::-webkit-scrollbar-track {
+    background: #808489;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+/* Handle */
+.darknote::-webkit-scrollbar-thumb {
+    background: #FFF;
     border-radius: 25%;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;

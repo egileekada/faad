@@ -18,17 +18,23 @@ export default function SideBar() {
         }
     }, [active])
 
-    const ClickHandler =(item: any)=> {
+    const ClickHandler =(item: any)=> { 
+        const rout = item.toLowerCase().replace(/\s/g,'')
         if(item !== 'Log out'){
             sessionStorage.setItem('tabIndex', item)
-            setActive(item)
+            setActive(item) 
+            if(item === 'Dashboard') {
+                navigate('/dashboard')
+            } else {
+                navigate('/dashboard/'+rout)
+            }
         } else {
             navigate('/')
         }
     }
         
     return (
-        <div className='w-full py-10 pt-16 px-6 overflow-y-auto h-screen flex ' >
+        <div className='w-72 py-10 pt-16 px-6 overflow-y-auto h-screen flex ' >
             <div className='w-full ' >
                 <div style={{height: '40px'}} className='w-full relative ' >
                     <input className='border-0 bg-[#DDE2E5CC] rounded px-4 text-sm h-full w-full ' placeholder='Search '  />
