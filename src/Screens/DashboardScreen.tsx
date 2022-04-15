@@ -5,12 +5,12 @@ import SideBar from '../components/SideBar'
 export default function DashboardScreen() {
     return (
         <div className='w-screen h-screen overflow-hidden  ' >
-            <div className='flex flex-1' > 
-                <div style={{width: '300px', boxShadow: '0px 4px 4px 0px #00000040'}} className=' mb-10' > 
+            <div className='w-screen flex ' > 
+                <div style={{boxShadow: '0px 4px 4px 0px #00000040'}} className=' mb-10' > 
                     <SideBar />
                 </div>
-                <div className='flex flex-col flex-1 h-screen' >
-                    <div className='w-full  h-24 px-14 bg-[#F8F9FA] flex items-center justify-end' >
+                <div className=' w-auto flex flex-1 flex-col h-screen' >
+                    <div style={{height: '15vh'}} className='w-full px-14 bg-[#F8F9FA] flex items-center justify-end' >
                         <div className='w-14 h-14 bg-yellow-200 rounded-full' >
 
                         </div>
@@ -19,7 +19,7 @@ export default function DashboardScreen() {
                             <p className='font-Inter-Regular text-xs '>Customer Service</p>
                         </div>
                     </div>
-                    <div className='w-full h-full overflow-y-auto' >
+                    <div style={{height: '85vh'}} className='h-auto overflow-y-hidden' >
                         <Outlet />
                     </div>
                 </div>
