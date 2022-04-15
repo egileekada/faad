@@ -15,6 +15,10 @@ import DealTab from './Tabs/DealTab';
 import Deal from './components/DealComponent/Deal';
 import DealInfo from './components/DealComponent/DealInfo';
 import CreateDeal from './components/DealComponent/CreateDeal';
+import ClienteleTab from './Tabs/ClienteleTab';
+import Clientele from './components/clienteleComponent/Clientele';
+import ClienteleInfo from './components/clienteleComponent/ClienteleInfo';
+import ClienteleProfile from './components/clienteleComponent/ClienteleProfile';
 
 function App() {
   return (  
@@ -31,7 +35,12 @@ function App() {
               <Route path='/dashboard/deals' element={<DealTab />} >
                 <Route path='/dashboard/deals' element={<Deal />}/>
                 <Route path='/dashboard/deals/info' element={<DealInfo />}/>
-                <Route path='/dashboard/deals/createdeal' element={<CreateDeal />}/>
+                <Route path='/dashboard/deals/createdeal' element={<CreateDeal />}/> 
+              </Route>
+              <Route path='/dashboard/clientele' element={<ClienteleTab />} >
+                <Route path='/dashboard/clientele' element={<Clientele />}/>
+                <Route path='/dashboard/clientele/info' element={<ClienteleInfo />}/>
+                <Route path='/dashboard/clientele/clientprofile' element={<ClienteleProfile />}/>
                 {/* <Route path='/dashboard/ourpeople/editprofile' element={<EditPersonnel />}/> */}
               </Route>
               <Route path='/dashboard/ourpeople' element={<OurPeopleTab />} >

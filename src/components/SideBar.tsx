@@ -34,7 +34,7 @@ export default function SideBar() {
     }
         
     return (
-        <div className='w-72 py-10 pt-16 px-6 overflow-y-auto h-screen flex ' >
+        <div className='w-64 py-10 pt-16 px-6 overflow-y-auto h-screen flex ' >
             <div className='w-full ' >
                 <div style={{height: '40px'}} className='w-full relative ' >
                     <input className='border-0 bg-[#DDE2E5CC] rounded px-4 text-sm h-full w-full ' placeholder='Search '  />

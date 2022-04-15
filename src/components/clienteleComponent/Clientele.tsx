@@ -1,55 +1,45 @@
-import { Select, Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react'
+import { Select, Table, Thead, Tr, Th, Tbody, Td } from '@chakra-ui/react'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
-export default function Bargin() {
+export default function Clientele() {
  
     const navigate = useNavigate()
     const data = [
         { 
-            prospect: 'Schlumbeger LTD', 
-            product: 'AGO', 
-            address: '16, Alaska street, East west road, Port Harcourt...', 
-            qty: '20,000 ℓ', 
-            ask: '185.67', 
-            bid: '185.67', 
+            client: 'Schlumbeger LTD', 
+            industry: 'Manufacuring', 
+            contactperson: 'Jesica Matthew', 
             contact: 'jesica@schlumbeger.com', 
+            date: '12-11-2019',  
         }, 
         { 
-            prospect: 'Schlumbeger LTD', 
-            product: 'AGO', 
-            address: '16, Alaska street, East west road, Port Harcourt...', 
-            qty: '20,000 ℓ', 
-            ask: '185.67', 
-            bid: '185.67', 
+            client: 'Schlumbeger LTD', 
+            industry: 'Manufacuring', 
+            contactperson: 'Jesica Matthew', 
             contact: 'jesica@schlumbeger.com', 
+            date: '12-11-2019',  
         }, 
         { 
-            prospect: 'Schlumbeger LTD', 
-            product: 'AGO', 
-            address: '16, Alaska street, East west road, Port Harcourt...', 
-            qty: '20,000 ℓ', 
-            ask: '185.67', 
-            bid: '185.67', 
+            client: 'Schlumbeger LTD', 
+            industry: 'Manufacuring', 
+            contactperson: 'Jesica Matthew', 
             contact: 'jesica@schlumbeger.com', 
+            date: '12-11-2019',  
         }, 
         { 
-            prospect: 'Schlumbeger LTD', 
-            product: 'AGO', 
-            address: '16, Alaska street, East west road, Port Harcourt...', 
-            qty: '20,000 ℓ', 
-            ask: '185.67', 
-            bid: '185.67', 
+            client: 'Schlumbeger LTD', 
+            industry: 'Manufacuring', 
+            contactperson: 'Jesica Matthew', 
             contact: 'jesica@schlumbeger.com', 
+            date: '12-11-2019',  
         }, 
         { 
-            prospect: 'Schlumbeger LTD', 
-            product: 'AGO', 
-            address: '16, Alaska street, East west road, Port Harcourt...', 
-            qty: '20,000 ℓ', 
-            ask: '185.67', 
-            bid: '185.67', 
+            client: 'Schlumbeger LTD', 
+            industry: 'Manufacuring', 
+            contactperson: 'Jesica Matthew', 
             contact: 'jesica@schlumbeger.com', 
+            date: '12-11-2019',  
         }, 
     ]
 
@@ -73,34 +63,29 @@ export default function Bargin() {
                         <Thead>
                             <Tr className=' font-Inter-SemiBold text-xl' >
                                 <Th>No</Th>  
-                                <Th>Prospect</Th>  
-                                <Th>Product</Th> 
-                                <Th>Address</Th>  
-                                <Th>Quantity</Th>  
-                                <Th>Ask </Th> 
-                                <Th>Bid</Th>  
+                                <Th>Client</Th>  
+                                <Th>Industry</Th> 
+                                <Th>Contact person</Th>  
                                 <Th>Contact</Th>  
+                                <Th>Onboarded</Th>  
                             </Tr>
                         </Thead>
                         <Tbody >
                             {data.map((item, index)=> {
                                 return(
-                                    <Tr onClick={()=> navigate('info')} className=' cursor-pointer font-Inter-Regular text-xs ' key={index} >
+                                    <Tr onClick={()=> navigate('info')} className=' cursor-pointer font-Inter-Regular text-sm ' key={index} >
                                         <Td>{index+1}</Td> 
-                                        <Td>{item.prospect}</Td> 
+                                        <Td>{item.client}</Td> 
                                         <Td>
                                             {/* <div className='w-8' > */}
-                                                {item.product}
+                                                {item.industry}
                                             {/* </div> */}
                                         </Td> 
                                         <Td>
                                             {/* <div className='w-32' > */}
-                                                {item.address}
+                                                {item.contactperson}
                                             {/* </div>  */}
                                         </Td>  
-                                        <Td>{item.ask}</Td> 
-                                        <Td>{item.qty}</Td> 
-                                        <Td>{item.bid}</Td> 
                                         <Td>
                                             <div className='flex items-center' >
                                                 {item.contact}
@@ -110,6 +95,7 @@ export default function Bargin() {
                                                 </svg>
                                             </div>
                                         </Td> 
+                                        <Td>{item.date}</Td>  
                                     </Tr> 
                                 )
                             })}
