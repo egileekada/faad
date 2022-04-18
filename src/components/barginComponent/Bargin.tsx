@@ -52,13 +52,24 @@ export default function Bargin() {
             contact: 'jesica@schlumbeger.com', 
         }, 
     ]
+    const [tab, setTab] = React.useState(false)
 
     return (
         <div className='w-full h-full px-8 py-8 overflow-y-auto' > 
             <div className='w-auto flex flex-col flex-1 ' > 
-                <div className='w-full flex items-center font-Inter-Regular' > 
+                <div className='w-full flex items-center font-Inter-Regular relative' > 
                     <div className='w-64' >
                         <Select border='1px solid #DDE2E5' backgroundColor='white' placeholder='Search by name or department' fontSize='sm' /> 
+                    </div>
+                    <div className='w-full flex items-center absolute justify-center inset-0' >
+                        <div className='p-1 bg-[rgba(224,224,224,0.5)] rounded-xl flex' style={{boxShadow: 'inset 0px 1px 2px rgba(97, 97, 97, 0.2), inset 0px 2px 4px rgba(97, 97, 97, 0.2)'}}  >
+                            <div onClick={()=> setTab(false)} className={!tab ? 'w-20 bg-white cursor-pointer h-10 font-Inter-Regular rounded-xl flex justify-center items-center' : 'w-20 cursor-pointer h-10 font-Inter-Regular rounded-xl flex justify-center items-center'} >
+                                Bargains
+                            </div>
+                            <div onClick={()=> setTab(true)} className={tab ? 'w-20 bg-white cursor-pointer h-10 font-Inter-Regular rounded-xl flex justify-center items-center' : 'w-20 cursor-pointer h-10 font-Inter-Regular rounded-xl flex justify-center items-center'}  >
+                                Orders
+                            </div>
+                        </div>
                     </div>
                     <button  onClick={()=> navigate('createbargin')} className=' rounded w-36 flex justify-center items-center h-10 font-Inter-SemiBold ml-auto text-sm text-white bg-[#F88C3A]' >
                         <svg className='mr-2' width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

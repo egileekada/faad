@@ -1,8 +1,15 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
 export default function BargainInfo() {
+
+    const navigate = useNavigate()
+
     return (
         <div className='w-full h-full px-8 py-8 overflow-y-auto' > 
+            <svg onClick={()=> navigate('/dashboard/bargains')} className='cursor-pointer fixed z-50 top-14  ' width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M20.3287 11.0001V13.0001L7.50042 13.0001L10.7429 16.2426L9.32873 17.6568L3.67188 12L9.32873 6.34314L10.7429 7.75735L7.50019 11.0001L20.3287 11.0001Z" fill="#495057"/>
+            </svg>
             <div className=' w-full rounded-2xl p-10 my-8 bg-white flex flex-col ' >  
                 <div className=' w-full flex border-b border-[#E0E0E0] pb-10' >
                     <div className='flex flex-col flex-1 pr-10 ' > 

@@ -1,11 +1,14 @@
 import { Input } from '@chakra-ui/input'
 import { Select, Textarea } from '@chakra-ui/react'
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import OnCreateModal from '../Modals/OnCreateModal'
 
 export default function CreateDeal() {
 
-    const [show, setShow] = React.useState(false)
+    const [show, setShow] = React.useState(false) 
+    const navigate = useNavigate()
+
 
     return (
         <>
@@ -15,6 +18,9 @@ export default function CreateDeal() {
 
             {!show && ( 
                 <div className='w-full h-full px-8 py-8 overflow-y-auto' > 
+                    <svg onClick={()=> navigate('/dashboard/deals')} className='cursor-pointer fixed z-50 top-14  ' width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20.3287 11.0001V13.0001L7.50042 13.0001L10.7429 16.2426L9.32873 17.6568L3.67188 12L9.32873 6.34314L10.7429 7.75735L7.50019 11.0001L20.3287 11.0001Z" fill="#495057"/>
+                    </svg>
                     <div style={{border: '1px solid #DDE2E5'}} className=' h-auto w-full relative rounded-2xl p-10 mb-8 bg-white flex flex-col ' > 
                         <p className='font-Inter-SemiBold text-2xl ml-3 ' >Create deal</p>
                         <div style={{width: '790px'}} className=' flex mt-6 font-Inter-Regular' >

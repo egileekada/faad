@@ -19,6 +19,11 @@ import ClienteleTab from './Tabs/ClienteleTab';
 import Clientele from './components/clienteleComponent/Clientele';
 import ClienteleInfo from './components/clienteleComponent/ClienteleInfo';
 import ClienteleProfile from './components/clienteleComponent/ClienteleProfile';
+import CustomerService from './components/Messaging/CustomerService';
+import Operations from './components/Messaging/Operations';
+import General from './components/Messaging/General';
+import MyNotes from './components/Messaging/MyNotes';
+import NewProfile from './components/OurPeopleComponent/NewProfile';
 
 function App() {
   return (  
@@ -45,8 +50,13 @@ function App() {
               </Route>
               <Route path='/dashboard/ourpeople' element={<OurPeopleTab />} >
                 <Route path='/dashboard/ourpeople' element={<OurPeople />}/>
-                <Route path='/dashboard/ourpeople/editprofile' element={<EditPersonnel />}/>
-              </Route>
+                <Route path='/dashboard/ourpeople/newprofile' element={<NewProfile />}/>
+                <Route path='/dashboard/ourpeople/profile' element={<EditPersonnel />}/>
+              </Route> 
+              <Route path='/dashboard/customerservicemessages' element={<CustomerService />}/>
+              <Route path='/dashboard/operationsmessages' element={<Operations />}/>
+              <Route path='/dashboard/generalmessages' element={<General />}/>
+              <Route path='/dashboard/mynotes' element={<MyNotes />}/>
           </Route> 
         </Routes>
       </Router>  

@@ -9,8 +9,8 @@ export default function DashboardScreen() {
                 <div style={{boxShadow: '0px 4px 4px 0px #00000040'}} className=' mb-10' > 
                     <SideBar />
                 </div>
-                <div className=' w-auto flex flex-1 flex-col h-screen' >
-                    <div style={{height: '15vh'}} className='w-full px-14 bg-[#F8F9FA] flex items-center justify-end' >
+                <div className=' w-auto flex flex-1 flex-col h-screen ' >
+                    <div style={{height: '15vh'}} className='w-full px-14 bg-[#F8F9FA] flex relative z-40 items-center justify-end' >
                         <div className='w-14 h-14 bg-yellow-200 rounded-full' >
 
                         </div>
