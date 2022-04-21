@@ -5,10 +5,76 @@ import SecondEllipse from '../assets/images/LoginEllipse.png'
 import FirstEllipse from '../assets/images/LoginEllipse2.png'
 import { Input } from '@chakra-ui/input'
 import { useNavigate } from 'react-router-dom'
+import { motion } from 'framer-motion'
+import * as yup from 'yup'
+import { useFormik } from 'formik';  
+import ButtonLoader from '../components/ButtonLoader'
 
 export default function LoginScreen() { 
 
     const navigate = useNavigate()
+ 
+    const [showpassword, setShowpass] = React.useState(false);
+    const [loading, setLoading] = React.useState(false);
+    const [tokenvalue, setToken] = React.useState(''); 
+
+    const handleShowpassword = () => {
+        setShowpass(prev => !prev);
+    } 
+
+    const loginSchema = yup.object({ 
+        companyEmail: yup.string().email('This email is not valid').required('Your email is required'),
+        password: yup.string().required('Your password is required').min(4, 'A minimium of 4 characters')
+    }) 
+
+    // formik
+    const formik = useFormik({
+        initialValues: {companyEmail: '', password: ''},
+        validationSchema: loginSchema,
+        onSubmit: () => {},
+    });  
+
+    React.useEffect(() => {  
+        localStorage.setItem('token', tokenvalue);   
+    }); 
+
+    const submit = async () => {
+
+        setLoading(true);
+        if (!formik.dirty) {
+          alert('You have to fill in th form to continue');
+          setLoading(false);
+          return;
+        }else if (!formik.isValid) {
+          alert('You have to fill in the form correctly to continue');
+          setLoading(false);
+          return;
+        }else {
+            const request = await fetch(`https://faadoli.herokuapp.com/api/v1/auth/login`, {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formik.values),
+            });
+    
+            const json = await request.json(); 
+    
+            if (request.status === 200) {    
+                setToken(json)  
+                localStorage.setItem('token',json) 
+                sessionStorage.setItem('tabIndex', 'Dashboard')
+                const t1 = setTimeout(() => { 
+                    navigate('/dashboard');  
+                    clearTimeout(t1);
+                }, 1000); 
+            }else {
+                alert(json.message);
+                console.log(json)
+                setLoading(false);
+            }
+        }
+    } 
 
     return (
         <div className='w-full h-screen overflow-hidden pb-10 ' > 
@@ -35,10 +101,55 @@ export default function LoginScreen() {
                     <div className='w-80 ml-auto bg-white' > 
                         <p className='font-Inter-SemiBold text-3xl' >Log in</p> 
                         <div className='mt-4' >
-                            <input className='border border-[#DDE2E5] rounded px-4 text-sm h-11 w-full ' placeholder='Email' />
-                            <input className='border faad border-[#DDE2E5] rounded px-4 text-sm h-11 w-full mt-6 ' type='password' placeholder='Password' />
+                            <input
+                                name="companyEmail"
+                                onChange={formik.handleChange}
+                                onFocus={() =>
+                                    formik.setFieldTouched("companyEmail", true, true)
+                                }  
+                                className='border border-[#DDE2E5] rounded px-4 text-sm h-11 w-full ' placeholder='Email' />
+                            <div className="w-full h-auto pt-2">
+                                {formik.touched.companyEmail && formik.errors.companyEmail && (
+                                    <motion.p
+                                        initial={{ y: -100, opacity: 0 }}
+                                        animate={{ y: 0, opacity: 1 }}
+                                        className="text-xs font-Inter-SemiBold text-[#ff0000]"
+                                    >
+                                        {formik.errors.companyEmail}
+                                    </motion.p>
+                                )}
+                            </div>
+                            <input 
+                                name="password"
+                                onChange={formik.handleChange}
+                                onFocus={() =>
+                                    formik.setFieldTouched("password", true, true)
+                                }  
+                                className='border faad border-[#DDE2E5] rounded px-4 text-sm h-11 w-full mt-6 ' type='password' placeholder='Password' />
+                            <div className="w-full h-auto pt-2">
+                                {formik.touched.password && formik.errors.password && (
+                                    <motion.p
+                                        initial={{ y: -100, opacity: 0 }}
+                                        animate={{ y: 0, opacity: 1 }}
+                                        className="text-xs font-Inter-SemiBold text-[#ff0000]"
+                                    >
+                                        {formik.errors.password}
+                                    </motion.p>
+                                )}
+                            </div>
                             <p className=' text-xs font-Inter-Medium text-[#495057] cursor-pointer mt-3' >Forgot password</p>
-                            <button onClick={()=> navigate('/dashboard')} className='h-10 rounded font-Inter-Bold text-sm px-10 mt-6 bg-[#F88C3A] text-white' >Log in</button>
+                            <button onClick={()=> submit()} disabled={loading ? true : false} className='h-10 rounded font-Inter-Bold text-sm flex justify-center items-center px-6 mt-6 bg-[#F88C3A] text-white' >
+                                {loading && (
+                                    <> 
+                                        <ButtonLoader size='30' />
+                                        <span className='ml-3'>Loading</span>
+                                    </>
+                                )}
+                                {!loading && (
+                                    <span className='mx-4'>Log in</span>
+                                )}
+                            </button>
+                            {/* <button onClick={()=> submit()} className='h-10 rounded font-Inter-Bold text-sm px-10 mt-6 bg-[#F88C3A] text-white' ></button> */}
                         </div>
                     </div>
                 </div>

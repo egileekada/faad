@@ -52,6 +52,7 @@ export default function Bargin() {
             contact: 'jesica@schlumbeger.com', 
         }, 
     ]
+
     const [tab, setTab] = React.useState(false)
 
     return (
@@ -59,7 +60,7 @@ export default function Bargin() {
             <div className='w-auto flex flex-col flex-1 ' > 
                 <div className='w-full flex items-center font-Inter-Regular relative' > 
                     <div className='w-64' >
-                        <Select border='1px solid #DDE2E5' backgroundColor='white' placeholder='Search by name or department' fontSize='sm' /> 
+                        <Select border='1px solid #DDE2E5' className='relative z-30' backgroundColor='white' placeholder='Search by name or department' fontSize='sm' /> 
                     </div>
                     <div className='w-full flex items-center absolute justify-center inset-0' >
                         <div className='p-1 bg-[rgba(224,224,224,0.5)] rounded-xl flex' style={{boxShadow: 'inset 0px 1px 2px rgba(97, 97, 97, 0.2), inset 0px 2px 4px rgba(97, 97, 97, 0.2)'}}  >
@@ -71,7 +72,7 @@ export default function Bargin() {
                             </div>
                         </div>
                     </div>
-                    <button  onClick={()=> navigate('createbargin')} className=' rounded w-36 flex justify-center items-center h-10 font-Inter-SemiBold ml-auto text-sm text-white bg-[#F88C3A]' >
+                    <button  onClick={()=> navigate('createbargin')} className=' relative rounded w-36 flex justify-center items-center h-10 font-Inter-SemiBold ml-auto text-sm text-white bg-[#F88C3A]' >
                         <svg className='mr-2' width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M12 4C11.4477 4 11 4.44772 11 5V11H5C4.44772 11 4 11.4477 4 12C4 12.5523 4.44772 13 5 13H11V19C11 19.5523 11.4477 20 12 20C12.5523 20 13 19.5523 13 19V13H19C19.5523 13 20 12.5523 20 12C20 11.4477 19.5523 11 19 11H13V5C13 4.44772 12.5523 4 12 4Z" fill="white"/>
                         </svg>
