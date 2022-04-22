@@ -65,7 +65,7 @@ export default function Deal() {
 
     const [tab, setTab] = React.useState(false) 
 
-    const { isLoading, error, data } = useQuery('userDataAll', () =>
+    const { isLoading, error, data } = useQuery('AllDeals', () =>
         fetch('https://faadoli.herokuapp.com/api/v1/deals', {
             method: 'GET', // or 'PUT'
             headers: {

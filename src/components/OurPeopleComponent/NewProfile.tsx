@@ -89,29 +89,33 @@ export default function NewProfile() {
                 formData.append('avatar', image)  
 
                 // make request to server 
-                    const request = await axios.default.post(`https://faadoli.herokuapp.com/api/v1/auth/signup`, formData, {
-                        headers: { 'content-type': 'application/json',
-                        Authorization : `Bearer ${localStorage.getItem('token')}` 
-                        }
-                    })    
-
-            if (request.status === 200) {    
-                // console.log(json)  
-                setShowModal(true)
-                const t1 = setTimeout(() => {
-                    setShowModal(false)
-                    navigate('/dashboard/ourpeople'); 
-                    clearTimeout(t1);
-                }, 1000); 
-            }else {   
-
-            }
+                const request = await axios.default.post(`https://faadoli.herokuapp.com/api/v1/auth/signup`, formData, {
+                    headers: { 'content-type': 'application/json',
+                    Authorization : `Bearer ${localStorage.getItem('token')}` 
+                    }
+                })    
+   
+                if (request.status === 200) {  
+                    setShowModal(true)
+                    const t1 = setTimeout(() => {   
+                        setShowModal(false)
+                        clearTimeout(t1);
+                    }, 1000); 
+                }else {   
+                    setLoading(false);
+                    return
+                }
                     
             } catch (error) {
+                setLoading(false);
                 console.log(error)
+                return
             } 
-        } 
-        setShowModal(false)
+            const t2 = setTimeout(() => { 
+                navigate('/dashboard/ourpeople'); 
+                clearTimeout(t2);
+            }, 2000); 
+        }  
     } 
 
     return (
