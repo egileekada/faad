@@ -24,6 +24,7 @@ import Operations from './components/Messaging/Operations';
 import General from './components/Messaging/General';
 import MyNotes from './components/Messaging/MyNotes';
 import NewProfile from './components/OurPeopleComponent/NewProfile';
+import AccountTab from './Tabs/AccountTab';
 
 function App() {
   return (  
@@ -32,31 +33,31 @@ function App() {
           <Route path='/' element={<LoginScreen />}/>  
           <Route path='/dashboard' element={<DashboardScreen />} >
             <Route path='/dashboard' element={<DashboardTab />}/>
+            <Route path='/dashboard/accounts' element={<AccountTab />} />
             <Route path='/dashboard/bargains' element={<BarginTab />} >
                 <Route path='/dashboard/bargains' element={<Bargin />}/>
                 <Route path='/dashboard/bargains/info' element={<BargainInfo />}/>
                 <Route path='/dashboard/bargains/createbargin' element={<CreateBargain />}/>
             </Route>
-              <Route path='/dashboard/deals' element={<DealTab />} >
-                <Route path='/dashboard/deals' element={<Deal />}/>
-                <Route path='/dashboard/deals/info' element={<DealInfo />}/>
-                <Route path='/dashboard/deals/createdeal' element={<CreateDeal />}/> 
-              </Route>
-              <Route path='/dashboard/clientele' element={<ClienteleTab />} >
-                <Route path='/dashboard/clientele' element={<Clientele />}/>
-                <Route path='/dashboard/clientele/info' element={<ClienteleInfo />}/>
-                <Route path='/dashboard/clientele/clientprofile' element={<ClienteleProfile />}/>
-                {/* <Route path='/dashboard/ourpeople/editprofile' element={<EditPersonnel />}/> */}
-              </Route>
-              <Route path='/dashboard/ourpeople' element={<OurPeopleTab />} >
-                <Route path='/dashboard/ourpeople' element={<OurPeople />}/>
-                <Route path='/dashboard/ourpeople/newprofile' element={<NewProfile />}/>
-                <Route path='/dashboard/ourpeople/profile' element={<EditPersonnel />}/>
-              </Route> 
-              <Route path='/dashboard/customerservicemessages' element={<CustomerService />}/>
-              <Route path='/dashboard/operationsmessages' element={<Operations />}/>
-              <Route path='/dashboard/generalmessages' element={<General />}/>
-              <Route path='/dashboard/mynotes' element={<MyNotes />}/>
+            <Route path='/dashboard/clientele' element={<ClienteleTab />} >
+              <Route path='/dashboard/clientele' element={<Clientele />}/>
+              <Route path='/dashboard/clientele/info' element={<ClienteleInfo />}/>
+              <Route path='/dashboard/clientele/clientprofile' element={<ClienteleProfile />}/> 
+            </Route>
+            <Route path='/dashboard/deals' element={<DealTab />} >
+              <Route path='/dashboard/deals' element={<Deal />}/>
+              <Route path='/dashboard/deals/info' element={<DealInfo />}/>
+              <Route path='/dashboard/deals/createdeal' element={<CreateDeal />}/> 
+            </Route>
+            <Route path='/dashboard/ourpeople' element={<OurPeopleTab />} >
+              <Route path='/dashboard/ourpeople' element={<OurPeople />}/>
+              <Route path='/dashboard/ourpeople/newprofile' element={<NewProfile />}/>
+              <Route path='/dashboard/ourpeople/profile' element={<EditPersonnel />}/>
+            </Route> 
+            <Route path='/dashboard/customerservicemessages' element={<CustomerService />}/>
+            <Route path='/dashboard/operationsmessages' element={<Operations />}/>
+            <Route path='/dashboard/generalmessages' element={<General />}/>
+            <Route path='/dashboard/mynotes' element={<MyNotes />}/>
           </Route> 
         </Routes>
       </Router>  

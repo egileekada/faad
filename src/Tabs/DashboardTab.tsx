@@ -6,7 +6,7 @@ export default function DashboardTab() {
         <div className='w-full h-full px-8 py-8 overflow-y-auto'> 
             <div className='w-full h-auto px-8 pt-8 mb-10 flex'>
                 <div className=' w-3/5 ' >
-                    <div className='w-full rounded-3xl py-6 px-10 flex items-center  bg-[#FBF3EE] ' style={{border: '2px solid #F9A362', boxShadow: '4px 4px 6px 1px #0000000F'}} >
+                    <div className='w-full rounded-3xl py-6 px-10 flex items-center  bg-[#FBF3EE] ' style={{border: '1px solid #F9A362', boxShadow: '4px 4px 6px 1px #0000000F'}} >
                         <svg className='cursor-pointer' width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M12 6.75739L13.4142 8.1716L10.5858 11L13.4142 13.8284L12 15.2426L7.75736 11L12 6.75739Z" fill="#495057"/>
                             <path fill-rule="evenodd" clip-rule="evenodd" d="M18 0C20.2091 0 22 1.79086 22 4V18C22 20.2091 20.2091 22 18 22H4C1.79086 22 0 20.2091 0 18V4C0 1.79086 1.79086 0 4 0H18ZM20 4V18C20 19.1046 19.1046 20 18 20H4C2.89543 20 2 19.1046 2 18L2 4C2 2.89543 2.89543 2 4 2L18 2C19.1046 2 20 2.89543 20 4Z" fill="#495057"/>

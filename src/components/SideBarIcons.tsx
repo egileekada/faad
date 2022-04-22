@@ -71,6 +71,19 @@ export default function SideBarIcons(props: any) {
                                                                 <path d="M8.99998 1.00881C9.00019 0.45653 8.55265 0.00863925 8.00037 0.00842293C7.44808 0.00820698 7.00019 0.455747 6.99997 1.00803L6.99684 9.01148C6.99663 9.56376 7.44417 10.0117 7.99645 10.0119C8.54874 10.0121 8.99663 9.56455 8.99684 9.01226L8.99998 1.00881Z" fill="#EC0000"/>
                                                                 <path d="M0 9.99156C0 7.78245 0.895405 5.78247 2.34308 4.33476L3.7573 5.74898C2.67155 6.83476 2 8.33473 2 9.99156C2 13.3053 4.68629 15.9916 8 15.9916C11.3137 15.9916 14 13.3053 14 9.99156C14 8.3347 13.3284 6.83469 12.2426 5.74891L13.6568 4.33469C15.1046 5.78241 16 7.78241 16 9.99156C16 14.4098 12.4183 17.9916 8 17.9916C3.58172 17.9916 0 14.4098 0 9.99156Z" fill="#EC0000"/>
                                                             </svg>
+                                                            :props.iconName === 'Accounts' ?
+                                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                    <path d="M17 5H7V7H17V5Z" fill={props.active !== 'Accounts' ? '#ACB5BD': '#F88C3A'}/>
+                                                                    <path d="M7 9H9V11H7V9Z" fill={props.active !== 'Accounts' ? '#ACB5BD': '#F88C3A'}/>
+                                                                    <path d="M9 13H7V15H9V13Z" fill={props.active !== 'Accounts' ? '#ACB5BD': '#F88C3A'}/>
+                                                                    <path d="M7 17H9V19H7V17Z" fill={props.active !== 'Accounts' ? '#ACB5BD': '#F88C3A'}/>
+                                                                    <path d="M13 9H11V11H13V9Z" fill={props.active !== 'Accounts' ? '#ACB5BD': '#F88C3A'}/>
+                                                                    <path d="M11 13H13V15H11V13Z" fill={props.active !== 'Accounts' ? '#ACB5BD': '#F88C3A'}/>
+                                                                    <path d="M13 17H11V19H13V17Z" fill={props.active !== 'Accounts' ? '#ACB5BD': '#F88C3A'}/>
+                                                                    <path d="M15 9H17V11H15V9Z" fill={props.active !== 'Accounts' ? '#ACB5BD': '#F88C3A'}/>
+                                                                    <path d="M17 13H15V19H17V13Z" fill={props.active !== 'Accounts' ? '#ACB5BD': '#F88C3A'}/>
+                                                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M3 3C3 1.89543 3.89543 1 5 1H19C20.1046 1 21 1.89543 21 3V21C21 22.1046 20.1046 23 19 23H5C3.89543 23 3 22.1046 3 21V3ZM5 3H19V21H5V3Z" fill={props.active !== 'Accounts' ? '#ACB5BD': '#F88C3A'}/>
+                                                                </svg>
             :null}
         </div>
     )

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import LoginImage from '../assets/images/LoginImage.png'
 import TopEllipse from '../assets/images/TopEllipse.png'
 import SecondEllipse from '../assets/images/LoginEllipse.png'
@@ -9,6 +9,7 @@ import { motion } from 'framer-motion'
 import * as yup from 'yup'
 import { useFormik } from 'formik';  
 import ButtonLoader from '../components/ButtonLoader'
+import { IUser, UserContext } from '../components/context/UserContext'
 
 export default function LoginScreen() { 
 
@@ -17,6 +18,7 @@ export default function LoginScreen() {
     const [showpassword, setShowpass] = React.useState(false);
     const [loading, setLoading] = React.useState(false);
     const [tokenvalue, setToken] = React.useState(''); 
+    const userContext: IUser = React.useContext(UserContext);  
 
     const handleShowpassword = () => {
         setShowpass(prev => !prev);
@@ -61,9 +63,12 @@ export default function LoginScreen() {
             const json = await request.json(); 
     
             if (request.status === 200) {    
-                setToken(json)  
-                localStorage.setItem('token',json) 
-                sessionStorage.setItem('tabIndex', 'Dashboard')
+                setToken(json.data.token)  
+                localStorage.setItem('token',json.data.token) 
+                sessionStorage.setItem('token',json.data.token) 
+                userContext.setToken(json.data.token)
+                sessionStorage.setItem('tabIndex', 'Dashboard') 
+                console.log(json.data.token)
                 const t1 = setTimeout(() => { 
                     navigate('/dashboard');  
                     clearTimeout(t1);

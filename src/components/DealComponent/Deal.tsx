@@ -1,11 +1,12 @@
 import { Select, Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react'
 import React from 'react'
+import { useQuery } from 'react-query'
 import { useNavigate } from 'react-router-dom'
 
 export default function Deal() {
  
     const navigate = useNavigate()
-    const data = [
+    const dataall = [
         { 
             client: 'Schlumbeger LTD', 
             product: 'AGO',  
@@ -62,7 +63,21 @@ export default function Deal() {
         }, 
     ]
 
-    const [tab, setTab] = React.useState(false)
+    const [tab, setTab] = React.useState(false) 
+
+    const { isLoading, error, data } = useQuery('userDataAll', () =>
+        fetch('https://faadoli.herokuapp.com/api/v1/deals', {
+            method: 'GET', // or 'PUT'
+            headers: {
+                'Content-Type': 'application/json', 
+                Authorization : `Bearer ${localStorage.getItem('token')}`
+            }
+        }).then(res =>
+            res.json()
+        )
+    ) 
+
+    console.log(data)
 
     return (
         <div className='w-full h-full px-8 py-8 overflow-y-auto' > 
@@ -104,7 +119,7 @@ export default function Deal() {
                             </Tr>
                         </Thead>
                         <Tbody >
-                            {data.map((item, index)=> {
+                            {dataall.map((item, index)=> {
                                 return(
                                     <Tr onClick={()=> navigate('info')} className=' cursor-pointer font-Inter-Regular text-xs ' key={index} paddingBottom='30px' >
                                         <Td>{index+1}</Td> 

@@ -3,12 +3,74 @@ import { Select, Textarea } from '@chakra-ui/react'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import OnCreateModal from '../Modals/OnCreateModal'
+import { motion } from 'framer-motion'
+import * as yup from 'yup'
+import { useFormik } from 'formik';  
+import { IUser, UserContext } from '../context/UserContext'
 
 export default function CreateDeal() {
 
     const [show, setShow] = React.useState(false) 
     const navigate = useNavigate()
+    const [loading, setLoading] = React.useState(false); 
+    const userContext: IUser = React.useContext(UserContext);  
 
+    const loginSchema = yup.object({  
+        companyName: yup.string().required('Required'),
+        askingPrice: yup.string().required('Required'),
+        email: yup.string().email('This email is not valid').required('Your email is required'),
+        costBeforDispatched: yup.string().required('Required'),
+        phoneNumber: yup.string().required('Required'),
+        address: yup.string().required('Required'), 
+        backupPhoneNumber: yup.string().required('Required'), 
+        fuelType: yup.string().required('Required'), 
+        quantity: yup.string().required('Required'),
+        dispatchNote: yup.string().required('Required'), 
+        client: yup.string().required('Required'), 
+    })   
+
+    // formik
+    const formik = useFormik({
+        initialValues: {companyName: '', askingPrice: '', email: '', costBeforDispatched: '',  phoneNumber: '',address: '', backupPhoneNumber: '', fuelType: '', quantity: '', dispatchNote: '', client: ''},
+        validationSchema: loginSchema,
+        onSubmit: () => {},
+    });  
+
+
+    const submit = async () => {
+
+        setLoading(true);
+        if (!formik.dirty) {
+          alert('You have to fill in the form to continue');
+          setLoading(false);
+          return;
+        }else if (!formik.isValid) {
+          alert('You have to fill in the form correctly to continue');
+          setLoading(false);
+          return;
+        }else {
+            const request = await fetch(`https://faadoli.herokuapp.com/api/v1/deals/${userContext.userData._id}`, {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formik.values),
+            });
+    
+            const json = await request.json(); 
+    
+            if (request.status === 200) {      
+                const t1 = setTimeout(() => { 
+                    navigate('/dashboard/deals');  
+                    clearTimeout(t1);
+                }, 1000); 
+            }else {
+                alert(json.message);
+                console.log(json)
+                setLoading(false);
+            }
+        }
+    } 
 
     return (
         <>
@@ -27,37 +89,173 @@ export default function CreateDeal() {
                             <div className='w-full px-3 ' >
                                 <div className='my-4 ' >
                                     <p className='text-sm font-Inter-Regular mb-2' >Company name</p>
-                                    <Input fontSize='sm' placeholder='Enter company name' size='lg' className='border border-[#DDE2E5] rounded-lg ' />
+                                    <Input  
+                                        name="companyName"
+                                        onChange={formik.handleChange}
+                                        onFocus={() =>
+                                            formik.setFieldTouched("companyName", true, true)
+                                        }  
+                                        fontSize='sm' placeholder='Enter company name' size='lg' className='border border-[#DDE2E5] rounded-lg ' />
+                                    <div className="w-full h-auto pt-2">
+                                        {formik.touched.companyName && formik.errors.companyName && (
+                                            <motion.p
+                                                initial={{ y: -100, opacity: 0 }}
+                                                animate={{ y: 0, opacity: 1 }}
+                                                className="text-xs font-Inter-SemiBold text-[#ff0000]"
+                                            >
+                                                {formik.errors.companyName}
+                                            </motion.p>
+                                        )}
+                                    </div> 
                                 </div>
                                 <div className='my-4 ' >
                                     <p className='text-sm font-Inter-Regular mb-2' >Email</p>
-                                    <Input fontSize='sm' placeholder='example@company.com' size='lg' className='border border-[#DDE2E5] rounded-lg ' />
+                                    <Input  
+                                        name="email"
+                                        onChange={formik.handleChange}
+                                        onFocus={() =>
+                                            formik.setFieldTouched("email", true, true)
+                                        }  
+                                        fontSize='sm' placeholder='example@company.com' size='lg' className='border border-[#DDE2E5] rounded-lg ' />
+                                    <div className="w-full h-auto pt-2">
+                                        {formik.touched.email && formik.errors.email && (
+                                            <motion.p
+                                                initial={{ y: -100, opacity: 0 }}
+                                                animate={{ y: 0, opacity: 1 }}
+                                                className="text-xs font-Inter-SemiBold text-[#ff0000]"
+                                            >
+                                                {formik.errors.email}
+                                            </motion.p>
+                                        )}
+                                    </div> 
                                 </div>
                                 <div className='my-4 ' >
                                     <p className='text-sm font-Inter-Regular mb-2' >Phone number</p>
-                                    <Input fontSize='sm' placeholder='090...' size='lg' className='border border-[#DDE2E5] rounded-lg ' />
+                                    <Input  
+                                        name="phoneNumber"
+                                        onChange={formik.handleChange}
+                                        onFocus={() =>
+                                            formik.setFieldTouched("phoneNumber", true, true)
+                                        }  
+                                        fontSize='sm' placeholder='090...' size='lg' className='border border-[#DDE2E5] rounded-lg ' />
+                                    <div className="w-full h-auto pt-2">
+                                        {formik.touched.phoneNumber && formik.errors.phoneNumber && (
+                                            <motion.p
+                                                initial={{ y: -100, opacity: 0 }}
+                                                animate={{ y: 0, opacity: 1 }}
+                                                className="text-xs font-Inter-SemiBold text-[#ff0000]"
+                                            >
+                                                {formik.errors.phoneNumber}
+                                            </motion.p>
+                                        )}
+                                    </div> 
                                 </div>
                                 <div className='my-4 ' >
                                     <p className='text-sm font-Inter-Regular mb-2' >Fuel</p>
-                                    <Select fontSize='sm' placeholder='AGO' size='lg' className='border border-[#DDE2E5] rounded-lg ' />
+                                    <Select  
+                                        name="fuelType"
+                                        onChange={formik.handleChange}
+                                        onFocus={() =>
+                                            formik.setFieldTouched("fuelType", true, true)
+                                        }  
+                                        fontSize='sm' placeholder='AGO' size='lg' className='border border-[#DDE2E5] rounded-lg ' />
+                                    <div className="w-full h-auto pt-2">
+                                        {formik.touched.fuelType && formik.errors.fuelType && (
+                                            <motion.p
+                                                initial={{ y: -100, opacity: 0 }}
+                                                animate={{ y: 0, opacity: 1 }}
+                                                className="text-xs font-Inter-SemiBold text-[#ff0000]"
+                                            >
+                                                {formik.errors.fuelType}
+                                            </motion.p>
+                                        )}
+                                    </div> 
                                 </div>
                                 <div className='my-4 ' >
                                     <p className='text-sm font-Inter-Regular mb-2' >Quantity in Litres</p>
-                                    <Select fontSize='sm' placeholder='1000' size='lg' className='border border-[#DDE2E5] rounded-lg ' />
+                                    <Select  
+                                        name="quantity"
+                                        onChange={formik.handleChange}
+                                        onFocus={() =>
+                                            formik.setFieldTouched("quantity", true, true)
+                                        }  
+                                        fontSize='sm' placeholder='1000' size='lg' className='border border-[#DDE2E5] rounded-lg ' />
+                                    <div className="w-full h-auto pt-2">
+                                        {formik.touched.quantity && formik.errors.quantity && (
+                                            <motion.p
+                                                initial={{ y: -100, opacity: 0 }}
+                                                animate={{ y: 0, opacity: 1 }}
+                                                className="text-xs font-Inter-SemiBold text-[#ff0000]"
+                                            >
+                                                {formik.errors.quantity}
+                                            </motion.p>
+                                        )}
+                                    </div> 
                                 </div>
                             </div>
                             <div className='w-full px-3' >
                                 <div className='my-4 ' >
                                     <p className='text-sm font-Inter-Regular mb-2' >Asking price</p>
-                                    <Input fontSize='sm' placeholder='N135.0' size='lg' className='border border-[#DDE2E5] rounded-lg ' />
+                                    <Input  
+                                        name="askingPrice"
+                                        onChange={formik.handleChange}
+                                        onFocus={() =>
+                                            formik.setFieldTouched("askingPrice", true, true)
+                                        }  
+                                        fontSize='sm' placeholder='N135.0' size='lg' className='border border-[#DDE2E5] rounded-lg ' />
+                                    <div className="w-full h-auto pt-2">
+                                        {formik.touched.askingPrice && formik.errors.askingPrice && (
+                                            <motion.p
+                                                initial={{ y: -100, opacity: 0 }}
+                                                animate={{ y: 0, opacity: 1 }}
+                                                className="text-xs font-Inter-SemiBold text-[#ff0000]"
+                                            >
+                                                {formik.errors.askingPrice}
+                                            </motion.p>
+                                        )}
+                                    </div> 
                                 </div>
                                 <div className='my-4 ' >
                                     <p className='text-sm font-Inter-Regular mb-2' >Bidding price</p>
-                                    <Input fontSize='sm' placeholder='N0000' size='lg' className='border border-[#DDE2E5] rounded-lg ' />
+                                    <Input  
+                                        name="costBeforDispatched"
+                                        onChange={formik.handleChange}
+                                        onFocus={() =>
+                                            formik.setFieldTouched("costBeforDispatched", true, true)
+                                        }  
+                                        fontSize='sm' placeholder='N0000' size='lg' className='border border-[#DDE2E5] rounded-lg ' />
+                                    <div className="w-full h-auto pt-2">
+                                        {formik.touched.costBeforDispatched && formik.errors.costBeforDispatched && (
+                                            <motion.p
+                                                initial={{ y: -100, opacity: 0 }}
+                                                animate={{ y: 0, opacity: 1 }}
+                                                className="text-xs font-Inter-SemiBold text-[#ff0000]"
+                                            >
+                                                {formik.errors.costBeforDispatched}
+                                            </motion.p>
+                                        )}
+                                    </div> 
                                 </div>
                                 <div className='my-4 ' >
                                     <p className='text-sm font-Inter-Regular mb-2' >Address</p>
-                                    <Textarea height='160px' fontSize='sm' placeholder='Enter address'  className='border border-[#DDE2E5] rounded-lg ' />
+                                    <Textarea  
+                                        name="address"
+                                        onChange={formik.handleChange}
+                                        onFocus={() =>
+                                            formik.setFieldTouched("address", true, true)
+                                        }  
+                                        height='160px' fontSize='sm' placeholder='Enter address'  className='border border-[#DDE2E5] rounded-lg ' />
+                                    <div className="w-full h-auto pt-2">
+                                        {formik.touched.address && formik.errors.address && (
+                                            <motion.p
+                                                initial={{ y: -100, opacity: 0 }}
+                                                animate={{ y: 0, opacity: 1 }}
+                                                className="text-xs font-Inter-SemiBold text-[#ff0000]"
+                                            >
+                                                {formik.errors.address}
+                                            </motion.p>
+                                        )}
+                                    </div> 
                                 </div>
                             </div> 
                         </div>

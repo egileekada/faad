@@ -4,18 +4,12 @@ import React from 'react'
 import { motion } from 'framer-motion'
 import * as yup from 'yup'
 import { useFormik } from 'formik';  
-import { useLinkClickHandler, useNavigate } from 'react-router-dom'
+import * as axios from 'axios'   
+import { useNavigate } from 'react-router-dom'
+import ButtonLoader from '../ButtonLoader'
 
 export default function NewProfile() {
-    const [showModal, setShowModal] = React.useState(false)
-
-    // const ClickHandler =()=> {
-    //     setShowModal(true)
-    //     const t1 = setTimeout(() => { 
-    //         setShowModal(false)
-    //         clearTimeout(t1);
-    //     }, 2000); 
-    // }
+    const [showModal, setShowModal] = React.useState(false) 
     const navigate = useNavigate()
 
 
@@ -35,18 +29,10 @@ export default function NewProfile() {
             reader.readAsDataURL(selected)
         } else {
             console.log('Error')
-        }  
+        }   
+    }  
 
-        // eventContext.setBannerFile(selected)
-    } 
- 
-    const [showpassword, setShowpass] = React.useState(false);
-    const [loading, setLoading] = React.useState(false);
-    const [tokenvalue, setToken] = React.useState(''); 
-
-    const handleShowpassword = () => {
-        setShowpass(prev => !prev);
-    } 
+    const [loading, setLoading] = React.useState(false);  
 
     const loginSchema = yup.object({ 
         companyEmail: yup.string().email('This email is not valid').required('Your email is required'),
@@ -57,23 +43,13 @@ export default function NewProfile() {
         companyPhone: yup.string().required('Required'),
         address: yup.string().required('Required'), 
         chatGroup: yup.string().required('Required'), 
-        password: yup.string().required('Your password is required').min(4, 'A minimium of 4 characters')
+        // password: yup.string().required('Your password is required').min(4, 'A minimium of 4 characters')
     }) 
 
-    // {
-    //     name: string;
-    //     personalEmail: string;
-    //     companyEmail: string;
-    //     department: string;
-    //     personalPhone: number;
-    //     companyPhone: number;
-    //     chatGroup?: string;
-    //     password: string;
-    //   }
 
     // formik
     const formik = useFormik({
-        initialValues: {name: '', personalEmail: '', companyEmail: '', department: '',  address: '',personalPhone: '', companyPhone: '', chatGroup: '', password: ''},
+        initialValues: {name: '', personalEmail: '', companyEmail: '', department: '',  address: '',personalPhone: '', companyPhone: '', chatGroup: ''},
         validationSchema: loginSchema,
         onSubmit: () => {},
     });  
@@ -87,51 +63,60 @@ export default function NewProfile() {
 
         setLoading(true);
         if (!formik.dirty) {
-          alert('You have to fill in th form to continue');
-          setLoading(false);
-          return;
+            alert('You have to fill in the form correctly to continue');
+            setLoading(false);
+            return;
         }else if (!formik.isValid) {
-          alert('You have to fill in the form correctly to continue');
-          setLoading(false);
-          return;
+            alert('You have to fill in the form correctly to continue');
+            setLoading(false);
+            return;
+        }else if (image === '') {
+            alert('You have to Add the Image to continue');
+            setLoading(false);
+            return;
         }else {
-            const request = await fetch(`https://faadoli.herokuapp.com/api/v1/auth/signup`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization : `Bearer ${localStorage.getItem('token')+''}`
-                },
-                body: JSON.stringify(formik.values),
-            });
-    
-            const json = await request.json(); 
-    
-            if (request.status === 200) {    
-                // setToken(json)  
-                // localStorage.setItem('token',json) 
-                // sessionStorage.setItem('tabIndex', 'Dashboard')
-                // const t1 = setTimeout(() => { 
-                //     navigate('/dashboard');  
-                //     clearTimeout(t1);
-                // }, 1000); 
+            try {  
 
+                let formData = new FormData()   
+                formData.append('name', formik.values.name)  
+                formData.append('personalEmail', formik.values.personalEmail)  
+                formData.append('companyEmail', formik.values.companyEmail)  
+                formData.append('department', formik.values.department)  
+                formData.append('address', formik.values.address)  
+                formData.append('personalPhone', formik.values.personalPhone)  
+                formData.append('companyPhone', formik.values.companyPhone)  
+                formData.append('chatGroup', formik.values.chatGroup)  
+                formData.append('avatar', image)  
+
+                // make request to server 
+                    const request = await axios.default.post(`https://faadoli.herokuapp.com/api/v1/auth/signup`, formData, {
+                        headers: { 'content-type': 'application/json',
+                        Authorization : `Bearer ${localStorage.getItem('token')}` 
+                        }
+                    })    
+
+            if (request.status === 200) {    
+                // console.log(json)  
                 setShowModal(true)
-                const t1 = setTimeout(() => { 
+                const t1 = setTimeout(() => {
                     setShowModal(false)
                     navigate('/dashboard/ourpeople'); 
                     clearTimeout(t1);
-                }, 2000);
-            }else {
-                alert(json.message);
-                console.log(json)
-                setLoading(false);
+                }, 1000); 
+            }else {   
+
             }
-        }
+                    
+            } catch (error) {
+                console.log(error)
+            } 
+        } 
+        setShowModal(false)
     } 
 
     return (
         <div className='w-full h-full px-8 py-8 overflow-y-auto' > 
-            <svg onClick={()=> navigate('/dashboard/deals')} className='cursor-pointer fixed z-50 top-14  ' width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg onClick={()=> navigate('/dashboard/ourpeople')} className='cursor-pointer fixed z-50 top-14  ' width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M20.3287 11.0001V13.0001L7.50042 13.0001L10.7429 16.2426L9.32873 17.6568L3.67188 12L9.32873 6.34314L10.7429 7.75735L7.50019 11.0001L20.3287 11.0001Z" fill="#495057"/>
             </svg>
             <div className='w-full rounded-2xl p-10 bg-white flex ' >
@@ -161,7 +146,7 @@ export default function NewProfile() {
                             </label>
                             <p className='font-Inter-Bold text-xs ml-auto' >Joined <span className='font-Inter-Regular' >20-03-2020</span></p>
                         </div>
-                        <p className='font-Inter-Bold text-xs ml-auto' >Joined <span className='font-Inter-Regular' >20-03-2020</span></p>
+                        {/* <p className='font-Inter-Bold text-xs ml-auto' >Joined <span className='font-Inter-Regular' >20-03-2020</span></p> */}
                     </div> 
                     <div className='w-full grid grid-cols-2 gap-6 mt-8 overflow-y-auto' >
                         <div className='w-full font-Inter-Regular' >
@@ -316,7 +301,7 @@ export default function NewProfile() {
                                 )}
                             </div> 
                         </div>
-                        <div className='w-full font-Inter-Regular' >
+                        {/* <div className='w-full font-Inter-Regular' >
                             <p className=' text-sm font-Inter-Regular mb-2' >Password</p>
                             <Input 
                                 name="password"
@@ -336,10 +321,20 @@ export default function NewProfile() {
                                     </motion.p>
                                 )}
                             </div> 
-                        </div>
+                        </div> */}
                     </div>  
                     <div className='mt-14 flex ' >  
-                        <button onClick={()=> submit()} className='font-Inter-SemiBold text-xs h-10 text-white rounded-lg px-4 bg-[#F88C3A] ' >Create new personnel profile</button>
+                        <button onClick={()=> submit()} disabled={loading ? true : false} className='font-Inter-SemiBold text-sm h-10 flex justify-center items-center text-white rounded-lg px-4 bg-[#F88C3A] ' >
+                            {loading && (
+                                <> 
+                                    <ButtonLoader size='30' />
+                                    <span className='ml-3'>Loading</span>
+                                </>
+                            )}
+                            {!loading && (
+                                <span className='mx-4'>Create new personnel profile</span>
+                            )} 
+                        </button>
                     </div>
                 </div>
                 <div className='flex flex-1' >

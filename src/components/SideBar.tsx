@@ -5,7 +5,7 @@ import SideBarIcons from './SideBarIcons'
 export default function SideBar() {
     
     const navigate = useNavigate()
-    const menuArray = ['Dashboard', 'Bargains', 'Deals', 'Clientele', 'Our people', 'Activities']
+    const menuArray = ['Dashboard', 'Accounts','Bargains', 'Deals', 'Clientele', 'Our people', 'Activities']
     const messageArray = ['Customer Service', 'Operations', 'General', 'My Notes', 'Lock', 'Log out']
 
     const [active, setActive] = React.useState('Dashboard')
@@ -36,6 +36,7 @@ export default function SideBar() {
             }
         } else {
             navigate('/')
+            localStorage.clear()
         }
     }
         
