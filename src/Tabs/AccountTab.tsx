@@ -1,6 +1,8 @@
 import React from 'react'
+import EntryPermit from '../components/accountComponent/EntryPermit'
 import ProductAndPricing from '../components/accountComponent/ProductAndPricing'
 import StorageTanks from '../components/accountComponent/StorageTanks'
+import Trucks from '../components/accountComponent/Trucks'
 
 export default function AccountTab() {
 
@@ -43,6 +45,12 @@ export default function AccountTab() {
                 )}
                 {tab === 1 && (
                     <StorageTanks />
+                )}
+                {tab === 2 && (
+                    <Trucks />
+                )}
+                {tab === 3 && (
+                    <EntryPermit />
                 )}
             </div> 
         </div>

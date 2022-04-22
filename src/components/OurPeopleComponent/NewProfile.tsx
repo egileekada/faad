@@ -148,7 +148,7 @@ export default function NewProfile() {
                                     <img src={selectedImage} className='w-44 h-44 object-cover rounded-xl' />
                                 )}
                             </label>
-                            <p className='font-Inter-Bold text-xs ml-auto' >Joined <span className='font-Inter-Regular' >20-03-2020</span></p>
+                            {/* <p className='font-Inter-Bold text-xs ml-auto' >Joined <span className='font-Inter-Regular' >20-03-2020</span></p> */}
                         </div>
                         {/* <p className='font-Inter-Bold text-xs ml-auto' >Joined <span className='font-Inter-Regular' >20-03-2020</span></p> */}
                     </div> 

@@ -52,9 +52,7 @@ export default function EditPersonnel() {
             clearTimeout(t1);
         }, 2000); 
     }
-    const navigate = useNavigate() 
-
-    console.log(userContext.profileData.department)
+    const navigate = useNavigate()  
 
     const loginSchema = yup.object({ 
         companyEmail: yup.string().email('This email is not valid').required('Your email is required'),
@@ -99,19 +97,19 @@ export default function EditPersonnel() {
 
                 let formData = new FormData()   
                 formData.append('name', formik.values.name)  
-                formData.append('personalEmail', formik.values.personalEmail)  
-                formData.append('companyEmail', formik.values.companyEmail)  
+                // formData.append('personalEmail', formik.values.personalEmail)  
+                // formData.append('companyEmail', formik.values.companyEmail)  
                 formData.append('department', formik.values.department)  
                 formData.append('address', formik.values.address)  
                 formData.append('personalPhone', formik.values.personalPhone)  
                 formData.append('companyPhone', formik.values.companyPhone)  
                 formData.append('chatGroup', formik.values.chatGroup)  
-                formData.append('avatar', image)  
+                // formData.append('avatar', image)  
 
                 // make request to server 
-                    const request = await axios.default.put(`https://faadoli.herokuapp.com/api/v1/auth/update-profile`, formData, {
-                        headers: { 'content-type': 'application/json',
-                        Authorization : `Bearer ${localStorage.getItem('token')}` 
+                    const request = await axios.default.put(`https://faadoli.herokuapp.com/api/v1/auth/profile/${userContext.profileData._id}`, formData, {
+                        headers: { 'content-type': 'application/json', 
+                            Authorization : `Bearer ${localStorage.getItem('token')}` 
                         }
                     })    
 

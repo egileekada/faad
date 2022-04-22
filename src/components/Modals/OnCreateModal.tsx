@@ -1,8 +1,10 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
 export default function OnCreateModal(props: any) {
 
     const [notify, setNotify] = React.useState(false)
+    const navigate = useNavigate()
 
     return (
         <div className='absolute flex z-50 rounded-2xl p-10 mx-8 my-8 bg-white flex-1 inset-0 justify-center items-center flex-col' >
@@ -43,7 +45,7 @@ export default function OnCreateModal(props: any) {
                                 </>
                             )}
                         </button>
-                        <button className='font-Inter-SemiBold text-xs h-10 flex justify-center items-center ml-4 text-[#fff] rounded-lg  w-40 bg-[#F4CC66] ' >View deal</button>
+                        <button onClick={()=> navigate('/dashboard/deals')} className='font-Inter-SemiBold text-xs h-10 flex justify-center items-center ml-4 text-[#fff] rounded-lg  w-40 bg-[#F4CC66] ' >View deal</button>
                     </>
                 )}
                 {props.failed && (

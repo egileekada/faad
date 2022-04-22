@@ -31,9 +31,7 @@ export default function DashboardScreen() {
         if(!sessionStorage.getItem('token')){
             navigate('/')
         }     
-    },[data]);    
-    
-    console.log(data)
+    },[data]);     
 
     if (isLoading) return(
         <div className='w-full h-full flex mt-12 justify-center items-center' > 

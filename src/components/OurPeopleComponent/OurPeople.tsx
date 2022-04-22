@@ -32,9 +32,7 @@ export default function OurPeople() {
         console.log(item)
         userContext.setProfileData(item)
         navigate('profile')
-    }
-
-    console.log(data.data.users)
+    } 
 
     return (
         <div className='w-full h-full px-8 py-8 overflow-y-auto relative' > 

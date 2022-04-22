@@ -7,6 +7,7 @@ import { motion } from 'framer-motion'
 import * as yup from 'yup'
 import { useFormik } from 'formik';  
 import { IUser, UserContext } from '../context/UserContext'
+import ButtonLoader from '../ButtonLoader'
 
 export default function CreateDeal() {
 
@@ -26,12 +27,12 @@ export default function CreateDeal() {
         fuelType: yup.string().required('Required'), 
         quantity: yup.string().required('Required'),
         dispatchNote: yup.string().required('Required'), 
-        client: yup.string().required('Required'), 
+        // client: yup.string().required('Required'), 
     })   
 
     // formik
     const formik = useFormik({
-        initialValues: {companyName: '', askingPrice: '', email: '', costBeforDispatched: '',  phoneNumber: '',address: '', backupPhoneNumber: '', fuelType: '', quantity: '', dispatchNote: '', client: ''},
+        initialValues: {companyName: '', askingPrice: '', email: '', costBeforDispatched: '',  phoneNumber: '',address: '', backupPhoneNumber: '', fuelType: '', quantity: '', dispatchNote: ''},
         validationSchema: loginSchema,
         onSubmit: () => {},
     });  
@@ -44,26 +45,30 @@ export default function CreateDeal() {
           alert('You have to fill in the form to continue');
           setLoading(false);
           return;
-        }else if (!formik.isValid) {
+        }
+        else if (!formik.isValid) {
           alert('You have to fill in the form correctly to continue');
           setLoading(false);
           return;
-        }else {
-            const request = await fetch(`https://faadoli.herokuapp.com/api/v1/deals/${userContext.userData._id}`, {
+        }
+        else {
+            const request = await fetch(`https://faadoli.herokuapp.com/api/v1/deals`, {
                 method: 'POST',
                 headers: {
-                'Content-Type': 'application/json',
+                    'Content-Type': 'application/json',
+                    Authorization : `Bearer ${localStorage.getItem('token')}` 
                 },
                 body: JSON.stringify(formik.values),
             });
     
             const json = await request.json(); 
     
-            if (request.status === 200) {      
-                const t1 = setTimeout(() => { 
-                    navigate('/dashboard/deals');  
-                    clearTimeout(t1);
-                }, 1000); 
+            if (request.status === 200) {    
+                setShow(true)  
+                // const t1 = setTimeout(() => { 
+                //     navigate('/dashboard/deals');  
+                //     clearTimeout(t1);
+                // }, 1000); 
             }else {
                 alert(json.message);
                 console.log(json)
@@ -151,6 +156,27 @@ export default function CreateDeal() {
                                     </div> 
                                 </div>
                                 <div className='my-4 ' >
+                                    <p className='text-sm font-Inter-Regular mb-2' >Back-up Phone number</p>
+                                    <Input  
+                                        name="backupPhoneNumber"
+                                        onChange={formik.handleChange}
+                                        onFocus={() =>
+                                            formik.setFieldTouched("backupPhoneNumber", true, true)
+                                        }  
+                                        fontSize='sm' placeholder='090...' size='lg' className='border border-[#DDE2E5] rounded-lg ' />
+                                    <div className="w-full h-auto pt-2">
+                                        {formik.touched.backupPhoneNumber && formik.errors.backupPhoneNumber && (
+                                            <motion.p
+                                                initial={{ y: -100, opacity: 0 }}
+                                                animate={{ y: 0, opacity: 1 }}
+                                                className="text-xs font-Inter-SemiBold text-[#ff0000]"
+                                            >
+                                                {formik.errors.backupPhoneNumber}
+                                            </motion.p>
+                                        )}
+                                    </div> 
+                                </div>
+                                <div className='my-4 ' >
                                     <p className='text-sm font-Inter-Regular mb-2' >Fuel</p>
                                     <Select  
                                         name="fuelType"
@@ -158,7 +184,9 @@ export default function CreateDeal() {
                                         onFocus={() =>
                                             formik.setFieldTouched("fuelType", true, true)
                                         }  
-                                        fontSize='sm' placeholder='AGO' size='lg' className='border border-[#DDE2E5] rounded-lg ' />
+                                        fontSize='sm' placeholder='Select Type' size='lg' className='border border-[#DDE2E5] rounded-lg '>
+                                        <option>AGO</option>        
+                                    </Select>
                                     <div className="w-full h-auto pt-2">
                                         {formik.touched.fuelType && formik.errors.fuelType && (
                                             <motion.p
@@ -173,12 +201,12 @@ export default function CreateDeal() {
                                 </div>
                                 <div className='my-4 ' >
                                     <p className='text-sm font-Inter-Regular mb-2' >Quantity in Litres</p>
-                                    <Select  
+                                    <Input  
                                         name="quantity"
                                         onChange={formik.handleChange}
                                         onFocus={() =>
                                             formik.setFieldTouched("quantity", true, true)
-                                        }  
+                                        }  type='number'
                                         fontSize='sm' placeholder='1000' size='lg' className='border border-[#DDE2E5] rounded-lg ' />
                                     <div className="w-full h-auto pt-2">
                                         {formik.touched.quantity && formik.errors.quantity && (
@@ -216,7 +244,7 @@ export default function CreateDeal() {
                                     </div> 
                                 </div>
                                 <div className='my-4 ' >
-                                    <p className='text-sm font-Inter-Regular mb-2' >Bidding price</p>
+                                    <p className='text-sm font-Inter-Regular mb-2' >Cost before dispatch</p>
                                     <Input  
                                         name="costBeforDispatched"
                                         onChange={formik.handleChange}
@@ -237,14 +265,14 @@ export default function CreateDeal() {
                                     </div> 
                                 </div>
                                 <div className='my-4 ' >
-                                    <p className='text-sm font-Inter-Regular mb-2' >Address</p>
+                                    <p className='text-sm font-Inter-Regular mb-2' >Address (supply location)</p>
                                     <Textarea  
                                         name="address"
                                         onChange={formik.handleChange}
                                         onFocus={() =>
                                             formik.setFieldTouched("address", true, true)
                                         }  
-                                        height='160px' fontSize='sm' placeholder='Enter address'  className='border border-[#DDE2E5] rounded-lg ' />
+                                        height='96px' fontSize='sm' placeholder='Enter address'  className='border border-[#DDE2E5] rounded-lg ' />
                                     <div className="w-full h-auto pt-2">
                                         {formik.touched.address && formik.errors.address && (
                                             <motion.p
@@ -257,9 +285,40 @@ export default function CreateDeal() {
                                         )}
                                     </div> 
                                 </div>
+                                <div className='my-4 ' >
+                                    <p className='text-sm font-Inter-Regular mb-2' >Dispatch note</p>
+                                    <Textarea  
+                                        name="dispatchNote"
+                                        onChange={formik.handleChange}
+                                        onFocus={() =>
+                                            formik.setFieldTouched("dispatchNote", true, true)
+                                        }  
+                                        height='151px' fontSize='sm' placeholder='Enter instructions and other important stuff'  className='border border-[#DDE2E5] rounded-lg ' />
+                                    <div className="w-full h-auto pt-2">
+                                        {formik.touched.dispatchNote && formik.errors.dispatchNote && (
+                                            <motion.p
+                                                initial={{ y: -100, opacity: 0 }}
+                                                animate={{ y: 0, opacity: 1 }}
+                                                className="text-xs font-Inter-SemiBold text-[#ff0000]"
+                                            >
+                                                {formik.errors.dispatchNote}
+                                            </motion.p>
+                                        )}
+                                    </div> 
+                                </div>
                             </div> 
                         </div>
-                        <button onClick={()=> setShow(true)} className='font-Inter-SemiBold mt-8 ml-3 text-xs h-10 text-white rounded-lg w-44 bg-[#F88C3A] ' >Create Deal</button>
+                        <button onClick={()=> submit()} disabled={loading ? true : false} className='font-Inter-SemiBold mt-8 ml-3 flex justify-center items-center text-xs h-10 text-white rounded-lg w-44 bg-[#F88C3A] ' >
+                            {loading && (
+                                <> 
+                                    <ButtonLoader size='30' />
+                                    <span className='ml-3'>Loading</span>
+                                </>
+                            )}
+                            {!loading && (
+                                <span className='mx-4'>Create Deal</span>
+                            )} 
+                        </button>
                     </div>
                 </div>
             // <div className='flex flex-1 relative rounded-2xl p-10 my-8 bg-white    ' >
