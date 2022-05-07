@@ -25,6 +25,7 @@ import General from './components/Messaging/General';
 import MyNotes from './components/Messaging/MyNotes';
 import NewProfile from './components/OurPeopleComponent/NewProfile';
 import AccountTab from './Tabs/AccountTab';
+import EditClienteleProfile from './components/clienteleComponent/EditClienteleProfile';
 
 function App() {
   return (  
@@ -43,6 +44,7 @@ function App() {
               <Route path='/dashboard/clientele' element={<Clientele />}/>
               <Route path='/dashboard/clientele/info' element={<ClienteleInfo />}/>
               <Route path='/dashboard/clientele/clientprofile' element={<ClienteleProfile />}/> 
+              <Route path='/dashboard/clientele/editclientprofile' element={<EditClienteleProfile />}/> 
             </Route>
             <Route path='/dashboard/deals' element={<DealTab />} >
               <Route path='/dashboard/deals' element={<Deal />}/>

@@ -6,6 +6,6 @@ export default function DateFormat(item: any) {
     let time = date.toLocaleTimeString()+''
     date.getHours() 
     return( 
-        <p className=' font-Inter-Regular text-xs' >{string.substr(0, 11)+' '+date.getHours()+':'+date.getMinutes()+' '+time.substr(8, 9)}</p>
+        <p className=' font-Inter-Regular' >{string.substr(0, 11)+' '+date.getHours()+':'+date.getMinutes()+' '+time.substr(8, 9)}</p>
     )
 }  
