@@ -125,7 +125,7 @@ export default function Bargin() {
                             <Tbody >
                                 {data.data.baragins.map((item: any, index: any)=> {
                                     return(
-                                        <Tr onClick={()=> ClickHandler(item._id)} className=' cursor-pointer font-Inter-Regular text-xs ' key={index} >
+                                        <Tr onClick={()=> ClickHandler(item._id)} className=' cursor-pointer font-Inter-Regular text-sm ' key={index} >
                                             <Td>{index+1}</Td> 
                                             <Td>{item.companyName}</Td> 
                                             <Td>

@@ -8,6 +8,7 @@ import { useFormik } from 'formik'
 import ButtonLoader from '../ButtonLoader'
 import { IUser, UserContext } from '../context/UserContext'
 import DateFormat from '../DateFormat'
+import PageLoader from '../PageLoader'
 
 export default function MyNotes() {
 
@@ -28,6 +29,18 @@ export default function MyNotes() {
         validationSchema: loginSchema,
         onSubmit: () => {},
     });
+
+    const { isLoading, data, refetch, } = useQuery('Note', () =>
+        fetch('https://faadoli.herokuapp.com/api/v1/auth/profile', {
+            method: 'GET', // or 'PUT'
+            headers: {
+                'Content-Type': 'application/json', 
+                Authorization : `Bearer ${localStorage.getItem('token')}`
+            }
+        }).then(res =>
+            res.json()
+        )
+    ) 
 
     const submit = async () => {
 
@@ -59,9 +72,10 @@ export default function MyNotes() {
                 alert('Note Added');
                 const t1 = setTimeout(() => { 
                     setLoading(false)
-                    sessionStorage.setItem('tabIndex', 'Dashboard')
-                    navigate('/dashboard');  
-                    navigate(0);  
+                    refetch()
+                    // sessionStorage.setItem('tabIndex', 'Dashboard')
+                    // navigate('/dashboard');  
+                    // navigate(0);  
                     clearTimeout(t1);
                 }, 1000); 
             }else {
@@ -70,21 +84,24 @@ export default function MyNotes() {
                 setLoading(false);
             }
         }
-    }    
-    // console.log(userContext.userData.notes) 
-
-    // console.log(data)
+    }     
+    
+    if (isLoading) return(
+        <div className='w-full h-auto flex mt-12 justify-center  ' > 
+            <PageLoader />
+        </div>
+    )  
 
     return (
         <div className='w-full h-full flex px-8 py-8 overflow-y-auto bg-[#F9FAFC] border-t border-l border-[#DDE2E5]' > 
             <div style={{width: '70%'}}  className=' relative flex-1 bg-white rounded-2xl' >
                 <p className='font-Inter-SemiBold text-xl pt-8 px-8 mb-4' >#Operations</p> 
                 <div style={{height: '45vh', backgroundColor: '#f4f4f4'}} className=' w-auto pl-4 mx-8 rounded-2xl overflow-y-auto pr-6  flex-1 pt-4' >
-                    {userContext.userData.notes !== undefined ?
+                    {!isLoading && (
                         <>
-                            {userContext.userData.notes.length !== 0 && (
+                            {data.data.user.notes.length !== 0 && (
                                 <>
-                                    {userContext.userData.notes.map((item: any)=> {
+                                    {[...data.data.user.notes].reverse().map((item: any)=> {
                                         return(
                                             <div className='flex my-2' >
                                                 {/* Sender */}
@@ -107,15 +124,12 @@ export default function MyNotes() {
                                     })}
                                 </>
                             )}
-                            {userContext.userData.notes.length === 0 && (
+                            {data.data.user.notes.length === 0 && (
                                 
                                 <p className='font-Inter-Bold text-center text-sm' >NO Note Have Been Added</p>
                             )}
-                        </>:
-                        <>
-                            {navigate('/dashboard')}
                         </>
-                    }
+                    )}
                 </div>
                 <div className=' absolute w-full flex px-8 items-end bottom-6' >
                     <Textarea 
