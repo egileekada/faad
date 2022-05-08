@@ -1,52 +1,13 @@
 import { Select, Table, Thead, Tr, Th, Tbody, Td } from '@chakra-ui/react'
 import React from 'react'
-import { QueryCache, useQuery } from 'react-query'
+import { useQuery } from 'react-query'
 import { useNavigate } from 'react-router-dom'
 import DateFormat from '../DateFormat'
 import PageLoader from '../PageLoader'
 
 export default function Clientele() {
  
-    const navigate = useNavigate()
-    const queryCache = new QueryCache()
-    // const data = [
-    //     { 
-    //         client: 'Schlumbeger LTD', 
-    //         industry: 'Manufacuring', 
-    //         contactperson: 'Jesica Matthew', 
-    //         contact: 'jesica@schlumbeger.com', 
-    //         date: '12-11-2019',  
-    //     }, 
-    //     { 
-    //         client: 'Schlumbeger LTD', 
-    //         industry: 'Manufacuring', 
-    //         contactperson: 'Jesica Matthew', 
-    //         contact: 'jesica@schlumbeger.com', 
-    //         date: '12-11-2019',  
-    //     }, 
-    //     { 
-    //         client: 'Schlumbeger LTD', 
-    //         industry: 'Manufacuring', 
-    //         contactperson: 'Jesica Matthew', 
-    //         contact: 'jesica@schlumbeger.com', 
-    //         date: '12-11-2019',  
-    //     }, 
-    //     { 
-    //         client: 'Schlumbeger LTD', 
-    //         industry: 'Manufacuring', 
-    //         contactperson: 'Jesica Matthew', 
-    //         contact: 'jesica@schlumbeger.com', 
-    //         date: '12-11-2019',  
-    //     }, 
-    //     { 
-    //         client: 'Schlumbeger LTD', 
-    //         industry: 'Manufacuring', 
-    //         contactperson: 'Jesica Matthew', 
-    //         contact: 'jesica@schlumbeger.com', 
-    //         date: '12-11-2019',  
-    //     }, 
-    // ]
-
+    const navigate = useNavigate() 
 
     const { isLoading, error, data } = useQuery('AllClients', () =>
         fetch('https://faadoli.herokuapp.com/api/v1/client', {
@@ -61,8 +22,7 @@ export default function Clientele() {
     ) 
 
     const ClickHandler =(item: any)=> { 
-        navigate('info') 
-        queryCache.clear()
+        navigate('info')  
         localStorage.setItem('clientID', item) 
     }
 
