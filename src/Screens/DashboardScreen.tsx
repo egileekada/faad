@@ -22,7 +22,7 @@ export default function DashboardScreen() {
         }).then(res =>
             res.json()
         )
-    )
+    ) 
  
     React.useEffect(() => {   
         if(!isLoading){ 
