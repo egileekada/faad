@@ -9,7 +9,7 @@ export default function Clientele() {
  
     const navigate = useNavigate() 
 
-    const { isLoading, error, data } = useQuery('AllClients', () =>
+    const { isLoading, data } = useQuery('AllClients', () =>
         fetch('https://faadoli.herokuapp.com/api/v1/client', {
             method: 'GET', // or 'PUT'
             headers: {
