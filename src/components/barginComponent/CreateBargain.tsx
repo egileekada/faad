@@ -86,8 +86,7 @@ export default function CreateBargain() {
                 setLoading(false);
             }
         }
-    }   
-    console.log(formik.values)
+    }    
  
     const { isLoading, error, data } = useQuery('AllClients', () =>
         fetch('https://faadoli.herokuapp.com/api/v1/client', {
@@ -179,7 +178,7 @@ export default function CreateBargain() {
                                 value={emailaddress}
                                 onFocus={() =>
                                     formik.setFieldTouched("email", true, true)
-                                }  disabled
+                                } 
                                 fontSize='sm' placeholder='example@company.com' size='lg' className='border border-[#DDE2E5] rounded-lg ' />
                             <div className="w-full h-auto pt-2">
                                 {formik.touched.email && formik.errors.email && (
@@ -201,7 +200,7 @@ export default function CreateBargain() {
                                 onChange={formik.handleChange}
                                 onFocus={() =>
                                     formik.setFieldTouched("phoneNumber", true, true)
-                                }  disabled
+                                } 
                                 fontSize='sm' placeholder='090...' size='lg' className='border border-[#DDE2E5] rounded-lg ' />
                             <div className="w-full h-auto pt-2">
                                 {formik.touched.phoneNumber && formik.errors.phoneNumber && (
