@@ -51,7 +51,7 @@ export default function AddTruck(props: any) {
             const json = await request.json(); 
     
             if (request.status === 200) {     
-                alert('Account Created Successfully');
+                alert('Truck Created Successfully');
                 const t1 = setTimeout(() => { 
                     props.close(false) 
                     props.reload()  

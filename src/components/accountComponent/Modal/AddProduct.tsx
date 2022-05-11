@@ -66,7 +66,7 @@ export default function AddProduct(props: any) {
             const json = await request.json(); 
     
             if (request.status === 200) {     
-                alert('Account Created Successfully');
+                alert('Product Created Successfully');
                 const t1 = setTimeout(() => { 
                     props.close(false) 
                     props.reload()  

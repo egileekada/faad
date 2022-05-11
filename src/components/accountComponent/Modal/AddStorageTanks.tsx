@@ -6,16 +6,7 @@ import { useQuery } from 'react-query';
 import * as yup from 'yup'
 import ButtonLoader from '../../ButtonLoader';
 
-export default function AddStorageTanks(props: any) {
-
-    // {
-    //     productCode: string;
-    //     productName: string;
-    //     description: string;
-    //     oldPrice?: number;
-    //     newPrice?: number;
-    //     percentageDifference?: number;
-    //  }
+export default function AddStorageTanks(props: any) { 
 
     const [loading, setLoading] = React.useState(false); 
 
@@ -70,7 +61,7 @@ export default function AddStorageTanks(props: any) {
             const json = await request.json(); 
     
             if (request.status === 200) {     
-                alert('Account Created Successfully');
+                alert('Storage Tanks Created Successfully');
                 const t1 = setTimeout(() => { 
                     props.close(false) 
                     props.reload()  
