@@ -57,7 +57,7 @@ export default function Bargin() {
     // ]
 
 
-    const { isLoading, error, data } = useQuery('AllBargains', () =>
+    const { isLoading, refetch, data } = useQuery('AllBargains', () =>
         fetch('https://faadoli.herokuapp.com/api/v1/bargain', {
             method: 'GET', // or 'PUT'
             headers: {
@@ -80,7 +80,9 @@ export default function Bargin() {
         </div>
     )  
 
-    console.log(data)
+    // React.useEffect(() => {
+    //    refetch()
+    // }, [])
 
     return (
         <div className='w-full h-full px-8 py-8 overflow-y-auto' > 

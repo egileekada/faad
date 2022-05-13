@@ -26,12 +26,14 @@ import MyNotes from './components/Messaging/MyNotes';
 import NewProfile from './components/OurPeopleComponent/NewProfile';
 import AccountTab from './Tabs/AccountTab';
 import EditClienteleProfile from './components/clienteleComponent/EditClienteleProfile';
+import PrintedSlip from './components/accountComponent/components/PrintedSlip';
 
 function App() {
   return (  
       <Router>  
         <Routes>     
           <Route path='/' element={<LoginScreen />}/>  
+          <Route path='/print' element={<PrintedSlip />}/> 
           <Route path='/dashboard' element={<DashboardScreen />} >
             <Route path='/dashboard' element={<DashboardTab />}/>
             <Route path='/dashboard/accounts' element={<AccountTab />} />

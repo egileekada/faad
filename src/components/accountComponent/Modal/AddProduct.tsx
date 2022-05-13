@@ -23,7 +23,7 @@ export default function AddProduct(props: any) {
         productName: yup.string().required('Required'),
         description: yup.string().required('Required'),   
         newPrice: yup.string().required('Required'),   
-        percentageDifference: yup.string().required('Required')   
+        // percentageDifference: yup.string().required('Required')   
     })    
  
     // formik
@@ -33,7 +33,7 @@ export default function AddProduct(props: any) {
             productName: '',
             description: '', 
             newPrice: '',
-            percentageDifference: ''
+            // percentageDifference: ''
         },
         validationSchema: loginSchema,
         onSubmit: () => {},
@@ -137,7 +137,7 @@ export default function AddProduct(props: any) {
                 </div> 
             </div>
             <div className='w-full flex mt-2' >
-                <div className=' w-full mr-2' >
+                {/* <div className=' w-full mr-2' >
                     <p className='text-sm mb-2 font-Inter-Medium' >Percentage Difference</p>
                     <Input  
                         name="percentageDifference"
@@ -157,7 +157,7 @@ export default function AddProduct(props: any) {
                             </motion.p>
                         )}
                     </div> 
-                </div>
+                </div> */}
                 <div className=' w-full mr-2' >
                     <p className='text-sm mb-2 font-Inter-Medium' >Product Code</p>
                     <Input  
