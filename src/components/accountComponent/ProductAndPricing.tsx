@@ -35,13 +35,14 @@ export default function ProductAndPricing() {
 
     const DeleteHandler =async(item: any)=> {
         await fetch(`https://faadoli.herokuapp.com/api/v1/product/${item}`, {
-            method: 'DEL',
+            method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
                 Authorization : `Bearer ${localStorage.getItem('token')}` 
             },
             // body: JSON.stringify(formik.values),
         });
+        refetch()
     }
 
     const UpdateHandler =async(item: any)=> {
@@ -61,6 +62,7 @@ export default function ProductAndPricing() {
                     percentageDifference: Number(percentage)
                 }),
             });
+            refetch()
             setLoading('')
             setNewPrice({} as any)
             setPercentage('')

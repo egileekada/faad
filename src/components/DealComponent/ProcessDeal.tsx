@@ -49,7 +49,7 @@ export default function ProcessDeal(props: any) {
     const submit = async () => {
 
         setLoading(true); 
-        const request = await fetch(`https://faadoli.herokuapp.com/api/v1/deals`, {
+        const request = await fetch(`https://faadoli.herokuapp.com/api/v1/delivery`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -75,10 +75,11 @@ export default function ProcessDeal(props: any) {
         const json = await request.json(); 
 
         if (request.status === 200) {     
-            // const t1 = setTimeout(() => { 
-            //     navigate('/dashboard/deals');  
-            //     clearTimeout(t1);
-            // }, 1000); 
+            alert('Sucessfull')
+            const t1 = setTimeout(() => { 
+                navigate('/dashboard/deals');  
+                clearTimeout(t1);
+            }, 1000); 
         }else {
             alert(json.message);
             console.log(json)
@@ -86,13 +87,19 @@ export default function ProcessDeal(props: any) {
         } 
     } 
 
+    const ClickHandler =(item: any)=> {
+        if(tankInfo !== ''){ 
+            setTab(item)
+        }
+    }
+
     return (
         <div className='w-full h-full py-8' >
             <svg onClick={()=> navigate(0)} className='cursor-pointer fixed z-50 top-14  ' width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M20.3287 11.0001V13.0001L7.50042 13.0001L10.7429 16.2426L9.32873 17.6568L3.67188 12L9.32873 6.34314L10.7429 7.75735L7.50019 11.0001L20.3287 11.0001Z" fill="#495057"/>
             </svg>
             <div className='w-full flex ' >
-                <div onClick={()=> setTab(0)} style={{border: '1px solid #DDE2E5'}} className='w-full bg-white cursor-pointer ' >
+                <div onClick={()=> ClickHandler(0)} style={{border: '1px solid #DDE2E5'}} className='w-full bg-white cursor-pointer ' >
                     <div className='w-full flex px-3 py-2 item-center' >
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M0.8 12.014H0.799744L0.800256 12.0241C0.822255 12.4586 0.877381 12.8906 0.977669 13.3029L0.977665 13.3029L0.977974 13.3041C1.11242 13.8419 1.45575 14.6139 1.80732 15.0793C1.8285 15.108 1.85047 15.1387 1.87322 15.1705C1.9383 15.2616 2.00981 15.3616 2.08761 15.4481L2.08787 15.4484C2.65202 16.0728 3.12448 16.4964 3.93663 16.8717C4.68551 17.2205 5.28698 17.3914 6.12132 17.4144V19.4307H1.29025C1.21513 19.4307 1.14861 19.4578 1.1005 19.4844C1.04963 19.5125 1.00242 19.5495 0.962196 19.5893C0.921988 19.629 0.884078 19.6762 0.855092 19.7278C0.82741 19.7771 0.8 19.8445 0.8 19.921V21.4206C0.8 21.5229 0.820707 21.6188 0.867581 21.7034C0.914839 21.7886 0.982488 21.8511 1.05883 21.895C1.20387 21.9784 1.38349 21.9969 1.54288 21.9969H21.7532C21.9142 21.9969 22.0935 21.9766 22.2381 21.8924C22.4012 21.7975 22.496 21.6355 22.496 21.4206V19.921C22.496 19.8458 22.4689 19.7793 22.4423 19.7312C22.4142 19.6803 22.3773 19.6331 22.3375 19.5929C22.2978 19.5527 22.2506 19.5148 22.199 19.4858C22.1497 19.4581 22.0823 19.4307 22.0058 19.4307H17.1747V17.416C17.378 17.4135 17.5321 17.4058 17.6869 17.3859C17.8879 17.36 18.085 17.3143 18.3878 17.2393C18.8058 17.1375 19.3833 16.8985 19.7655 16.6681L19.7665 16.6675C20.1817 16.414 20.2773 16.3311 20.4162 16.2107C20.484 16.1519 20.5622 16.0842 20.6929 15.9832C21.195 15.5964 21.6446 14.9487 21.9678 14.2605C22.2913 13.5714 22.5014 12.8134 22.5014 12.1914V9.53071C22.5014 8.7477 22.2304 7.98119 21.996 7.44131C21.621 6.57014 20.9173 5.77634 20.0748 5.20058C19.2323 4.62485 18.2356 4.25665 17.265 4.25665H9.73234C9.73411 4.16803 9.73674 4.08404 9.73927 4.00354C9.74113 3.94401 9.74294 3.88639 9.74429 3.83022C9.74864 3.6498 9.74856 3.47917 9.72319 3.3349C9.69733 3.1878 9.64063 3.04089 9.50972 2.93662C9.38164 2.8346 9.21555 2.8 9.03036 2.8H6.45033C6.27947 2.8 6.10571 2.83744 5.97 2.94127C5.82619 3.05131 5.75044 3.21666 5.75044 3.41388V4.25803C4.92955 4.31251 4.0766 4.68682 3.48044 5.03034C2.74606 5.45086 1.95567 6.23487 1.54463 6.98938L1.54459 6.98936L1.54262 6.99317C1.51524 7.0461 1.48961 7.09045 1.46266 7.13708C1.4523 7.15501 1.44175 7.17327 1.43082 7.19249C1.3927 7.25957 1.35376 7.33222 1.31911 7.42043L1.31503 7.43052C1.05955 8.06386 0.8 8.7073 0.8 9.52534V12.014ZM3.14521 6.72232L3.14522 6.72233L3.14632 6.72122C3.18116 6.68639 3.21209 6.65445 3.24115 6.62445C3.30595 6.55755 3.36144 6.50026 3.43006 6.44193L3.43069 6.4414C3.51707 6.36736 3.60962 6.30054 3.70826 6.22934C3.72953 6.21398 3.75108 6.19842 3.77292 6.18254L3.77293 6.18256L3.77529 6.18079C3.8625 6.11538 3.93847 6.06798 4.02778 6.01225C4.06229 5.99072 4.09878 5.96795 4.13869 5.94242C4.22771 5.88642 4.29538 5.85692 4.38662 5.81715C4.42946 5.79847 4.47749 5.77753 4.53537 5.75052L4.53538 5.75053L4.5374 5.74956C5.05288 5.50193 5.73681 5.3554 6.53095 5.3554H13.0606H13.0617L17.3487 5.40378H17.351C17.6587 5.40378 17.9793 5.48245 18.2403 5.56591C18.2779 5.57844 18.3162 5.59071 18.3547 5.60303C18.4593 5.63653 18.5649 5.67033 18.6598 5.71048L18.6603 5.71068C19.5654 6.09083 20.2461 6.66895 20.7022 7.41755C21.1591 8.16751 21.3973 9.09993 21.3973 10.1972C21.3973 10.3663 21.3987 10.5324 21.4001 10.6958C21.409 11.7278 21.417 12.6539 21.0569 13.5521L21.0566 13.5528C20.8409 14.0972 20.5013 14.6117 20.096 15.017C19.1596 15.9534 18.0069 16.3183 16.5662 16.3183H6.75133C5.26406 16.3183 4.06065 15.8551 3.22965 15.0318C2.39896 14.2087 1.92026 13.0058 1.92026 11.4872V11.3802L1.90406 11.3694C1.90399 11.3081 1.90386 11.2472 1.90374 11.1866C1.9001 9.42664 1.89705 7.95114 3.14521 6.72232ZM1.90951 20.8497V20.5402H21.3982C21.3999 20.5858 21.3979 20.6456 21.3946 20.7291L21.3941 20.742C21.3927 20.7753 21.3913 20.8113 21.3901 20.8497H1.90951ZM7.23083 19.4307V17.4171H16.0652V19.4307H7.23083ZM6.89758 3.94176H8.57773V4.25127H6.89758V3.94176Z" fill="#414141" stroke="#414141" stroke-width="0.4"/>
@@ -113,7 +120,7 @@ export default function ProcessDeal(props: any) {
                     </div>
                     <div className={tab > -1 ? 'w-full h-2 bg-[#F88C3A]':'w-full h-2'} />
                 </div>
-                <div onClick={()=> setTab(1)} style={{border: '1px solid #DDE2E5'}} className='w-full bg-white cursor-pointer ' >
+                <div onClick={()=> ClickHandler(1)} style={{border: '1px solid #DDE2E5'}} className='w-full bg-white cursor-pointer ' >
                     <div className='w-full flex px-3 py-2 item-center checkbox' >
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M19 16C19 15.4477 18.5523 15 18 15H10C9.44772 15 9 15.4477 9 16C9 16.5523 9.44772 17 10 17H18C18.5523 17 19 16.5523 19 16Z" fill="#414141"/>
@@ -137,7 +144,7 @@ export default function ProcessDeal(props: any) {
                     </div>
                     <div className={tab >= 1 ? 'w-full h-2 bg-[#F88C3A]':'w-full h-2'} />
                 </div>
-                <div onClick={()=> setTab(2)} style={{border: '1px solid #DDE2E5'}} className='w-full bg-white cursor-pointer ' >
+                <div onClick={()=> ClickHandler(2)} style={{border: '1px solid #DDE2E5'}} className='w-full bg-white cursor-pointer ' >
                     <div className='w-full flex px-3 py-2 item-center checkbox' >
                         <svg width="14" height="18" viewBox="0 0 14 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd" d="M3 4C3 6.20914 4.79086 8 7 8C9.20914 8 11 6.20914 11 4C11 1.79086 9.20914 0 7 0C4.79086 0 3 1.79086 3 4ZM5 4C5 5.10457 5.89543 6 7 6C8.10457 6 9 5.10457 9 4C9 2.89543 8.10457 2 7 2C5.89543 2 5 2.89543 5 4Z" fill="#414141"/>
@@ -158,7 +165,7 @@ export default function ProcessDeal(props: any) {
                     </div>
                     <div className={tab >= 2 ? 'w-full h-2 bg-[#F88C3A]':'w-full h-2'} />
                 </div>
-                <div onClick={()=> setTab(3)} style={{border: '1px solid #DDE2E5'}} className='w-full bg-white cursor-pointer ' >
+                <div onClick={()=> ClickHandler(3)} style={{border: '1px solid #DDE2E5'}} className='w-full bg-white cursor-pointer ' >
                     <div className='w-full flex px-3 py-2 item-center checkbox' >
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M20 8H17V4H3C1.9 4 1 4.9 1 6V17H3C3 18.66 4.34 20 6 20C7.66 20 9 18.66 9 17H15C15 18.66 16.34 20 18 20C19.66 20 21 18.66 21 17H23V12L20 8ZM19.5 9.5L21.46 12H17V9.5H19.5ZM6 18C5.45 18 5 17.55 5 17C5 16.45 5.45 16 6 16C6.55 16 7 16.45 7 17C7 17.55 6.55 18 6 18ZM8.22 15C7.67 14.39 6.89 14 6 14C5.11 14 4.33 14.39 3.78 15H3V6H15V15H8.22ZM18 18C17.45 18 17 17.55 17 17C17 16.45 17.45 16 18 16C18.55 16 19 16.45 19 17C19 17.55 18.55 18 18 18Z" fill="#ACB5BD"/>
@@ -181,13 +188,13 @@ export default function ProcessDeal(props: any) {
             </div> 
             <div className='w-full mt-8 relative' >
                 <div className={tab === 0 ? 'w-full ' : 'hidden'} >
-                    <StepOne values={props.values} tank={setTankInfo} truck={setTruckInfo} click={setTab} />
+                    <StepOne values={props.values} tank={setTankInfo} truck={setTruckInfo} click={ClickHandler} />
                 </div>
                 <div className={tab === 1 ? 'w-full ' : 'hidden'} >
                     <StepTwo inspect={setInspectInfo} click={setTab} />
                 </div>
                 <div className={tab === 2 ? 'w-full ' : 'hidden'} >
-                    <StepThree agent={setAgentInfo} driver={setDriverInfo} click={setTab} />
+                    <StepThree loading={loading} submit={submit} agent={setAgentInfo} driver={setDriverInfo} click={setTab} />
                 </div>
                 <div className={tab === 3 ? 'w-full ' : 'hidden'} >
                     <StepFour delivery={setConfirmedDeliveryInfo} click={setTab} />

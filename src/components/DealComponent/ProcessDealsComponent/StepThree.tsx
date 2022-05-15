@@ -1,5 +1,6 @@
 import { Checkbox, Input, Select } from '@chakra-ui/react'
 import React from 'react'
+import ButtonLoader from '../../ButtonLoader'
 import PrintButton from './components/PrintButton'
 import SearchForClient from './components/SearchForClient'
 
@@ -29,7 +30,20 @@ export default function StepThree(props: any) {
                     <PrintButton name='dispatch' /> 
                 </div>
                 {/* <Input className='mt-4' width='240px' fontSize='sm' placeholder='Enter seal number' /> */}
-                <button onClick={()=> props.click(3)} className='py-2 text-sm font-Inter-SemiBold text-white rounded-md mt-auto ml-auto bg-[#F88C3A] px-16' >Next</button>
+                <div className='mt-auto flex' > 
+                    <button onClick={()=> props.submit()} className='py-2 text-sm font-Inter-SemiBold text-white ml-auto rounded-md flex items-center bg-[#F1BD37] px-16' >
+                        {props.loading && (
+                            <> 
+                                <ButtonLoader size='30' />
+                                <span className='ml-3'>Loading</span>
+                            </>
+                        )}
+                        {!props.loading && (
+                            <span className='mx-4'>Proccess Deal</span>
+                        )}  
+                    </button>
+                    <button onClick={()=> props.click(3)} className='py-2 text-sm font-Inter-SemiBold text-white rounded-md  ml-6 bg-[#F88C3A] px-16' >Complete Deal</button>
+                </div>
             </div>
         </div>
     )
