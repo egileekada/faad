@@ -27,6 +27,7 @@ import NewProfile from './components/OurPeopleComponent/NewProfile';
 import AccountTab from './Tabs/AccountTab';
 import EditClienteleProfile from './components/clienteleComponent/EditClienteleProfile';
 import PrintedSlip from './components/accountComponent/components/PrintedSlip';
+import CreateDealFromBargain from './components/barginComponent/CreateDealFromBargain';
 
 function App() {
   return (  
@@ -40,6 +41,7 @@ function App() {
             <Route path='/dashboard/bargains' element={<BarginTab />} >
                 <Route path='/dashboard/bargains' element={<Bargin />}/>
                 <Route path='/dashboard/bargains/info' element={<BargainInfo />}/>
+                <Route path='/dashboard/bargains/createdeals' element={<CreateDealFromBargain />}/>
                 <Route path='/dashboard/bargains/createbargin' element={<CreateBargain />}/>
             </Route>
             <Route path='/dashboard/clientele' element={<ClienteleTab />} >

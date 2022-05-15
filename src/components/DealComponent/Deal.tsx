@@ -69,6 +69,7 @@ export default function Deal() {
     // ]
 
     const [tab, setTab] = React.useState(0)   
+    const [Value, setValue] = React.useState({} as any) 
 
     return (
         <div className='w-full h-full px-8 py-8 overflow-y-auto' > 
@@ -101,10 +102,10 @@ export default function Deal() {
                         <DealsTable />
                     )}
                     {tab === 1 && (
-                        <OngoingDeals click={setTab} />
+                        <OngoingDeals click={setTab} values={setValue} />
                     )}
                     {tab === 2 && (
-                        <ProcessDeal />
+                        <ProcessDeal values={Value} />
                     )}
                 </div>
             </div>

@@ -30,8 +30,8 @@ export default function NewProfile() {
         } else {
             console.log('Error')
         }   
-    }  
-
+    }   
+    
     const [loading, setLoading] = React.useState(false);  
 
     const loginSchema = yup.object({ 
@@ -42,7 +42,7 @@ export default function NewProfile() {
         personalPhone: yup.string().required('Required'),
         companyPhone: yup.string().required('Required'),
         address: yup.string().required('Required'), 
-        chatGroup: yup.string().required('Required'), 
+        // chatGroup: yup.string().required('Required'), 
         // password: yup.string().required('Your password is required').min(4, 'A minimium of 4 characters')
     }) 
 
@@ -204,10 +204,15 @@ export default function NewProfile() {
                                     formik.setFieldTouched("department", true, true)
                                 }  
                                 fontSize='sm' border='1px solid #DDE2E5' backgroundColor='white' placeholder='Enter Your Department' >
-                                    <option value='General'>General</option>
-                                    <option value='Operations'>Operations</option>
-                                    <option value='Customer service'>Customer service</option>
-                                    <option value='Accounts'>Accounts</option>
+                                    {/* <option>General</option> */}
+                                    <option>Customer service Admin</option>
+                                    <option>Customer service</option>
+                                    <option>Accounts</option>
+                                    <option>Operations</option>
+                                    <option>Managing Director</option>
+                                    <option>Clientele</option>
+                                    <option>Drivers</option>
+                                    <option>Agents</option> 
                                 </Select>
                             <div className="w-full h-auto pt-2">
                                 {formik.touched.department && formik.errors.department && (

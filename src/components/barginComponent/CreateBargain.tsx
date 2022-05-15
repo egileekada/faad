@@ -147,12 +147,16 @@ export default function CreateBargain() {
                                 <> 
                                     {name !== '' && (
                                         <div style={{boxShadow: '0px 2px 8px 0px #60617029'}} className='absolute top-20 w-full px-4 py-2 rounded-lg z-20 bg-white' >
-                                            {[...data.data.clients].reverse().map((item: any)=> {
-                                                if(item.companyName.toLowerCase().includes(name)){
+                                            {[...data.data.clients].reverse().map((item: any)=> { 
+
+                                                if(item.companyName.toLowerCase().includes(formik.values.companyName.toLowerCase())){
                                                     return(
-                                                        <p className=' font-Inter-Medium text-sm cursor-pointer my-1 ' onClick={()=> ClickHandler(item)} >{item.companyName}</p>
+                                                        <p className=' font-Inter-Medium text-sm cursor-pointer my-2 ' onClick={()=> ClickHandler(item)} >{item.companyName}</p>
                                                     )
                                                 }
+                                                // else{
+                                                //     setName('')
+                                                // }
                                             })}
                                         </div>
                                     )}
@@ -175,7 +179,7 @@ export default function CreateBargain() {
                             <Input 
                                 name="email"
                                 onChange={formik.handleChange}
-                                value={emailaddress}
+                                value={formik.values.email}
                                 onFocus={() =>
                                     formik.setFieldTouched("email", true, true)
                                 } 
@@ -196,7 +200,7 @@ export default function CreateBargain() {
                             <p className='text-sm font-Inter-Regular mb-2' >Phone number</p>
                             <Input 
                                 name="phoneNumber"
-                                value={phone}
+                                value={formik.values.phoneNumber}
                                 onChange={formik.handleChange}
                                 onFocus={() =>
                                     formik.setFieldTouched("phoneNumber", true, true)
@@ -239,16 +243,13 @@ export default function CreateBargain() {
                         </div>
                         <div className='my-4 ' >
                             <p className='text-sm font-Inter-Regular mb-2' >Quantity in Litres</p>
-                            <Select 
+                            <Input 
                                 name="quantity"
                                 onChange={formik.handleChange}
                                 onFocus={() =>
                                     formik.setFieldTouched("quantity", true, true)
                                 }  
-                                fontSize='sm' placeholder='Select Quantity' size='lg' className='border border-[#DDE2E5] rounded-lg ' >
-                                <option>1000</option>
-                                <option>3000</option>
-                            </Select>
+                                fontSize='sm' placeholder='Select Quantity' size='lg' className='border border-[#DDE2E5] rounded-lg ' />
                             <div className="w-full h-auto pt-2">
                                 {formik.touched.quantity && formik.errors.quantity && (
                                     <motion.p

@@ -27,17 +27,18 @@ export default function BargainInfo() {
     )    
 
     const DeleteHandler =async()=> {
-        await fetch(`https://faadoli.herokuapp.com/api/v1/bargain/${data.data.bargain._id}`, {
-            method: 'DEL',
+        const request = await fetch(`https://faadoli.herokuapp.com/api/v1/bargain/${data.data.bargain._id}`, {
+            method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
                 Authorization : `Bearer ${localStorage.getItem('token')}` 
             }, 
         });
+        console.log(request.json())
         navigate('/dashboard/bargains')
     }
 
-    console.log(data.data.bargain)
+    // console.log(data.data.bargain._id)
 
     return (
         <div className='w-full h-full px-8 py-8 overflow-y-auto' > 
@@ -60,7 +61,7 @@ export default function BargainInfo() {
                         
                             <div className='mt-14 flex ' > 
                                 <button onClick={()=> DeleteHandler()} className='font-Inter-SemiBold text-xs h-10 flex justify-center items-center text-white rounded-lg px-4 bg-[#FF1F1F] ' >Reject Bargain</button>
-                                <button className='font-Inter-SemiBold text-xs h-10 text-white rounded-lg px-4 ml-4 bg-[#F88C3A] ' >Create deal from bargain</button>
+                                <button onClick={()=> navigate('/dashboard/bargains/createdeals')} className='font-Inter-SemiBold text-xs h-10 text-white rounded-lg px-4 ml-4 bg-[#F88C3A] ' >Create deal from bargain</button>
                             </div>
                         </div>
                         <div className='w-80' > 

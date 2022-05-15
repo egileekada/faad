@@ -41,7 +41,16 @@ export default function EditPersonnel() {
     } 
 
     React.useEffect(() => { 
-        formik.setValues(userContext.profileData)
+        formik.setFieldValue('companyEmail', userContext.profileData.companyEmail)
+        formik.setFieldValue('personalEmail', userContext.profileData.personalEmail)
+        formik.setFieldValue('name', userContext.profileData.name)
+        formik.setFieldValue('department', userContext.profileData.department)
+        formik.setFieldValue('personalPhone', userContext.profileData.personalPhone)
+        formik.setFieldValue('companyPhone', userContext.profileData.companyPhone)
+        formik.setFieldValue('address', userContext.profileData.address)
+        formik.setFieldValue('chatGroup', userContext.profileData.chatGroup)
+        // formik.setFieldValue('companyEmail', userContext.profileData.companyEmail)
+        // formik.setFieldValue('companyEmail', userContext.profileData.companyEmail)
         formik.setFieldValue('chatGroup', userContext.profileData.department)
     },[]); 
 
@@ -93,18 +102,42 @@ export default function EditPersonnel() {
             setLoading(false);
             return;
         }else {
+
+            // const request = await fetch(`https://faadoli.herokuapp.com/api/v1/auth/profile/${userContext.profileData._id}`, {
+            //     method: 'PUT',
+            //     headers: {
+            //         'Content-Type': 'application/json',
+            //         Authorization : `Bearer ${localStorage.getItem('token')}` 
+            //     },
+            //     body: JSON.stringify(formik.values),
+            // });
+    
+            // const json = await request.json(); 
+    
+            // console.log(request.status)
+            // if (request.status === 200) {    
+            //     // setShow(true)  
+            //     // const t1 = setTimeout(() => { 
+            //     //     navigate('/dashboard/deals');  
+            //     //     clearTimeout(t1);
+            //     // }, 1000); 
+            // }else {
+            //     alert(json.message);
+            //     console.log(json)
+            //     setLoading(false);
+            // }
             try {  
 
                 let formData = new FormData()   
-                formData.append('name', formik.values.name)  
-                // formData.append('personalEmail', formik.values.personalEmail)  
-                // formData.append('companyEmail', formik.values.companyEmail)  
-                formData.append('department', formik.values.department)  
-                formData.append('address', formik.values.address)  
-                formData.append('personalPhone', formik.values.personalPhone)  
-                formData.append('companyPhone', formik.values.companyPhone)  
-                formData.append('chatGroup', formik.values.chatGroup)  
-                // formData.append('avatar', image)  
+                // formData.append('name', formik.values.name)  
+                // // formData.append('personalEmail', formik.values.personalEmail)  
+                // // formData.append('companyEmail', formik.values.companyEmail)  
+                // formData.append('department', formik.values.department)  
+                // formData.append('address', formik.values.address)  
+                // formData.append('personalPhone', formik.values.personalPhone)  
+                // formData.append('companyPhone', formik.values.companyPhone)  
+                // formData.append('chatGroup', formik.values.chatGroup)  
+                formData.append('avatar', image)  
 
                 // make request to server 
                     const request = await axios.default.put(`https://faadoli.herokuapp.com/api/v1/auth/profile/${userContext.profileData._id}`, formData, {

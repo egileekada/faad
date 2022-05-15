@@ -5,6 +5,7 @@ import React from 'react'
 import { useQuery } from 'react-query';
 import * as yup from 'yup'
 import ButtonLoader from '../../ButtonLoader';
+import PageLoader from '../../PageLoader';
 
 export default function AddStorageTanks(props: any) { 
 
@@ -92,23 +93,17 @@ export default function AddStorageTanks(props: any) {
 
     const OnChangeHandler =(event: any)=> { 
         setName(event)
+        console.log(event)
         setIntialName(event)
+        formik.setFieldValue('productId', event)
         // formik.setFieldValue('companyName', event)
-    }
-
-
-    const ClickHandler =(item: any)=> {
-        console.log(item)
-        // setEmail(item.email)
-        setName('')
-        setIntialName(item.productName)
-        // setPhone(item.phoneNumber)
-        // formik.setFieldValue('email', item.email)
-        formik.setFieldValue('productId', item._id)
-        // formik.setFieldValue('clientId', item._id)
-        // formik.setFieldValue('phoneNumber', item.phoneNumber)
-    }
-
+    } 
+    
+    if (isLoading) return(
+        <div className='w-full h-auto flex mt-12 justify-center  ' > 
+            <PageLoader />
+        </div>
+    )   
 
     return (
         <div style={{ boxShadow: '0px 3px 34px 0px #5F67771C', width: '432px'}} className='  font-Ubuntu-Regular h-auto px-8 rounded-lg py-8 border border-[#E0E0E0] z-50 bg-white right-auto mx-auto left-auto  ' > 
@@ -126,7 +121,8 @@ export default function AddStorageTanks(props: any) {
             </div> 
             <div className=' w-full relative mr-2 mt-8' >
                 <p className='text-sm mb-2 font-Inter-Medium' >Product Name</p>
-                <Input 
+                
+                <Select 
                     // name="companyName"
                     value={intialName} 
                     autoComplete="off"
@@ -135,9 +131,17 @@ export default function AddStorageTanks(props: any) {
                         formik.setFieldTouched("productId", true, true)
                     }  
                     onChange={(e)=> OnChangeHandler(e.target.value)}
-                    fontSize='sm' placeholder='Enter company name' size='lg' className='border border-[#DDE2E5] rounded-lg ' />
-                
-                {!isLoading && (
+                    fontSize='sm' placeholder='Enter company name' size='lg' className='border border-[#DDE2E5] rounded-lg '>
+                    {data.data.products.map((item: any)=> {
+                        // if(item.productName.toLowerCase().includes(name)){
+                            return(
+                                <option value={item._id} >{item.productName}</option>
+                                // <p className=' font-Inter-Medium text-sm cursor-pointer my-1 ' onClick={()=> ClickHandler(item)} >{item.productName}</p>
+                            )
+                        // }
+                    })}
+                </Select>
+                {/* {!isLoading && (
                     <> 
                         {name !== '' && (
                             <div style={{boxShadow: '0px 2px 8px 0px #60617029'}} className='absolute top-20 w-full px-4 py-2 rounded-lg z-20 bg-white' >
@@ -151,7 +155,7 @@ export default function AddStorageTanks(props: any) {
                             </div>
                         )}
                     </>
-                )}
+                )} */}
                 <div className="w-full h-auto pt-2">
                     {formik.touched.productId && formik.errors.productId && (
                         <motion.p
