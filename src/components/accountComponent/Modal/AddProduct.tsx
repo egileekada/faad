@@ -188,7 +188,7 @@ export default function AddProduct(props: any) {
                     onFocus={() =>
                         formik.setFieldTouched("description", true, true)
                     }  
-                    fontSize='sm'  placeholder='Medicine Name'/>
+                    fontSize='sm'  placeholder='Product Description'/>
                 <div className="w-full h-auto pt-2">
                     {formik.touched.description && formik.errors.description && (
                         <motion.p
@@ -201,7 +201,7 @@ export default function AddProduct(props: any) {
                     )}
                 </div> 
             </div> 
-            <button onClick={()=> submit()} disabled={loading ? true : false} className='font-Inter-SemiBold mt-8 ml-3 flex justify-center items-center text-xs h-10 text-white rounded-lg w-full bg-[#F88C3A] ' >
+            <button onClick={()=> submit()} disabled={loading ? true : false} className='font-Inter-SemiBold mt-8 flex justify-center items-center text-xs h-10 text-white rounded-lg w-full bg-[#F88C3A] ' >
                 {loading && (
                     <> 
                         <ButtonLoader size='30' />

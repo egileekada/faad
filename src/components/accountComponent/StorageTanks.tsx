@@ -83,6 +83,8 @@ export default function StorageTanks() {
         </div>
     )  
 
+    console.log(data)
+
     return (
         <div className='w-full h-full rounded-2xl bg-white' >
             <div className='flex w-full p-10 items-center' >
@@ -114,7 +116,7 @@ export default function StorageTanks() {
                                     </svg>
                                     <div className='ml-3' >
                                         <p className='font-Inter-SemiBold text-lg mb-4 text-[#ACB5BD]' >Polar Bear </p>
-                                        <p className='font-Inter-Bold mb-2 text-sm' >Product<span className='font-Inter-Regular ml-3' >{item.product.productName} ({item.product.productCode})</span></p>
+                                        <p className='font-Inter-Bold mb-2 text-sm' >Product<span className='font-Inter-Regular ml-3' >{item.product === null ? '' :item.product.productName} ({item.product === null ? '' :item.product.productCode})</span></p>
                                         <p className='font-Inter-Bold mt-1 mb-2 text-sm' >Capacity<span className='font-Inter-Regular ml-3' >{item.capacity.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')} ℓ</span></p>
                                         <p className='font-Inter-Bold my-1 mb-2 text-sm' >Dirt<span className='font-Inter-Regular ml-3' >{item.dirt.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')} ℓ</span></p>
                                         <p className='font-Inter-Bold my-1 mb-2 text-sm' >Tank ID<span className='font-Inter-Regular ml-3' >{item.tankId}</span></p>
