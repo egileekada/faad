@@ -84,7 +84,7 @@ export default function ProductAndPricing() {
                                     <div className='w-full flex items-end mt-4' >
                                         <div className='w-full' >
                                             <p className='font-Inter-Regular text-sm mb-1' >Old</p>
-                                            <Input disabled fontSize='sm' size='lg' border='1px solid #ACB5BD' backgroundColor='white' placeholder={item.newPrice}  />
+                                            <Input fontSize='sm' size='lg' border='1px solid #ACB5BD' backgroundColor='white' value={item.newPrice}  />
                                         </div>
                                         <div className='w-full ml-4' >
                                             <p className='font-Inter-Regular text-sm mb-1' >New</p>

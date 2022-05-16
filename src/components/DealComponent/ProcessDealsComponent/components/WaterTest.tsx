@@ -1,5 +1,6 @@
 import React from 'react'
 import Logo from '../../../../assets/images/printLogo.png'
+import DateFormat from '../../../DateFormat';
 
 const WaterTest = React.forwardRef((props: any, ref: any) => { 
 
@@ -19,21 +20,21 @@ const WaterTest = React.forwardRef((props: any, ref: any) => {
                 <div className='w-full flex mt-6 px-10' >
                     <div className='w-full' >
                         <p className='text-sm font-Inter-Bold text-[#414141] ' >Client:</p>
-                        <p className='text-sm font-Inter-Regular text-[#414141] ' >Schlumberger LTD</p>
+                        <p className='text-sm font-Inter-Regular text-[#414141] ' >{props.value.companyName}</p>
                         <div className='w-full mt-4 grid grid-cols-2 gap-4' >
                             <div className='w-full' > 
                                 <p className='text-sm font-Inter-Bold text-[#414141] ' >Date:</p>
-                                <p className='text-sm font-Inter-Regular text-[#414141] ' >12-06-2022</p>
+                                <p className='text-sm font-Inter-Regular text-[#414141] ' >{DateFormat(props.value.updatedAt)}</p>
                             </div>
                             <div className='w-full' > 
                                 <p className='text-sm font-Inter-Bold text-[#414141] ' >Truck no:</p>
-                                <p className='text-sm font-Inter-Regular text-[#414141] ' >ABJ 100 DD</p>
+                                <p className='text-sm font-Inter-Regular text-[#414141] ' >{props.truck}</p>
                             </div>
                         </div> 
                     </div>
                     <div className='w-full' >
                         <p className='text-sm font-Inter-Bold text-[#414141] ' >Destination:</p>
-                        <p className='text-sm font-Inter-Regular text-[#414141] ' >Schlumberger LTD 16, Alaska street, East west road, Before the bridge, Port Harcourt. RIvers State</p>
+                        <p className='text-sm font-Inter-Regular text-[#414141] ' >{props.value.address}</p>
                     </div>
                 </div>
                 <div className='w-full py-10 px-8 mt-8 border-t border-b' >
@@ -82,10 +83,10 @@ const WaterTest = React.forwardRef((props: any, ref: any) => {
                 </div>
                 <p className=' font-Inter-Bold px-10 mt-8 text-[#414141] text-base' >FAAD</p>
                 <div className='px-10 mt-4 w-full grid grid-cols-3 gap-4 ' >
-                    <p className=' font-Inter-Regular text-sm' >Agent: Anthony Sule</p>
+                    <p className=' font-Inter-Regular text-sm' >Agent: {props.agent}</p>
                     <p className=' font-Inter-Regular text-sm' >Sign:</p>
                     <p className=' font-Inter-Regular text-sm' >Date:</p> 
-                    <p className=' font-Inter-Regular text-sm' >Driver: Cisco Ramone</p>
+                    <p className=' font-Inter-Regular text-sm' >Driver: {props.driver}</p>
                     <p className=' font-Inter-Regular text-sm' >Sign:</p>
                     <p className=' font-Inter-Regular text-sm' >Date:</p>  
                 </div>

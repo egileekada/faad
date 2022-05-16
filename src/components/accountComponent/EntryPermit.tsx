@@ -6,6 +6,9 @@ import PrintButton from './components/PrintButton'
 import * as yup from 'yup'
 import { useFormik } from 'formik'
 import { motion } from 'framer-motion'
+import SearchForClient from './components/SearchForClient'
+import SearchForTrucks from './components/SearchForTrucks'
+import SearchForProduct from './components/SearchForProduct'
 
 export default function EntryPermit() {
  
@@ -43,6 +46,13 @@ export default function EntryPermit() {
     ]
 
     const [show, setShow] = React.useState(false)
+    const [driver, setDriverInfo] = React.useState('')
+    const [agent, setAgentInfo] = React.useState('')
+    const [truck, setTruckInfo] = React.useState('')
+    const [fuel, setFuelInfo] = React.useState('')
+
+
+    console.log(driver, agent, truck)
 
 
     const loginSchema = yup.object({ 
@@ -75,6 +85,14 @@ export default function EntryPermit() {
         onSubmit: () => {},
     });
  
+
+    React.useEffect(() => {
+        formik.setFieldValue('agent', agent)
+        formik.setFieldValue('driver', driver)
+        formik.setFieldValue('truck', truck)
+        formik.setFieldValue('fuel', fuel)
+    }, [driver, agent, truck, fuel])
+
     const submit = async () => { 
         if (!formik.dirty) {
           alert('You have to fill in the form to continue'); 
@@ -88,6 +106,8 @@ export default function EntryPermit() {
             setShow(true)
         }
     }   
+
+
 
     return (
         <div className='w-full h-full bg-white rounded-2xl' >
@@ -144,13 +164,8 @@ export default function EntryPermit() {
                         <div className='flex mb-6 items-center w-full' >
                             <p className='font-Inter-Regular text-sm w-36 mr-4' >Agent name</p>
                             <div className='w-full' >
-                                <Input  
-                                    name="agent"
-                                    onChange={formik.handleChange}
-                                    onFocus={() =>
-                                        formik.setFieldTouched("agent", true, true)
-                                    }  
-                                    size='lg' fontSize='sm' border='1px solid #ACB5BD' backgroundColor='white' placeholder='Enter Name' />
+
+                                <SearchForClient name='Agent' index={setAgentInfo} role='Agents' /> 
                                 <div className="w-full h-auto pt-2">
                                     {formik.touched.agent && formik.errors.agent && (
                                         <motion.p
@@ -169,7 +184,8 @@ export default function EntryPermit() {
                         <div className='flex items-center mb-6 w-full' >
                             <p className='font-Inter-Regular text-sm w-36 mr-4 ' >Fuel</p>
                             <div className='w-full' >
-                                <Select  
+                                <SearchForProduct index={setFuelInfo} />
+                                {/* <Select  
                                     name="fuel"
                                     onChange={formik.handleChange}
                                     onFocus={() =>
@@ -177,7 +193,7 @@ export default function EntryPermit() {
                                     }  
                                     size='lg' fontSize='sm' border='1px solid #ACB5BD' backgroundColor='white' placeholder='Select Fuel Type'>
                                     <option>AGO</option>
-                                </Select>
+                                </Select> */}
                                 <div className="w-full h-auto pt-2">
                                     {formik.touched.fuel && formik.errors.fuel && (
                                         <motion.p
@@ -194,13 +210,8 @@ export default function EntryPermit() {
                         <div className='flex mb-6 items-center w-full' >
                             <p className='font-Inter-Regular text-sm w-36 mr-4' >Truck Number</p>
                             <div className='w-full' >
-                                <Input  
-                                    name="truck"
-                                    onChange={formik.handleChange}
-                                    onFocus={() =>
-                                        formik.setFieldTouched("truck", true, true)
-                                    }  
-                                    size='lg' fontSize='sm' border='1px solid #ACB5BD' backgroundColor='white' placeholder='Enter truck number' />
+
+                                <SearchForTrucks truck={setTruckInfo} />  
                                 <div className="w-full h-auto pt-2">
                                     {formik.touched.truck && formik.errors.truck && (
                                         <motion.p
@@ -217,13 +228,15 @@ export default function EntryPermit() {
                         <div className='flex mb-6 items-center w-full' >
                             <p className='font-Inter-Regular text-sm w-36 mr-4' >Driver name</p>
                             <div className='w-full' >
-                                <Input  
+
+                                <SearchForClient name='Driver' index={setDriverInfo} role='Drivers' />
+                                {/* <Input  
                                     name="driver"
                                     onChange={formik.handleChange}
                                     onFocus={() =>
                                         formik.setFieldTouched("driver", true, true)
                                     }  
-                                    size='lg' fontSize='sm' border='1px solid #ACB5BD' backgroundColor='white' placeholder='Enter Name' />
+                                    size='lg' fontSize='sm' border='1px solid #ACB5BD' backgroundColor='white' placeholder='Enter Name' /> */}
                                 <div className="w-full h-auto pt-2">
                                     {formik.touched.driver && formik.errors.driver && (
                                         <motion.p

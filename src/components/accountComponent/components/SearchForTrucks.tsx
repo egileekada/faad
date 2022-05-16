@@ -28,9 +28,9 @@ export default function SearchForTrucks(props: any) {
         <div className='w-full  ' > 
             {!isLoading && ( 
                 <> 
-                    <div className='flex font-Inter-Regular mt-4 items-center' >  
-                        <p className='font-Inter-Regulartext-[#ACB5BD] text-sm w-28 font-Inter-Regular ' >Choose a truck</p> 
-                        <div className='w-96 flex items-center relative' >
+                    <div className='flex mt-4 items-center' >  
+                        {/* <p className='font-Inter-Regulartext-[#ACB5BD] text-sm w-28 font-Inter-Regular ' >Dispatch tank</p>  */}
+                        <div className='w-full flex  font-Inter-Regular  items-center relative' >
                             <div className='w-full' >
                                 <Select onChange={(e)=> OnChangeHandle(e.target.value)} placeholder='Search' fontSize='sm' >
                                     {data.data.trucks.map((item: any, index: any ) => {

@@ -47,8 +47,8 @@ export default function SearchForTank(props: any) {
                 <>
                     {props.tankNo.map((item: any, index: any)=> {
                         return( 
-                            <div key={index} className='flex font-Inter-SemiBold mt-4 items-center' >  
-                                <p className='font-Inter-Regulartext-[#ACB5BD] text-sm w-28 font-Inter-Regular ' >Dispatch tank</p> 
+                            <div key={index} className='flex font-Inter-Regular mt-4 items-center' >  
+                                <p className='font-Inter-Regular text-sm w-28 ' >Dispatch tank</p> 
                                 <div className='w-96 flex items-center relative' >
                                     <div className='w-full' >
                                         <Select onChange={(e)=> OnChangeHandle(e.target.value, index)} placeholder='Search' fontSize='sm' >

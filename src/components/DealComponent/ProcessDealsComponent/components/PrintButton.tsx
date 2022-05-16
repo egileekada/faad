@@ -11,44 +11,59 @@ const PrintButton = (props: any) => {
   const handlePrint = useReactToPrint({ 
     content: () => componentRef.current as any
   });
+  
+  const [agentId, setAgentInfo] = React.useState('')
+  const [driverId, setDriverInfo] = React.useState('')
+  const [truck, setTruckInfo] = React.useState('')
 
-// useEffect(() => {
-//   // setDetail(props.value)
-//   setShow(props.show)
-// }, [props.show])
-
-
-// useEffect(() => {
-//   setDetail(props.value)
-// }, [props.value])
-
-  const ClickHandler =async()=> {
-
-    const request = await fetch(`https://faadoli.herokuapp.com/api/v1/permit`, {
-      method: 'POST',
-      headers: {
-          'Content-Type': 'application/json',
-          Authorization : `Bearer ${localStorage.getItem('token')}` 
-      },
-      body: JSON.stringify(detail),
-    });
-
-    const json = await request.json(); 
-
-    if (request.status === 200) {     
-        alert('Storage Tanks Created Successfully');
-        const t1 = setTimeout(() => { 
-            // props.close(false) 
-            // props.reload()  
-            setDetail(false)
-            clearTimeout(t1);
-        }, 1000); 
-    }else {
-        alert(json.message);
-        console.log(json) 
-    }
-    
+  if(props.agent){  
+    fetch(`https://faadoli.herokuapp.com/api/v1/auth/profile/all`, {
+        method: 'GET', // or 'PUT'
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization : `Bearer ${localStorage.getItem('token')}`
+        }
+    })
+    .then(response => response.json())
+    .then(data => {     
+        data.data.users.map((item: any) => { 
+            if(item._id === props.driver){ 
+                setDriverInfo(item.name)
+            }
+            if(item._id === props.agent){ 
+                setAgentInfo(item.name)
+            }
+        })
+        // if(!level){
+        //     setLevel([...level, data.data.tank.capacity])
+        // } else {
+        //     level[index] = data.data.tank.capacity
+        // }
+    })
+    .catch((error) => {
+        console.error('Error:', error); 
+    },);  
   }
+  
+  if(props.truck){  
+    fetch(`https://faadoli.herokuapp.com/api/v1/truck/${props.truck}`, {
+        method: 'GET', // or 'PUT'
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization : `Bearer ${localStorage.getItem('token')}`
+        }
+    })
+    .then(response => response.json())
+    .then(data => {    
+        // console.log('truck '+data.data.truck.truckId)
+        setTruckInfo(data.data.truck.truckId) 
+    })
+    .catch((error) => {
+        console.error('Error:', error); 
+    },);  
+} 
+
+  console.log(props.values)
 
   return (
     <div className=""> 
@@ -103,13 +118,13 @@ const PrintButton = (props: any) => {
                   </svg>
                 </div> 
                 {props.name === 'delivery' && (
-                  <DeliveryNote ref={componentRef} />  
+                  <DeliveryNote dispatch={props.dispatch} truck={truck} value={props.values} ref={componentRef} />  
                 )}
                 {props.name === 'water' && (
-                  <WaterTest ref={componentRef} />  
+                  <WaterTest agent={agentId} driver={driverId} truck={truck} value={props.values}  ref={componentRef} />  
                 )}
                 {props.name === 'dispatch' && (
-                  <DispatchNote ref={componentRef} />  
+                  <DispatchNote agent={agentId} driver={driverId} truck={truck} value={props.values}  ref={componentRef} />  
                 )}
                 <button onClick={()=> handlePrint()} className=' mr-10 mb-10 ml-auto font-Inter-SemiBold mt-10 text-sm h-10 flex justify-center items-center text-white rounded-lg px-4 py-2 bg-[#F88C3A] '>
                     <svg className='mr-2' width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">

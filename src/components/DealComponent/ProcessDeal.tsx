@@ -34,6 +34,7 @@ export default function ProcessDeal(props: any) {
     const [truckInfo, setTruckInfo] = React.useState('');
     const [tankInfo, setTankInfo] = React.useState('');
     const [agentInfo, setAgentInfo] = React.useState('');
+    const [dispatchQuatity, setDispatchQuatity] = React.useState('');
     const [driverInfo, setDriverInfo] = React.useState('');
     const [inspectInfo, setInspectInfo] = React.useState({
         waterCheck: false,
@@ -188,13 +189,13 @@ export default function ProcessDeal(props: any) {
             </div> 
             <div className='w-full mt-8 relative' >
                 <div className={tab === 0 ? 'w-full ' : 'hidden'} >
-                    <StepOne values={props.values} tank={setTankInfo} truck={setTruckInfo} click={ClickHandler} />
+                    <StepOne values={props.values} dispatchquatity={setDispatchQuatity} tank={setTankInfo} truck={setTruckInfo} click={ClickHandler} />
                 </div>
                 <div className={tab === 1 ? 'w-full ' : 'hidden'} >
                     <StepTwo inspect={setInspectInfo} click={setTab} />
                 </div>
                 <div className={tab === 2 ? 'w-full ' : 'hidden'} >
-                    <StepThree loading={loading} submit={submit} agent={setAgentInfo} driver={setDriverInfo} click={setTab} />
+                    <StepThree truck={truckInfo} dispatch={dispatchQuatity} values={props.values} loading={loading} submit={submit} agent={setAgentInfo} driver={setDriverInfo} click={setTab} />
                 </div>
                 <div className={tab === 3 ? 'w-full ' : 'hidden'} >
                     <StepFour delivery={setConfirmedDeliveryInfo} click={setTab} />

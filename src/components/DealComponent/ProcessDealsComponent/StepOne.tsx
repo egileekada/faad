@@ -38,7 +38,7 @@ export default function StepOne(props: any) {
                 <div className='flex mt-4 items-center' >  
                     <p className='font-Inter-Regulartext-[#ACB5BD] text-sm w-28 ' >Enter dispatch quantity (ℓ)</p> 
                     <div className='w-96' >
-                        <Input placeholder='00.00' fontSize='sm' />
+                        <Input onChange={(e)=> props.dispatchquatity(e.target.value)} placeholder='00.00' fontSize='sm' />
                     </div> 
                 </div>
                 <SearchForTrucks truck={props.truck} /> 

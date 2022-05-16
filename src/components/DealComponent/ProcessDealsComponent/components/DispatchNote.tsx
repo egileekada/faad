@@ -1,15 +1,17 @@
 import React from 'react' 
 import Logo from '../../../../assets/images/printLogo.png'
+import DateFormat from '../../../DateFormat'
 
 const DispatchNote = React.forwardRef((props: any, ref: any) => {
 
     // console.log(props.value)
+    const [startDate, set] = React.useState(new Date()); 
 
     return (
         <> 
             <div ref={ref} className='w-full h-full p-10' >
                 <img src={Logo} alt='printImage' className='w-32' />
-                <p className='text-xs font-Inter-Regular mt-6 text-[#414141] ' >12-06-2022  .  5:30</p>
+                <p className='text-xs font-Inter-Regular mt-6 text-[#414141] ' >{DateFormat(startDate.toJSON())}</p>
                 <p className='text-sm mt-1 font-Inter-Bold text-[#495057]' >DISPATCH NOTE</p>
                 <div className='w-full flex mt-6' >
                     <div className='w-40' >
@@ -21,10 +23,10 @@ const DispatchNote = React.forwardRef((props: any, ref: any) => {
                         <p className='text-sm font-Inter-SemiBold text-[#414141] mt-2 ' >Signature: </p>
                     </div>
                     <div className='w-auto' >
-                        <p className='text-sm font-Inter-Regular text-[#414141] ' >DGF222</p> 
-                        <p className='text-sm font-Inter-Regular text-[#414141] mt-2 ' >12,000</p> 
-                        <p className='text-sm font-Inter-Regular text-[#414141] mt-2 ' >Cisco Ramone</p> 
-                        <p className='text-sm font-Inter-Regular text-[#414141] mt-2 ' >Anthony Sule</p> 
+                        <p className='text-sm font-Inter-Regular text-[#414141] ' >{props.truck}</p> 
+                        <p className='text-sm font-Inter-Regular text-[#414141] mt-2 ' >{props.value.quantity}</p> 
+                        <p className='text-sm font-Inter-Regular text-[#414141] mt-2 ' >{props.driver}</p> 
+                        <p className='text-sm font-Inter-Regular text-[#414141] mt-2 ' >{props.agent}</p> 
                         <p className='text-sm font-Inter-Regular text-[#414141] mt-2 ' >GM’s name</p> 
                         <p className='text-sm font-Inter-Regular text-[#DDE2E5] mt-2 ' >Sign here</p> 
                     </div>

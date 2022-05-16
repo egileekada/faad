@@ -26,8 +26,8 @@ export default function SearchForClient(props: any) {
             {!isLoading && ( 
                 <> 
                     <div className='flex font-Inter-Regular mt-4 items-center' >  
-                        <p className='font-Inter-Regulartext-[#ACB5BD] text-sm w-28 font-Inter-Regular ' >{props.name}</p> 
-                        <div className='w-96 flex items-center relative' >
+                        {/* <p className='font-Inter-Regulartext-[#ACB5BD] text-sm w-28 font-Inter-Regular ' >{props.name}</p>  */}
+                        <div className='w-full flex items-center relative' >
                             <div className='w-full' >
                                 <Select onChange={(e)=> OnChangeHandle(e.target.value)} placeholder='Search' fontSize='sm' >
                                     {data.data.users.map((item: any, index: any ) => {
