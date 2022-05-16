@@ -1,8 +1,10 @@
 import React, { useRef, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { useReactToPrint } from "react-to-print";
 import PrintedSlip from "./PrintedSlip";
 
 const PrintButton = (props: any) => {
+  const navigate = useNavigate()
   const componentRef = useRef(); 
   const [show, setShow] = useState(false)
   const [detail, setDetail] = useState({} as any)
@@ -37,8 +39,9 @@ useEffect(() => {
         alert('Storage Tanks Created Successfully');
         const t1 = setTimeout(() => { 
             // props.close(false) 
-            // props.reload()  
-            setDetail(false)
+            props.reload()  
+            setShow(false) 
+            navigate(0)
             handlePrint()
             clearTimeout(t1);
         }, 1000); 

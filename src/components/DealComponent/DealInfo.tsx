@@ -35,7 +35,7 @@ export default function DealInfo() {
 
     const navigate = useNavigate()
 
-    const { isLoading, error, data } = useQuery('DealsByID', () =>
+    const { isLoading, data } = useQuery('DealsByID', () =>
         fetch(`https://faadoli.herokuapp.com/api/v1/deals/${localStorage.getItem('dealID')}`, {
             method: 'GET', // or 'PUT'
             headers: {

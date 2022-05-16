@@ -9,6 +9,7 @@ import { motion } from 'framer-motion'
 import SearchForClient from './components/SearchForClient'
 import SearchForTrucks from './components/SearchForTrucks'
 import SearchForProduct from './components/SearchForProduct'
+import { useQuery } from 'react-query'
 
 export default function EntryPermit() {
  
@@ -108,6 +109,19 @@ export default function EntryPermit() {
     }   
 
 
+    const { isLoading, data, refetch } = useQuery('Permit', () =>
+        fetch('https://faadoli.herokuapp.com/api/v1/permit', {
+            method: 'GET', // or 'PUT'
+            headers: {
+                'Content-Type': 'application/json', 
+                Authorization : `Bearer ${localStorage.getItem('token')}`
+            }
+        }).then(res =>
+            res.json()
+        )
+    )  
+
+    console.log(data)
 
     return (
         <div className='w-full h-full bg-white rounded-2xl' >
@@ -252,7 +266,7 @@ export default function EntryPermit() {
                         </div>
                     </div>
                 </div>
-                <PrintButton show={show} click={submit} value={formik.values} />
+                <PrintButton show={show} default={formik.values} reload={refetch} click={submit} value={formik.values} />
                 {/* <button className='font-Inter-SemiBold mt-10 text-sm h-10 flex justify-center items-center text-white rounded-lg px-4 bg-[#F88C3A] '>
                     <svg className='mr-2' width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" clip-rule="evenodd" d="M16.5 4H8.5V6H16.5V4ZM6.5 6H2.5V18H6.5V22H18.5V18H22.5V6H18.5V2H6.5V6ZM4.5 16H6.5V14H18.5V16H20.5V8H4.5V16ZM16.5 16H8.5V20H16.5V16ZM16.5 10H18.5V12H16.5V10Z" fill="white"/>
@@ -261,40 +275,42 @@ export default function EntryPermit() {
                 </button> */}
             </div>
 
-            <div className=' w-full px-10 py-12 ' >
-                <p className='font-Inter-SemiBold text-2xl mb-5' >Print History</p>
-                <Table variant='unstyled' >
-                    {/* <TableCaption>Imperial to metric conversion factors</TableCaption> */}
-                    <Thead>
-                        <Tr className=' font-Inter-SemiBold text-xl' >
-                            <Th>No</Th>  
-                            <Th>Vendor</Th>  
-                            <Th>Agent</Th> 
-                            <Th>Truck number</Th>  
-                            <Th>Reprint</Th>   
-                        </Tr>
-                    </Thead>
-                    <Tbody >
-                        {dataall.map((item, index)=> {
-                            return(
-                                <Tr className=' cursor-pointer font-Inter-Regular text-xs ' key={index} paddingBottom='30px' >
-                                    <Td>{index+1}</Td>  
-                                    <Td> 
-                                            {item.vendor} 
-                                    </Td> 
-                                    <Td> 
-                                            {item.agent} 
-                                    </Td>   
-                                    <Td> 
-                                            {item.truck}
-                                    </Td> 
-                                    <Td className='text-[#ACB5BD]' >{item.reprint}</Td>  
-                                </Tr> 
-                            )
-                        })}
-                    </Tbody> 
-                </Table> 
-            </div>
+            {!isLoading && (
+                <div className=' w-full px-10 py-12 ' >
+                    <p className='font-Inter-SemiBold text-2xl mb-5' >Print History</p>
+                    <Table variant='unstyled' >
+                        {/* <TableCaption>Imperial to metric conversion factors</TableCaption> */}
+                        <Thead>
+                            <Tr className=' font-Inter-SemiBold text-xl' >
+                                <Th>No</Th>  
+                                <Th>Vendor</Th>  
+                                <Th>Product</Th> 
+                                <Th>Truck number</Th>  
+                                <Th>Reprint</Th>   
+                            </Tr>
+                        </Thead>
+                        <Tbody >
+                            {data.data.permit.map((item: any, index: any)=> {
+                                return(
+                                    <Tr className=' cursor-pointer font-Inter-Regular text-xs ' key={index} paddingBottom='30px' >
+                                        <Td>{index+1}</Td>  
+                                        <Td> 
+                                                {item.vendor === null ? '':item.vendor} 
+                                        </Td> 
+                                        <Td> 
+                                                {item.fuel === null ? '': item.fuel.productCode} 
+                                        </Td>   
+                                        <Td> 
+                                                {item.truck === null ? '':item.truck.truckId}
+                                        </Td> 
+                                        <Td className='text-[#ACB5BD]' >Reprint last entry permit</Td>  
+                                    </Tr> 
+                                )
+                            })}
+                        </Tbody> 
+                    </Table> 
+                </div>
+            )}
         </div>
     )
 } 

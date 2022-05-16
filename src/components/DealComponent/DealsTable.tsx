@@ -30,6 +30,8 @@ export default function DealsTable() {
             <PageLoader />
         </div>
     )    
+
+    console.log(data)
     
     return (
         <div className='w-full relative' > 

@@ -41,6 +41,8 @@ export default function SearchForTank(props: any) {
 
     }  
 
+    // console.log(data)
+
     return (
         <div className='w-full  ' > 
             {!isLoading && ( 
@@ -54,7 +56,7 @@ export default function SearchForTank(props: any) {
                                         <Select onChange={(e)=> OnChangeHandle(e.target.value, index)} placeholder='Search' fontSize='sm' >
                                             {data.data.tanks.map((item: any, index: any ) => {
                                                 return(
-                                                    <option className='' key={index} value={item._id} >Tank{' '+(index+1)+'  Capacity: '}<span className='font-Inter-Regular' >{item.level+'ℓ  Product Name: '}</span><span className='font-Inter-Regular' >{item.product.productCode}</span></option>
+                                                    <option className='' key={index} value={item._id} >Tank{' '+(index+1)+'  Capacity: '}<span className='font-Inter-Regular' >{item.level+'ℓ  Product Name: '}</span><span className='font-Inter-Regular' >{item.product === null ? '':item.product.productCode}</span></option>
                                                 )
                                             })}
                                         </Select>

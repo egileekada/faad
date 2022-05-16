@@ -1,6 +1,7 @@
 import { Checkbox } from '@chakra-ui/checkbox'
 import { background, color } from '@chakra-ui/styled-system'
 import React from 'react'
+import { useQuery } from 'react-query'
 import { useNavigate } from 'react-router-dom'
 import StepFive from './ProcessDealsComponent/StepFive'
 import StepFour from './ProcessDealsComponent/StepFour'
@@ -77,10 +78,10 @@ export default function ProcessDeal(props: any) {
 
         if (request.status === 200) {     
             alert('Sucessfull')
-            const t1 = setTimeout(() => { 
-                navigate('/dashboard/deals');  
-                clearTimeout(t1);
-            }, 1000); 
+            navigate(0);
+            // const t1 = setTimeout(() => {   
+            //     clearTimeout(t1);
+            // }, 1000); 
         }else {
             alert(json.message);
             console.log(json)
@@ -92,7 +93,21 @@ export default function ProcessDeal(props: any) {
         if(tankInfo !== ''){ 
             setTab(item)
         }
-    }
+    } 
+
+    const { isLoading, error, data } = useQuery('DeliveryInfo', () =>
+        fetch(`https://faadoli.herokuapp.com/api/v1/delivery`, {
+            method: 'GET', // or 'PUT'
+            headers: {
+                'Content-Type': 'application/json', 
+                Authorization : `Bearer ${localStorage.getItem('token')}`
+            }
+        }).then(res =>
+            res.json()
+        )
+    )  
+
+    console.log(data)
 
     return (
         <div className='w-full h-full py-8' >
