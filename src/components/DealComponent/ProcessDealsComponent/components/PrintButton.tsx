@@ -82,7 +82,7 @@ const PrintButton = (props: any) => {
             <p className='font-Inter-Regulartext-[#ACB5BD] ml-3 text-sm w-28 ' >water test form</p> 
         </div>
       )}
-
+ 
       {props.name === 'dispatch' && (
       <div onClick={()=> setShow(true)} className='ml-3 flex items-center cursor-pointer' >
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -95,7 +95,7 @@ const PrintButton = (props: any) => {
       {show ? 
         (
           <>
-            <div  onClick={()=> setShow(false)} className="h-auto flex justify-center items-start py-2 overflow-x-hidden overflow-y-auto  fixed inset-0 z-50 outline-none focus:outline-none"> 
+            <div className="h-auto flex justify-center items-start py-2 overflow-x-hidden overflow-y-auto  fixed inset-0 z-50 outline-none focus:outline-none"> 
               <div style={{width: '650px'}} className=" bg-white h-auto flex flex-col rounded-lg" >
                 <div className='flex items-center px-10 mt-10' >
                   <p className=' font-Inter-Bold text-lg ' >Print Details</p>
