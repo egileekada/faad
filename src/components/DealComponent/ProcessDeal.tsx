@@ -49,8 +49,9 @@ export default function ProcessDeal(props: any) {
         .then(data => {       
             {data.data.delivery.map((item: any)=> {
                 if(props.values._id === item.deal._id){ 
-                    console.log(item)
+                    // console.log(item)
                     setDeliveryId(item._id)
+                    // setTab(2)
                     setShowDetail(true)
                     setTankName('Tank Capacity: '+item.tanks.level+'ℓ')
                     setTruckName('Truck TruckID: '+item.truck.truckId)
@@ -142,14 +143,14 @@ export default function ProcessDeal(props: any) {
                 alert('Sucessfull')
                 if(confirmedDeliveryInfo.receivedDeliveryNote){
 
-                    const request = await fetch(`https://faadoli.herokuapp.com/api/v1/delivery/${deliveryId}`, {
+                    const request = await fetch(`https://faadoli.herokuapp.com/api/v1/deals/${props.values._id}`, {
                         method: 'PUT',
                         headers: {
                             'Content-Type': 'application/json',
                             Authorization : `Bearer ${localStorage.getItem('token')}` 
                         },
                         body: JSON.stringify({  
-                            status: 'complete'
+                            status: "completed"
                         }),
                     }) 
                     if (request.status === 200) {  
@@ -177,7 +178,7 @@ export default function ProcessDeal(props: any) {
         if(tankInfo !== ''){ 
             setTab(item)
         }
-    }  
+    }   
 
     return (
         <div className='w-full h-full py-8' > 

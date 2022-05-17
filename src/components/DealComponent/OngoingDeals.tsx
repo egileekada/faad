@@ -28,31 +28,34 @@ export default function OngoingDeals(props: any) {
         props.values(item)
     }
 
-    console.log(data)
+    // console.log(data)
 
     return (
         <div className='w-full py-6' >
             {data.data.deals.map((item: any, index: any)=> {
-                return(
-                    <div key={index} style={{border:'0.5px solid #F88C3A'}} className='w-full flex p-6 mb-6 rounded-2xl bg-white ' >
-                        <div className='w-full flex flex-col mr-2' >
-                            <p className='font-Inter-SemiBold text-lg text-[#F1BD37] ' >{item.quantity} ℓ <span className=' text-[#414141] ml-2 ' >{item.companyName}</span></p>
-                            <p className='font-Inter-Regular mt-1 text-sm' >{item.address}</p>
-                            <p className='font-Inter-Regular text-sm'>{item.email} <span className='ml-2' >+234{item.phoneNumber}</span></p>
-                            <div className='flex mt-10' >
-                                <button className='border border-[#F66E09] font-Inter-Medium rounded py-2 text-sm text-[#F66E09] px-4 ' >Ask customer service</button>
-                                <button onClick={()=> ClickHandler(item)} className='ml-4 bg-[#F66E09] font-Inter-Medium rounded py-2 text-sm text-[#fff] px-4 ' >Process deal</button>
+
+                if(item.status !== 'completed'){ 
+                    return(
+                        <div key={index} style={{border:'0.5px solid #F88C3A'}} className='w-full flex p-6 mb-6 rounded-2xl bg-white ' >
+                            <div className='w-full flex flex-col mr-2' >
+                                <p className='font-Inter-SemiBold text-lg text-[#F1BD37] ' >{item.quantity} ℓ <span className=' text-[#414141] ml-2 ' >{item.companyName}</span></p>
+                                <p className='font-Inter-Regular mt-1 text-sm' >{item.address}</p>
+                                <p className='font-Inter-Regular text-sm'>{item.email} <span className='ml-2' >+234{item.phoneNumber}</span></p>
+                                <div className='flex mt-10' >
+                                    <button className='border border-[#F66E09] font-Inter-Medium rounded py-2 text-sm text-[#F66E09] px-4 ' >Ask customer service</button>
+                                    <button onClick={()=> ClickHandler(item)} className='ml-4 bg-[#F66E09] font-Inter-Medium rounded py-2 text-sm text-[#fff] px-4 ' >Process deal</button>
+                                </div>
+                            </div>
+                            <div className='w-full flex flex-col ml-2' >
+                                <div className='bg-[#DDE2E54D] rounded-2xl p-4  ' >
+                                    <p className='font-Inter-Bold text-sm text-[#414141]' >Dispatch Note</p>
+                                    <p className='font-Inter-Regular mt-1 text-sm text-[#414141]' >{item.dispatchNote}</p>
+                                </div>
+                                    <p className='font-Inter-Regular ml-auto mt-auto text-sm flex text-[#414141]' >{DateFormat(item.updatedAt)} <span className='ml-2' >Created by Kimora</span><span className='ml-2 font-Inter-Bold' >FA2343-B3</span></p>
                             </div>
                         </div>
-                        <div className='w-full flex flex-col ml-2' >
-                            <div className='bg-[#DDE2E54D] rounded-2xl p-4  ' >
-                                <p className='font-Inter-Bold text-sm text-[#414141]' >Dispatch Note</p>
-                                <p className='font-Inter-Regular mt-1 text-sm text-[#414141]' >{item.dispatchNote}</p>
-                            </div>
-                                <p className='font-Inter-Regular ml-auto mt-auto text-sm flex text-[#414141]' >{DateFormat(item.updatedAt)} <span className='ml-2' >Created by Kimora</span><span className='ml-2 font-Inter-Bold' >FA2343-B3</span></p>
-                        </div>
-                    </div>
-                )
+                    )
+                }
             })}
         </div >
     )
