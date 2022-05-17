@@ -1,5 +1,6 @@
 import { Checkbox, Input, Radio, RadioGroup, Stack, Textarea } from '@chakra-ui/react'
 import React from 'react'
+import ButtonLoader from '../../ButtonLoader'
 
 export default function StepFour(props: any) {
 
@@ -13,14 +14,18 @@ export default function StepFour(props: any) {
                     <p className='font-Inter-SemiBold text-xl text-[#212429]' >Confirm delivery and end deal</p>
                     {/* <p className='font-Inter-Regular mt-1 text-[#495057] text-sm ' >20000ℓ • Waterfall </p> */}
                     <div className='flex mt-8 items-center' >
-                        <Checkbox colorScheme='orange' />
+                        <Checkbox onChange={(e) =>  props.delivery({...props.deliveryDefault,
+                            receivedDeliveryNote: e.target.checked
+                        })}colorScheme='orange' />
                         <div className='ml-3' > 
                             <p className='font-Inter-Medium text-[#000] text-sm ' >Received delivery note</p>
                             <p className='font-Inter-Regular mt-1 text-[#ACB5BD] text-sm ' >Ensure you have double checked</p>
                         </div>
                     </div>
                     <div className='flex mt-4 items-center' >
-                        <Checkbox colorScheme='orange' />
+                        <Checkbox onChange={(e) =>  props.delivery({...props.deliveryDefault,
+                            receivedWaterNote: e.target.checked
+                        })} colorScheme='orange' />
                         <div className='ml-3' > 
                             <p className='font-Inter-Medium text-[#000] text-sm ' >Received Water test form</p>
                             <p className='font-Inter-Regular mt-1 text-[#ACB5BD] text-sm ' >Ensure you have double checked</p>
@@ -50,11 +55,24 @@ export default function StepFour(props: any) {
                             </Radio> 
                         </Stack>
                     </RadioGroup>
-                </div>
-                    
+                </div> 
                 <div className='w-full flex mt-14' >
                     <button onClick={()=> setShow((prev)=> !prev)} className='py-2 text-sm font-Inter-SemiBold text-white rounded-md mt-auto bg-[#F1BD37] px-6' >Report issue</button>
-                    <button onClick={()=> props.click(4)} className={show ? 'py-2 text-sm font-Inter-SemiBold text-[#ACB5BD] rounded-md mt-auto ml-auto bg-[#DDE2E5] px-16':'py-2 text-sm font-Inter-SemiBold text-white rounded-md mt-auto ml-auto bg-[#F88C3A] px-16'} >Finish</button>
+                    {props.deliveryDefault.receivedDeliveryNote && (
+
+                        <button onClick={()=> props.submit()} disabled={show ? true: false} className={show ? 'py-2 text-sm font-Inter-SemiBold text-[#ACB5BD] rounded-md mt-auto ml-auto bg-[#DDE2E5] px-16':'py-2 text-sm font-Inter-SemiBold text-white rounded-md mt-auto ml-auto bg-[#F88C3A] px-16'} >
+                            {props.loading && (
+                                <> 
+                                    <ButtonLoader size='20' />
+                                    <span className='ml-3'>Loading</span>
+                                </>
+                            )}
+                            {!props.loading && (
+                                <span className='mx-4'>Finish</span>
+                            )}  
+                        </button>
+                        // <button onClick={()=> props.click} disabled={show ? true: false} className={show ? 'py-2 text-sm font-Inter-SemiBold text-[#ACB5BD] rounded-md mt-auto ml-auto bg-[#DDE2E5] px-16':'py-2 text-sm font-Inter-SemiBold text-white rounded-md mt-auto ml-auto bg-[#F88C3A] px-16'} >Finish</button>
+                    )}
                 </div>
             </div>
         </div>

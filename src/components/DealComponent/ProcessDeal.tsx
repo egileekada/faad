@@ -12,31 +12,21 @@ import StepTwo from './ProcessDealsComponent/StepTwo'
 export default function ProcessDeal(props: any) {
 
     const [tab, setTab] = React.useState(0)
-    const navigate = useNavigate()
+    const navigate = useNavigate() 
 
-        // }
-        // client: object;
-        //  tanks: string;
-        //  truck: object;
-        //  inspect?: {
-        //  waterCheck: boolean;
-        //  truckSealed: boolean
-        //  }
-        //  agent: object;
-        //  driver: object;
-        //  confirmedDelivery?: {
-        //  receivedDeliveryNote: boolean;
-        //  receivedWaterNote: boolean
-        //  }
-        // }
-
+    const [showDetail, setShowDetail] = React.useState(false); 
     const [loading, setLoading] = React.useState(false); 
     // const [clientInfo, setClientInfo] = React.useState({} as any); 
     const [truckInfo, setTruckInfo] = React.useState('');
+    const [deliveryId, setDeliveryId] = React.useState('');
     const [tankInfo, setTankInfo] = React.useState('');
-    const [agentInfo, setAgentInfo] = React.useState('');
+    const [agentInfo, setAgentInfo] = React.useState(''); 
+    const [truckName, setTruckName] = React.useState('');
+    const [tankName, setTankName] = React.useState('');
+    const [agentName, setAgentName] = React.useState('');
     const [dispatchQuatity, setDispatchQuatity] = React.useState('');
     const [driverInfo, setDriverInfo] = React.useState('');
+    const [driverName, setDriverName] = React.useState('');
     const [inspectInfo, setInspectInfo] = React.useState({
         waterCheck: false,
         truckSealed: false
@@ -44,73 +34,153 @@ export default function ProcessDeal(props: any) {
     const [confirmedDeliveryInfo, setConfirmedDeliveryInfo] = React.useState({
         receivedDeliveryNote: false,
         receivedWaterNote: false,
-    });  
+    });   
 
-    console.log(agentInfo, driverInfo)
- 
-    const submit = async () => {
 
-        setLoading(true); 
-        const request = await fetch(`https://faadoli.herokuapp.com/api/v1/delivery`, {
-            method: 'POST',
+    React.useEffect(() => {
+        fetch(`https://faadoli.herokuapp.com/api/v1/delivery`, {
+            method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json',
-                Authorization : `Bearer ${localStorage.getItem('token')}` 
-            },
-            body: JSON.stringify({
-                client: props.values._id,
-                tanks: tankInfo,
-                truck: truckInfo,
-                inspect: {
-                    waterCheck: inspectInfo.waterCheck,
-                    truckSealed: inspectInfo.truckSealed
-                },
-                agent: agentInfo,
-                driver: driverInfo,
-                confirmedDelivery: {
-                    receivedDeliveryNote: confirmedDeliveryInfo.receivedDeliveryNote,
-                    receivedWaterNote: confirmedDeliveryInfo.receivedWaterNote,
-                }
-            }),
+                Authorization : `Bearer ${localStorage.getItem('token')}`
+            }
         })
+        .then(response => response.json())
+        .then(data => {       
+            {data.data.delivery.map((item: any)=> {
+                if(props.values._id === item.deal._id){ 
+                    console.log(item)
+                    setDeliveryId(item._id)
+                    setShowDetail(true)
+                    setTankName('Tank Capacity: '+item.tanks.level+'ℓ')
+                    setTruckName('Truck TruckID: '+item.truck.truckId)
+                    setAgentInfo(item.agent._id)
+                    setDriverInfo(item.driver._id)
+                    setTankInfo(item.tanks._id)
+                    setTruckInfo(item.truck._id)
+                    setAgentName(item.agent.name)
+                    setDriverName(item.driver.name)
+                    setInspectInfo({
+                        waterCheck: item.inspect.waterCheck,
+                        truckSealed: item.inspect.truckSealed
+                    })
+                }
+            })} 
+        })
+        .catch((error) => {
+            console.error('Error:', error); 
+        },);     
+    },[] ) 
+ 
+    const submit = async () => { 
+        
+        setLoading(true); 
+        if(!showDetail){ 
+            const request = await fetch(`https://faadoli.herokuapp.com/api/v1/delivery`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization : `Bearer ${localStorage.getItem('token')}` 
+                },
+                body: JSON.stringify({ 
+                    dealId: props.values._id,
+                    tankId: tankInfo,
+                    truckId: truckInfo,
+                    inspect: {
+                        waterCheck: inspectInfo.waterCheck,
+                        truckSealed: inspectInfo.truckSealed
+                    },
+                    agentId: agentInfo,
+                    driverId: driverInfo,
+                    confirmedDelivery: {
+                        receivedDeliveryNote: confirmedDeliveryInfo.receivedDeliveryNote,
+                        receivedWaterNote: confirmedDeliveryInfo.receivedWaterNote,
+                    }
+                }),
+            })
 
-        const json = await request.json(); 
+            const json = await request.json(); 
 
-        if (request.status === 200) {     
-            alert('Sucessfull')
-            navigate(0);
-            // const t1 = setTimeout(() => {   
-            //     clearTimeout(t1);
-            // }, 1000); 
-        }else {
-            alert(json.message);
-            console.log(json)
-            setLoading(false);
-        } 
+            if (request.status === 200) {     
+                alert('Sucessfull')
+                navigate(0);
+                // const t1 = setTimeout(() => {   
+                //     clearTimeout(t1);
+                // }, 1000); 
+            }else {
+                alert(json.message);
+                console.log(json)
+                setLoading(false);
+            } 
+        } else {
+            const request = await fetch(`https://faadoli.herokuapp.com/api/v1/delivery/${deliveryId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization : `Bearer ${localStorage.getItem('token')}` 
+                },
+                body: JSON.stringify({ 
+                    // dealId: props.values._id,
+                    tankId: tankInfo,
+                    truckId: truckInfo,
+                    inspect: {
+                        waterCheck: inspectInfo.waterCheck,
+                        truckSealed: inspectInfo.truckSealed
+                    },
+                    agentId: agentInfo,
+                    driverId: driverInfo,
+                    confirmedDelivery: {
+                        receivedDeliveryNote: confirmedDeliveryInfo.receivedDeliveryNote,
+                        receivedWaterNote: confirmedDeliveryInfo.receivedWaterNote,
+                    }
+                }),
+            })
+
+            const json = await request.json(); 
+
+            if (request.status === 200) {     
+                alert('Sucessfull')
+                if(confirmedDeliveryInfo.receivedDeliveryNote){
+
+                    const request = await fetch(`https://faadoli.herokuapp.com/api/v1/delivery/${deliveryId}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            Authorization : `Bearer ${localStorage.getItem('token')}` 
+                        },
+                        body: JSON.stringify({  
+                            status: 'complete'
+                        }),
+                    }) 
+                    if (request.status === 200) {  
+                        alert('Deal Update')
+                    }else {
+                        alert(json.message);
+                        console.log(json)
+                        setLoading(false);
+                    } 
+                } 
+
+                setTab(4) 
+                // const t1 = setTimeout(() => {   
+                //     clearTimeout(t1);
+                // }, 1000); 
+            }else {
+                alert(json.message);
+                console.log(json)
+                setLoading(false);
+            } 
+        }
     } 
 
     const ClickHandler =(item: any)=> {
         if(tankInfo !== ''){ 
             setTab(item)
         }
-    } 
-
-    const { isLoading, error, data } = useQuery('DeliveryInfo', () =>
-        fetch(`https://faadoli.herokuapp.com/api/v1/delivery`, {
-            method: 'GET', // or 'PUT'
-            headers: {
-                'Content-Type': 'application/json', 
-                Authorization : `Bearer ${localStorage.getItem('token')}`
-            }
-        }).then(res =>
-            res.json()
-        )
-    )  
-
-    console.log(data)
+    }  
 
     return (
-        <div className='w-full h-full py-8' >
+        <div className='w-full h-full py-8' > 
             <svg onClick={()=> navigate(0)} className='cursor-pointer fixed z-50 top-14  ' width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M20.3287 11.0001V13.0001L7.50042 13.0001L10.7429 16.2426L9.32873 17.6568L3.67188 12L9.32873 6.34314L10.7429 7.75735L7.50019 11.0001L20.3287 11.0001Z" fill="#495057"/>
             </svg>
@@ -181,7 +251,7 @@ export default function ProcessDeal(props: any) {
                     </div>
                     <div className={tab >= 2 ? 'w-full h-2 bg-[#F88C3A]':'w-full h-2'} />
                 </div>
-                <div onClick={()=> ClickHandler(3)} style={{border: '1px solid #DDE2E5'}} className='w-full bg-white cursor-pointer ' >
+                <div style={{border: '1px solid #DDE2E5'}} className='w-full bg-white cursor-pointer ' >
                     <div className='w-full flex px-3 py-2 item-center checkbox' >
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M20 8H17V4H3C1.9 4 1 4.9 1 6V17H3C3 18.66 4.34 20 6 20C7.66 20 9 18.66 9 17H15C15 18.66 16.34 20 18 20C19.66 20 21 18.66 21 17H23V12L20 8ZM19.5 9.5L21.46 12H17V9.5H19.5ZM6 18C5.45 18 5 17.55 5 17C5 16.45 5.45 16 6 16C6.55 16 7 16.45 7 17C7 17.55 6.55 18 6 18ZM8.22 15C7.67 14.39 6.89 14 6 14C5.11 14 4.33 14.39 3.78 15H3V6H15V15H8.22ZM18 18C17.45 18 17 17.55 17 17C17 16.45 17.45 16 18 16C18.55 16 19 16.45 19 17C19 17.55 18.55 18 18 18Z" fill="#ACB5BD"/>
@@ -204,16 +274,16 @@ export default function ProcessDeal(props: any) {
             </div> 
             <div className='w-full mt-8 relative' >
                 <div className={tab === 0 ? 'w-full ' : 'hidden'} >
-                    <StepOne values={props.values} dispatchquatity={setDispatchQuatity} tank={setTankInfo} truck={setTruckInfo} click={ClickHandler} />
+                    <StepOne show={showDetail} truckId={truckInfo} tankId={tankInfo} truckName={truckName} tankName={tankName} values={props.values} dispatchquatity={setDispatchQuatity} tank={setTankInfo} truck={setTruckInfo} click={ClickHandler} />
                 </div>
                 <div className={tab === 1 ? 'w-full ' : 'hidden'} >
-                    <StepTwo inspect={setInspectInfo} click={setTab} />
+                    <StepTwo show={showDetail} inspectDefault={inspectInfo} inspect={setInspectInfo} click={setTab} />
                 </div>
                 <div className={tab === 2 ? 'w-full ' : 'hidden'} >
-                    <StepThree truck={truckInfo} dispatch={dispatchQuatity} values={props.values} loading={loading} submit={submit} agent={setAgentInfo} driver={setDriverInfo} click={setTab} />
+                    <StepThree show={showDetail} agentName={agentName} driverId={driverInfo} agentId={agentInfo} driverName={driverName} truck={truckInfo} dispatch={dispatchQuatity} values={props.values} loading={loading} submit={submit} agent={setAgentInfo} driver={setDriverInfo} click={setTab} />
                 </div>
                 <div className={tab === 3 ? 'w-full ' : 'hidden'} >
-                    <StepFour delivery={setConfirmedDeliveryInfo} click={setTab} />
+                    <StepFour deliveryDefault={confirmedDeliveryInfo} delivery={setConfirmedDeliveryInfo} submit={submit} />
                 </div>
                 {/* <div className={tab === 4 ? 'w-full ' : 'hidden'} > */}
                     

@@ -5,7 +5,7 @@ import PageLoader from '../PageLoader'
 
 export default function OngoingDeals(props: any) { 
  
-    const { isLoading, error, data } = useQuery('AllDeals', () =>
+    const { isLoading, data } = useQuery('AllDeals', () =>
         fetch('https://faadoli.herokuapp.com/api/v1/deals', {
             method: 'GET', // or 'PUT'
             headers: {
@@ -27,6 +27,8 @@ export default function OngoingDeals(props: any) {
         props.click(2)
         props.values(item)
     }
+
+    console.log(data)
 
     return (
         <div className='w-full py-6' >

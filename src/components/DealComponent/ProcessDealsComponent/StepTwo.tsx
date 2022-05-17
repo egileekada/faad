@@ -3,14 +3,14 @@ import React from 'react'
 
 export default function StepTwo(props: any) {
 
-    const [inspect, setInspectInfo] = React.useState({
-        waterCheck: false,
-        truckSealed: false
-    })
+    // const [inspect, setInspectInfo] = React.useState({
+    //     waterCheck: false,
+    //     truckSealed: false
+    // })
 
-    React.useEffect(() => {
-        props.inspect(inspect)
-    }, [inspect]) 
+    // React.useEffect(() => {
+    //     props.inspect(inspect)
+    // }, [inspect]) 
 
     return (
         <div style={{border: '1px solid #DDE2E5', height: '60vh'}} className='bg-white rounded-lg p-8 ' >
@@ -19,7 +19,8 @@ export default function StepTwo(props: any) {
                 <p className='font-Inter-Regular mt-1 text-[#495057] text-sm ' >20000ℓ • Waterfall </p>
                 <div className='flex mt-8 items-center' >
                     <Checkbox 
-                     onChange={(e) =>  setInspectInfo({...inspect,
+                        isChecked={props.inspectDefault.waterCheck} 
+                        onChange={(e) =>  props.inspect({...props.inspectDefault,
                         waterCheck: e.target.checked
                     })} colorScheme='orange' />
                     <div className='ml-3' > 
@@ -29,7 +30,8 @@ export default function StepTwo(props: any) {
                 </div>
                 <div className='flex mt-4 items-center' >
                     <Checkbox 
-                     onChange={(e) =>  setInspectInfo({...inspect,
+                        isChecked={props.inspectDefault.truckSealed} 
+                     onChange={(e) =>  props.inspect({...props.inspectDefault,
                         truckSealed: e.target.checked
                     })} colorScheme='orange' />
                     <div className='ml-3' > 

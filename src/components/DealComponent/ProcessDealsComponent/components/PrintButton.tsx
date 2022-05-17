@@ -61,18 +61,10 @@ const PrintButton = (props: any) => {
     .catch((error) => {
         console.error('Error:', error); 
     },);  
-} 
-
-  console.log(props.values)
+}  
 
   return (
-    <div className=""> 
-      {/* <button onClick={()=> props.click()} className='font-Inter-SemiBold mt-10 text-sm h-10 flex justify-center items-center text-white rounded-lg px-4 bg-[#F88C3A] '>
-          <svg className='mr-2' width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path fill-rule="evenodd" clip-rule="evenodd" d="M16.5 4H8.5V6H16.5V4ZM6.5 6H2.5V18H6.5V22H18.5V18H22.5V6H18.5V2H6.5V6ZM4.5 16H6.5V14H18.5V16H20.5V8H4.5V16ZM16.5 16H8.5V20H16.5V16ZM16.5 10H18.5V12H16.5V10Z" fill="white"/>
-          </svg> 
-          Print entry permit
-      </button>   */}
+    <div className="">  
       {props.name === 'delivery' && (
         <div onClick={()=> setShow(true)} className='flex items-center cursor-pointer' >
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -103,7 +95,7 @@ const PrintButton = (props: any) => {
       {show ? 
         (
           <>
-            <div className="h-auto flex justify-center items-start py-2 overflow-x-hidden overflow-y-auto  fixed inset-0 z-50 outline-none focus:outline-none"> 
+            <div  onClick={()=> setShow(false)} className="h-auto flex justify-center items-start py-2 overflow-x-hidden overflow-y-auto  fixed inset-0 z-50 outline-none focus:outline-none"> 
               <div style={{width: '650px'}} className=" bg-white h-auto flex flex-col rounded-lg" >
                 <div className='flex items-center px-10 mt-10' >
                   <p className=' font-Inter-Bold text-lg ' >Print Details</p>
@@ -134,7 +126,7 @@ const PrintButton = (props: any) => {
                 </button>  
               </div>
             </div> 
-            <div className="opacity-20 fixed flex flex-1 inset-0 z-40 bg-black"/>
+            <div className="opacity-20 fixed flex flex-1 cursor-pointer inset-0 z-40 bg-black"/>
           </>
         ) : null}  
     </div>

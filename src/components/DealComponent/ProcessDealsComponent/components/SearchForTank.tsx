@@ -26,8 +26,7 @@ export default function SearchForTank(props: any) {
             }
         })
         .then(response => response.json())
-        .then(data => {    
-            console.log(data)  
+        .then(data => {      
             props.tank(data.data.tank._id)
             // if(!level){
             //     setLevel([...level, data.data.tank.capacity])
@@ -41,8 +40,6 @@ export default function SearchForTank(props: any) {
 
     }  
 
-    // console.log(data)
-
     return (
         <div className='w-full  ' > 
             {!isLoading && ( 
@@ -53,7 +50,8 @@ export default function SearchForTank(props: any) {
                                 <p className='font-Inter-Regular text-sm w-28 ' >Dispatch tank</p> 
                                 <div className='w-96 flex items-center relative' >
                                     <div className='w-full' >
-                                        <Select onChange={(e)=> OnChangeHandle(e.target.value, index)} placeholder='Search' fontSize='sm' >
+                                        <Select onChange={(e)=> OnChangeHandle(e.target.value, index)} fontSize='sm' >
+                                            <option key='' >{props.show ? ''+props.tankName : 'Search'}</option>
                                             {data.data.tanks.map((item: any, index: any ) => {
                                                 return(
                                                     <option className='' key={index} value={item._id} >Tank{' '+(index+1)+'  Capacity: '}<span className='font-Inter-Regular' >{item.level+'ℓ  Product Name: '}</span><span className='font-Inter-Regular' >{item.product === null ? '':item.product.productCode}</span></option>

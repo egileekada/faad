@@ -8,8 +8,8 @@ import PageLoader from '../PageLoader'
 export default function DealsTable() {
 
     const navigate = useNavigate()
-    const { isLoading, error, data } = useQuery('AllDeals', () =>
-        fetch('https://faadoli.herokuapp.com/api/v1/deals', {
+    const { isLoading, error, data } = useQuery('AllDelivery', () =>
+        fetch('https://faadoli.herokuapp.com/api/v1/delivery', {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 
@@ -52,35 +52,37 @@ export default function DealsTable() {
                             </Tr>
                         </Thead>
                         <Tbody >
-                            {data.data.deals.map((item: any, index: any)=> {
+                            {data.data.delivery.map((item: any, index: any)=> {
                                 return(
-                                    <Tr onClick={()=> ClickHandler(item._id)} className=' cursor-pointer font-Inter-Regular text-sm ' key={index} paddingBottom='30px' >
+                                    <Tr onClick={()=> ClickHandler(item.deal._id)} className=' cursor-pointer font-Inter-Regular text-sm ' key={index} paddingBottom='30px' >
                                         <Td>{index+1}</Td> 
                                         <Td>
                                             <div className='flex items-center' > 
                                                 <div className='w-20'>
-                                                    {item.companyName}
+                                                    {item.deal.companyName}
                                                 </div>
-                                                <svg className='ml-3' width="18" height="22" viewBox="0 0 18 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M12.9452 20.9559C9.58848 22.5927 5.42483 22.0167 2.63604 19.2279C-0.87868 15.7132 -0.87868 10.0147 2.63604 6.5L9 0.13604L15.364 6.5C16.2521 7.38819 16.9159 8.41583 17.3552 9.51245C18.6544 12.7554 17.9907 16.6013 15.3641 19.2279C14.6381 19.9538 13.819 20.5298 12.9452 20.9559ZM4.05025 7.91421L9 2.96447L13.9497 7.91421C15.2741 9.23856 15.9568 10.9615 15.998 12.6969H2.00198C2.04315 10.9615 2.72591 9.23856 4.05025 7.91421Z" fill="#F88C3A"/>
-                                                </svg>
+                                                {!item.confirmedDelivery.receivedDeliveryNote && (
+                                                    <svg className='ml-3' width="18" height="22" viewBox="0 0 18 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M12.9452 20.9559C9.58848 22.5927 5.42483 22.0167 2.63604 19.2279C-0.87868 15.7132 -0.87868 10.0147 2.63604 6.5L9 0.13604L15.364 6.5C16.2521 7.38819 16.9159 8.41583 17.3552 9.51245C18.6544 12.7554 17.9907 16.6013 15.3641 19.2279C14.6381 19.9538 13.819 20.5298 12.9452 20.9559ZM4.05025 7.91421L9 2.96447L13.9497 7.91421C15.2741 9.23856 15.9568 10.9615 15.998 12.6969H2.00198C2.04315 10.9615 2.72591 9.23856 4.05025 7.91421Z" fill="#F88C3A"/>
+                                                    </svg>
+                                                )}
                                             </div>
                                         </Td> 
                                         <Td>
                                             {/* <div className='w-8' > */}
-                                                {item.fuelType}
+                                                {item.deal.fuelType}
                                             {/* </div> */}
                                         </Td> 
                                         <Td>
                                             {/* <div className='w-32' > */}
-                                                {item.quantity}
+                                                {item.deal.quantity}
                                             {/* </div>  */}
                                         </Td>  
-                                        <Td>{item.askingPrice}</Td> 
+                                        <Td>{item.deal.askingPrice}</Td> 
                                         <Td> 
                                             <div className='flex items-center' > 
                                                 <div className='w-14'>
-                                                    {item.email}
+                                                    {item.deal.email}
                                                 </div>
                                                 <svg className='ml-auto' width="18" height="12" viewBox="0 0 18 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path d="M1.99255 6.9841C1.44027 6.9841 0.992554 7.43181 0.992554 7.9841C0.992554 8.34149 1.18004 8.65509 1.46202 8.83192L4.14964 11.5195C4.54016 11.9101 5.17333 11.9101 5.56385 11.5195C5.95438 11.129 5.95438 10.4958 5.56385 10.1053L4.44263 8.9841H11.9926C12.5448 8.9841 12.9926 8.53638 12.9926 7.9841C12.9926 7.43181 12.5448 6.9841 11.9926 6.9841L2.042 6.9841C2.03288 6.98397 2.02376 6.98397 2.01464 6.9841H1.99255Z" fill="black"/>
@@ -90,10 +92,10 @@ export default function DealsTable() {
                                         </Td> 
                                         <Td>
                                             <div className='w-14'>
-                                                {item._id}
+                                                {item.deal._id}
                                             </div>
                                         </Td> 
-                                        <Td>{DateFormat(item.createdAt)}</Td> 
+                                        <Td>{DateFormat(item.deal.createdAt)}</Td> 
                                     </Tr> 
                                 )
                             })}

@@ -25,8 +25,7 @@ export default function ClienteleInfo() {
         <div className='w-full h-auto flex mt-12 justify-center  ' > 
             <PageLoader />
         </div>
-    )    
-
+    )     
 
     const ClickHandler =()=> { 
         navigate('/dashboard/clientele')

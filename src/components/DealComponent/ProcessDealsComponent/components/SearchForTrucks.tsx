@@ -32,7 +32,8 @@ export default function SearchForTrucks(props: any) {
                         <p className='font-Inter-Regulartext-[#ACB5BD] text-sm w-28 font-Inter-Regular ' >Choose a truck</p> 
                         <div className='w-96 flex items-center relative' >
                             <div className='w-full' >
-                                <Select onChange={(e)=> OnChangeHandle(e.target.value)} placeholder='Search' fontSize='sm' >
+                                <Select onChange={(e)=> OnChangeHandle(e.target.value)} fontSize='sm' > 
+                                    <option key='' >{props.show ? ''+props.truckName : 'Search'}</option>
                                     {data.data.trucks.map((item: any, index: any ) => {
                                         return(
                                             <option className='' key={index} value={item._id} >Truck{' '+(index+1)+'  TruckID: '}<span className='font-Inter-Regular' >{item.truckId}</span></option>

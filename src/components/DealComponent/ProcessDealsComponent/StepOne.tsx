@@ -34,14 +34,14 @@ export default function StepOne(props: any) {
                         <p className=' w-64 font-Inter-Regular mt-1 text-[#ACB5BD] text-sm ' >{props.values.address}</p>
                     </div>
                 </div> 
-                <SearchForTank tank={props.tank} tankNo={numberOfTanks} />
+                <SearchForTank show={props.show} tankName={props.tankName} id={props.tankId} tank={props.tank} tankNo={numberOfTanks} />
                 <div className='flex mt-4 items-center' >  
                     <p className='font-Inter-Regulartext-[#ACB5BD] text-sm w-28 ' >Enter dispatch quantity (ℓ)</p> 
                     <div className='w-96' >
                         <Input onChange={(e)=> props.dispatchquatity(e.target.value)} placeholder='00.00' fontSize='sm' />
                     </div> 
                 </div>
-                <SearchForTrucks truck={props.truck} /> 
+                <SearchForTrucks show={props.show} truckName={props.truckName} id={props.truckId} truck={props.truck} /> 
                 <div className='flex mt-4 items-center ml-28 cursor-pointer' >
                     <svg onClick={()=> setNumberOfTanks([...numberOfTanks, 'New'])} className='mr-3' width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M10 4.5C10.5523 4.5 11 4.94772 11 5.5V9.5H15C15.5523 9.5 16 9.94771 16 10.5C16 11.0523 15.5523 11.5 15 11.5H11V15.5C11 16.0523 10.5523 16.5 10 16.5C9.44771 16.5 9 16.0523 9 15.5V11.5H5C4.44772 11.5 4 11.0523 4 10.5C4 9.94771 4.44772 9.5 5 9.5H9V5.5C9 4.94772 9.44771 4.5 10 4.5Z" fill="#ACB5BD"/>
