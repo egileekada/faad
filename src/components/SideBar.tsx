@@ -1,26 +1,29 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom' 
+import { IUser, UserContext } from './context/UserContext';
 import SideBarIcons from './SideBarIcons'
 
 export default function SideBar() {
     
     const navigate = useNavigate()
+    const userContext: IUser = React.useContext(UserContext);  
     const menuArray = ['Dashboard', 'Accounts','Bargains', 'Deals', 'Clientele', 'Our people', 'Activities']
     const messageArray = ['Customer Service', 'Operations', 'General', 'My Notes', 'Lock', 'Log out']
 
     const [active, setActive] = React.useState('Dashboard')
 
-    React.useEffect(() => {
-        if(!sessionStorage.getItem('tabIndex')){ 
-            sessionStorage.setItem('tabIndex', active)
-        } else {
-            setActive(sessionStorage.getItem('tabIndex')+'')
-        }
-    }, [active])
+    // React.useEffect(() => {
+    //     if(!sessionStorage.getItem('tabIndex')){ 
+    //         sessionStorage.setItem('tabIndex', active)
+    //     } else {
+    //         setActive(sessionStorage.getItem('tabIndex')+'')
+    //     }
+    // }, [active])
 
     const ClickHandler =(item: any)=> { 
         const rout = item.toLowerCase().replace(/\s/g,'')
         if(item !== 'Log out'){
+            userContext.setTab(item)
             sessionStorage.setItem('tabIndex', item)
             setActive(item) 
             if(item === 'Dashboard') {
@@ -53,11 +56,11 @@ export default function SideBar() {
                 <div className='mt-4' >
                      {menuArray.map((item: any)=> {
                          return(
-                            <div onClick={()=> ClickHandler(item)} style={item === active ? {backgroundColor: '#FEE8D8'} : {}} key={item} className='flex items-center my-2 cursor-pointer py-2 rounded-md pl-5 ' >
+                            <div onClick={()=> ClickHandler(item)} style={item === userContext.tab ? {backgroundColor: '#FEE8D8'} : {}} key={item} className='flex items-center my-2 cursor-pointer py-2 rounded-md pl-5 ' >
                                 <div className='w-7 h-7 flex items-center justify-center' >
-                                    <SideBarIcons iconName={item} active={active} />
+                                    <SideBarIcons iconName={item} active={userContext.tab} />
                                 </div>
-                                <p style={item === active ? {color: '#F88C3A'}: {color: '#212429'}} className='ml-4 font-Inter-SemiBold text-sm' >{item}</p>
+                                <p style={item === userContext.tab ? {color: '#F88C3A'}: {color: '#212429'}} className='ml-4 font-Inter-SemiBold text-sm' >{item}</p>
                             </div>
                          )
                      })}
@@ -66,11 +69,11 @@ export default function SideBar() {
                 <div className='mt-4' >
                      {messageArray.map((item: any)=> {
                          return(
-                            <div onClick={()=> ClickHandler(item)} style={item === active ? {backgroundColor: '#FEE8D8'} : {}} key={item} className='flex items-center my-2 cursor-pointer py-2 rounded-md pl-5 ' >
+                            <div onClick={()=> ClickHandler(item)} style={item === userContext.tab ? {backgroundColor: '#FEE8D8'} : {}} key={item} className='flex items-center my-2 cursor-pointer py-2 rounded-md pl-5 ' >
                                 <div className='w-7 h-7 flex items-center justify-center' >
-                                    <SideBarIcons iconName={item} active={active} />
+                                    <SideBarIcons iconName={item} active={userContext.tab} />
                                 </div>
-                                <p style={item === active ? {color: '#F88C3A'}: {color: '#212429'}} className='ml-3 font-Inter-SemiBold text-sm' >{item}</p>
+                                <p style={item === userContext.tab ? {color: '#F88C3A'}: {color: '#212429'}} className='ml-3 font-Inter-SemiBold text-sm' >{item}</p>
                             </div>
                          )
                      })}

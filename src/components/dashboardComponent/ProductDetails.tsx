@@ -20,12 +20,10 @@ export default function ProductDetails() {
         <div className='w-full h-auto flex mt-12 justify-center  ' > 
             <PageLoader />
         </div>
-    )  
-
-    console.log(data.data.tanks)
+    )   
 
     return (
-        <div className='w-full rounded-3xl py-6 px-10 flex items-center  bg-[#FBF3EE] ' style={{border: '1px solid #F9A362', boxShadow: '4px 4px 6px 1px #0000000F'}} >
+        <div className='w-full rounded-3xl py-6 px-8 flex items-center  bg-[#FBF3EE] ' style={{border: '1px solid #F9A362', boxShadow: '4px 4px 6px 1px #0000000F'}} >
             <svg className='cursor-pointer' width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M12 6.75739L13.4142 8.1716L10.5858 11L13.4142 13.8284L12 15.2426L7.75736 11L12 6.75739Z" fill="#495057"/>
                 <path fill-rule="evenodd" clip-rule="evenodd" d="M18 0C20.2091 0 22 1.79086 22 4V18C22 20.2091 20.2091 22 18 22H4C1.79086 22 0 20.2091 0 18V4C0 1.79086 1.79086 0 4 0H18ZM20 4V18C20 19.1046 19.1046 20 18 20H4C2.89543 20 2 19.1046 2 18L2 4C2 2.89543 2.89543 2 4 2L18 2C19.1046 2 20 2.89543 20 4Z" fill="#495057"/>
@@ -35,8 +33,8 @@ export default function ProductDetails() {
                     <>
                         {data.data.tanks.map((item: any, index: any ) => {
                             if(item.product !== null){ 
-                                
-                                if(index > 2){
+
+                                if(index > 4){
 
                                 } else {
                                     return(
@@ -45,12 +43,12 @@ export default function ProductDetails() {
                                                 <circle cx="24" cy="24" r="24" fill="#FEE8D8"/>
                                                 <path d="M18.3431 31.5208C15.219 28.3966 15.219 23.3313 18.3431 20.2071L24 14.5503L29.6569 20.2071C32.781 23.3313 32.781 28.3966 29.6569 31.5208C26.5327 34.645 21.4673 34.645 18.3431 31.5208Z" stroke="#F88C3A" stroke-width="2"/>
                                             </svg>
-                                            <p className=' text-[#212429] text-sm font-Inter-SemiBold mt-4 ' >AGO <span className='text-[#009B00]' >11% ↑</span></p>
-                                            <p className=' text-[#212429] font-Inter-SemiBold text-sm '>N350.00</p>
-                                            <p className='text-[#212429] font-Inter-Regular text-xs ' >Available  • 26000 ℓ</p>
+                                            <p className=' text-[#212429] text-sm font-Inter-SemiBold mt-4 ' >{item.product.productCode} {item.product.percentageDifference >= 0 ? <span className='text-[#009B00]' >{item.product.percentageDifference}% ↑</span>:<span className='text-[#EC0000]' >{item.product.percentageDifference}% ↓</span>}</p>
+                                            <p className=' text-[#212429] font-Inter-SemiBold text-sm '>₦{item.product.newPrice}</p>
+                                            <p className='text-[#212429] font-Inter-Regular text-xs ' >Available  • {item.level.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}ℓ</p>
                                         </div>
         
-                                    )
+                                    ) 
                                 }
                             }
                         })} 

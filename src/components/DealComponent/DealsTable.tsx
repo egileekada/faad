@@ -2,12 +2,19 @@ import { Table, Thead, Tr, Th, Tbody, Td } from '@chakra-ui/react'
 import React from 'react'
 import { useQuery } from 'react-query'
 import { useNavigate } from 'react-router'
+import { IUser, UserContext } from '../context/UserContext'
 import DateFormat from '../DateFormat'
 import PageLoader from '../PageLoader'
 
 export default function DealsTable() {
 
     const navigate = useNavigate()
+    const userContext: IUser = React.useContext(UserContext);  
+
+    React.useEffect(() => {  
+        userContext.setTab('Deals')
+    },[]); 
+
     const { isLoading, error, data } = useQuery('AllDelivery', () =>
         fetch('https://faadoli.herokuapp.com/api/v1/delivery', {
             method: 'GET', // or 'PUT'
@@ -29,9 +36,7 @@ export default function DealsTable() {
         <div className='w-full h-auto flex mt-12 justify-center  ' > 
             <PageLoader />
         </div>
-    )    
-
-    console.log(data)
+    )     
     
     return (
         <div className='w-full relative' > 

@@ -4,18 +4,27 @@ import { useQuery } from 'react-query'
 import PageLoader from '../PageLoader'
 import AddProduct from './Modal/AddProduct'
 import ButtonLoader from '../ButtonLoader' 
+import { IUser, UserContext } from '../context/UserContext'
 
 export default function ProductAndPricing() {
 
     const [showModal, setShowModal] = React.useState(false)
     const [deleteModal, setDeleteModal] = React.useState(false)
     const [loading, setLoading] = React.useState(''); 
+    const userContext: IUser = React.useContext(UserContext);  
     const [deleteId, setDeleteId] = React.useState(''); 
     const [newPrice, setNewPrice] = React.useState({
         index: '',
         value: ''
     })
-    const [percentage, setPercentage] = React.useState('')
+    const [percentage, setPercentage] = React.useState({
+        index: '',
+        value: ''
+    })
+
+    React.useEffect(() => {  
+        userContext.setTab('Accounts')
+    },[]); 
 
     const { isLoading, data, refetch } = useQuery('AllProductAndPricing', () =>
         fetch('https://faadoli.herokuapp.com/api/v1/product', {
@@ -33,7 +42,7 @@ export default function ProductAndPricing() {
         <div className='w-full h-auto flex mt-12 justify-center  ' > 
             <PageLoader />
         </div>
-    )  
+    )   
 
     const DeleteHandler =async(item: any)=> {
         await fetch(`https://faadoli.herokuapp.com/api/v1/product/${item}`, {
@@ -62,17 +71,17 @@ export default function ProductAndPricing() {
                 },
                 body: JSON.stringify({ 
                     newPrice: Number(newPrice.value),
-                    percentageDifference: Number(percentage)
+                    percentageDifference: Number(percentage.value)
                 }),
             });
             refetch()
             setLoading('')
             setNewPrice({} as any)
-            setPercentage('')
+            setPercentage({} as any)
         }
         setLoading('')
         setNewPrice({} as any)
-        setPercentage('')
+        setPercentage({} as any)
     }
 
     const ClickHandler =(item: any)=> {
@@ -103,7 +112,10 @@ export default function ProductAndPricing() {
                                         </div>
                                         <div className='w-full ml-10' >
                                             <p className='font-Inter-Regular text-sm mb-1' >Reset percentage</p>
-                                            <Input onChange={(e)=> setPercentage(e.target.value)} fontSize='sm' size='lg' border='1px solid #ACB5BD' backgroundColor='white' placeholder='000.00'  />
+                                            <Input value={percentage.index === item._id ? percentage.value : ''} onChange={(e)=> setPercentage({
+                                                index: item._id,
+                                                value: e.target.value
+                                            })} fontSize='sm' size='lg' border='1px solid #ACB5BD' backgroundColor='white' placeholder='000.00'  />
                                         </div>
                                         <button onClick={()=> UpdateHandler(item._id)} disabled={loading === item._id ? true : false} className='font-Inter-SemiBold  ml-10 text-sm h-10 flex justify-center items-center text-white rounded-lg px-4 bg-[#F88C3A] ' >
                                             {loading === item._id && (

@@ -2,12 +2,18 @@ import { Select, Table, Thead, Tr, Th, Tbody, Td } from '@chakra-ui/react'
 import React from 'react'
 import { useQuery } from 'react-query'
 import { useNavigate } from 'react-router-dom'
+import { IUser, UserContext } from '../context/UserContext'
 import DateFormat from '../DateFormat'
 import PageLoader from '../PageLoader'
 
 export default function Clientele() {
  
     const navigate = useNavigate() 
+    const userContext: IUser = React.useContext(UserContext);  
+
+    React.useEffect(() => {  
+        userContext.setTab('Clientele')
+    },[]); 
 
     const { isLoading, data } = useQuery('AllClients', () =>
         fetch('https://faadoli.herokuapp.com/api/v1/client', {
@@ -24,9 +30,7 @@ export default function Clientele() {
     const ClickHandler =(item: any)=> { 
         navigate('info')  
         localStorage.setItem('clientID', item) 
-    }
-
-    console.log(data)
+    } 
     
     if (isLoading) return(
         <div className='w-full h-auto flex mt-12 justify-center  ' > 

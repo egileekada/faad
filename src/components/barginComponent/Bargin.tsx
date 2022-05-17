@@ -2,60 +2,18 @@ import { Select, Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react'
 import React from 'react'
 import { useQuery } from 'react-query'
 import { useNavigate } from 'react-router-dom'
+import { IUser, UserContext } from '../context/UserContext'
 import PageLoader from '../PageLoader'
 
 export default function Bargin() {
  
     const navigate = useNavigate()
-    const [tab, setTab] = React.useState(false)
-    // const data = [
-    //     { 
-    //         prospect: 'Schlumbeger LTD', 
-    //         product: 'AGO', 
-    //         address: '16, Alaska street, East west road, Port Harcourt...', 
-    //         qty: '20,000 ℓ', 
-    //         ask: '185.67', 
-    //         bid: '185.67', 
-    //         contact: 'jesica@schlumbeger.com', 
-    //     }, 
-    //     { 
-    //         prospect: 'Schlumbeger LTD', 
-    //         product: 'AGO', 
-    //         address: '16, Alaska street, East west road, Port Harcourt...', 
-    //         qty: '20,000 ℓ', 
-    //         ask: '185.67', 
-    //         bid: '185.67', 
-    //         contact: 'jesica@schlumbeger.com', 
-    //     }, 
-    //     { 
-    //         prospect: 'Schlumbeger LTD', 
-    //         product: 'AGO', 
-    //         address: '16, Alaska street, East west road, Port Harcourt...', 
-    //         qty: '20,000 ℓ', 
-    //         ask: '185.67', 
-    //         bid: '185.67', 
-    //         contact: 'jesica@schlumbeger.com', 
-    //     }, 
-    //     { 
-    //         prospect: 'Schlumbeger LTD', 
-    //         product: 'AGO', 
-    //         address: '16, Alaska street, East west road, Port Harcourt...', 
-    //         qty: '20,000 ℓ', 
-    //         ask: '185.67', 
-    //         bid: '185.67', 
-    //         contact: 'jesica@schlumbeger.com', 
-    //     }, 
-    //     { 
-    //         prospect: 'Schlumbeger LTD', 
-    //         product: 'AGO', 
-    //         address: '16, Alaska street, East west road, Port Harcourt...', 
-    //         qty: '20,000 ℓ', 
-    //         ask: '185.67', 
-    //         bid: '185.67', 
-    //         contact: 'jesica@schlumbeger.com', 
-    //     }, 
-    // ]
-
+    const [tab, setTab] = React.useState(false)  
+    const userContext: IUser = React.useContext(UserContext);  
+    
+    React.useEffect(() => {  
+        userContext.setTab('Bargains')
+    },[]); 
 
     const { isLoading, refetch, data } = useQuery('AllBargains', () =>
         fetch('https://faadoli.herokuapp.com/api/v1/bargain', {
