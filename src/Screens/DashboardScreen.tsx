@@ -22,11 +22,7 @@ export default function DashboardScreen() {
         }).then(res =>
             res.json()
         )
-    )  
-
-    React.useEffect(() => {  
-        userContext.setTab('Dashboard')
-    },[]); 
+    )   
 
     React.useEffect(() => {   
         if(!isLoading){ 

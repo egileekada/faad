@@ -153,10 +153,7 @@ export default function CreateBargain() {
                                                     return(
                                                         <p className=' font-Inter-Medium text-sm cursor-pointer my-2 ' onClick={()=> ClickHandler(item)} >{item.companyName}</p>
                                                     )
-                                                }
-                                                // else{
-                                                //     setName('')
-                                                // }
+                                                } 
                                             })}
                                         </div>
                                     )}

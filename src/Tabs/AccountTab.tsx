@@ -1,4 +1,5 @@
 import React from 'react'
+import { IUser, UserContext } from '../components/context/UserContext';
 import EntryPermit from '../components/accountComponent/EntryPermit'
 import ProductAndPricing from '../components/accountComponent/ProductAndPricing'
 import StorageTanks from '../components/accountComponent/StorageTanks'
@@ -7,6 +8,10 @@ import Trucks from '../components/accountComponent/Trucks'
 export default function AccountTab() {
 
     const [tab, setTab] = React.useState(0)
+    const userContext: IUser = React.useContext(UserContext);  
+    React.useEffect(() => {  
+        userContext.setTab('Accounts')
+    },[]); 
 
     return (
         <div className='w-full bg-[#F8F9FA] border-t border-l border-[#DDE2E5] h-full px-8 overflow-y-auto'> 

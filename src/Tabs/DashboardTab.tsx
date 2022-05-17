@@ -1,10 +1,16 @@
 import React from 'react'
 import { useQuery } from 'react-query'
+import { IUser, UserContext } from '../components/context/UserContext';
 import DealsDetail from '../components/dashboardComponent/DealsDetail'
 import ProductDetails from '../components/dashboardComponent/ProductDetails'
 
 export default function DashboardTab() { 
     
+    const userContext: IUser = React.useContext(UserContext);  
+    React.useEffect(() => {  
+        userContext.setTab('Dashboard')
+    },[]); 
+
     return (
         <div className='w-full h-full px-8 py-8 overflow-y-auto'> 
             <div className='w-full h-auto px-8 pt-8 mb-10 flex'>

@@ -15,7 +15,7 @@ export default function Bargin() {
         userContext.setTab('Bargains')
     },[]); 
 
-    const { isLoading, refetch, data } = useQuery('AllBargains', () =>
+    const { isLoading, data } = useQuery('AllBargains', () =>
         fetch('https://faadoli.herokuapp.com/api/v1/bargain', {
             method: 'GET', // or 'PUT'
             headers: {
@@ -36,11 +36,7 @@ export default function Bargin() {
         <div className='w-full h-auto flex mt-12 justify-center  ' > 
             <PageLoader />
         </div>
-    )  
-
-    // React.useEffect(() => {
-    //    refetch()
-    // }, [])
+    )   
 
     return (
         <div className='w-full h-full px-8 py-8 overflow-y-auto' > 
