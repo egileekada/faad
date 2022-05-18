@@ -1,4 +1,4 @@
-import { Select, Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react'
+import { Input, Select, Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react'
 import React from 'react'
 import { useQuery } from 'react-query'
 import { useNavigate } from 'react-router-dom'
@@ -10,63 +10,8 @@ import ProcessDeal from './ProcessDeal'
 
 export default function Deal() {
  
-    const navigate = useNavigate()
-    // const dataall = [
-    //     { 
-    //         client: 'Schlumbeger LTD', 
-    //         product: 'AGO',  
-    //         qty: '20,000 ℓ', 
-    //         price: '185.67', 
-    //         contact: 'jesica@schlumbeger.com',
-    //         deal: '185.67',  
-    //         date: '19-02-2022 - 5:30', 
-    //     }, 
-    //     { 
-    //         client: 'Schlumbeger LTD', 
-    //         product: 'AGO',  
-    //         qty: '20,000 ℓ', 
-    //         price: '185.67', 
-    //         contact: 'jesica@schlumbeger.com',
-    //         deal: '185.67',  
-    //         date: '19-02-2022 - 5:30', 
-    //     }, 
-    //     { 
-    //         client: 'Schlumbeger LTD', 
-    //         product: 'AGO',  
-    //         qty: '20,000 ℓ', 
-    //         price: '185.67', 
-    //         contact: 'jesica@schlumbeger.com',
-    //         deal: '185.67',  
-    //         date: '19-02-2022 - 5:30', 
-    //     }, 
-    //     { 
-    //         client: 'Schlumbeger LTD', 
-    //         product: 'AGO',  
-    //         qty: '20,000 ℓ', 
-    //         price: '185.67', 
-    //         contact: 'jesica@schlumbeger.com',
-    //         deal: '185.67',  
-    //         date: '19-02-2022 - 5:30', 
-    //     }, 
-    //     { 
-    //         client: 'Schlumbeger LTD', 
-    //         product: 'AGO',  
-    //         qty: '20,000 ℓ', 
-    //         price: '185.67', 
-    //         contact: 'jesica@schlumbeger.com',
-    //         deal: '185.67',  
-    //         date: '19-02-2022 - 5:30', 
-    //     }, 
-    //     { 
-    //         client: 'Schlumbeger LTD', 
-    //         product: 'AGO',  
-    //         qty: '20,000 ℓ', 
-    //         price: '185.67', 
-    //         contact: 'jesica@schlumbeger.com',
-    //         deal: '185.67',  
-    //         date: '19-02-2022 - 5:30', 
-    //     }, 
-    // ]
+    const navigate = useNavigate() 
+    const [name, setName] = React.useState('') 
 
     const [tab, setTab] = React.useState(0)   
     const [Value, setValue] = React.useState({} as any) 
@@ -77,7 +22,7 @@ export default function Deal() {
                 {tab !== 2 && (
                     <div className='w-full flex items-center relative font-Inter-Regular' > 
                         <div className='w-64' >
-                            <Select border='1px solid #DDE2E5' className='relative z-30' backgroundColor='white' placeholder='Search by name or department' fontSize='sm' /> 
+                            <Input onChange={(e)=> setName(e.target.value)} border='1px solid #DDE2E5' className='relative z-30' backgroundColor='white' placeholder='Search by Company Name' fontSize='sm' /> 
                         </div> 
                         <div className='w-full flex items-center absolute justify-center inset-0' >
                             <div className='p-1 bg-[rgba(224,224,224,0.5)] rounded-xl flex' style={{boxShadow: 'inset 0px 1px 2px rgba(97, 97, 97, 0.2), inset 0px 2px 4px rgba(97, 97, 97, 0.2)'}}  >
@@ -99,7 +44,7 @@ export default function Deal() {
                 )}
                 <div className='w-full h-full' >
                     {tab === 0 && (
-                        <DealsTable />
+                        <DealsTable name={name} />
                     )}
                     {tab === 1 && (
                         <OngoingDeals click={setTab} values={setValue} />
