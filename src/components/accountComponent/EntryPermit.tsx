@@ -11,40 +11,7 @@ import SearchForTrucks from './components/SearchForTrucks'
 import SearchForProduct from './components/SearchForProduct'
 import { useQuery } from 'react-query'
 
-export default function EntryPermit() {
- 
-    const dataall = [
-        { 
-            vendor: 'NNPC',
-            agent: 'AGO', 
-            truck: 'ABJ 123 DC',  
-            reprint: 'Reprint last entry permit',   
-        }, 
-        { 
-            vendor: 'NNPC',
-            agent: 'AGO', 
-            truck: 'ABJ 123 DC',  
-            reprint: 'Reprint last entry permit',   
-        }, 
-        { 
-            vendor: 'NNPC',
-            agent: 'AGO', 
-            truck: 'ABJ 123 DC',  
-            reprint: 'Reprint last entry permit',   
-        }, 
-        { 
-            vendor: 'NNPC',
-            agent: 'AGO', 
-            truck: 'ABJ 123 DC',  
-            reprint: 'Reprint last entry permit',   
-        }, 
-        { 
-            vendor: 'NNPC',
-            agent: 'AGO', 
-            truck: 'ABJ 123 DC',  
-            reprint: 'Reprint last entry permit',   
-        }, 
-    ]
+export default function EntryPermit() { 
 
     const [show, setShow] = React.useState(false)
     const [driver, setDriverInfo] = React.useState('')
@@ -56,23 +23,15 @@ export default function EntryPermit() {
     console.log(driver, agent, truck)
 
 
-    const loginSchema = yup.object({ 
-        date: yup.string().required('Required'),
-        fuel: yup.string().required('Required'),
-        vendor: yup.string().required('Required'),   
-        truck: yup.string().required('Required'),   
-        agent: yup.string().required('Required'),   
-        driver: yup.string().required('Required')   
-    })    
-    // {
-    //     date: { type: Date },
-    //     fuel: { type: productId },
-    //     vendor: { type: vendorId },
-    //     truck: { type: truckId},
-    //     agent: { type: distributorid },
-    //     driver: { type: distributorid }
-    // }
-    // formik
+    // const loginSchema = yup.object({ 
+    //     date: yup.string().required('Required'),
+    //     fuel: yup.string().required('Required'),
+    //     vendor: yup.string().required('Required'),   
+    //     truck: yup.string().required('Required'),   
+    //     agent: yup.string().required('Required'),   
+    //     driver: yup.string().required('Required')   
+    // })     
+
     const formik = useFormik({
         initialValues: {
             date: '',
@@ -82,7 +41,7 @@ export default function EntryPermit() {
             agent: '',
             driver: ''
         },
-        validationSchema: loginSchema,
+        // validationSchema: loginSchema,
         onSubmit: () => {},
     });
  
@@ -95,11 +54,27 @@ export default function EntryPermit() {
     }, [driver, agent, truck, fuel])
 
     const submit = async () => { 
-        if (!formik.dirty) {
+        if (formik.values.agent === '') {
           alert('You have to fill in the form to continue'); 
           return;
         }
-        else if (!formik.isValid) {
+        else if (formik.values.driver === '') {
+          alert('You have to fill in the form correctly to continue'); 
+          return;
+        }
+        else if (formik.values.truck === '') {
+          alert('You have to fill in the form correctly to continue'); 
+          return;
+        }
+        else if (formik.values.fuel === '') {
+          alert('You have to fill in the form correctly to continue'); 
+          return;
+        }
+        else if (formik.values.date === '') {
+          alert('You have to fill in the form correctly to continue'); 
+          return;
+        }
+        else if (formik.values.vendor === '') {
           alert('You have to fill in the form correctly to continue'); 
           return;
         }
@@ -119,7 +94,7 @@ export default function EntryPermit() {
         }).then(res =>
             res.json()
         )
-    )  
+    )   
 
     console.log(data)
 
@@ -266,7 +241,7 @@ export default function EntryPermit() {
                         </div>
                     </div>
                 </div>
-                <PrintButton show={show} default={formik.values} reload={refetch} click={submit} value={formik.values} />
+                <PrintButton show={show} default={formik.values} reload={refetch} click={setShow} value={formik.values} />
                 {/* <button className='font-Inter-SemiBold mt-10 text-sm h-10 flex justify-center items-center text-white rounded-lg px-4 bg-[#F88C3A] '>
                     <svg className='mr-2' width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" clip-rule="evenodd" d="M16.5 4H8.5V6H16.5V4ZM6.5 6H2.5V18H6.5V22H18.5V18H22.5V6H18.5V2H6.5V6ZM4.5 16H6.5V14H18.5V16H20.5V8H4.5V16ZM16.5 16H8.5V20H16.5V16ZM16.5 10H18.5V12H16.5V10Z" fill="white"/>
@@ -303,7 +278,7 @@ export default function EntryPermit() {
                                         <Td> 
                                                 {item.truck === null ? '':item.truck.truckId}
                                         </Td> 
-                                        <Td className='text-[#ACB5BD]' >Reprint last entry permit</Td>  
+                                        <Td className='text-[#ACB5BD]' ><PrintButton show={show} default={item} reload={refetch} click={submit} value={item} table={true} /></Td>  
                                     </Tr> 
                                 )
                             })}

@@ -12,7 +12,7 @@ const PrintedSlip = React.forwardRef((props: any, ref: any) => {
     const [truck, setTruckInfo] = React.useState('')
 
     if(props.value.truck){  
-        fetch(`https://faadoli.herokuapp.com/api/v1/truck/${props.value.truck}`, {
+        fetch(`https://faadoli.herokuapp.com/api/v1/truck/${props.table ? props.value.truck._id : props.value.truck}`, {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json',
