@@ -26,13 +26,11 @@ export default function OngoingDeals(props: any) {
     const ClickHandler=(item: any)=> {
         props.click(2)
         props.values(item)
-    }
-
-    // console.log(data)
+    } 
 
     return (
         <div className='w-full py-6' >
-            {data.data.deals.map((item: any, index: any)=> {
+            {[...data.data.deals].reverse().map((item: any, index: any)=> {
 
                 if(item.status !== 'completed'){ 
                     return(

@@ -57,7 +57,7 @@ export default function DealsTable(props:any) {
                             </Tr>
                         </Thead>
                         <Tbody >
-                            {data.data.delivery.map((item: any, index: any)=> {
+                            {[...data.data.delivery].reverse().map((item: any, index: any)=> {
                                 if(item.deal.companyName.toLocaleLowerCase().includes(props.name.toLocaleLowerCase())){
                                     return(
                                         <Tr onClick={()=> ClickHandler(item.deal._id)} className=' cursor-pointer font-Inter-Regular text-sm ' key={index} paddingBottom='30px' >

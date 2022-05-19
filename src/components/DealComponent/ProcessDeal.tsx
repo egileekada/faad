@@ -3,6 +3,7 @@ import { background, color } from '@chakra-ui/styled-system'
 import React from 'react'
 import { useQuery } from 'react-query'
 import { useNavigate } from 'react-router-dom'
+import PageLoader from '../PageLoader'
 import StepFive from './ProcessDealsComponent/StepFive'
 import StepFour from './ProcessDealsComponent/StepFour'
 import StepOne from './ProcessDealsComponent/StepOne'
@@ -16,6 +17,7 @@ export default function ProcessDeal(props: any) {
 
     const [showDetail, setShowDetail] = React.useState(false); 
     const [loading, setLoading] = React.useState(false); 
+    const [loadingPage, setLoadingPage] = React.useState(true); 
     // const [clientInfo, setClientInfo] = React.useState({} as any); 
     const [truckInfo, setTruckInfo] = React.useState('');
     const [deliveryId, setDeliveryId] = React.useState('');
@@ -47,8 +49,17 @@ export default function ProcessDeal(props: any) {
         })
         .then(response => response.json())
         .then(data => {       
+            console.log(data)
+            if(data.status === 'success'){ 
+                const t1 = setTimeout(() => {  
+                    setLoadingPage(false) 
+                    clearTimeout(t1);
+                }, 2000); 
+            }
             {data.data.delivery.map((item: any)=> {
-                if(props.values._id === item.deal._id){ 
+                if(props.values._id === item.deal._id){
+                    setTab(3)
+                    // setLoadingPage(false)
                     // console.log(item)
                     setDeliveryId(item._id)
                     // setTab(2)
@@ -178,7 +189,20 @@ export default function ProcessDeal(props: any) {
         if(tankInfo !== ''){ 
             setTab(item)
         }
+        if(!inspectInfo.truckSealed){ 
+            setTab(item)
+        }
+
+        setTab(item)
     }   
+ 
+
+
+    if (loadingPage) return(
+        <div className='w-full h-auto flex mt-2 justify-center  ' > 
+            <PageLoader />
+        </div>
+    )    
 
     return (
         <div className='w-full h-full py-8' > 
@@ -193,12 +217,12 @@ export default function ProcessDeal(props: any) {
                             <path d="M7.74664 9.29126C7.73998 9.30033 7.73323 9.30961 7.72641 9.31908C7.6753 9.39005 7.62519 9.46426 7.58546 9.52312C7.57296 9.54164 7.56148 9.55864 7.55132 9.57354L7.55016 9.57523L7.55015 9.57523C7.42759 9.75108 7.33822 9.88255 7.22242 10.0667C7.20555 10.0939 7.1886 10.1211 7.17162 10.1484C6.96162 10.4853 6.74718 10.8294 6.63268 11.1764C6.51222 11.5414 6.51191 11.8807 6.73759 12.1993L7.74664 9.29126ZM7.74664 9.29126C7.78823 9.34491 7.8362 9.41018 7.88885 9.48501C8.0282 9.68303 8.19543 9.9409 8.35639 10.2115C8.51757 10.4824 8.67035 10.7626 8.78211 11.0057C8.83804 11.1273 8.88233 11.2367 8.91229 11.3292C8.94333 11.425 8.95447 11.4891 8.95447 11.5249C8.95447 12.6991 7.46121 13.2197 6.73764 12.1994L7.74664 9.29126ZM6.05965 13.1527L6.05963 13.1527L6.06214 13.1552L6.10514 13.1982L6.10511 13.1982L6.1081 13.2011C6.82208 13.8861 7.94031 14.1373 8.86418 13.5889L8.86437 13.5888C9.80389 13.0297 10.3376 12.0085 9.95091 10.8899C9.82747 10.5312 9.43028 9.77363 9.01094 9.11253C8.80002 8.78003 8.57799 8.46309 8.37546 8.227C8.27459 8.10941 8.17374 8.00616 8.07739 7.93063C7.98917 7.86147 7.87102 7.7881 7.74083 7.7881C7.44689 7.7881 7.28323 8.01239 7.2008 8.12535C7.19615 8.13172 7.19176 8.13774 7.18761 8.14335L7.18761 8.14335L7.18679 8.14447C7.10353 8.25877 7.02254 8.36698 6.94277 8.47356C6.72532 8.76409 6.51698 9.04244 6.2968 9.39873L6.29669 9.39892C6.17545 9.59559 5.95893 9.95032 5.77246 10.326C5.67921 10.5139 5.59177 10.7104 5.52727 10.8975C5.46374 11.0819 5.41768 11.2706 5.41768 11.4389C5.41768 12.1172 5.56936 12.6447 6.05965 13.1527Z" fill="#414141" stroke="#414141" stroke-width="0.4"/>
                         </svg>
                         <p className='font-Inter-SemiBold text-[#414141] ml-2 mr-auto' >Step 1</p> 
-                        {tab === 0 && (
+                        {tankInfo === '' && truckInfo === '' && (
                             <svg width="18" height="18" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" clip-rule="evenodd" d="M0 4C0 1.79086 1.79086 0 4 0H18C20.2091 0 22 1.79086 22 4V18C22 20.2091 20.2091 22 18 22H4C1.79086 22 0 20.2091 0 18V4ZM4 2H18C19.1046 2 20 2.89543 20 4V18C20 19.1046 19.1046 20 18 20H4C2.89543 20 2 19.1046 2 18V4C2 2.89543 2.89543 2 4 2Z" fill="#DDE2E5"/>
                             </svg>
                         )}
-                        {tab > 0 && (
+                        {tankInfo !== '' && truckInfo !== '' && (
                             <svg width="18" height="18" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" clip-rule="evenodd" d="M0 4C0 1.79086 1.79086 0 4 0H18C20.2091 0 22 1.79086 22 4V18C22 20.2091 20.2091 22 18 22H4C1.79086 22 0 20.2091 0 18V4ZM4 2H18C19.1046 2 20 2.89543 20 4V18C20 19.1046 19.1046 20 18 20H4C2.89543 20 2 19.1046 2 18V4C2 2.89543 2.89543 2 4 2Z" fill="#F88C3A"/>
                                 <path d="M9.13133 16.202C8.93607 16.3973 8.61949 16.3973 8.42422 16.202L3.57453 11.3523C3.37975 11.1575 3.3792 10.8419 3.57328 10.6465L4.43534 9.77828C4.6304 9.58184 4.94794 9.58128 5.14369 9.77703L8.42422 13.0576C8.61949 13.2528 8.93607 13.2528 9.13133 13.0576L16.8563 5.33258C17.0521 5.13683 17.3696 5.13739 17.5647 5.33383L18.4267 6.20201C18.6208 6.39747 18.6202 6.71309 18.4255 6.90786L9.13133 16.202ZM18.7778 1H3.22222C1.98889 1 1 1.98889 1 3.22222V18.7778C1 19.3671 1.23413 19.9324 1.65087 20.3491C2.06762 20.7659 2.63285 21 3.22222 21H18.7778C19.3671 21 19.9324 20.7659 20.3491 20.3491C20.7659 19.9324 21 19.3671 21 18.7778V3.22222C21 1.98889 20 1 18.7778 1Z" fill="#F88C3A"/>
@@ -217,12 +241,12 @@ export default function ProcessDeal(props: any) {
                             <path fill-rule="evenodd" clip-rule="evenodd" d="M20 3C21.6569 3 23 4.34315 23 6V18C23 19.6569 21.6569 21 20 21H4C2.34315 21 1 19.6569 1 18V6C1 4.34315 2.34315 3 4 3H20ZM4 5H20C20.5523 5 21 5.44772 21 6V18C21 18.5523 20.5523 19 20 19H4C3.44772 19 3 18.5523 3 18V6C3 5.44771 3.44772 5 4 5Z" fill="#414141"/>
                         </svg>
                         <p className='font-Inter-SemiBold text-[#414141] ml-2 mr-auto' >Step 2</p> 
-                        {tab <= 1 && (
+                        {!inspectInfo.truckSealed && !inspectInfo.waterCheck  && (
                             <svg width="18" height="18" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" clip-rule="evenodd" d="M0 4C0 1.79086 1.79086 0 4 0H18C20.2091 0 22 1.79086 22 4V18C22 20.2091 20.2091 22 18 22H4C1.79086 22 0 20.2091 0 18V4ZM4 2H18C19.1046 2 20 2.89543 20 4V18C20 19.1046 19.1046 20 18 20H4C2.89543 20 2 19.1046 2 18V4C2 2.89543 2.89543 2 4 2Z" fill="#DDE2E5"/>
                             </svg>
                         )}
-                        {tab > 1 && (
+                        {inspectInfo.truckSealed && inspectInfo.waterCheck && (
                             <svg width="18" height="18" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" clip-rule="evenodd" d="M0 4C0 1.79086 1.79086 0 4 0H18C20.2091 0 22 1.79086 22 4V18C22 20.2091 20.2091 22 18 22H4C1.79086 22 0 20.2091 0 18V4ZM4 2H18C19.1046 2 20 2.89543 20 4V18C20 19.1046 19.1046 20 18 20H4C2.89543 20 2 19.1046 2 18V4C2 2.89543 2.89543 2 4 2Z" fill="#F88C3A"/>
                                 <path d="M9.13133 16.202C8.93607 16.3973 8.61949 16.3973 8.42422 16.202L3.57453 11.3523C3.37975 11.1575 3.3792 10.8419 3.57328 10.6465L4.43534 9.77828C4.6304 9.58184 4.94794 9.58128 5.14369 9.77703L8.42422 13.0576C8.61949 13.2528 8.93607 13.2528 9.13133 13.0576L16.8563 5.33258C17.0521 5.13683 17.3696 5.13739 17.5647 5.33383L18.4267 6.20201C18.6208 6.39747 18.6202 6.71309 18.4255 6.90786L9.13133 16.202ZM18.7778 1H3.22222C1.98889 1 1 1.98889 1 3.22222V18.7778C1 19.3671 1.23413 19.9324 1.65087 20.3491C2.06762 20.7659 2.63285 21 3.22222 21H18.7778C19.3671 21 19.9324 20.7659 20.3491 20.3491C20.7659 19.9324 21 19.3671 21 18.7778V3.22222C21 1.98889 20 1 18.7778 1Z" fill="#F88C3A"/>
@@ -238,12 +262,12 @@ export default function ProcessDeal(props: any) {
                             <path d="M2 12C2 11.4477 2.44772 11 3 11H11C11.5523 11 12 11.4477 12 12V18H14V12C14 10.3431 12.6569 9 11 9H3C1.34315 9 0 10.3431 0 12V18H2V12Z" fill="#414141"/>
                         </svg>
                         <p className='font-Inter-SemiBold text-[#414141] ml-2 mr-auto' >Step 3</p> 
-                        {tab <= 2 && (
+                        {agentInfo === '' && driverInfo === '' && (
                             <svg width="18" height="18" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" clip-rule="evenodd" d="M0 4C0 1.79086 1.79086 0 4 0H18C20.2091 0 22 1.79086 22 4V18C22 20.2091 20.2091 22 18 22H4C1.79086 22 0 20.2091 0 18V4ZM4 2H18C19.1046 2 20 2.89543 20 4V18C20 19.1046 19.1046 20 18 20H4C2.89543 20 2 19.1046 2 18V4C2 2.89543 2.89543 2 4 2Z" fill="#DDE2E5"/>
                             </svg>
                         )}
-                        {tab > 2 && (
+                        {agentInfo !== '' && driverInfo !== '' && (
                             <svg width="18" height="18" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" clip-rule="evenodd" d="M0 4C0 1.79086 1.79086 0 4 0H18C20.2091 0 22 1.79086 22 4V18C22 20.2091 20.2091 22 18 22H4C1.79086 22 0 20.2091 0 18V4ZM4 2H18C19.1046 2 20 2.89543 20 4V18C20 19.1046 19.1046 20 18 20H4C2.89543 20 2 19.1046 2 18V4C2 2.89543 2.89543 2 4 2Z" fill="#F88C3A"/>
                                 <path d="M9.13133 16.202C8.93607 16.3973 8.61949 16.3973 8.42422 16.202L3.57453 11.3523C3.37975 11.1575 3.3792 10.8419 3.57328 10.6465L4.43534 9.77828C4.6304 9.58184 4.94794 9.58128 5.14369 9.77703L8.42422 13.0576C8.61949 13.2528 8.93607 13.2528 9.13133 13.0576L16.8563 5.33258C17.0521 5.13683 17.3696 5.13739 17.5647 5.33383L18.4267 6.20201C18.6208 6.39747 18.6202 6.71309 18.4255 6.90786L9.13133 16.202ZM18.7778 1H3.22222C1.98889 1 1 1.98889 1 3.22222V18.7778C1 19.3671 1.23413 19.9324 1.65087 20.3491C2.06762 20.7659 2.63285 21 3.22222 21H18.7778C19.3671 21 19.9324 20.7659 20.3491 20.3491C20.7659 19.9324 21 19.3671 21 18.7778V3.22222C21 1.98889 20 1 18.7778 1Z" fill="#F88C3A"/>

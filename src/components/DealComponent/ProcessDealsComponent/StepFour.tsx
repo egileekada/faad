@@ -68,7 +68,7 @@ export default function StepFour(props: any) {
                                 </>
                             )}
                             {!props.loading && (
-                                <span className='mx-4'>Finish</span>
+                                <span className='mx-4'>Complete Deal</span>
                             )}  
                         </button>
                         // <button onClick={()=> props.click} disabled={show ? true: false} className={show ? 'py-2 text-sm font-Inter-SemiBold text-[#ACB5BD] rounded-md mt-auto ml-auto bg-[#DDE2E5] px-16':'py-2 text-sm font-Inter-SemiBold text-white rounded-md mt-auto ml-auto bg-[#F88C3A] px-16'} >Finish</button>

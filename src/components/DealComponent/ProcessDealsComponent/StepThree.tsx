@@ -43,7 +43,7 @@ export default function StepThree(props: any) {
                         </button>
                     )}
                     {props.show && (
-                        <button onClick={()=> props.click(3)} className='py-2 text-sm font-Inter-SemiBold text-white rounded-md  ml-6 bg-[#F88C3A] px-16' >Complete Deal</button>
+                        <button onClick={()=> props.click(3)} className='py-2 text-sm font-Inter-SemiBold text-white rounded-md  ml-6 bg-[#F88C3A] px-16' >Next</button>
                     )}
                     </div>
             </div>

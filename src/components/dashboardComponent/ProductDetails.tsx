@@ -4,8 +4,8 @@ import PageLoader from '../PageLoader'
 
 export default function ProductDetails() { 
     
-    const { isLoading, data } = useQuery('AllTank', () =>
-        fetch('https://faadoli.herokuapp.com/api/v1/tank', {
+    const { isLoading, data } = useQuery('AllProductAndPricing', () =>
+        fetch('https://faadoli.herokuapp.com/api/v1/product', {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 
@@ -31,47 +31,29 @@ export default function ProductDetails() {
             <div className='w-full flex justify-center mx-auto' >
                 {!isLoading && (
                     <>
-                        {data.data.tanks.map((item: any, index: any ) => {
-                            if(item.product !== null){ 
+                        {data.data.products.map((item: any, index: any ) => {
+                            // if(item.product !== null){ 
 
-                                if(index > 4){
+                                if(index > 2){
 
                                 } else {
                                     return(
-                                        <div className='mx-3' >
+                                        <div className='mx-auto' >
                                             <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <circle cx="24" cy="24" r="24" fill="#FEE8D8"/>
                                                 <path d="M18.3431 31.5208C15.219 28.3966 15.219 23.3313 18.3431 20.2071L24 14.5503L29.6569 20.2071C32.781 23.3313 32.781 28.3966 29.6569 31.5208C26.5327 34.645 21.4673 34.645 18.3431 31.5208Z" stroke="#F88C3A" stroke-width="2"/>
                                             </svg>
-                                            <p className=' text-[#212429] text-sm font-Inter-SemiBold mt-4 ' >{item.product.productCode} {item.product.percentageDifference >= 0 ? <span className='text-[#009B00]' >{item.product.percentageDifference}% ↑</span>:<span className='text-[#EC0000]' >{item.product.percentageDifference}% ↓</span>}</p>
-                                            <p className=' text-[#212429] font-Inter-SemiBold text-sm '>₦{item.product.newPrice}</p>
-                                            <p className='text-[#212429] font-Inter-Regular text-xs ' >Available  • {item.level.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}ℓ</p>
+                                            <p className=' text-[#212429] text-sm font-Inter-SemiBold mt-4 ' >{item.productCode} {item.percentageDifference >= 0 ? <span className='text-[#009B00]' >{item.percentageDifference}% ↑</span>:<span className='text-[#EC0000]' >{item.percentageDifference}% ↓</span>}</p>
+                                            <p className=' text-[#212429] font-Inter-SemiBold text-sm '>₦{item.newPrice}</p>
+                                            {/* <p className='text-[#212429] font-Inter-Regular text-xs ' >Available  • {item.level.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}ℓ</p> */}
                                         </div>
         
                                     ) 
                                 }
-                            }
+                            // }
                         })} 
                     </>
-                )}
-                {/* <div className='mx-10' >
-                    <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="24" cy="24" r="24" fill="#FEE8D8"/>
-                        <path d="M18.3431 31.5208C15.219 28.3966 15.219 23.3313 18.3431 20.2071L24 14.5503L29.6569 20.2071C32.781 23.3313 32.781 28.3966 29.6569 31.5208C26.5327 34.645 21.4673 34.645 18.3431 31.5208Z" stroke="#F88C3A" stroke-width="2"/>
-                    </svg>
-                    <p className=' text-[#212429] text-sm font-Inter-SemiBold mt-4 ' >PMS <span className='text-[#EC0000]' >05% ↓</span></p>
-                    <p className=' text-[#212429] font-Inter-SemiBold text-sm '>N149.33</p>
-                    <p className='text-[#212429] font-Inter-Regular text-xs ' >Available  • 12000 ℓ</p>
-                </div>
-                <div className='' >
-                    <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="24" cy="24" r="24" fill="#FEE8D8"/>
-                        <path d="M18.3431 31.5208C15.219 28.3966 15.219 23.3313 18.3431 20.2071L24 14.5503L29.6569 20.2071C32.781 23.3313 32.781 28.3966 29.6569 31.5208C26.5327 34.645 21.4673 34.645 18.3431 31.5208Z" stroke="#F88C3A" stroke-width="2"/>
-                    </svg>
-                    <p className=' text-[#212429] text-sm font-Inter-SemiBold mt-4 ' >KPK <span className='text-[#1672EC]' >00% </span></p>
-                    <p className=' text-[#212429] font-Inter-SemiBold text-sm '>N149.33</p>
-                    <p className='text-[#212429] font-Inter-Regular text-xs ' >Available  • 9000 ℓ</p>
-                </div> */}
+                )} 
             </div>
             <svg className='cursor-pointer ' width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M15.4853 11.0451L11.2426 6.80249L9.8284 8.2167L12.6568 11.0451L9.8284 13.8736L11.2426 15.2878L15.4853 11.0451Z" fill="#495057"/>
