@@ -104,7 +104,7 @@ export default function OurPeople() {
                                             <div style={{boxShadow: '0px 2px 8px 0px #60617029'}} className='w-full h-64 justify-center rounded-2xl flex flex-col items-center' >
                                                 <div className='w-16 h-16 rounded-full bg-white' >
                                                     {item.avatar !== 'avatar.png' && ( 
-                                                        <img src={!item.avatar ? `https://faadoli.herokuapp.com/uploads/images/${item.avatar}` : Avatar} alt='avatar' className='w-full h-full object-cover rounded-full' />
+                                                        <img src={item.avatar ? `https://faadoli.herokuapp.com/uploads/images/${item.avatar}` : Avatar} alt='avatar' className='w-full h-full object-cover rounded-full' />
                                                     )}
                                                 </div>
                                                 <p className='font-Inter-SemiBold text-xl mt-4' >{item.name}</p>

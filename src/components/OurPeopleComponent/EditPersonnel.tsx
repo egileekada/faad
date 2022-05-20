@@ -63,22 +63,22 @@ export default function EditPersonnel() {
     }
     const navigate = useNavigate()  
 
-    const loginSchema = yup.object({ 
-        companyEmail: yup.string().email('This email is not valid').required('Your email is required'),
-        personalEmail: yup.string().email('This email is not valid').required('Your email is required'),
-        name: yup.string().required('Required'),
-        department: yup.string().required('Required'),
-        personalPhone: yup.string().required('Required'),
-        companyPhone: yup.string().required('Required'),
-        address: yup.string().required('Required'), 
-        chatGroup: yup.string().required('Required'), 
-        password: yup.string().required('Your password is required').min(4, 'A minimium of 4 characters')
-    })  
+    // const loginSchema = yup.object({ 
+    //     companyEmail: yup.string().email('This email is not valid').required('Your email is required'),
+    //     personalEmail: yup.string().email('This email is not valid').required('Your email is required'),
+    //     name: yup.string().required('Required'),
+    //     department: yup.string().required('Required'),
+    //     personalPhone: yup.string().required('Required'),
+    //     companyPhone: yup.string().required('Required'),
+    //     address: yup.string().required('Required'), 
+    //     chatGroup: yup.string().required('Required'), 
+    //     password: yup.string().required('Your password is required').min(4, 'A minimium of 4 characters')
+    // })  
 
     // formik
     const formik = useFormik({
         initialValues: {name: '', personalEmail: '', companyEmail: '', department: '',  address: '',personalPhone: '', companyPhone: '', chatGroup: '', password: ''},
-        validationSchema: loginSchema,
+        // validationSchema: loginSchema,
         onSubmit: () => {},
     });  
 
@@ -88,80 +88,43 @@ export default function EditPersonnel() {
 
     const submit = async () => {
 
-        setLoading(true);
-        if (!formik.dirty) {
-            alert('You have to fill in the form correctly to continue');
-            setLoading(false);
-            return;
-        }else if (!formik.isValid) {
-            alert('You have to fill in the form correctly to continue');
-            setLoading(false);
-            return;
-        }else if (image === '') {
-            alert('You have to Add the Image to continue');
-            setLoading(false);
-            return;
-        }else {
+        setLoading(true) 
+        const request = await fetch(`https://faadoli.herokuapp.com/api/v1/auth/profile/${userContext.profileData._id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization : `Bearer ${localStorage.getItem('token')}` 
+            },
+            body: JSON.stringify(formik.values),
+        }); 
 
-            // const request = await fetch(`https://faadoli.herokuapp.com/api/v1/auth/profile/${userContext.profileData._id}`, {
-            //     method: 'PUT',
-            //     headers: {
-            //         'Content-Type': 'application/json',
-            //         Authorization : `Bearer ${localStorage.getItem('token')}` 
-            //     },
-            //     body: JSON.stringify(formik.values),
-            // });
-    
-            // const json = await request.json(); 
-    
-            // console.log(request.status)
-            // if (request.status === 200) {    
-            //     // setShow(true)  
-            //     // const t1 = setTimeout(() => { 
-            //     //     navigate('/dashboard/deals');  
-            //     //     clearTimeout(t1);
-            //     // }, 1000); 
-            // }else {
-            //     alert(json.message);
-            //     console.log(json)
-            //     setLoading(false);
-            // }
+        if(image !== ''){
             try {  
 
-                let formData = new FormData()   
-                // formData.append('name', formik.values.name)  
-                // // formData.append('personalEmail', formik.values.personalEmail)  
-                // // formData.append('companyEmail', formik.values.companyEmail)  
-                // formData.append('department', formik.values.department)  
-                // formData.append('address', formik.values.address)  
-                // formData.append('personalPhone', formik.values.personalPhone)  
-                // formData.append('companyPhone', formik.values.companyPhone)  
-                // formData.append('chatGroup', formik.values.chatGroup)  
+                let formData = new FormData()     
                 formData.append('avatar', image)  
 
                 // make request to server 
-                    const request = await axios.default.put(`https://faadoli.herokuapp.com/api/v1/auth/profile/${userContext.profileData._id}`, formData, {
-                        headers: { 'content-type': 'application/json', 
-                            Authorization : `Bearer ${localStorage.getItem('token')}` 
-                        }
-                    })    
-
-            if (request.status === 200) {    
-                // console.log(json)  
-                setShowModal(true)
-                const t1 = setTimeout(() => {
-                    setShowModal(false)
-                    navigate('/dashboard/ourpeople'); 
-                    clearTimeout(t1);
-                }, 1000); 
-            }else {   
-
-            }
-                    
+                await axios.default.put(`https://faadoli.herokuapp.com/api/v1/auth/profile/${userContext.profileData._id}/picture`, formData, {
+                    headers: { 'content-type': 'application/json', 
+                        Authorization : `Bearer ${localStorage.getItem('token')}` 
+                    }
+                })      
             } catch (error) {
                 console.log(error)
             } 
-        } 
+        }
+
+        if (request.status === 200) {    
+            // console.log(json)  
+            setShowModal(true)
+            const t1 = setTimeout(() => {
+                alert('Profile Updated')
+                setShowModal(false)
+                navigate('/dashboard/ourpeople'); 
+                clearTimeout(t1);
+            }, 1000); 
+        }  
         setShowModal(false)
     } 
 
@@ -207,6 +170,7 @@ export default function EditPersonnel() {
                                 <Input 
                                     name="name"
                                     onChange={formik.handleChange}
+                                    value={formik.values.name}
                                     onFocus={() =>
                                         formik.setFieldTouched("name", true, true)
                                     }  
@@ -228,6 +192,7 @@ export default function EditPersonnel() {
                                 <Input 
                                     name="personalEmail"
                                     onChange={formik.handleChange}
+                                    value={formik.values.personalEmail}
                                     onFocus={() =>
                                         formik.setFieldTouched("personalEmail", true, true)
                                     }  
@@ -249,6 +214,7 @@ export default function EditPersonnel() {
                                 <Select 
                                     name="department"
                                     onChange={formik.handleChange}
+                                    value={formik.values.department}
                                     onFocus={() =>
                                         formik.setFieldTouched("department", true, true)
                                     }  
@@ -275,6 +241,7 @@ export default function EditPersonnel() {
                                 <Input 
                                     name="companyEmail"
                                     onChange={formik.handleChange}
+                                    value={formik.values.companyEmail}
                                     onFocus={() =>
                                         formik.setFieldTouched("companyEmail", true, true)
                                     }  
@@ -296,6 +263,7 @@ export default function EditPersonnel() {
                                 <Input 
                                     name="personalPhone"
                                     onChange={formik.handleChange}
+                                    value={formik.values.personalPhone}
                                     onFocus={() =>
                                         formik.setFieldTouched("personalPhone", true, true)
                                     }  
@@ -317,6 +285,7 @@ export default function EditPersonnel() {
                                 <Input 
                                     name="address"
                                     onChange={formik.handleChange}
+                                    value={formik.values.address}
                                     onFocus={() =>
                                         formik.setFieldTouched("address", true, true)
                                     }  
@@ -338,6 +307,7 @@ export default function EditPersonnel() {
                                 <Input 
                                     name="companyPhone"
                                     onChange={formik.handleChange}
+                                    value={formik.values.companyPhone}
                                     onFocus={() =>
                                         formik.setFieldTouched("companyPhone", true, true)
                                     }  
@@ -359,6 +329,7 @@ export default function EditPersonnel() {
                                 <Input 
                                     name="password"
                                     onChange={formik.handleChange}
+                                    // value={formik.values.name}
                                     onFocus={() =>
                                         formik.setFieldTouched("password", true, true)
                                     }  type='password'
