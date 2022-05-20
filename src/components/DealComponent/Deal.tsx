@@ -50,7 +50,7 @@ export default function Deal() {
                         <OngoingDeals click={setTab} values={setValue} />
                     )}
                     {tab === 2 && (
-                        <ProcessDeal values={Value} />
+                        <ProcessDeal click={setTab} values={Value} />
                     )}
                 </div>
             </div>

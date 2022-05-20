@@ -115,7 +115,8 @@ export default function ProcessDeal(props: any) {
 
             if (request.status === 200) {     
                 alert('Sucessfull')
-                navigate(0);
+                // navigate(0);
+                props.click(1)
                 // const t1 = setTimeout(() => {   
                 //     clearTimeout(t1);
                 // }, 1000); 
@@ -206,7 +207,7 @@ export default function ProcessDeal(props: any) {
 
     return (
         <div className='w-full h-full py-8' > 
-            <svg onClick={()=> navigate(0)} className='cursor-pointer fixed z-50 top-14  ' width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg onClick={()=> props.click(1)} className='cursor-pointer fixed z-50 top-14  ' width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M20.3287 11.0001V13.0001L7.50042 13.0001L10.7429 16.2426L9.32873 17.6568L3.67188 12L9.32873 6.34314L10.7429 7.75735L7.50019 11.0001L20.3287 11.0001Z" fill="#495057"/>
             </svg>
             <div className='w-full flex ' >
