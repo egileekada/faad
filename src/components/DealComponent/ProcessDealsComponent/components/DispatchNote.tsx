@@ -1,10 +1,12 @@
 import React from 'react' 
 import Logo from '../../../../assets/images/printLogo.png'
 import DateFormat from '../../../DateFormat'
+import { IUser, UserContext } from '../../../context/UserContext'
 
 const DispatchNote = React.forwardRef((props: any, ref: any) => {
 
-    // console.log(props.value)
+    const userContext: IUser = React.useContext(UserContext);  
+
     const [startDate, set] = React.useState(new Date()); 
 
     return (
@@ -27,7 +29,7 @@ const DispatchNote = React.forwardRef((props: any, ref: any) => {
                         <p className='text-sm font-Inter-Regular text-[#414141] mt-2 ' >{props.value.quantity}</p> 
                         <p className='text-sm font-Inter-Regular text-[#414141] mt-2 ' >{props.driver}</p> 
                         <p className='text-sm font-Inter-Regular text-[#414141] mt-2 ' >{props.agent}</p> 
-                        <p className='text-sm font-Inter-Regular text-[#414141] mt-2 ' >GM’s name</p> 
+                        <p className='text-sm font-Inter-Regular text-[#414141] mt-2 ' >{userContext.userData.name}</p> 
                         <p className='text-sm font-Inter-Regular text-[#DDE2E5] mt-2 ' >Sign here</p> 
                     </div>
                 </div>

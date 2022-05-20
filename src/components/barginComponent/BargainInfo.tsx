@@ -9,7 +9,7 @@ export default function BargainInfo() {
     const navigate = useNavigate()
     const [deleteModal, setDeleteModal] = React.useState(false)
     
-    const { isLoading, data } = useQuery('BargainByID', () =>
+    const { isLoading, data } = useQuery('BargainByID'+localStorage.getItem('barginID'), () =>
         fetch(`https://faadoli.herokuapp.com/api/v1/bargain/${localStorage.getItem('barginID')}`, {
             method: 'GET', // or 'PUT'
             headers: {

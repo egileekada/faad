@@ -8,6 +8,7 @@ import { useFormik } from 'formik';
 import ButtonLoader from '../ButtonLoader'
 import { useQuery } from 'react-query'
 import PageLoader from '../PageLoader'
+import SearchProduct from './components/SearchProduct'
 
 export default function CreateBargain() {
 
@@ -16,6 +17,8 @@ export default function CreateBargain() {
     const [emailaddress, setEmail] = React.useState(''); 
     const [name, setName] = React.useState('');
     const [phone, setPhone] = React.useState(''); 
+    const [productName, setProductName] = React.useState(''); 
+    const [price, setPrice] = React.useState(''); 
     // const userContext: IUser = React.useContext(UserContext);  
 
     const loginSchema = yup.object({  
@@ -30,6 +33,8 @@ export default function CreateBargain() {
         clientId: yup.string().required('Required'),
         // client: yup.string().required('Required'), 
     })    
+
+
 
     // formik
     const formik = useFormik({
@@ -47,6 +52,12 @@ export default function CreateBargain() {
         validationSchema: loginSchema,
         onSubmit: () => {},
     });
+
+
+    React.useEffect(() => { 
+        formik.setFieldValue('fuel', productName)
+        formik.setFieldValue('askingPrice', price)
+    }, [productName, price])
 
     const submit = async () => {
 
@@ -217,15 +228,7 @@ export default function CreateBargain() {
                         </div>
                         <div className='my-4 ' >
                             <p className='text-sm font-Inter-Regular mb-2' >Fuel</p>
-                            <Select 
-                                name="fuel"
-                                onChange={formik.handleChange}
-                                onFocus={() =>
-                                    formik.setFieldTouched("fuel", true, true)
-                                }  
-                                fontSize='sm' placeholder='Select Fuel' size='lg' className='border border-[#DDE2E5] rounded-lg ' >
-                                <option>AGO</option>
-                            </Select>
+                            <SearchProduct name={setProductName} price={setPrice} />
                             <div className="w-full h-auto pt-2">
                                 {formik.touched.fuel && formik.errors.fuel && (
                                     <motion.p
@@ -258,14 +261,16 @@ export default function CreateBargain() {
                                     </motion.p>
                                 )}
                             </div> 
-                        </div>
+                        </div> 
+                        <p className='text-sm font-Inter-Regular mb-2' >Total Price: ₦{(Number(formik.values.quantity)*Number(formik.values.biddingPrice)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</p>
                     </div>
                     <div className='w-full px-3' >
                         <div className='my-4 ' >
-                            <p className='text-sm font-Inter-Regular mb-2' >Asking price</p>
+                            <p className='text-sm font-Inter-Regular mb-2' >Price</p>
                             <Input 
                                 name="askingPrice"
-                                onChange={formik.handleChange}
+                                value={price}
+                                // onChange={formik.handleChange}
                                 onFocus={() =>
                                     formik.setFieldTouched("askingPrice", true, true)
                                 }  

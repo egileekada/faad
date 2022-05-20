@@ -134,6 +134,8 @@ export default function CreateDealFromBargain() {
         </div>
     )  
 
+    console.log(data.data.bargain.biddingPrice)
+
     return (
         <>
             {show && (
@@ -152,13 +154,13 @@ export default function CreateDealFromBargain() {
                                 <div className='my-4 ' >
                                     <p className='text-sm font-Inter-Regular mb-2' >Company name</p>
                                     <Input  
-                                        name="companyName"
+                                        name="companyName" 
                                         value={formik.values.companyName}
-                                        onChange={formik.handleChange}
+                                        // onChange={formik.handleChange}
                                         onFocus={() =>
                                             formik.setFieldTouched("companyName", true, true)
                                         }  
-                                        fontSize='sm' placeholder='Enter company name' size='lg' className='border border-[#DDE2E5] rounded-lg ' />
+                                        fontSize='sm' placeholder='Enter company name' size='lg' className='border cursor-not-allowed border-[#DDE2E5] rounded-lg ' />
                                     <div className="w-full h-auto pt-2">
                                         {formik.touched.companyName && formik.errors.companyName && (
                                             <motion.p
@@ -174,13 +176,13 @@ export default function CreateDealFromBargain() {
                                 <div className='my-4 ' >
                                     <p className='text-sm font-Inter-Regular mb-2' >Email</p>
                                     <Input  
-                                        name="email"
-                                        onChange={formik.handleChange}
+                                        name="email" 
+                                        // onChange={formik.handleChange}
                                         value={formik.values.email}
                                         onFocus={() =>
                                             formik.setFieldTouched("email", true, true)
                                         }  
-                                        fontSize='sm' placeholder='example@company.com' size='lg' className='border border-[#DDE2E5] rounded-lg ' />
+                                        fontSize='sm' placeholder='example@company.com' size='lg' className='border cursor-not-allowed border-[#DDE2E5] rounded-lg ' />
                                     <div className="w-full h-auto pt-2">
                                         {formik.touched.email && formik.errors.email && (
                                             <motion.p
@@ -197,12 +199,12 @@ export default function CreateDealFromBargain() {
                                     <p className='text-sm font-Inter-Regular mb-2' >Phone number</p>
                                     <Input  
                                         name="phoneNumber"
-                                        value={formik.values.phoneNumber}
+                                        // value={formik.values.phoneNumber}
                                         onChange={formik.handleChange}
-                                        onFocus={() =>
-                                            formik.setFieldTouched("phoneNumber", true, true)
-                                        }  
-                                        fontSize='sm' placeholder='090...' size='lg' className='border border-[#DDE2E5] rounded-lg ' />
+                                        // onFocus={() =>
+                                        //     formik.setFieldTouched("phoneNumber", true, true)
+                                        // }  
+                                        fontSize='sm' placeholder='090...' size='lg' className='border cursor-not-allowed border-[#DDE2E5] rounded-lg ' />
                                     <div className="w-full h-auto pt-2">
                                         {formik.touched.phoneNumber && formik.errors.phoneNumber && (
                                             <motion.p
@@ -239,16 +241,14 @@ export default function CreateDealFromBargain() {
                                 </div>
                                 <div className='my-4 ' >
                                     <p className='text-sm font-Inter-Regular mb-2' >Fuel</p>
-                                    <Select  
+                                    <Input  
                                         name="fuelType"
-                                        onChange={formik.handleChange}
+                                        // onChange={formik.handleChange}
                                         value={formik.values.fuelType}
-                                        onFocus={() =>
-                                            formik.setFieldTouched("fuelType", true, true)
-                                        }  
-                                        fontSize='sm' placeholder='Select Type' size='lg' className='border border-[#DDE2E5] rounded-lg '>
-                                        <option>AGO</option>        
-                                    </Select>
+                                        // onFocus={() =>
+                                        //     formik.setFieldTouched("fuelType", true, true)
+                                        // }  
+                                        fontSize='sm' placeholder='Select Type' size='lg' className='border cursor-not-allowed border-[#DDE2E5] rounded-lg '/>
                                     <div className="w-full h-auto pt-2">
                                         {formik.touched.fuelType && formik.errors.fuelType && (
                                             <motion.p
@@ -264,13 +264,14 @@ export default function CreateDealFromBargain() {
                                 <div className='my-4 ' >
                                     <p className='text-sm font-Inter-Regular mb-2' >Quantity in Litres</p>
                                     <Input  
-                                        name="quantity"
-                                        onChange={formik.handleChange}
+                                        name="quantity" 
+                                        // onChange={formik.handleChange}
                                         value={formik.values.quantity}
-                                        onFocus={() =>
-                                            formik.setFieldTouched("quantity", true, true)
-                                        }  type='number'
-                                        fontSize='sm' placeholder='1000' size='lg' className='border border-[#DDE2E5] rounded-lg ' />
+                                        // onFocus={() =>
+                                        //     formik.setFieldTouched("quantity", true, true)
+                                        // }  
+                                        type='number'
+                                        fontSize='sm' placeholder='1000' size='lg' className='border cursor-not-allowed border-[#DDE2E5] rounded-lg ' />
                                     <div className="w-full h-auto pt-2">
                                         {formik.touched.quantity && formik.errors.quantity && (
                                             <motion.p
@@ -286,15 +287,15 @@ export default function CreateDealFromBargain() {
                             </div>
                             <div className='w-full px-3' >
                                 <div className='my-4 ' >
-                                    <p className='text-sm font-Inter-Regular mb-2' >Asking price</p>
+                                    <p className='text-sm font-Inter-Regular mb-2' >Price</p>
                                     <Input  
                                         name="askingPrice"
-                                        onChange={formik.handleChange}
+                                        // onChange={formik.handleChange}
                                         value={formik.values.askingPrice}
-                                        onFocus={() =>
-                                            formik.setFieldTouched("askingPrice", true, true)
-                                        }  
-                                        fontSize='sm' placeholder='N135.0' size='lg' className='border border-[#DDE2E5] rounded-lg ' />
+                                        // onFocus={() =>
+                                        //     formik.setFieldTouched("askingPrice", true, true)
+                                        // }  
+                                        fontSize='sm' placeholder='N135.0' size='lg' className='border cursor-not-allowed border-[#DDE2E5] rounded-lg ' />
                                     <div className="w-full h-auto pt-2">
                                         {formik.touched.askingPrice && formik.errors.askingPrice && (
                                             <motion.p
@@ -306,6 +307,24 @@ export default function CreateDealFromBargain() {
                                             </motion.p>
                                         )}
                                     </div> 
+                                </div>
+                                <div className='my-4 ' >
+                                    <p className='text-sm font-Inter-Regular mb-2' >Bidding price</p>
+                                    <Input   
+                                        // onChange={formik.handleChange}
+                                        value={data.data.bargain.biddingPrice} 
+                                        fontSize='sm' placeholder='N135.0' size='lg' className='border cursor-not-allowed border-[#DDE2E5] rounded-lg ' />
+                                    {/* <div className="w-full h-auto pt-2">
+                                        {formik.touched.askingPrice && formik.errors.askingPrice && (
+                                            <motion.p
+                                                initial={{ y: -100, opacity: 0 }}
+                                                animate={{ y: 0, opacity: 1 }}
+                                                className="text-xs font-Inter-SemiBold text-[#ff0000]"
+                                            >
+                                                {formik.errors.askingPrice}
+                                            </motion.p>
+                                        )}
+                                    </div>  */}
                                 </div>
                                 <div className='my-4 ' >
                                     <p className='text-sm font-Inter-Regular mb-2' >Cost before dispatch</p>
@@ -333,12 +352,12 @@ export default function CreateDealFromBargain() {
                                     <p className='text-sm font-Inter-Regular mb-2' >Address (supply location)</p>
                                     <Textarea  
                                         name="address"
-                                        onChange={formik.handleChange}
+                                        // onChange={formik.handleChange}
                                         value={formik.values.address}
                                         onFocus={() =>
                                             formik.setFieldTouched("address", true, true)
                                         }  
-                                        height='96px' fontSize='sm' placeholder='Enter address'  className='border border-[#DDE2E5] rounded-lg ' />
+                                        height='96px' fontSize='sm' placeholder='Enter address'  className='border cursor-not-allowed border-[#DDE2E5] rounded-lg ' />
                                     <div className="w-full h-auto pt-2">
                                         {formik.touched.address && formik.errors.address && (
                                             <motion.p

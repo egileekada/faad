@@ -9,7 +9,7 @@ export default function ClienteleInfo() {
 
     const navigate = useNavigate() 
 
-    const { isLoading, error, data } = useQuery('ClientsByID', () =>
+    const { isLoading, error, data } = useQuery('ClientsByID'+localStorage.getItem('clientID'), () =>
         fetch(`https://faadoli.herokuapp.com/api/v1/client/${localStorage.getItem('clientID')}`, {
             method: 'GET', // or 'PUT'
             headers: {
@@ -46,7 +46,7 @@ export default function ClienteleInfo() {
                     <div className='w-full flex px-10' > 
                         <div className='' >
                             <p className='font-Inter-SemiBold text-2xl ' >{data.data.client.companyName}</p>
-                            <p className='font-Inter-Regular text-sm ' >Professional services</p> 
+                            <p className='font-Inter-Regular text-sm ' >{data.data.client.industry}</p> 
                         </div>
                         <div className='ml-auto' >
                             <p className='font-Inter-Regular text-sm ' >Onboarded •{DateFormat(data.data.client.updatedAt)}</p>  
@@ -54,7 +54,7 @@ export default function ClienteleInfo() {
                     </div>
                     <div className='w-full flex items-end px-10' >
                         <div className='w-auto flex flex-1 flex-col' > 
-                            <p className='font-Inter-Regular mt-4 text-sm  ' >16, Alaska street, East west road, Before the bridge, Port Harcourt. Rivers State</p>
+                            <p className='font-Inter-Regular mt-4 text-sm  ' >{data.data.client.address}</p>
                             <p className='font-Inter-Regular mt-2 text-sm  ' >{data.data.client.email}</p>
                             <p className='font-Inter-Regular mt-2 text-sm my-2  ' >{data.data.client.phoneNumber}</p>
                         </div>

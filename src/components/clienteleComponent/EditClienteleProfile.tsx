@@ -6,6 +6,7 @@ import { motion } from 'framer-motion'
 import * as yup from 'yup'
 import { useFormik } from 'formik';  
 import ButtonLoader from '../ButtonLoader'
+import PageLoader from '../PageLoader'
 import { useQuery } from 'react-query'
 
 export default function ClienteleProfile() { 
@@ -91,7 +92,7 @@ export default function ClienteleProfile() {
     } 
 
 
-    const { isLoading, data } = useQuery('EditClientsByID', () =>
+    const { isLoading, data } = useQuery('EditClientsByID'+localStorage.getItem('editClientID'), () =>
         fetch(`https://faadoli.herokuapp.com/api/v1/client/${localStorage.getItem('editClientID')}`, {
             method: 'GET', // or 'PUT'
             headers: {
@@ -176,7 +177,11 @@ export default function ClienteleProfile() {
     }, [data])
     
 
-    console.log(formik.values)
+    if (isLoading) return(
+        <div className='w-full h-auto flex mt-12 justify-center  ' > 
+            <PageLoader />
+        </div>
+    )   
 
     const ClickHandler =(item: any)=> {
         localStorage.setItem('editClientID', '')
@@ -206,9 +211,11 @@ export default function ClienteleProfile() {
                                     <Input 
                                         name="companyName"
                                         onChange={formik.handleChange}
+                                        value={formik.values.companyName}
                                         onFocus={() =>
                                             formik.setFieldTouched("companyName", true, true)
                                         }  
+
                                         fontSize='sm' placeholder={!data.data.client.companyName ? 'Enter company name' :data.data.client.companyName} size='lg' className='border border-[#DDE2E5] rounded-lg ' />
                                     <div className="w-full h-auto pt-2">
                                         {formik.touched.companyName && formik.errors.companyName && (
@@ -227,6 +234,7 @@ export default function ClienteleProfile() {
                                     <Input 
                                         name="email"
                                         onChange={formik.handleChange}
+                                        value={formik.values.email}
                                         onFocus={() =>
                                             formik.setFieldTouched("email", true, true)
                                         }  
@@ -248,6 +256,7 @@ export default function ClienteleProfile() {
                                     <Input 
                                         name="phoneNumber"
                                         onChange={formik.handleChange}
+                                        value={formik.values.phoneNumber}
                                         onFocus={() =>
                                             formik.setFieldTouched("phoneNumber", true, true)
                                         }  
@@ -269,6 +278,7 @@ export default function ClienteleProfile() {
                                     <Input 
                                         name="backupPhoneNumber"
                                         onChange={formik.handleChange}
+                                        value={formik.values.backupPhoneNumber}
                                         onFocus={() =>
                                             formik.setFieldTouched("backupPhoneNumber", true, true)
                                         }  
@@ -290,6 +300,7 @@ export default function ClienteleProfile() {
                                     <Textarea 
                                         name="address"
                                         onChange={formik.handleChange}
+                                        value={formik.values.address}
                                         onFocus={() =>
                                             formik.setFieldTouched("address", true, true)
                                         }  
@@ -313,6 +324,7 @@ export default function ClienteleProfile() {
                                     <Input 
                                         name="industry"
                                         onChange={formik.handleChange}
+                                        value={formik.values.industry}
                                         onFocus={() =>
                                             formik.setFieldTouched("industry", true, true)
                                         }  
@@ -334,6 +346,7 @@ export default function ClienteleProfile() {
                                     <Input 
                                         name="name"
                                         onChange={formik.handleChange}
+                                        value={formik.values.name}
                                         onFocus={() =>
                                             formik.setFieldTouched("name", true, true)
                                         }  
@@ -354,6 +367,7 @@ export default function ClienteleProfile() {
                                     <Input 
                                         name="personalemail"
                                         onChange={formik.handleChange}
+                                        value={formik.values.personalemail}
                                         onFocus={() =>
                                             formik.setFieldTouched("personalemail", true, true)
                                         }  
@@ -374,6 +388,7 @@ export default function ClienteleProfile() {
                                     <Input 
                                         name="phone"
                                         onChange={formik.handleChange}
+                                        value={formik.values.phone}
                                         onFocus={() =>
                                             formik.setFieldTouched("phone", true, true)
                                         }  
