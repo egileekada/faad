@@ -101,3 +101,7 @@ input:focus {
 input[disabled='disabled']{
     color: #000;     
   }
+
+.hidescrollbar::-webkit-scrollbar{ 
+    display: none; 
+}

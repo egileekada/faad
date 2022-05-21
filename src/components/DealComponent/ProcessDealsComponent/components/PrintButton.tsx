@@ -95,8 +95,8 @@ const PrintButton = (props: any) => {
       {show ? 
         (
           <>
-            <div className="h-auto flex justify-center items-start py-2 overflow-x-hidden overflow-y-auto  fixed inset-0 z-50 outline-none focus:outline-none"> 
-              <div style={{width: '650px'}} className=" bg-white h-auto flex flex-col rounded-lg" >
+            <div style={{width: '700px' }} className="h-auto w-auto flex hidescrollbar justify-center items-start py-2 overflow-x-hidden overflow-y-auto  fixed inset-0 z-50 mx-auto outline-none focus:outline-none"> 
+              <div onClick={()=> setShow(true)}  style={{width: '650px' }} className=" bg-white h-auto flex flex-col rounded-lg relative z-50" >
                 <div className='flex items-center px-10 mt-10' >
                   <p className=' font-Inter-Bold text-lg ' >Print Details</p>
                   <svg onClick={()=> setShow(false)} className='ml-auto cursor-pointer' xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
@@ -126,7 +126,7 @@ const PrintButton = (props: any) => {
                 </button>  
               </div>
             </div> 
-            <div className="opacity-20 fixed flex flex-1 cursor-pointer inset-0 z-40 bg-black"/>
+            <div onClick={()=> setShow(false)} className="opacity-20 fixed flex flex-1 cursor-pointer inset-0 z-40 bg-black"/>
           </>
         ) : null}  
     </div>
