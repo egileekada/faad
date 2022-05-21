@@ -57,7 +57,7 @@ export default function ProductAndPricing() {
         setDeleteModal(false)
     }
 
-    const UpdateHandler =async(item: any)=> {
+    const UpdateHandler =async(item: any, perc: any )=> {
         setLoading(item)
         if(newPrice.value === ''){
             alert('Enter New Price')
@@ -71,7 +71,7 @@ export default function ProductAndPricing() {
                 },
                 body: JSON.stringify({ 
                     newPrice: Number(newPrice.value),
-                    percentageDifference: Number(percentage.value)
+                    percentageDifference: percentage.value === '' ? perc :Number(percentage.value)
                 }),
             });
             refetch()
@@ -117,7 +117,7 @@ export default function ProductAndPricing() {
                                                 value: e.target.value
                                             })} fontSize='sm' size='lg' border='1px solid #ACB5BD' backgroundColor='white' placeholder='000.00'  />
                                         </div>
-                                        <button onClick={()=> UpdateHandler(item._id)} disabled={loading === item._id ? true : false} className='font-Inter-SemiBold  ml-10 text-sm h-10 flex justify-center items-center text-white rounded-lg px-4 bg-[#F88C3A] ' >
+                                        <button onClick={()=> UpdateHandler(item._id, item.percentageDifference)} disabled={loading === item._id ? true : false} className='font-Inter-SemiBold  ml-10 text-sm h-10 flex justify-center items-center text-white rounded-lg px-4 bg-[#F88C3A] ' >
                                             {loading === item._id && (
                                                 <> 
                                                     <ButtonLoader size='30' />

@@ -220,6 +220,8 @@ export default function CreateDeal() {
                                         )}
                                     </div> 
                                 </div>
+
+                            <p className='text-sm font-Inter-Regular mb-2' >Total Price: ₦{(Number(formik.values.quantity)*Number(formik.values.costBeforDispatched)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</p>
                             </div>
                             <div className='w-full px-3' >
                                 <div className='my-4 ' >

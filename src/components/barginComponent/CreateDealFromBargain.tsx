@@ -113,17 +113,17 @@ export default function CreateDealFromBargain() {
     
             const json = await request.json(); 
     
-            if (request.status === 200) {    
+            // if (request.status === 200) {    
                 setShow(true)  
                 // const t1 = setTimeout(() => { 
                 //     navigate('/dashboard/deals');  
                 //     clearTimeout(t1);
                 // }, 1000); 
-            }else {
-                alert(json.message);
-                console.log(json)
-                setLoading(false);
-            }
+            // }else {
+            //     alert(json.message);
+            //     console.log(json)
+            //     setLoading(false);
+            // }
         }
     } 
 
@@ -284,6 +284,8 @@ export default function CreateDealFromBargain() {
                                         )}
                                     </div> 
                                 </div>
+
+                            <p className='text-sm font-Inter-Regular mb-2' >Total Price: ₦{(Number(formik.values.quantity)*Number(formik.values.costBeforDispatched)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</p>
                             </div>
                             <div className='w-full px-3' >
                                 <div className='my-4 ' >
