@@ -39,7 +39,7 @@ export default function StepTwo(props: any) {
                         <p className='font-Inter-Regular mt-1 text-[#ACB5BD] text-sm ' >Ensure you have double checked</p>
                     </div>
                 </div>
-                <Input className='mt-4' width='240px' fontSize='sm' placeholder='Enter seal number' />
+                <Input value={props.seal} onChange={(e)=> props.sealNumber(e.target.value)} className='mt-4' width='240px' fontSize='sm' placeholder='Enter seal number' />
                 <button onClick={()=> props.click(2)} className='py-2 text-sm font-Inter-SemiBold text-white rounded-md mt-auto ml-auto bg-[#F88C3A] px-16' >Next</button>
             </div>
         </div>

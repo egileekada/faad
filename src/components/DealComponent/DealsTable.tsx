@@ -60,7 +60,7 @@ export default function DealsTable(props:any) {
                             {[...data.data.delivery].reverse().map((item: any, index: any)=> {
                                 if(item.deal.companyName.toLocaleLowerCase().includes(props.name.toLocaleLowerCase())){
                                     return(
-                                        <Tr onClick={()=> ClickHandler(item.deal._id)} className=' cursor-pointer font-Inter-Regular text-sm ' key={index} paddingBottom='30px' >
+                                        <Tr onClick={()=> ClickHandler(item._id)} className=' cursor-pointer font-Inter-Regular text-sm ' key={index} paddingBottom='30px' >
                                             <Td>{index+1}</Td> 
                                             <Td>
                                                 <div className='flex items-center' > 

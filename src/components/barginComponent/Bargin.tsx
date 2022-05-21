@@ -80,7 +80,7 @@ export default function Bargin() {
                                 </Tr>
                             </Thead>
                             <Tbody >
-                                {data.data.baragins.map((item: any, index: any)=> {
+                                {[...data.data.baragins].reverse().map((item: any, index: any)=> {
                                     if(item.companyName.toLocaleLowerCase().includes(name.toLocaleLowerCase())){
                                         return(
                                             <Tr onClick={()=> ClickHandler(item._id)} className=' cursor-pointer font-Inter-Regular text-sm ' key={index} >

@@ -7,18 +7,13 @@ import SearchForTrucks from './components/SearchForTrucks'
 
 export default function StepOne(props: any) {
     
-    const [numberOfTanks, setNumberOfTanks] = React.useState(['One']) 
-    const [dispatchquatity, setDispatchQuatity] = React.useState('')   
-
-    React.useEffect(() => {
-        props.dispatchquatity(dispatchquatity)
-    }, [dispatchquatity])
+    const [numberOfTanks, setNumberOfTanks] = React.useState(['One'])  
 
     const OnChangeHandler=(item: any)=> {
             if(item > props.values.quantity ){
 
             } else {
-                setDispatchQuatity(item)
+                props.dispatchquatity(item)
             }
     }
 
@@ -51,7 +46,7 @@ export default function StepOne(props: any) {
                 <div className='flex mt-4 items-center' >  
                     <p className='font-Inter-Regulartext-[#ACB5BD] text-sm w-28 ' >Enter dispatch quantity (ℓ)</p> 
                     <div className='w-96' >
-                        <Input value={dispatchquatity} onChange={(e)=> OnChangeHandler(e.target.value)} placeholder='00.00' fontSize='sm' />
+                        <Input value={props.dispatch} onChange={(e)=> OnChangeHandler(e.target.value)} placeholder='00.00' fontSize='sm' />
                     </div> 
                 </div>
                 <SearchForTrucks show={props.show} truckName={props.truckName} id={props.truckId} truck={props.truck} /> 

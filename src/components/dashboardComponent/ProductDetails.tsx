@@ -18,6 +18,19 @@ export default function ProductDetails() {
 
     const [start, setStart] = React.useState(0)
     const [end, setEnd] = React.useState(3)
+
+    React.useEffect(() => { 
+        const t1 = setTimeout(() => {    
+        if(data.data.products.length !== end){ 
+            setStart(start+1)
+            setEnd(end+1)
+        } else { 
+            setStart(0)
+            setEnd(3)
+        }
+        clearTimeout(t1);
+        }, 5000);
+    },)
  
     if (isLoading) return(
         <div className='w-full h-auto flex mt-12 justify-center  ' > 
@@ -38,7 +51,17 @@ export default function ProductDetails() {
             setStart(start-1)
             setEnd(end-1)
         }
+    } 
+
+    const Slideshow =()=> {
+
+        if(data.data.products.length !== end){ 
+        } else {
+            
+        }
     }
+
+
 
     return (
         <div className='w-full rounded-3xl py-6 px-8 flex items-center  bg-[#FBF3EE] ' style={{border: '1px solid #F9A362', boxShadow: '4px 4px 6px 1px #0000000F'}} >
@@ -52,7 +75,7 @@ export default function ProductDetails() {
                         {data.data.products.slice(start, end).map((item: any, index: any ) => {
                              
                             return(
-                                <div className='mx-auto' >
+                                <div key={index} className='mx-auto' >
                                     <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <circle cx="24" cy="24" r="24" fill="#FEE8D8"/>
                                         <path d="M18.3431 31.5208C15.219 28.3966 15.219 23.3313 18.3431 20.2071L24 14.5503L29.6569 20.2071C32.781 23.3313 32.781 28.3966 29.6569 31.5208C26.5327 34.645 21.4673 34.645 18.3431 31.5208Z" stroke="#F88C3A" stroke-width="2"/>

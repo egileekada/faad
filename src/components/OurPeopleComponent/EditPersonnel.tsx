@@ -77,7 +77,7 @@ export default function EditPersonnel() {
 
     // formik
     const formik = useFormik({
-        initialValues: {name: '', personalEmail: '', companyEmail: '', department: '',  address: '',personalPhone: '', companyPhone: '', chatGroup: '', password: ''},
+        initialValues: {name: '', personalEmail: '', companyEmail: '', department: '',  address: '',personalPhone: '', companyPhone: '', chatGroup: ''},
         // validationSchema: loginSchema,
         onSubmit: () => {},
     });  
@@ -324,7 +324,7 @@ export default function EditPersonnel() {
                                     )}
                                 </div> 
                             </div>
-                            <div className='w-full font-Inter-Regular' >
+                            {/* <div className='w-full font-Inter-Regular' >
                                 <p className=' text-sm font-Inter-Regular mb-2' >Password</p>
                                 <Input 
                                     name="password"
@@ -345,7 +345,7 @@ export default function EditPersonnel() {
                                         </motion.p>
                                     )}
                                 </div> 
-                            </div>
+                            </div> */}
                         </div> 
                     :
                         <>

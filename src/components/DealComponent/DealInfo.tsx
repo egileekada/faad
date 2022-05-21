@@ -35,8 +35,20 @@ export default function DealInfo() {
 
     const navigate = useNavigate()
 
-    const { isLoading, data } = useQuery('DealsByID'+localStorage.getItem('dealID'), () =>
-        fetch(`https://faadoli.herokuapp.com/api/v1/deals/${localStorage.getItem('dealID')}`, {
+    // const { isLoading, data } = useQuery('DealsByID'+localStorage.getItem('dealID'), () =>
+    //     fetch(`https://faadoli.herokuapp.com/api/v1/deals/${localStorage.getItem('dealID')}`, {
+    //         method: 'GET', // or 'PUT'
+    //         headers: {
+    //             'Content-Type': 'application/json', 
+    //             Authorization : `Bearer ${localStorage.getItem('token')}`
+    //         }
+    //     }).then(res =>
+    //         res.json()
+    //     )
+    // )  
+
+    const { isLoading, data } = useQuery('DeliveryById', () =>
+        fetch(`https://faadoli.herokuapp.com/api/v1/delivery/${localStorage.getItem('dealID')}`, {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 
@@ -45,13 +57,15 @@ export default function DealInfo() {
         }).then(res =>
             res.json()
         )
-    )  
+    ) 
 
     if (isLoading) return(
         <div className='w-full h-auto flex mt-12 justify-center  ' > 
             <PageLoader />
         </div>
     )    
+
+    console.log(data)
 
     return (
         <div className='w-full h-full px-8 py-8 overflow-y-auto' > 
@@ -63,38 +77,38 @@ export default function DealInfo() {
                     <div className=' w-full flex ' >
                         <div className='flex w-full flex-col flex-1  ' > 
                             <div className='w-full flex items-center px-10' > 
-                                <p className='font-Inter-SemiBold text-2xl ' >{data.data.deal.companyName}</p>
+                                <p className='font-Inter-SemiBold text-2xl ' >{data.data.delivery.deal.companyName}</p>
                                 <div className='ml-auto' >
-                                    <p className='font-Inter-Regular text-sm ' >{DateFormat(data.data.deal.updatedAt)}</p>
+                                    <p className='font-Inter-Regular text-sm ' >{DateFormat(data.data.delivery.deal.createdAt)}</p>
                                     <p className='font-Inter-Regular text-sm ' >Created by Kimora</p>
                                     <p className='font-Inter-Bold text-sm ' >FA2343-B3</p>
                                 </div> 
                             </div>
-                            <p className='font-Inter-Regular mt-4 text-sm px-10 ' >{data.data.deal.address}</p>
-                            <p className='font-Inter-Regular mt-2 text-sm px-10 ' >{data.data.deal.email}</p>
-                            <p className='font-Inter-Regular mt-2 text-sm my-2 px-10 ' >{'+234'+data.data.deal.phoneNumber}</p>
+                            <p className='font-Inter-Regular mt-4 text-sm px-10 ' >{data.data.delivery.deal.address}</p>
+                            <p className='font-Inter-Regular mt-2 text-sm px-10 ' >{data.data.delivery.deal.email}</p>
+                            <p className='font-Inter-Regular mt-2 text-sm my-2 px-10 ' >{'+234'+data.data.delivery.deal.phoneNumber}</p>
                             <p className='font-Inter-SemiBold mb-2 mt-3 bg-[#F8F9FA] px-10 py-2' >Order details</p>
                             <div className='w-full grid-cols-3 grid gap-4 my-2 px-10 ' >
-                                <p className='font-Inter-Bold text-sm' >Product: <span className='font-Inter-Regular mr-3' >{data.data.deal.fuelType}</span></p>
-                                <p className='font-Inter-Bold text-sm'>Quantity: <span className='font-Inter-Regular mr-3'>{data.data.deal.quantity+' '}ℓ</span></p>
-                                <p className='font-Inter-Bold text-sm'>DD. Quantity: <span className='font-Inter-Regular'>{data.data.deal.quantity+' '}ℓ</span></p>
+                                <p className='font-Inter-Bold text-sm' >Product: <span className='font-Inter-Regular mr-3' >{data.data.delivery.deal.fuelType}</span></p>
+                                <p className='font-Inter-Bold text-sm'>Quantity: <span className='font-Inter-Regular mr-3'>{data.data.delivery.deal.quantity.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+' '}ℓ</span></p>
+                                <p className='font-Inter-Bold text-sm'>DD. Quantity: <span className='font-Inter-Regular'>{data.data.delivery.deal.quantity.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+' '}ℓ</span></p>
                             </div>
                             <div className='w-full grid-cols-3 grid gap-4 my-2  px-10 ' >
-                                <p className='font-Inter-Bold text-sm' >Asking price: <span className='font-Inter-Regular mr-3' >N{data.data.deal.askingPrice}</span></p>
-                                <p className='font-Inter-Bold text-sm'>Bidding price:: <span className='font-Inter-Regular mr-3'>N{data.data.deal.askingPrice}</span></p> 
+                                <p className='font-Inter-Bold text-sm' >Asking price: <span className='font-Inter-Regular mr-3' >N{data.data.delivery.deal.askingPrice}</span></p>
+                                <p className='font-Inter-Bold text-sm'>Bidding price:: <span className='font-Inter-Regular mr-3'>N{data.data.delivery.deal.askingPrice}</span></p> 
                             </div>
-                            <p className='font-Inter-SemiBold w-full bg-[#F8F9FA] px-10 py-2 mb-2 mt-3' >Delivery <span className='text-sm font-Inter-Regular ml-3' >20 - 01 - 2020 • 5:30</span></p>
+                            <p className='font-Inter-SemiBold w-full bg-[#F8F9FA] px-10 py-2 flex items-center mb-2 mt-3' >Delivery: <span className='text-sm font-Inter-Regular ml-3' >{DateFormat(data.data.delivery.updatedAt)}</span></p>
                             {/* <p className='font-Inter-Bold text-sm my-2' >Product: <span className='font-Inter-Regular mr-3' >AGO</span> Quantity: <span className='font-Inter-Regular mr-3'>12000 ℓ</span> DD. Quantity: <span className='font-Inter-Regular'>12000 ℓ</span></p>
                             <p className='font-Inter-Bold text-sm my-1' >Asking price: <span className='font-Inter-Regular mr-3' >N123.42</span> Bidding price: <span className='font-Inter-Regular'>N123.42 </span></p> */}
                         
                             <div className='w-full grid-cols-2 grid gap-4 my-2  px-10' >
-                                <p className='font-Inter-Bold text-sm flex '  >Address: <span className=' ml-3 font-Inter-Regular mr-3' >16, Alaska street, East west road, Before the bridge, Port Harcourt. RIvers State</span></p>
-                                <p className='font-Inter-Bold text-sm flex'>Instructions: <span className=' ml-3 font-Inter-Regular mr-3'>Drop it with gateman when you get there. or call 08012345678</span></p>
+                                <p className='font-Inter-Bold text-sm flex '  >Address: <span className=' ml-3 font-Inter-Regular mr-3' >{data.data.delivery.deal.address}</span></p>
+                                <p className='font-Inter-Bold text-sm flex'>Instructions: <span className=' ml-3 font-Inter-Regular mr-3'>{data.data.delivery.deal.dispatchNote}</span></p>
                                 {/* <p className='font-Inter-Bold text-sm'>DD. Quantity: <span className='font-Inter-Regular'>12000 ℓ</span></p> */}
                             </div>
                             <div className='w-full grid-cols-3 grid gap-4 my-2 px-10' >
-                                <p className='font-Inter-Bold text-sm' >Agent: <span className='font-Inter-Regular mr-3' >Cisco Ramone</span></p>
-                                <p className='font-Inter-Bold text-sm'>Driver: <span className='font-Inter-Regular mr-3'>Anthony Sule</span></p> 
+                                <p className='font-Inter-Bold text-sm' >Agent: <span className='font-Inter-Regular mr-3' >{data.data.delivery.agent.name}</span></p>
+                                <p className='font-Inter-Bold text-sm'>Driver: <span className='font-Inter-Regular mr-3'>{data.data.delivery.driver.name}</span></p> 
                             </div> 
                         </div>
                         <div className='w-80' > 
