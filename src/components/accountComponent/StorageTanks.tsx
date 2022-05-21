@@ -3,10 +3,16 @@ import React from 'react'
 import { useQuery } from 'react-query'
 import PageLoader from '../PageLoader'
 import AddStorageTanks from './Modal/AddStorageTanks'
+import CalibrateTank from './Modal/CalibrateTank'
+import Alert from '../../assets/images/alert.png' 
 
 export default function StorageTanks() {
 
     const [showModal, setShowModal] = React.useState(false)
+    const [showCalibrate, setShowCalibrate] = React.useState(false)
+    const [showFill, setShowFill] = React.useState(false)
+    const [tankId, setTankId] = React.useState('')
+    const [tankDetail, setTankDetail] = React.useState({} as any)
 
     const dataall = [
         // { 
@@ -65,6 +71,20 @@ export default function StorageTanks() {
         // },
     ] as any
 
+    const ClickCalibrate =(item: any)=> {
+        setTankId(item._id)
+        setTankDetail(item)
+        setShowCalibrate(true)
+    }
+
+    const ClickFill =(item: any)=> {
+        setTankId(item._id)
+        setTankDetail(item) 
+        console.log(item)
+        setShowFill(true)
+    }
+
+
     const { isLoading, data, refetch } = useQuery('AllTank', () =>
         fetch('https://faadoli.herokuapp.com/api/v1/tank', {
             method: 'GET', // or 'PUT'
@@ -77,13 +97,42 @@ export default function StorageTanks() {
         )
     )  
 
+    const FillTank = async()=> {
+        // tankDetail.
+
+        setShowFill(false) 
+        let NewLevel = await tankDetail.capacity - tankDetail.dirt
+        const request = await fetch(`https://faadoli.herokuapp.com/api/v1/tank/${tankId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization : `Bearer ${localStorage.getItem('token')}` 
+                },
+                // body: JSON.stringify({
+                //     level: NewLevel
+                // }),
+            });
+    
+            const json = await request.json(); 
+    
+            if (request.status === 200) {     
+                alert('Tank Filled Successfully');
+                const t1 = setTimeout(() => {  
+                    refetch()
+                    clearTimeout(t1);
+                }, 1000); 
+            }else {
+                alert(json.message);
+                console.log(json)
+                // setLoading(false);
+            }
+    }
+
     if (isLoading) return(
         <div className='w-full h-auto flex mt-12 justify-center  ' > 
             <PageLoader />
         </div>
-    )  
-
-    console.log(data)
+    )   
 
     return (
         <div className='w-full h-full rounded-2xl bg-white' >
@@ -115,7 +164,7 @@ export default function StorageTanks() {
                                         </defs>
                                     </svg>
                                     <div className='ml-3' >
-                                        <p className='font-Inter-SemiBold text-lg mb-4 text-[#ACB5BD]' >Polar Bear </p>
+                                        <p className='font-Inter-SemiBold text-lg mb-4 text-[#ACB5BD]' >FAAD Oil</p>
                                         <p className='font-Inter-Bold mb-2 text-sm' >Product<span className='font-Inter-Regular ml-3' >{item.product === null ? '' :item.product.productName} ({item.product === null ? '' :item.product.productCode})</span></p>
                                         <p className='font-Inter-Bold mt-1 mb-2 text-sm' >Capacity<span className='font-Inter-Regular ml-3' >{item.capacity.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')} ℓ</span></p>
                                         <p className='font-Inter-Bold my-1 mb-2 text-sm' >Dirt<span className='font-Inter-Regular ml-3' >{item.dirt.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')} ℓ</span></p>
@@ -124,8 +173,8 @@ export default function StorageTanks() {
                                         <p className='font-Inter-Bold my-1 mb-2 text-sm text-[#00BE00] ' >Level<span className='font-Inter-Regular ml-3' >{item.level.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')} ℓ</span></p>
                                         <p className='font-Inter-Bold my-1 mb-2 text-sm' >Avg Price<span className='font-Inter-Regular ml-3' >{item.avgPrice}/ℓ</span></p> 
                                         <div className='flex items-center mt-4' >
-                                            <button className=' rounded px-3 flex justify-center items-center h-10 font-Inter-SemiBold text-sm text-white bg-[#F88C3A]' >Fill Tank</button>
-                                            <button className=' rounded px-3 flex justify-center items-center h-10 font-Inter-SemiBold text-sm ml-2 text-[#F88C3A] bg-white border border-[#F88C3A]' >Calibrate</button>
+                                            <button onClick={()=> ClickFill(item) } className=' rounded px-3 flex justify-center items-center h-10 font-Inter-SemiBold text-sm text-white bg-[#F88C3A]' >Fill Tank</button>
+                                            <button onClick={()=> ClickCalibrate(item) } className=' rounded px-3 flex justify-center items-center h-10 font-Inter-SemiBold text-sm ml-2 text-[#F88C3A] bg-white border border-[#F88C3A]' >Calibrate</button>
                                         </div>
                                     </div>
                                 </div>
@@ -203,6 +252,34 @@ export default function StorageTanks() {
                         <div className="opacity-20 fixed flex flex-1 inset-0 z-40 bg-black"/>
                     </>
                 ) : null}  
+            
+            {showFill ? 
+                (
+                    <>
+                        <div className="h-auto flex justify-center items-center overflow-x-hidden overflow-y-hidden fixed inset-0 z-50 outline-none focus:outline-none"> 
+                            <div className='w-80 rounded-lg flex flex-col justify-center items-center bg-white p-8' >
+                                <img className='w-32 mb-6' alt='alert' src={Alert} />
+                                <p className=' font-Inter-SemiBold text-sm mt-3 text-black text-center' >Do You Want To Fill This Tank?</p>
+                                <div className='flex mt-8 w-full' >
+                                    <button onClick={()=> setShowFill(false) } className=' bg-gray-400 text-white py-2 rounded mr-1 w-full font-Inter-Bold text-sm' >No</button>
+                                    <button onClick={()=> FillTank()} className=' bg-[#F88C3A] text-white py-2 rounded ml-1 w-full font-Inter-Bold text-sm' >Yes</button>
+                                </div> 
+                                {/* <button onClick={()=> DeleteHandler(item._id)} ></button> */}
+                            </div>
+                        </div> 
+                        <div className="opacity-20 fixed flex flex-1 inset-0 z-40 bg-black"/>
+                    </>
+                ) : null} 
+
+            {showCalibrate ? 
+                (
+                    <>
+                        <div className="h-auto flex justify-center items-center overflow-x-hidden overflow-y-hidden fixed inset-0 z-50 outline-none focus:outline-none"> 
+                            <CalibrateTank reload={refetch} values={tankDetail} close={setShowCalibrate} />
+                        </div> 
+                        <div className="opacity-20 fixed flex flex-1 inset-0 z-40 bg-black"/>
+                    </>
+                ) : null} 
         </div>
     )
 } 

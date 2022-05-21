@@ -44,8 +44,8 @@ export default function ProductAndPricing() {
         </div>
     )   
 
-    const DeleteHandler =async(item: any)=> {
-        await fetch(`https://faadoli.herokuapp.com/api/v1/product/${item}`, {
+    const DeleteHandler =async(index: any)=> {
+        await fetch(`https://faadoli.herokuapp.com/api/v1/product/${index}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
@@ -53,6 +53,32 @@ export default function ProductAndPricing() {
             },
             // body: JSON.stringify(formik.values),
         });
+        await fetch(`https://faadoli.herokuapp.com/api/v1/tank`, {
+            method: 'GET', // or 'PUT'
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization : `Bearer ${localStorage.getItem('token')}`
+            }
+        })
+        .then(response => response.json())
+        .then(data => {        
+            {data.data.tanks.map((item: any)=> {
+                if(index === item.product._id){ 
+                    console.log(item)
+                    fetch(`https://faadoli.herokuapp.com/api/v1/tank/${item._id}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            Authorization : `Bearer ${localStorage.getItem('token')}` 
+                        }
+                    });  
+                } 
+            })} 
+        })
+        .catch((error) => {
+            console.error('Error:', error); 
+        },); 
+
         refetch()
         setDeleteModal(false)
     }
@@ -94,7 +120,7 @@ export default function ProductAndPricing() {
             <div className='pb-14 border-b px-8 py-8  border-[#e0e0e0]' >
                 {!isLoading && (
                     <>
-                        {data.data.products.map((item: any)=> {
+                        {[...data.data.products].reverse().map((item: any)=> {
                             return(
                                 <div className='w-full mb-4' >
                                     <p className='font-Inter-SemiBold text-xl ' >{item.productName} ({item.productCode})</p>
@@ -141,7 +167,7 @@ export default function ProductAndPricing() {
                 <div className='w-full grid grid-cols-2 gap-6 mt-6' >
                     {!isLoading && (
                         <>
-                            {data.data.products.map((item: any)=> {
+                            {[...data.data.products].reverse().map((item: any)=> {
                                 return(
                                     <div key={item._id} className=' rounded-xl bg-[#414141] text-white px-8 py-4  w-full' >
                                         <div className='flex' >
@@ -159,7 +185,7 @@ export default function ProductAndPricing() {
                                             </div>
                                         </div>
                                         <div className='flex mt-4' >
-                                            <svg onClick={()=> ClickHandler(item._id)} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <svg className=' cursor-pointer' onClick={()=> ClickHandler(item._id)} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path fill-rule="evenodd" clip-rule="evenodd" d="M17 5V4C17 2.89543 16.1046 2 15 2H9C7.89543 2 7 2.89543 7 4V5H4C3.44772 5 3 5.44772 3 6C3 6.55228 3.44772 7 4 7H5V18C5 19.6569 6.34315 21 8 21H16C17.6569 21 19 19.6569 19 18V7H20C20.5523 7 21 6.55228 21 6C21 5.44772 20.5523 5 20 5H17ZM15 4H9V5H15V4ZM17 7H7V18C7 18.5523 7.44772 19 8 19H16C16.5523 19 17 18.5523 17 18V7Z" fill="white"/>
                                                 <path d="M9 9H11V17H9V9Z" fill="white"/>
                                                 <path d="M13 9H15V17H13V9Z" fill="white"/>
@@ -205,7 +231,7 @@ export default function ProductAndPricing() {
                                     <path d="M9 9H11V17H9V9Z" fill="#ff0000"/>
                                     <path d="M13 9H15V17H13V9Z" fill="#ff0000"/>
                                 </svg>
-                                <p className=' font-Inter-Medium text-sm mt-3 text-black text-center' >Do You Want To Delete This Product?</p>
+                                <p className=' font-Inter-Medium text-sm mt-3 text-black text-center' >Do You Want To Delete This Product, The Storage Tank Of This Product Will Be Deleted?</p>
                                 <div className='flex mt-8' >
                                     <button onClick={()=> setDeleteModal(false) } className=' bg-gray-400 text-white py-2 rounded mr-1 px-6 font-Inter-Bold text-sm' >Cancel</button>
                                     <button  onClick={()=> DeleteHandler(deleteId)} className=' bg-[#ff0000] text-white py-2 rounded ml-1 px-6 font-Inter-Bold text-sm' >Delete</button>
