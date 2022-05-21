@@ -63,17 +63,17 @@ export default function CreateDeal() {
     
             const json = await request.json(); 
     
-            if (request.status === 200) {    
+            // if (request.status === 200) {    
                 setShow(true)  
                 // const t1 = setTimeout(() => { 
                 //     navigate('/dashboard/deals');  
                 //     clearTimeout(t1);
                 // }, 1000); 
-            }else {
-                alert(json.message);
-                console.log(json)
-                setLoading(false);
-            }
+            // }else {
+            //     alert(json.message);
+            //     console.log(json)
+            //     setLoading(false);
+            // }
         }
     } 
 
