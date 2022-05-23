@@ -44,43 +44,50 @@ export default function ProductAndPricing() {
         </div>
     )   
 
+    // const DeleteTank=(index: any)=> {
+
+    //     fetch(`https://faadoli.herokuapp.com/api/v1/tank`, {
+    //         method: 'GET', // or 'PUT'
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //             Authorization : `Bearer ${localStorage.getItem('token')}`
+    //         }
+    //     })
+    //     .then(response => response.json())
+    //     .then(data => {        
+    //         {data.data.tanks.map((item: any)=> {
+    //             if(index === item.product._id){ 
+    //                 console.log(item)
+    //                 fetch(`https://faadoli.herokuapp.com/api/v1/tank/${item._id}`, {
+    //                     method: 'DELETE',
+    //                     headers: {
+    //                         'Content-Type': 'application/json',
+    //                         Authorization : `Bearer ${localStorage.getItem('token')}` 
+    //                     }
+    //                 });  
+    //             } 
+    //         })} 
+    //     })
+    //     .catch((error) => {
+    //         console.error('Error:', error); 
+    //     },); 
+
+    //     refetch()
+    //     setDeleteModal(false)
+    // }
+
     const DeleteHandler =async(index: any)=> {
         await fetch(`https://faadoli.herokuapp.com/api/v1/product/${index}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
                 Authorization : `Bearer ${localStorage.getItem('token')}` 
-            },
-            // body: JSON.stringify(formik.values),
+            }, 
         });
-        await fetch(`https://faadoli.herokuapp.com/api/v1/tank`, {
-            method: 'GET', // or 'PUT'
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization : `Bearer ${localStorage.getItem('token')}`
-            }
-        })
-        .then(response => response.json())
-        .then(data => {        
-            {data.data.tanks.map((item: any)=> {
-                if(index === item.product._id){ 
-                    console.log(item)
-                    fetch(`https://faadoli.herokuapp.com/api/v1/tank/${item._id}`, {
-                        method: 'DELETE',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            Authorization : `Bearer ${localStorage.getItem('token')}` 
-                        }
-                    });  
-                } 
-            })} 
-        })
-        .catch((error) => {
-            console.error('Error:', error); 
-        },); 
 
         refetch()
         setDeleteModal(false)
+        // {DeleteTank(index)}
     }
 
     const UpdateHandler =async(item: any, perc: any )=> {
@@ -115,6 +122,20 @@ export default function ProductAndPricing() {
         setDeleteId(item)
     }
 
+    const OnChangeHandler =(item: any, ID: any, intial: any)=> {
+        setNewPrice({
+            index: ID,
+            value: item
+        })
+
+        let percentage: any = ((item - intial) / intial) * 100
+
+        setPercentage({
+            index: ID,
+            value: percentage.toFixed(2)
+        })
+    }
+
     return (
         <div className='w-full h-full bg-white rounded-2xl' >
             <div className='pb-14 border-b px-8 py-8  border-[#e0e0e0]' >
@@ -131,17 +152,11 @@ export default function ProductAndPricing() {
                                         </div>
                                         <div className='w-full ml-4' >
                                             <p className='font-Inter-Regular text-sm mb-1' >New</p>
-                                            <Input value={newPrice.index === item._id ? newPrice.value : ''} onChange={(e)=> setNewPrice({
-                                                index: item._id,
-                                                value: e.target.value
-                                            })} fontSize='sm' size='lg' border='1px solid #ACB5BD' backgroundColor='white' placeholder='000.00'  />
+                                            <Input value={newPrice.index === item._id ? newPrice.value : ''} onChange={(e)=> OnChangeHandler(e.target.value, item._id, item.newPrice)} fontSize='sm' size='lg' border='1px solid #ACB5BD' backgroundColor='white' placeholder='000.00'  />
                                         </div>
                                         <div className='w-full ml-10' >
                                             <p className='font-Inter-Regular text-sm mb-1' >Reset percentage</p>
-                                            <Input value={percentage.index === item._id ? percentage.value : ''} onChange={(e)=> setPercentage({
-                                                index: item._id,
-                                                value: e.target.value
-                                            })} fontSize='sm' size='lg' border='1px solid #ACB5BD' backgroundColor='white' placeholder='000.00'  />
+                                            <Input value={percentage.index === item._id ? percentage.value : ''} className=' cursor-not-allowed' fontSize='sm' size='lg' border='1px solid #ACB5BD' backgroundColor='white' placeholder='000.00'  />
                                         </div>
                                         <button onClick={()=> UpdateHandler(item._id, item.percentageDifference)} disabled={loading === item._id ? true : false} className='font-Inter-SemiBold  ml-10 text-sm h-10 flex justify-center items-center text-white rounded-lg px-4 bg-[#F88C3A] ' >
                                             {loading === item._id && (
@@ -231,7 +246,8 @@ export default function ProductAndPricing() {
                                     <path d="M9 9H11V17H9V9Z" fill="#ff0000"/>
                                     <path d="M13 9H15V17H13V9Z" fill="#ff0000"/>
                                 </svg>
-                                <p className=' font-Inter-Medium text-sm mt-3 text-black text-center' >Do You Want To Delete This Product, The Storage Tank Of This Product Will Be Deleted?</p>
+                                <p className=' font-Inter-Medium text-sm mt-3 text-black text-center' >Do You Want To Delete This Product?</p>
+                                <p className=' font-Inter-Medium text-xs mt-1 text-gray-400 text-center'>Note: The Storage Tank Of This Product Will Be Deleted</p>
                                 <div className='flex mt-8' >
                                     <button onClick={()=> setDeleteModal(false) } className=' bg-gray-400 text-white py-2 rounded mr-1 px-6 font-Inter-Bold text-sm' >Cancel</button>
                                     <button  onClick={()=> DeleteHandler(deleteId)} className=' bg-[#ff0000] text-white py-2 rounded ml-1 px-6 font-Inter-Bold text-sm' >Delete</button>

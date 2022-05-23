@@ -19,6 +19,7 @@ import ClienteleTab from './Tabs/ClienteleTab';
 import Clientele from './components/clienteleComponent/Clientele';
 import ClienteleInfo from './components/clienteleComponent/ClienteleInfo';
 import ClienteleProfile from './components/clienteleComponent/ClienteleProfile';
+import DealHistory from './components/clienteleComponent/DealInfo';
 import CustomerService from './components/Messaging/CustomerService';
 import Operations from './components/Messaging/Operations';
 import General from './components/Messaging/General';
@@ -49,6 +50,7 @@ function App() {
               <Route path='/dashboard/clientele/info' element={<ClienteleInfo />}/>
               <Route path='/dashboard/clientele/clientprofile' element={<ClienteleProfile />}/> 
               <Route path='/dashboard/clientele/editclientprofile' element={<EditClienteleProfile />}/> 
+              <Route path='/dashboard/clientele/dealhistoryinfo' element={<DealHistory />}/> 
             </Route>
             <Route path='/dashboard/deals' element={<DealTab />} >
               <Route path='/dashboard/deals' element={<Deal />}/>

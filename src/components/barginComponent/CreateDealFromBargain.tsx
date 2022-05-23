@@ -47,7 +47,7 @@ export default function CreateDealFromBargain() {
         costBeforDispatched: yup.string().required('Required'),
         phoneNumber: yup.string().required('Required'),
         address: yup.string().required('Required'), 
-        backupPhoneNumber: yup.string().required('Required'), 
+        // backupPhoneNumber: yup.string().required('Required'), 
         fuelType: yup.string().required('Required'), 
         quantity: yup.string().required('Required'),
         dispatchNote: yup.string().required('Required'), 
@@ -86,7 +86,7 @@ export default function CreateDealFromBargain() {
                 dispatchNote: ''
             })
         )}
-    }, [data])
+    }, [data]) 
 
     const submit = async () => {
 
@@ -132,9 +132,7 @@ export default function CreateDealFromBargain() {
         <div className='w-full h-auto flex mt-12 justify-center items-center' > 
             <PageLoader />
         </div>
-    )  
-
-    console.log(data.data.bargain.biddingPrice)
+    )   
 
     return (
         <>
@@ -199,8 +197,8 @@ export default function CreateDealFromBargain() {
                                     <p className='text-sm font-Inter-Regular mb-2' >Phone number</p>
                                     <Input  
                                         name="phoneNumber"
-                                        // value={formik.values.phoneNumber}
-                                        onChange={formik.handleChange}
+                                        value={formik.values.phoneNumber}
+                                        // onChange={formik.handleChange}
                                         // onFocus={() =>
                                         //     formik.setFieldTouched("phoneNumber", true, true)
                                         // }  
