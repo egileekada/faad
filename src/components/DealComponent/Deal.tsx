@@ -1,11 +1,8 @@
-import { Input, Select, Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react'
-import { Console } from 'console'
+import { Input } from '@chakra-ui/react' 
 import React from 'react'
 import { useQuery } from 'react-query'
 import { useNavigate } from 'react-router-dom'
-import { IUser, UserContext } from '../context/UserContext'
-import DateFormat from '../DateFormat'
-import PageLoader from '../PageLoader'
+import { IUser, UserContext } from '../context/UserContext' 
 import DealsTable from './DealsTable'
 import OngoingDeals from './OngoingDeals'
 import ProcessDeal from './ProcessDeal'
@@ -27,25 +24,8 @@ export default function Deal() {
         }).then(res =>
             res.json()
         )
-    ) 
-
-    // React.useEffect(() => {
-    //     if(!isLoading){ 
-    //         {[...data.data.deals].reverse().map((item: any, index: any)=> {
-    //             if(item.status !== 'completed'){ 
-    //                 setNumbLength([...numbLength, item])
-    //                 // if(index-2 === data.data.deals.length){
-    //                 //     return(  
-    //                 //     )
-    //                 // }
-    //             }
-    //         })} 
-    //     } 
-    // }, [])
-
-    console.log(numbLength);
-    
-    // const [tab, setTab] = React.useState(userContext.dealTab)   
+    )   
+       
     const [Value, setValue] = React.useState({} as any) 
 
     return (

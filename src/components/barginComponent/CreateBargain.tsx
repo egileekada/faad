@@ -266,7 +266,7 @@ export default function CreateBargain() {
                     </div>
                     <div className='w-full px-3' >
                         <div className='my-4 ' >
-                            <p className='text-sm font-Inter-Regular mb-2' >Price</p>
+                            <p className='text-sm font-Inter-Regular mb-2' >Asking price</p>
                             <Input 
                                 name="askingPrice"
                                 value={price}

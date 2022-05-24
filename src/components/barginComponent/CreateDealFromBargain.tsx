@@ -287,7 +287,7 @@ export default function CreateDealFromBargain() {
                             </div>
                             <div className='w-full px-3' >
                                 <div className='my-4 ' >
-                                    <p className='text-sm font-Inter-Regular mb-2' >Price</p>
+                                    <p className='text-sm font-Inter-Regular mb-2' >Asking price</p>
                                     <Input  
                                         name="askingPrice"
                                         // onChange={formik.handleChange}
@@ -352,12 +352,12 @@ export default function CreateDealFromBargain() {
                                     <p className='text-sm font-Inter-Regular mb-2' >Address (supply location)</p>
                                     <Textarea  
                                         name="address"
-                                        // onChange={formik.handleChange}
+                                        onChange={formik.handleChange}
                                         value={formik.values.address}
                                         onFocus={() =>
                                             formik.setFieldTouched("address", true, true)
                                         }  
-                                        height='96px' fontSize='sm' placeholder='Enter address'  className='border cursor-not-allowed border-[#DDE2E5] rounded-lg ' />
+                                        height='96px' fontSize='sm' placeholder='Enter address'  className='border border-[#DDE2E5] rounded-lg ' />
                                     <div className="w-full h-auto pt-2">
                                         {formik.touched.address && formik.errors.address && (
                                             <motion.p
