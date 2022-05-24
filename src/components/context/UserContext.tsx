@@ -9,6 +9,10 @@ export interface IUser {
     setTab: Function, 
     profileData: any, 
     setProfileData: Function, 
+    dealTab: any, 
+    setDealTab: Function, 
+    dealValue: any, 
+    setDealValue: Function, 
 }
 
 export const UserContext = React.createContext({} as IUser);
@@ -19,9 +23,11 @@ const UserContextWrapper = (props: any) => {
     const [tab, setTab] = React.useState(''); 
     const [profileData, setProfileData] = React.useState({} as any);
     const [userData, setUserData] = React.useState({} as any); 
+    const [dealTab, setDealTab] = React.useState({} as any); 
+    const [dealValue, setDealValue] = React.useState({} as any); 
     
     return (
-        <UserContext.Provider value={{userData, setUserData, tab, setTab, token, setToken, profileData, setProfileData}}>
+        <UserContext.Provider value={{dealValue, setDealValue, dealTab, setDealTab, userData, setUserData, tab, setTab, token, setToken, profileData, setProfileData}}>
             {
                 props.children
             }

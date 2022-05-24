@@ -23,8 +23,8 @@ export default function SideBar() {
     const ClickHandler =(item: any)=> { 
         const rout = item.toLowerCase().replace(/\s/g,'')
         if(item !== 'Log out'){
-            userContext.setTab(item)
-            // sessionStorage.setItem('tabIndex', item)
+            userContext.setTab(item) 
+            userContext.setDealTab(0)
             setActive(item) 
             if(item === 'Dashboard') {
                 navigate('/dashboard')

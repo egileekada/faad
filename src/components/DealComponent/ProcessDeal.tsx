@@ -3,6 +3,7 @@ import { background, color } from '@chakra-ui/styled-system'
 import React from 'react'
 import { useQuery } from 'react-query'
 import { useNavigate } from 'react-router-dom'
+import { IUser, UserContext } from '../context/UserContext'
 import PageLoader from '../PageLoader'
 import StepFive from './ProcessDealsComponent/StepFive'
 import StepFour from './ProcessDealsComponent/StepFour'
@@ -14,6 +15,7 @@ export default function ProcessDeal(props: any) {
 
     const [tab, setTab] = React.useState(0)
     const navigate = useNavigate() 
+    const userContext: IUser = React.useContext(UserContext); 
 
     const [showDetail, setShowDetail] = React.useState(false); 
     const [loading, setLoading] = React.useState(false); 
@@ -37,8 +39,7 @@ export default function ProcessDeal(props: any) {
     const [confirmedDeliveryInfo, setConfirmedDeliveryInfo] = React.useState({
         receivedDeliveryNote: false,
         receivedWaterNote: false,
-    });   
-
+    });    
 
     React.useEffect(() => {
         fetch(`https://faadoli.herokuapp.com/api/v1/delivery`, {
@@ -58,7 +59,7 @@ export default function ProcessDeal(props: any) {
                 }, 2000); 
             }
             {data.data.delivery.map((item: any)=> {
-                if(props.values._id === item.deal._id){
+                if(userContext.dealValue._id === item.deal._id){
                     setTab(3)
                     // setLoadingPage(false)
                     // console.log(item)
@@ -98,7 +99,7 @@ export default function ProcessDeal(props: any) {
                     Authorization : `Bearer ${localStorage.getItem('token')}` 
                 },
                 body: JSON.stringify({ 
-                    dealId: props.values._id,
+                    dealId: userContext.dealValue._id,
                     tankId: tankInfo,
                     truckId: truckInfo,    
                     sealNumber: sealNumber,
@@ -120,8 +121,25 @@ export default function ProcessDeal(props: any) {
 
             if (request.status === 200) {     
                 alert('Sucessfull')
+                const request = await fetch(`https://faadoli.herokuapp.com/api/v1/deals/${userContext.dealValue._id}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            Authorization : `Bearer ${localStorage.getItem('token')}` 
+                        },
+                        body: JSON.stringify({  
+                            status: "accepted"
+                        }),
+                    }) 
+                    if (request.status === 200) {  
+                        alert('Deal Update')
+                    }else {
+                        alert(json.message);
+                        console.log(json)
+                        setLoading(false);
+                    } 
                 // navigate(0);
-                props.click(1)
+                userContext.setDealTab(1)
                 // const t1 = setTimeout(() => {   
                 //     clearTimeout(t1);
                 // }, 1000); 
@@ -138,7 +156,7 @@ export default function ProcessDeal(props: any) {
                     Authorization : `Bearer ${localStorage.getItem('token')}` 
                 },
                 body: JSON.stringify({ 
-                    // dealId: props.values._id,
+                    // dealId: userContext.dealValue._id,
                     tankId: tankInfo,
                     truckId: truckInfo,
                     sealNumber: sealNumber,
@@ -162,7 +180,7 @@ export default function ProcessDeal(props: any) {
                 alert('Sucessfull')
                 if(confirmedDeliveryInfo.receivedDeliveryNote){
 
-                    const request = await fetch(`https://faadoli.herokuapp.com/api/v1/deals/${props.values._id}`, {
+                    const request = await fetch(`https://faadoli.herokuapp.com/api/v1/deals/${userContext.dealValue._id}`, {
                         method: 'PUT',
                         headers: {
                             'Content-Type': 'application/json',
@@ -179,12 +197,8 @@ export default function ProcessDeal(props: any) {
                         console.log(json)
                         setLoading(false);
                     } 
-                } 
-
-                setTab(4) 
-                // const t1 = setTimeout(() => {   
-                //     clearTimeout(t1);
-                // }, 1000); 
+                }  
+                setTab(4)  
             }else {
                 alert(json.message);
                 console.log(json)
@@ -210,15 +224,12 @@ export default function ProcessDeal(props: any) {
         <div className='w-full h-auto flex mt-2 justify-center  ' > 
             <PageLoader />
         </div>
-    )    
-
-    console.log(dispatchQuatity);
-    console.log(sealNumber)
+    )     
     
 
     return (
         <div className='w-full h-full py-8' > 
-            <svg onClick={()=> props.click(1)} className='cursor-pointer fixed z-50 top-14  ' width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg onClick={()=> userContext.setDealTab(1)} className='cursor-pointer fixed z-50 top-14  ' width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M20.3287 11.0001V13.0001L7.50042 13.0001L10.7429 16.2426L9.32873 17.6568L3.67188 12L9.32873 6.34314L10.7429 7.75735L7.50019 11.0001L20.3287 11.0001Z" fill="#495057"/>
             </svg>
             <div className='w-full flex ' >
@@ -311,13 +322,13 @@ export default function ProcessDeal(props: any) {
             </div> 
             <div className='w-full mt-8 relative' >
                 <div className={tab === 0 ? 'w-full ' : 'hidden'} >
-                    <StepOne show={showDetail} truckId={truckInfo} tankId={tankInfo} dispatch={dispatchQuatity} truckName={truckName} tankName={tankName} values={props.values} dispatchquatity={setDispatchQuatity} tank={setTankInfo} truck={setTruckInfo} click={ClickHandler} />
+                    <StepOne show={showDetail} truckId={truckInfo} tankId={tankInfo} dispatch={dispatchQuatity} truckName={truckName} tankName={tankName} values={userContext.dealValue} dispatchquatity={setDispatchQuatity} tank={setTankInfo} truck={setTruckInfo} click={ClickHandler} />
                 </div>
                 <div className={tab === 1 ? 'w-full ' : 'hidden'} >
                     <StepTwo sealNumber={setSealNumber} seal={sealNumber} show={showDetail} inspectDefault={inspectInfo} inspect={setInspectInfo} click={setTab} />
                 </div>
                 <div className={tab === 2 ? 'w-full ' : 'hidden'} >
-                    <StepThree show={showDetail} agentName={agentName} driverId={driverInfo} agentId={agentInfo} driverName={driverName} truck={truckInfo} dispatch={dispatchQuatity} values={props.values} loading={loading} submit={submit} agent={setAgentInfo} driver={setDriverInfo} click={setTab} />
+                    <StepThree show={showDetail} agentName={agentName} driverId={driverInfo} agentId={agentInfo} driverName={driverName} truck={truckInfo} dispatch={dispatchQuatity} values={userContext.dealValue} loading={loading} submit={submit} agent={setAgentInfo} driver={setDriverInfo} click={setTab} />
                 </div>
                 <div className={tab === 3 ? 'w-full ' : 'hidden'} >
                     <StepFour deliveryDefault={confirmedDeliveryInfo} delivery={setConfirmedDeliveryInfo} submit={submit} />

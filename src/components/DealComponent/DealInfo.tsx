@@ -2,6 +2,7 @@ import { Table, Thead, Tr, Th, Tbody, Td } from '@chakra-ui/react'
 import React from 'react'
 import { useQuery } from 'react-query'
 import { useNavigate } from 'react-router-dom'
+import { IUser, UserContext } from '../context/UserContext'
 import DateFormat from '../DateFormat'
 import PageLoader from '../PageLoader'
 
@@ -34,6 +35,7 @@ export default function DealInfo() {
     const [show, setShow] = React.useState(false)
 
     const navigate = useNavigate()
+    const userContext: IUser = React.useContext(UserContext); 
 
     // const { isLoading, data } = useQuery('DealsByID'+localStorage.getItem('dealID'), () =>
     //     fetch(`https://faadoli.herokuapp.com/api/v1/deals/${localStorage.getItem('dealID')}`, {
@@ -47,7 +49,7 @@ export default function DealInfo() {
     //     )
     // )  
 
-    const { isLoading, data } = useQuery('DeliveryById', () =>
+    const { isLoading, data } = useQuery('DeliveryById'+localStorage.getItem('dealID'), () =>
         fetch(`https://faadoli.herokuapp.com/api/v1/delivery/${localStorage.getItem('dealID')}`, {
             method: 'GET', // or 'PUT'
             headers: {
@@ -65,7 +67,11 @@ export default function DealInfo() {
         </div>
     )    
 
-    console.log(data)
+    const ClickHandler =()=> {
+        navigate('/dashboard/deals')
+        userContext.setDealTab(2)
+        userContext.dealValue(data.data.delivery.deal)
+    }
 
     return (
         <div className='w-full h-full px-8 py-8 overflow-y-auto' > 
@@ -96,6 +102,11 @@ export default function DealInfo() {
                             <div className='w-full grid-cols-3 grid gap-4 my-2  px-10 ' >
                                 <p className='font-Inter-Bold text-sm' >Asking price: <span className='font-Inter-Regular mr-3' >N{data.data.delivery.deal.askingPrice}</span></p>
                                 <p className='font-Inter-Bold text-sm'>Bidding price:: <span className='font-Inter-Regular mr-3'>N{data.data.delivery.deal.askingPrice}</span></p> 
+                                
+                            </div>
+
+                            <div className='w-full mt-4 my-2  px-10 ' >
+                                <p className='font-Inter-Bold text-sm flex'>Total price:: <span className='font-Inter-Regular ml-3'>N{(data.data.delivery.deal.askingPrice * data.data.delivery.deal.quantity).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+' '}</span></p> 
                             </div>
                             <p className='font-Inter-SemiBold w-full bg-[#F8F9FA] px-10 py-2 flex items-center mb-2 mt-3' >Delivery: <span className='text-sm font-Inter-Regular ml-3' >{DateFormat(data.data.delivery.updatedAt)}</span></p>
                             {/* <p className='font-Inter-Bold text-sm my-2' >Product: <span className='font-Inter-Regular mr-3' >AGO</span> Quantity: <span className='font-Inter-Regular mr-3'>12000 ℓ</span> DD. Quantity: <span className='font-Inter-Regular'>12000 ℓ</span></p>
@@ -196,6 +207,9 @@ export default function DealInfo() {
                     <div className='mt-14 flex ml-10 ' > 
                         <button className='font-Inter-SemiBold text-xs h-10 text-white rounded-lg px-4 bg-[#F88C3A] ' >Send Email</button>
                         <button className='font-Inter-SemiBold text-xs h-10 flex justify-center items-center ml-4 text-[#ACB5BD] rounded-lg px-4 bg-[#DDE2E5] ' >Report issue</button>
+                        {data.data.delivery.deal.status !== 'completed' && (
+                            <button onClick={()=> ClickHandler()} className='font-Inter-SemiBold text-xs h-10 flex justify-center items-center ml-4 text-white rounded-lg px-4 bg-[#F88C3A] ' >Finish Deal</button>
+                        )}
                     </div>
                 </div>
             )}

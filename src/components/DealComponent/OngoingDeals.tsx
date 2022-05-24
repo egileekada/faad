@@ -1,10 +1,12 @@
 import React from 'react'
 import { useQuery } from 'react-query'
+import { IUser, UserContext } from '../context/UserContext';
 import DateFormat from '../DateFormat'
 import PageLoader from '../PageLoader'
 
 export default function OngoingDeals(props: any) { 
  
+    const userContext: IUser = React.useContext(UserContext); 
     const { isLoading, data } = useQuery('AllDeals', () =>
         fetch('https://faadoli.herokuapp.com/api/v1/deals', {
             method: 'GET', // or 'PUT'
@@ -24,9 +26,12 @@ export default function OngoingDeals(props: any) {
     )   
 
     const ClickHandler=(item: any)=> {
-        props.click(2)
+        userContext.setDealTab(2)
+        userContext.setDealValue(item)
         props.values(item)
     } 
+
+    console.log(data.data.deals)
 
     return (
         <div className='w-full py-6' >
@@ -41,7 +46,7 @@ export default function OngoingDeals(props: any) {
                                 <p className='font-Inter-Regular text-sm'>{item.email} <span className='ml-2' >+234{item.phoneNumber}</span></p>
                                 <div className='flex mt-10' >
                                     <button className='border border-[#F66E09] font-Inter-Medium rounded py-2 text-sm text-[#F66E09] px-4 ' >Ask customer service</button>
-                                    <button onClick={()=> ClickHandler(item)} className='ml-4 bg-[#F66E09] font-Inter-Medium rounded py-2 text-sm text-[#fff] px-4 ' >Process deal</button>
+                                    <button onClick={()=> ClickHandler(item)} className='ml-4 bg-[#F66E09] font-Inter-Medium rounded py-2 text-sm text-[#fff] px-4 ' >{item.status === 'accepted' ? 'Finish deal' : 'Process deal' }</button>
                                 </div>
                             </div>
                             <div className='w-full flex flex-col ml-2' >

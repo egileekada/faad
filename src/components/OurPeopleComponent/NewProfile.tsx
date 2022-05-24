@@ -70,11 +70,13 @@ export default function NewProfile() {
             alert('You have to fill in the form correctly to continue');
             setLoading(false);
             return;
-        }else if (image === '') {
-            alert('You have to Add the Image to continue');
-            setLoading(false);
-            return;
-        }else {
+        }
+        // else if (image === '') {
+        //     alert('You have to Add the Image to continue');
+        //     setLoading(false);
+        //     return;
+        // }
+        else {
             try {  
 
                 let formData = new FormData()   
@@ -86,7 +88,7 @@ export default function NewProfile() {
                 formData.append('personalPhone', formik.values.personalPhone)  
                 formData.append('companyPhone', formik.values.companyPhone)  
                 formData.append('chatGroup', formik.values.chatGroup)  
-                formData.append('avatar', image)  
+                // formData.append('avatar', image)  
 
                 // make request to server 
                 const request = await axios.default.post(`https://faadoli.herokuapp.com/api/v1/auth/signup`, formData, {
@@ -127,8 +129,8 @@ export default function NewProfile() {
                 <div className='w-8/12 pr-12 border-r-2 border-[#DDE2E5] ' >
                     <div className='w-full flex' > 
                         <div className='w-full flex' > 
-                            <label className='w-44 h-44 cursor-pointer rounded-xl'>
-                                <input style={{display:'none'}} type="file" accept="image/*" id="input" onChange={handleImageChange} />
+                            <label className='w-44 h-44 cursor-not-allowed rounded-xl'>
+                                <input disabled style={{display:'none'}} type="file" accept="image/*" id="input" onChange={handleImageChange} />
                                 {!image && ( 
                                     <div className='w-44 rounded-xl h-44 flex flex-col bg-[#DDE2E5]' >
                                         <div className=' w-full h-full flex justify-center items-center' >
@@ -137,7 +139,7 @@ export default function NewProfile() {
                                                 <path d="M31.917 31.75C31.917 30.3233 30.7604 29.1667 29.3337 29.1667H8.66699C7.24026 29.1667 6.08366 30.3233 6.08366 31.75V47.25H0.916992V31.75C0.916992 27.4698 4.38679 24 8.66699 24H29.3337C33.6139 24 37.0837 27.4698 37.0837 31.75V47.25H31.917V31.75Z" fill="#ACB5BD"/>
                                             </svg>
                                         </div>
-                                        <div className='mt-auto flex items-center justify-center rounded-b-xl h-16 cursor-pointer w-full bg-[#000000A6] font-Inter-Regular text-white' >
+                                        <div className='mt-auto flex items-center justify-center cursor-not-allowed rounded-b-xl h-16 w-full bg-[#000000A6] font-Inter-Regular text-white' >
                                             <svg className='mr-2'  width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M8 0C7.44772 0 7 0.447715 7 1V7H1C0.447715 7 0 7.44772 0 8C0 8.55229 0.447715 9 1 9H7V15C7 15.5523 7.44772 16 8 16C8.55229 16 9 15.5523 9 15V9H15C15.5523 9 16 8.55229 16 8C16 7.44772 15.5523 7 15 7H9V1C9 0.447715 8.55229 0 8 0Z" fill="white"/>
                                             </svg>Choose image

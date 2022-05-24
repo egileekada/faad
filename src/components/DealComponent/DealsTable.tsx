@@ -27,6 +27,17 @@ export default function DealsTable(props:any) {
         )
     ) 
 
+    React.useEffect(() => {  
+        userContext.setTab('Deals') 
+    },[]);  
+
+    React.useEffect(() => {   
+        if(!isLoading){
+            props.delivery(data.data.delivery.length)
+        }
+    },[data]);  
+
+
     const ClickHandler =(item: any)=> {
         navigate('info')
         localStorage.setItem('dealID', item) 
