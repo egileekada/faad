@@ -23,10 +23,10 @@ export default function ProcessDeal(props: any) {
     // const [clientInfo, setClientInfo] = React.useState({} as any); 
     const [truckInfo, setTruckInfo] = React.useState('');
     const [deliveryId, setDeliveryId] = React.useState('');
-    const [tankInfo, setTankInfo] = React.useState('');
+    const [tankInfo, setTankInfo] = React.useState([]as any);
     const [agentInfo, setAgentInfo] = React.useState(''); 
     const [truckName, setTruckName] = React.useState('');
-    const [tankName, setTankName] = React.useState('');
+    const [tankName, setTankName] = React.useState([]as any);
     const [agentName, setAgentName] = React.useState('');
     const [sealNumber, setSealNumber] = React.useState(''); 
     const [dispatchQuatity, setDispatchQuatity] = React.useState('');
@@ -62,15 +62,19 @@ export default function ProcessDeal(props: any) {
                 if(userContext.dealValue._id === item.deal._id){
                     setTab(3)
                     // setLoadingPage(false)
-                    // console.log(item)
+                    console.log(item)
                     setDeliveryId(item._id)
                     // setTab(2)
                     setShowDetail(true)
-                    setTankName('Tank Capacity: '+item.tanks.level+'ℓ')
+                    item.tanks.map((item: any, index: any) => {  
+                        tankName.splice(index, 1, 'Tank Capacity: '+item.level+'ℓ');
+                        tankInfo.splice(index, 1, item._id);
+                        // setTankName([...tankName,'Tank Capacity: '+item.level+'ℓ'])
+                        // setTankInfo([...tankInfo, item._id])  
+                    }) 
                     setTruckName('Truck TruckID: '+item.truck.truckId)
                     setAgentInfo(item.agent._id)
                     setDriverInfo(item.driver._id)
-                    setTankInfo(item.tanks._id)
                     setTruckInfo(item.truck._id)
                     setAgentName(item.agent.name)
                     setDriverName(item.driver.name)
@@ -100,7 +104,7 @@ export default function ProcessDeal(props: any) {
                 },
                 body: JSON.stringify({ 
                     dealId: userContext.dealValue._id,
-                    tankId: tankInfo,
+                    tanks: tankInfo,
                     truckId: truckInfo,    
                     sealNumber: sealNumber,
                     dispatchQuantity: dispatchQuatity,
@@ -157,10 +161,10 @@ export default function ProcessDeal(props: any) {
                 },
                 body: JSON.stringify({ 
                     // dealId: userContext.dealValue._id,
-                    tankId: tankInfo,
-                    truckId: truckInfo,
-                    sealNumber: sealNumber,
-                    dispatchQuantity: dispatchQuatity,
+                    // tank: tankInfo,
+                    // truckId: truckInfo,
+                    // sealNumber: sealNumber,
+                    // dispatchQuantity: dispatchQuatity,
                     inspect: {
                         waterCheck: inspectInfo.waterCheck,
                         truckSealed: inspectInfo.truckSealed
@@ -225,8 +229,9 @@ export default function ProcessDeal(props: any) {
             <PageLoader />
         </div>
     )     
-    
-
+     
+    console.log(tankInfo);
+        
     return (
         <div className='w-full h-full py-8' > 
             <svg onClick={()=> userContext.setDealTab(1)} className='cursor-pointer fixed z-50 top-14  ' width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

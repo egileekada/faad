@@ -103,14 +103,14 @@ export default function StorageTanks() {
         setShowFill(false) 
         let NewLevel = await tankDetail.capacity - tankDetail.dirt
         const request = await fetch(`https://faadoli.herokuapp.com/api/v1/tank/${tankId}`, {
-                method: 'DELETE',
+                method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization : `Bearer ${localStorage.getItem('token')}` 
                 },
-                // body: JSON.stringify({
-                //     level: NewLevel
-                // }),
+                body: JSON.stringify({
+                    level: NewLevel
+                }),
             });
     
             const json = await request.json(); 
