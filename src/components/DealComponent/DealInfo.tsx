@@ -137,13 +137,20 @@ export default function DealInfo() {
                             </div>
                         </div>
                     </div>
-                    <Requisition id={data.data.delivery.deal._id} />
+                    {userContext.userData.department.toLowerCase() !== 'Customer Service'.toLowerCase() && (
+                        <Requisition id={data.data.delivery.deal._id} />
+                    )}
                     <div className='mt-14 flex ml-10 ' > 
                         <button className='font-Inter-SemiBold text-xs h-10 text-white rounded-lg px-4 bg-[#F88C3A] ' >Send Email</button>
                         <button className='font-Inter-SemiBold text-xs h-10 flex justify-center items-center ml-4 text-[#ACB5BD] rounded-lg px-4 bg-[#DDE2E5] ' >Report issue</button>
-                        {data.data.delivery.deal.status !== 'completed' && (
-                            <button onClick={()=> ClickHandler()} className='font-Inter-SemiBold text-xs h-10 flex justify-center items-center ml-4 text-white rounded-lg px-4 bg-[#F88C3A] ' >Finish Deal</button>
-                        )}
+                        
+                    {userContext.userData.department.toLowerCase() !== 'Customer Service'.toLowerCase() && userContext.userData.department.toLowerCase() !== 'Accounts'.toLowerCase() && (
+                        <> 
+                            {data.data.delivery.deal.status !== 'completed' && (
+                                <button onClick={()=> ClickHandler()} className='font-Inter-SemiBold text-xs h-10 flex justify-center items-center ml-4 text-white rounded-lg px-4 bg-[#F88C3A] ' >Finish Deal</button>
+                            )}
+                        </>
+                    )}
                     </div>
                 </div>
             )}

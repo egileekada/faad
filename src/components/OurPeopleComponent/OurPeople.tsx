@@ -12,6 +12,7 @@ export default function OurPeople() {
     const navigate = useNavigate()
     const userContext: IUser = React.useContext(UserContext); 
     const [staff, setStaff] = React.useState('')
+    const imageExist = [] as any
 
     function DateFormat(item: any) {
         var date = new Date(item);
@@ -63,14 +64,34 @@ export default function OurPeople() {
           });
       }
 
-    //   const checkImage = path =>
-    //     new Promise(resolve => {
-    //         const img = new Image();
-    //         img.onload = () => resolve({path, status: 'ok'});
-    //         img.onerror = () => resolve({path, status: 'error'});
+    // const checkIfImageExists = (url: any, index: any) => {
+    //     fetch(url, { method: 'HEAD', headers:{ Authorization : `Bearer ${localStorage.getItem('token')}`} })
+    //         .then(res => {
+    //             console.log()
+    //             if (res.status !== 404) {
+    //                 console.log('Image exists.');
 
-    //         img.src = path;
-    //     });
+    //                 imageExist.splice(index, 1, true);
+    //                 // return true
+    //             } else {
+    //                 imageExist.splice(index, 1, false);
+    //                 console.log('Image does not exists.');
+    //                 // return false
+    //             }
+    //         }).catch(err => console.log('Error:', err) );  
+            
+    // }; 
+
+    const checkIfImageExists = (e: any, index: any) => {
+        if(e.target.onerror === null){
+            imageExist.splice(index, 1, false);
+        } else {
+            imageExist.splice(index, 1, true);
+        }
+        console.log(e.target.onerror)
+    }
+
+    
 
     return (
         <div className='w-full h-full px-8 py-8 overflow-y-auto relative' > 
@@ -98,13 +119,13 @@ export default function OurPeople() {
                 </div> 
                 {!isLoading && ( 
                     <div className='w-full grid grid-cols-4 gap-6 mt-10' >
-                        {data.data.users.map((item: any)=> {
+                        {data.data.users.map((item: any, index: any)=> {
                             if(item.name !== 'string'){
                                 if(staff.toLowerCase() === item.department.toLowerCase()){
                                     // console.log(isImage(`https://faadoli.herokuapp.com/uploads/images/${item.avatar}`))
                                     // console.log(item.department)
                                     return(
-                                        <div onClick={()=> ClickHandler(item)} style={{boxShadow: '0px 16px 24px 0px #60617029'}} className=' bg-white rounded-2xl cursor-pointer' >
+                                        <div key={index} onClick={()=> ClickHandler(item)} style={{boxShadow: '0px 16px 24px 0px #60617029'}} className=' bg-white rounded-2xl cursor-pointer' >
                                             <div style={{boxShadow: '0px 2px 8px 0px #60617029'}} className='w-full h-64 justify-center rounded-2xl flex flex-col items-center' >
                                                 <div className='w-16 h-16 rounded-full bg-white' >
                                                     {/* {item.avatar !== 'avatar.png' && ( 
@@ -131,13 +152,18 @@ export default function OurPeople() {
                                     )
                                 } else if(staff === ''){
                                     return(
-                                        <div onClick={()=> ClickHandler(item)} style={{boxShadow: '0px 16px 24px 0px #60617029'}} className=' bg-white rounded-2xl cursor-pointer' >
+                                        <div key={index} onClick={()=> ClickHandler(item)} style={{boxShadow: '0px 16px 24px 0px #60617029'}} className=' bg-white rounded-2xl cursor-pointer' >
                                             <div style={{boxShadow: '0px 2px 8px 0px #60617029'}} className='w-full h-64 justify-center rounded-2xl flex flex-col items-center' >
                                                 <div className='w-16 h-16 rounded-full bg-white' > 
-                                                    
-                                                {item.avatar && ( 
-                                                        <img src={`https://faadoli.herokuapp.com/uploads/images/${item.avatar}` || Avatar} alt='avatar' className='w-full h-full object-cover rounded-full' />
-                                                    )}
+
+                                                    {/* {checkIfImageExists(`https://faadoli.herokuapp.com/uploads/images/${item.avatar}`, index)}    */}
+                                                 
+                                                    {/* {imageExist[index] && (  */}
+                                                        <img src={imageExist[index] === null ? Avatar : `https://faadoli.herokuapp.com/uploads/images/${item.avatar}`} onError={(e)=> checkIfImageExists(e, index)} alt='avatar' className='w-full h-full object-cover rounded-full' />
+                                                    {/* )} */}
+                                                    {/* {!imageExist[index] && ( 
+                                                        <img src={Avatar} alt='avatar' className='w-full h-full object-cover rounded-full' />
+                                                    )} */}
                                                 </div>
                                                 <p className='font-Inter-SemiBold text-xl mt-4' >{item.name}</p>
                                                 <p className='font-Inter-Regular text-sm' >{item.department}</p>

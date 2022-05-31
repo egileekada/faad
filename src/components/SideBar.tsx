@@ -7,18 +7,17 @@ export default function SideBar() {
     
     const navigate = useNavigate()
     const userContext: IUser = React.useContext(UserContext);  
-    const menuArray = ['Dashboard', 'Accounts','Bargains', 'Deals', 'Clientele', 'Our people', 'Activities']
+    const managingdirector = ['Dashboard', 'Accounts','Bargains', 'Deals', 'Clientele', 'Our people', 'Activities']
+    const CustomerCareAdmin = ['Dashboard', 'Bargains', 'Deals', 'Clientele', 'Our people']
+    const CustomerCare = ['Dashboard', 'Bargains', 'Deals', 'Clientele', 'Our people']
+    const Account = ['Dashboard', 'Accounts', 'Bargains', 'Deals']
+    const Operation = ['Dashboard', 'Bargains', 'Deals']
     const messageArray = ['Customer Service', 'Operations', 'General', 'My Notes', 'Lock', 'Log out']
+    // const CustomerCaremessageArray = ['Customer Service', 'General', 'My Notes', 'Lock', 'Log out']
+    // const OperationmessageArray = ['Operations', 'General', 'My Notes', 'Lock', 'Log out']
+    // const messageArray = ['Customer Service', 'Operations', 'General', 'My Notes', 'Lock', 'Log out']
 
-    const [active, setActive] = React.useState('Dashboard')
-
-    // React.useEffect(() => {
-    //     if(!sessionStorage.getItem('tabIndex')){ 
-    //         sessionStorage.setItem('tabIndex', active)
-    //     } else {
-    //         setActive(sessionStorage.getItem('tabIndex')+'')
-    //     }
-    // }, [active])
+    const [active, setActive] = React.useState('Dashboard') 
 
     const ClickHandler =(item: any)=> { 
         const rout = item.toLowerCase().replace(/\s/g,'')
@@ -42,7 +41,9 @@ export default function SideBar() {
             localStorage.clear()
         }
     }
-        
+
+    console.log(userContext.userData.department); 
+
     return (
         <div className='w-72 py-10 pt-16 px-6 overflow-y-auto h-screen flex ' >
             <div className='w-full ' >
@@ -53,18 +54,95 @@ export default function SideBar() {
                     </svg>
                 </div> 
                 <p className='font-Inter-ExtraBold text-xs text-[#ACB5BD] mt-8' >Menu</p>
-                <div className='mt-4' >
-                     {menuArray.map((item: any)=> {
-                         return(
-                            <div onClick={()=> ClickHandler(item)} style={item === userContext.tab ? {backgroundColor: '#FEE8D8'} : {}} key={item} className='flex items-center my-2 cursor-pointer py-2 rounded-md pl-5 ' >
-                                <div className='w-7 h-7 flex items-center justify-center' >
-                                    <SideBarIcons iconName={item} active={userContext.tab} />
-                                </div>
-                                <p style={item === userContext.tab ? {color: '#F88C3A'}: {color: '#212429'}} className='ml-4 font-Inter-SemiBold text-sm' >{item}</p>
-                            </div>
-                         )
-                     })}
-                </div>
+                {userContext.userData.department && (
+
+                    <div className='mt-4' >
+                        {userContext.userData.department.toLowerCase() === 'Customer Service'.toLowerCase() && (
+                            <>
+                                {CustomerCare.map((item: any)=> {
+                                    return(
+                                        <div onClick={()=> ClickHandler(item)} style={item === userContext.tab ? {backgroundColor: '#FEE8D8'} : {}} key={item} className='flex items-center my-2 cursor-pointer py-2 rounded-md pl-5 ' >
+                                            <div className='w-7 h-7 flex items-center justify-center' >
+                                                <SideBarIcons iconName={item} active={userContext.tab} />
+                                            </div>
+                                            <p style={item === userContext.tab ? {color: '#F88C3A'}: {color: '#212429'}} className='ml-4 font-Inter-SemiBold text-sm' >{item}</p>
+                                        </div>
+                                    )
+                                })}
+                            </>
+                        )} 
+                        {userContext.userData.department.toLowerCase() === 'Accounts'.toLowerCase() && (
+                            <>
+                                {Account.map((item: any)=> {
+                                    return(
+                                        <div onClick={()=> ClickHandler(item)} style={item === userContext.tab ? {backgroundColor: '#FEE8D8'} : {}} key={item} className='flex items-center my-2 cursor-pointer py-2 rounded-md pl-5 ' >
+                                            <div className='w-7 h-7 flex items-center justify-center' >
+                                                <SideBarIcons iconName={item} active={userContext.tab} />
+                                            </div>
+                                            <p style={item === userContext.tab ? {color: '#F88C3A'}: {color: '#212429'}} className='ml-4 font-Inter-SemiBold text-sm' >{item}</p>
+                                        </div>
+                                    )
+                                })}
+                            </>
+                        )}
+                        {userContext.userData.department.toLowerCase() === 'Customer Service Admin'.toLowerCase() && (
+                            <>
+                                {CustomerCareAdmin.map((item: any)=> {
+                                    return(
+                                        <div onClick={()=> ClickHandler(item)} style={item === userContext.tab ? {backgroundColor: '#FEE8D8'} : {}} key={item} className='flex items-center my-2 cursor-pointer py-2 rounded-md pl-5 ' >
+                                            <div className='w-7 h-7 flex items-center justify-center' >
+                                                <SideBarIcons iconName={item} active={userContext.tab} />
+                                            </div>
+                                            <p style={item === userContext.tab ? {color: '#F88C3A'}: {color: '#212429'}} className='ml-4 font-Inter-SemiBold text-sm' >{item}</p>
+                                        </div>
+                                    )
+                                })}
+                            </>
+                        )}
+                        {userContext.userData.department.toLowerCase() === 'Customer Service Admin'.toLowerCase() && (
+                            <>
+                                {CustomerCareAdmin.map((item: any)=> {
+                                    return(
+                                        <div onClick={()=> ClickHandler(item)} style={item === userContext.tab ? {backgroundColor: '#FEE8D8'} : {}} key={item} className='flex items-center my-2 cursor-pointer py-2 rounded-md pl-5 ' >
+                                            <div className='w-7 h-7 flex items-center justify-center' >
+                                                <SideBarIcons iconName={item} active={userContext.tab} />
+                                            </div>
+                                            <p style={item === userContext.tab ? {color: '#F88C3A'}: {color: '#212429'}} className='ml-4 font-Inter-SemiBold text-sm' >{item}</p>
+                                        </div>
+                                    )
+                                })}
+                            </>
+                        )}
+                        {userContext.userData.department.toLowerCase() === 'Managing Director'.toLowerCase() && (
+                            <>
+                                {managingdirector.map((item: any)=> {
+                                    return(
+                                        <div onClick={()=> ClickHandler(item)} style={item === userContext.tab ? {backgroundColor: '#FEE8D8'} : {}} key={item} className='flex items-center my-2 cursor-pointer py-2 rounded-md pl-5 ' >
+                                            <div className='w-7 h-7 flex items-center justify-center' >
+                                                <SideBarIcons iconName={item} active={userContext.tab} />
+                                            </div>
+                                            <p style={item === userContext.tab ? {color: '#F88C3A'}: {color: '#212429'}} className='ml-4 font-Inter-SemiBold text-sm' >{item}</p>
+                                        </div>
+                                    )
+                                })}
+                            </>
+                        )}
+                        {userContext.userData.department.toLowerCase() === 'Operations'.toLowerCase() && (
+                            <>
+                                {Operation.map((item: any)=> {
+                                    return(
+                                        <div onClick={()=> ClickHandler(item)} style={item === userContext.tab ? {backgroundColor: '#FEE8D8'} : {}} key={item} className='flex items-center my-2 cursor-pointer py-2 rounded-md pl-5 ' >
+                                            <div className='w-7 h-7 flex items-center justify-center' >
+                                                <SideBarIcons iconName={item} active={userContext.tab} />
+                                            </div>
+                                            <p style={item === userContext.tab ? {color: '#F88C3A'}: {color: '#212429'}} className='ml-4 font-Inter-SemiBold text-sm' >{item}</p>
+                                        </div>
+                                    )
+                                })}
+                            </>
+                        )}
+                    </div>
+                )}
                 <p className='font-Inter-ExtraBold text-xs text-[#ACB5BD] mt-5' >Menu</p>
                 <div className='mt-4' >
                      {messageArray.map((item: any)=> {
