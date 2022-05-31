@@ -9,7 +9,7 @@ export default function SideBar() {
     const userContext: IUser = React.useContext(UserContext);  
     const managingdirector = ['Dashboard', 'Accounts','Bargains', 'Deals', 'Clientele', 'Our people', 'Activities']
     const CustomerCareAdmin = ['Dashboard', 'Bargains', 'Deals', 'Clientele', 'Our people']
-    const CustomerCare = ['Dashboard', 'Bargains', 'Deals', 'Clientele', 'Our people']
+    const CustomerCare = ['Dashboard', 'Bargains', 'Deals', 'Clientele']
     const Account = ['Dashboard', 'Accounts', 'Bargains', 'Deals']
     const Operation = ['Dashboard', 'Bargains', 'Deals']
     const messageArray = ['Customer Service', 'Operations', 'General', 'My Notes', 'Lock', 'Log out']
