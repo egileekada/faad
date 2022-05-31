@@ -41,11 +41,8 @@ export default function NewProfile() {
         department: yup.string().required('Required'),
         personalPhone: yup.string().required('Required'),
         companyPhone: yup.string().required('Required'),
-        address: yup.string().required('Required'), 
-        // chatGroup: yup.string().required('Required'), 
-        // password: yup.string().required('Your password is required').min(4, 'A minimium of 4 characters')
-    }) 
-
+        address: yup.string().required('Required'),  
+    })   
 
     // formik
     const formik = useFormik({
@@ -70,32 +67,48 @@ export default function NewProfile() {
             alert('You have to fill in the form correctly to continue');
             setLoading(false);
             return;
-        }
-        // else if (image === '') {
-        //     alert('You have to Add the Image to continue');
-        //     setLoading(false);
-        //     return;
-        // }
+        } 
         else {
-            try {  
+            try {   
+                
+                let StaffRole: any
+                if(formik.values.department === 'Customer service Admin'){
+                    StaffRole = 'CSA'
+                } else if(formik.values.department === 'Customer service'){
+                    StaffRole = 'CS'
+                } else if(formik.values.department === 'Accounts'){
+                    StaffRole = 'AC'
+                } else if(formik.values.department === 'Operations'){
+                    StaffRole = 'OP'
+                } else if(formik.values.department === 'Managing Director'){
+                    StaffRole = 'MD'
+                } else if(formik.values.department === 'Clientele'){
+                    StaffRole = 'CL'
+                } else if(formik.values.department === 'Drivers'){
+                    StaffRole = 'DR'
+                } else if(formik.values.department === 'Agents'){
+                    StaffRole = 'AG'
+                }
 
-                let formData = new FormData()   
-                formData.append('name', formik.values.name)  
-                formData.append('personalEmail', formik.values.personalEmail)  
-                formData.append('companyEmail', formik.values.companyEmail)  
-                formData.append('department', formik.values.department)  
-                formData.append('address', formik.values.address)  
-                formData.append('personalPhone', formik.values.personalPhone)  
-                formData.append('companyPhone', formik.values.companyPhone)  
-                formData.append('chatGroup', formik.values.chatGroup)  
-                // formData.append('avatar', image)  
 
-                // make request to server 
-                const request = await axios.default.post(`https://faadoli.herokuapp.com/api/v1/auth/signup`, formData, {
-                    headers: { 'content-type': 'application/json',
-                    Authorization : `Bearer ${localStorage.getItem('token')}` 
-                    }
-                })    
+                const request = await fetch(`https://faadoli.herokuapp.com/api/v1/auth/signup`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization : `Bearer ${localStorage.getItem('token')}` 
+                    },
+                    body: JSON.stringify({
+                        name: formik.values.name, 
+                        personalEmail: formik.values.personalEmail, 
+                        companyEmail: formik.values.companyEmail, 
+                        department: formik.values.department,  
+                        address: formik.values.address,
+                        personalPhone: Number(formik.values.personalPhone), 
+                        companyPhone: Number(formik.values.companyPhone), 
+                        chatGroup: formik.values.chatGroup,
+                        role: StaffRole,
+                    }),
+                });    
    
                 if (request.status === 200) {  
                     setShowModal(true)

@@ -5,49 +5,14 @@ import { useNavigate } from 'react-router-dom'
 import { IUser, UserContext } from '../context/UserContext'
 import DateFormat from '../DateFormat'
 import PageLoader from '../PageLoader'
+import Requisition from './component/Requisition'
+import AddRequisition from './Modal/AddRequisition'
 
 export default function DealInfo() {
 
-    const dataLocal = [
-        { 
-            title: 'Truck repair', 
-            amount: '20,000',  
-            paid: 'Falz D Bad guy',  
-            date: '19-02-2022 - 5:30', 
-            cummulative: '20,000',
-        }, 
-        { 
-            title: 'Truck repair', 
-            amount: '20,000',  
-            paid: 'Falz D Bad guy',  
-            date: '19-02-2022 - 5:30', 
-            cummulative: '20,000',
-        }, 
-        { 
-            title: 'Truck repair', 
-            amount: '20,000',  
-            paid: 'Falz D Bad guy',  
-            date: '19-02-2022 - 5:30', 
-            cummulative: '20,000',
-        }, 
-    ]
-
-    const [show, setShow] = React.useState(false)
 
     const navigate = useNavigate()
     const userContext: IUser = React.useContext(UserContext); 
-
-    // const { isLoading, data } = useQuery('DealsByID'+localStorage.getItem('dealID'), () =>
-    //     fetch(`https://faadoli.herokuapp.com/api/v1/deals/${localStorage.getItem('dealID')}`, {
-    //         method: 'GET', // or 'PUT'
-    //         headers: {
-    //             'Content-Type': 'application/json', 
-    //             Authorization : `Bearer ${localStorage.getItem('token')}`
-    //         }
-    //     }).then(res =>
-    //         res.json()
-    //     )
-    // )  
 
     const { isLoading, data } = useQuery('DeliveryById'+localStorage.getItem('dealID'), () =>
         fetch(`https://faadoli.herokuapp.com/api/v1/delivery/${localStorage.getItem('dealID')}`, {
@@ -71,6 +36,11 @@ export default function DealInfo() {
         navigate('/dashboard/deals')
         userContext.setDealTab(2)
         userContext.dealValue(data.data.delivery.deal)
+    }
+
+    const OnBackClicked =()=> {
+        navigate('/dashboard/deals')
+        userContext.setDealTab(0)
     }
 
     return (
@@ -167,43 +137,7 @@ export default function DealInfo() {
                             </div>
                         </div>
                     </div>
-                
-                    {show && (
-                        <> 
-                            <p className='font-Inter-SemiBold mt-8 bg-[#F88C3A] text-white px-10 py-2' >Requisitions</p>
-                            
-                            <div className=' flex flex-1 p-4 mt-2 bg-white ' >  
-                                <Table variant='unstyled' >
-                                    {/* <TableCaption>Imperial to metric conversion factors</TableCaption> */}
-                                    <Thead>
-                                        <Tr className=' font-Inter-SemiBold text-xl' >
-                                            <Th>No</Th>  
-                                            <Th>Title</Th>  
-                                            <Th>Amount(N)</Th> 
-                                            <Th>Paid to</Th>  
-                                            <Th>Date</Th>  
-                                            <Th>Cummulative</Th>   
-                                        </Tr>
-                                    </Thead>
-                                    <Tbody >
-                                        {dataLocal.map((item: any, index: any)=> {
-                                            return(
-                                                <Tr className=' font-Inter-Regular text-sm ' key={index} paddingBottom='30px' >
-                                                    <Td>{index+1}</Td> 
-                                                    <Td>{item.title}</Td> 
-                                                    <Td>{item.amount} </Td> 
-                                                    <Td>{item.paid}</Td>  
-                                                    <Td>{item.date}</Td>  
-                                                    <Td>{item.cummulative}</Td>  
-                                                </Tr> 
-                                            )
-                                        })}
-                                    </Tbody> 
-                                </Table> 
-                            </div> 
-                        </>
-                    )}
-
+                    <Requisition id={data.data.delivery.deal._id} />
                     <div className='mt-14 flex ml-10 ' > 
                         <button className='font-Inter-SemiBold text-xs h-10 text-white rounded-lg px-4 bg-[#F88C3A] ' >Send Email</button>
                         <button className='font-Inter-SemiBold text-xs h-10 flex justify-center items-center ml-4 text-[#ACB5BD] rounded-lg px-4 bg-[#DDE2E5] ' >Report issue</button>
@@ -213,6 +147,7 @@ export default function DealInfo() {
                     </div>
                 </div>
             )}
+
         </div>
     )
 } 

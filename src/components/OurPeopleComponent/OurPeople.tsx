@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { IUser, UserContext } from '../context/UserContext'
 import PageLoader from '../PageLoader'
 import Avatar from '../../assets/images/avatar.png'
+import axios from 'axios'  
 
 export default function OurPeople() {
  
@@ -45,8 +46,31 @@ export default function OurPeople() {
         navigate('profile')
     } 
 
-    console.log(staff)
+    // console.log(data);
+    function isImage(url: any) {
+        return /\.(jpg|jpeg|png|webp|avif|gif|svg)$/.test(url);
+    }
+ 
 
+    function CheckImage(path: any) {
+        axios
+          .get(path)
+          .then(() => {
+            return true;
+          })
+          .catch(() => {
+            return false;
+          });
+      }
+
+    //   const checkImage = path =>
+    //     new Promise(resolve => {
+    //         const img = new Image();
+    //         img.onload = () => resolve({path, status: 'ok'});
+    //         img.onerror = () => resolve({path, status: 'error'});
+
+    //         img.src = path;
+    //     });
 
     return (
         <div className='w-full h-full px-8 py-8 overflow-y-auto relative' > 
@@ -77,14 +101,21 @@ export default function OurPeople() {
                         {data.data.users.map((item: any)=> {
                             if(item.name !== 'string'){
                                 if(staff.toLowerCase() === item.department.toLowerCase()){
-                                    
+                                    // console.log(isImage(`https://faadoli.herokuapp.com/uploads/images/${item.avatar}`))
                                     // console.log(item.department)
                                     return(
                                         <div onClick={()=> ClickHandler(item)} style={{boxShadow: '0px 16px 24px 0px #60617029'}} className=' bg-white rounded-2xl cursor-pointer' >
                                             <div style={{boxShadow: '0px 2px 8px 0px #60617029'}} className='w-full h-64 justify-center rounded-2xl flex flex-col items-center' >
                                                 <div className='w-16 h-16 rounded-full bg-white' >
-                                                    {item.avatar !== 'avatar.png' && ( 
-                                                        <img src={!item.avatar ? `https://faadoli.herokuapp.com/uploads/images/${item.avatar}` : Avatar} alt='avatar' className='w-full h-full object-cover rounded-full' />
+                                                    {/* {item.avatar !== 'avatar.png' && ( 
+                                                    )} */}
+
+                                                    {/* <img src={CheckImage(`https://faadoli.herokuapp.com/uploads/images/${item.avatar}`) ? `https://faadoli.herokuapp.com/uploads/images/${item.avatar}` : Avatar} alt='avatar' className='w-full h-full object-cover rounded-full' /> */}
+                                                    {/* {CheckImage(`https://faadoli.herokuapp.com/uploads/images/${item.avatar}`) && ( 
+                                                        <img src={`https://faadoli.herokuapp.com/uploads/images/${item.avatar}`} alt='avatar' className='w-full h-full object-cover rounded-full' />
+                                                    )} */}
+                                                    {item.avatar && ( 
+                                                        <img src={`https://faadoli.herokuapp.com/uploads/images/${item.avatar}` || Avatar} alt='avatar' className='w-full h-full object-cover rounded-full' />
                                                     )}
                                                 </div>
                                                 <p className='font-Inter-SemiBold text-xl mt-4' >{item.name}</p>
@@ -102,9 +133,10 @@ export default function OurPeople() {
                                     return(
                                         <div onClick={()=> ClickHandler(item)} style={{boxShadow: '0px 16px 24px 0px #60617029'}} className=' bg-white rounded-2xl cursor-pointer' >
                                             <div style={{boxShadow: '0px 2px 8px 0px #60617029'}} className='w-full h-64 justify-center rounded-2xl flex flex-col items-center' >
-                                                <div className='w-16 h-16 rounded-full bg-white' >
-                                                    {item.avatar !== 'avatar.png' && ( 
-                                                        <img src={item.avatar ? `https://faadoli.herokuapp.com/uploads/images/${item.avatar}` : Avatar} alt='avatar' className='w-full h-full object-cover rounded-full' />
+                                                <div className='w-16 h-16 rounded-full bg-white' > 
+                                                    
+                                                {item.avatar && ( 
+                                                        <img src={`https://faadoli.herokuapp.com/uploads/images/${item.avatar}` || Avatar} alt='avatar' className='w-full h-full object-cover rounded-full' />
                                                     )}
                                                 </div>
                                                 <p className='font-Inter-SemiBold text-xl mt-4' >{item.name}</p>
