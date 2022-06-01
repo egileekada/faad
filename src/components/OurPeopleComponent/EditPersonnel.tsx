@@ -178,6 +178,7 @@ export default function EditPersonnel() {
                                     onFocus={() =>
                                         formik.setFieldTouched("name", true, true)
                                     }  
+                                    disabled={userContext.userData.role.toLowerCase() === 'CSA'.toLowerCase() ? false: true}
                                     fontSize='sm' border='1px solid #DDE2E5' backgroundColor='white' placeholder={userContext.profileData.name} />
                                 <div className="w-full h-auto pt-2">
                                     {formik.touched.name && formik.errors.name && (
@@ -200,6 +201,7 @@ export default function EditPersonnel() {
                                     onFocus={() =>
                                         formik.setFieldTouched("personalEmail", true, true)
                                     }  
+                                    disabled={userContext.userData.role.toLowerCase() === 'CSA'.toLowerCase() ? false: true}
                                     fontSize='sm' border='1px solid #DDE2E5' backgroundColor='white' placeholder={userContext.profileData.personalEmail} />
                                 <div className="w-full h-auto pt-2">
                                     {formik.touched.personalEmail && formik.errors.personalEmail && (
@@ -222,6 +224,7 @@ export default function EditPersonnel() {
                                     onFocus={() =>
                                         formik.setFieldTouched("department", true, true)
                                     }  
+                                    disabled={userContext.userData.role.toLowerCase() === 'CSA'.toLowerCase() ? false: true}
                                     fontSize='sm' border='1px solid #DDE2E5' backgroundColor='white' placeholder={userContext.profileData.department} >
                                         <option value='General'>General</option>
                                         <option value='Operations'>Operations</option>
@@ -249,6 +252,7 @@ export default function EditPersonnel() {
                                     onFocus={() =>
                                         formik.setFieldTouched("companyEmail", true, true)
                                     }  
+                                    disabled={userContext.userData.role.toLowerCase() === 'CSA'.toLowerCase() ? false: true}
                                     fontSize='sm' border='1px solid #DDE2E5' backgroundColor='white' placeholder={userContext.profileData.companyEmail} />
                                 <div className="w-full h-auto pt-2">
                                     {formik.touched.companyEmail && formik.errors.companyEmail && (
@@ -271,6 +275,7 @@ export default function EditPersonnel() {
                                     onFocus={() =>
                                         formik.setFieldTouched("personalPhone", true, true)
                                     }  
+                                    disabled={userContext.userData.role.toLowerCase() === 'CSA'.toLowerCase() ? false: true}
                                     fontSize='sm' border='1px solid #DDE2E5' backgroundColor='white' placeholder={userContext.profileData.personalPhone} />
                                 <div className="w-full h-auto pt-2">
                                     {formik.touched.personalPhone && formik.errors.personalPhone && (
@@ -293,6 +298,7 @@ export default function EditPersonnel() {
                                     onFocus={() =>
                                         formik.setFieldTouched("address", true, true)
                                     }  
+                                    disabled={userContext.userData.role.toLowerCase() === 'CSA'.toLowerCase() ? false: true}
                                     fontSize='sm' border='1px solid #DDE2E5' backgroundColor='white' placeholder={userContext.profileData.address} />
                                 <div className="w-full h-auto pt-2">
                                     {formik.touched.address && formik.errors.address && (
@@ -315,6 +321,7 @@ export default function EditPersonnel() {
                                     onFocus={() =>
                                         formik.setFieldTouched("companyPhone", true, true)
                                     }  
+                                    disabled={userContext.userData.role.toLowerCase() === 'CSA'.toLowerCase() ? false: true}
                                     fontSize='sm' border='1px solid #DDE2E5' backgroundColor='white' placeholder={userContext.profileData.companyPhone} />
                                 <div className="w-full h-auto pt-2">
                                     {formik.touched.companyPhone && formik.errors.companyPhone && (
