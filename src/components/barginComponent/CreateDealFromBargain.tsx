@@ -47,7 +47,7 @@ export default function CreateDealFromBargain() {
         costBeforDispatched: yup.string().required('Required'),
         phoneNumber: yup.string().required('Required'),
         address: yup.string().required('Required'), 
-        // backupPhoneNumber: yup.string().required('Required'), 
+        backupPhoneNumber: yup.string().required('Required'), 
         fuelType: yup.string().required('Required'), 
         quantity: yup.string().required('Required'),
         dispatchNote: yup.string().required('Required'), 

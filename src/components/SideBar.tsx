@@ -9,9 +9,9 @@ export default function SideBar() {
     const userContext: IUser = React.useContext(UserContext);  
     const managingdirector = ['Dashboard', 'Accounts','Bargains', 'Deals', 'Clientele', 'Our people', 'Activities']
     const CustomerCareAdmin = ['Dashboard', 'Bargains', 'Deals', 'Clientele', 'Our people']
-    const CustomerCare = ['Dashboard', 'Bargains', 'Deals', 'Clientele']
-    const Account = ['Dashboard', 'Accounts', 'Bargains', 'Deals']
-    const Operation = ['Dashboard', 'Bargains', 'Deals']
+    const CustomerCare = ['Dashboard', 'Bargains', 'Deals', 'Clientele', 'Our people']
+    const Account = ['Dashboard', 'Accounts', 'Deals', 'Our people']
+    const Operation = ['Dashboard', 'Deals', 'Our people']
     const messageArray = ['Customer Service', 'Operations', 'General', 'My Notes', 'Lock', 'Log out']
     // const CustomerCaremessageArray = ['Customer Service', 'General', 'My Notes', 'Lock', 'Log out']
     // const OperationmessageArray = ['Operations', 'General', 'My Notes', 'Lock', 'Log out']
@@ -85,7 +85,7 @@ export default function SideBar() {
                                 })}
                             </>
                         )}
-                        {userContext.userData.department.toLowerCase() === 'Customer Service Admin'.toLowerCase() && (
+                        {userContext.userData.role.toLowerCase() === 'CSA'.toLowerCase() && (
                             <>
                                 {CustomerCareAdmin.map((item: any)=> {
                                     return(
@@ -98,21 +98,7 @@ export default function SideBar() {
                                     )
                                 })}
                             </>
-                        )}
-                        {userContext.userData.department.toLowerCase() === 'Customer Service Admin'.toLowerCase() && (
-                            <>
-                                {CustomerCareAdmin.map((item: any)=> {
-                                    return(
-                                        <div onClick={()=> ClickHandler(item)} style={item === userContext.tab ? {backgroundColor: '#FEE8D8'} : {}} key={item} className='flex items-center my-2 cursor-pointer py-2 rounded-md pl-5 ' >
-                                            <div className='w-7 h-7 flex items-center justify-center' >
-                                                <SideBarIcons iconName={item} active={userContext.tab} />
-                                            </div>
-                                            <p style={item === userContext.tab ? {color: '#F88C3A'}: {color: '#212429'}} className='ml-4 font-Inter-SemiBold text-sm' >{item}</p>
-                                        </div>
-                                    )
-                                })}
-                            </>
-                        )}
+                        )} 
                         {userContext.userData.department.toLowerCase() === 'Managing Director'.toLowerCase() && (
                             <>
                                 {managingdirector.map((item: any)=> {

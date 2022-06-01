@@ -80,8 +80,8 @@ export default function ProductDetails() {
                                         <circle cx="24" cy="24" r="24" fill="#FEE8D8"/>
                                         <path d="M18.3431 31.5208C15.219 28.3966 15.219 23.3313 18.3431 20.2071L24 14.5503L29.6569 20.2071C32.781 23.3313 32.781 28.3966 29.6569 31.5208C26.5327 34.645 21.4673 34.645 18.3431 31.5208Z" stroke="#F88C3A" stroke-width="2"/>
                                     </svg>
-                                    <p className=' text-[#212429] text-sm font-Inter-SemiBold mt-4 ' >{item.productCode} {item.percentageDifference >= 0 ? <span className='text-[#009B00]' >{item.percentageDifference}% ↑</span>:<span className='text-[#EC0000]' >{item.percentageDifference}% ↓</span>}</p>
-                                    <p className=' text-[#212429] font-Inter-SemiBold text-sm '>₦{item.newPrice}</p>
+                                    <p className=' text-[#212429] text-center text-sm font-Inter-SemiBold mt-4 ' >{item.productCode} {item.percentageDifference > 0 && (<span className='text-[#009B00]' >{item.percentageDifference}% ↑</span> )} {item.percentageDifference < 0 && (<span className='text-[#EC0000]' >{item.percentageDifference}% ↓</span>)} </p>
+                                    <p className=' text-[#212429] font-Inter-SemiBold text-sm text-center '>₦{item.newPrice}</p>
                                     {/* <p className='text-[#212429] font-Inter-Regular text-xs ' >Available  • {item.level.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}ℓ</p> */}
                                 </div>
 

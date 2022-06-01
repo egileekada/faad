@@ -65,10 +65,7 @@ export default function Deal() {
                     </div>
                     <div className={userContext.dealTab === 1 ? 'flex' : 'hidden'} >
                         <OngoingDeals values={setValue} />
-                    </div>
-                    {/* <div className={userContext.dealTab ===  ? 'flex' : 'hidden'} >
-                        <ProcessDeal values={Value} />
-                    </div>  */}
+                    </div> 
                     {userContext.dealTab === 2 && (
                         <ProcessDeal values={Value} />
                     )}

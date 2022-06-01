@@ -12,7 +12,7 @@ export default function DashboardScreen() {
     const navigate = useNavigate() 
 
 
-    const { isLoading, data } = useQuery('userData', () =>
+    const { isLoading, data } = useQuery('userData'+localStorage.getItem('token'), () =>
         fetch('https://faadoli.herokuapp.com/api/v1/auth/profile', {
             method: 'GET', // or 'PUT'
             headers: {
