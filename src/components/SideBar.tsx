@@ -11,7 +11,7 @@ export default function SideBar() {
     const CustomerCareAdmin = ['Dashboard', 'Bargains', 'Deals', 'Clientele', 'Our people']
     const CustomerCare = ['Dashboard', 'Bargains', 'Deals', 'Clientele', 'Our people']
     const Account = ['Dashboard', 'Accounts', 'Deals', 'Our people']
-    const Operation = ['Dashboard', 'Deals', 'Our people']
+    const Operation = ['Dashboard', 'Bargains', 'Deals', 'Our people']
     const messageArray = ['Customer Service', 'Operations', 'General', 'My Notes', 'Lock', 'Log out']
     // const CustomerCaremessageArray = ['Customer Service', 'General', 'My Notes', 'Lock', 'Log out']
     // const OperationmessageArray = ['Operations', 'General', 'My Notes', 'Lock', 'Log out']
