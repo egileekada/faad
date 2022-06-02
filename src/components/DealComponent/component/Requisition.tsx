@@ -57,7 +57,7 @@ export default function Requisition(props: any) {
         </div>
     )    
 
-    console.log(number); 
+    console.log(data); 
     //  React.use
 
     return (
@@ -82,19 +82,21 @@ export default function Requisition(props: any) {
                                         </Tr>
                                     </Thead>
                                     <Tbody > 
-                                        {data.data.filter((item: any) => item.deal === props.id).map((item: any, index: any)=> { 
-                                            number.splice(index, 1, item.amount);
-                                            
-                                            return(
-                                                <Tr className=' font-Inter-Regular text-sm ' key={index} paddingBottom='30px' >
-                                                    <Td>{index+1}</Td> 
-                                                    <Td>{item.title}</Td> 
-                                                    <Td>{item.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} </Td> 
-                                                    <Td>{item.paidTo}</Td>  
-                                                    <Td>{DateFormat(item.date)}</Td>  
-                                                    <Td>{number.reduce((partialSum: any, a: any) => (partialSum + a), 0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Td>  
-                                                </Tr> 
-                                            ) 
+                                        {data.data.filter((item: any) => item.deal !== null).map((item: any, index: any)=> { 
+                                            if(item.deal._id === props.id) {
+                                                number.splice(index, 1, item.amount);
+                                                
+                                                return(
+                                                    <Tr className=' font-Inter-Regular text-sm ' key={index} paddingBottom='30px' >
+                                                        <Td>{index+1}</Td> 
+                                                        <Td>{item.title}</Td> 
+                                                        <Td>{item.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} </Td> 
+                                                        <Td>{item.paidTo}</Td>  
+                                                        <Td>{DateFormat(item.date)}</Td>  
+                                                        <Td>{number.reduce((partialSum: any, a: any) => (partialSum + a), 0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Td>  
+                                                    </Tr> 
+                                                ) 
+                                            }
                                         })}
                                     </Tbody> 
                                 </Table> 
