@@ -47,6 +47,8 @@ export default function SearchForTank(props: any) {
 
     }   
     
+    console.log(data);
+    
 
     return (
         <div className='w-full  ' > 
@@ -62,7 +64,7 @@ export default function SearchForTank(props: any) {
                                             <option key='' >{props.show ? ''+props.tankName[index] : 'Search'}</option>
                                             {data.data.tanks.map((item: any, index: any ) => {
 
-                                                if(item.product.productCode === props.fuelType) { 
+                                                if(item.product.productCode === props.fuelType || item.product.productName === props.fuelType) { 
                                                     return(
                                                         <option className='' key={index} value={item._id} >Tank{' '+(index+1)+'  Capacity: '}<span className='font-Inter-Regular' >{item.level+'ℓ  Product Name: '}</span><span className='font-Inter-Regular' >{item.product === null ? '':item.product.productCode}</span></option>
                                                     )

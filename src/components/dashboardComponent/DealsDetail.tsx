@@ -38,7 +38,7 @@ export default function DealsDetail() {
                 <div className=' w-full flex mt-10' >
 
                 {[...data.data.deals].reverse().map((item: any, index: any)=> {
-                    if(index > 2) {
+                    if(index > 1) {
                         
                     } else {
                         if(item.status !== 'completed'){

@@ -137,7 +137,7 @@ export default function DealInfo() {
                             </div>
                         </div>
                     </div>
-                    {userContext.userData.department.toLowerCase() !== 'Customer Service'.toLowerCase() && (
+                    {userContext.userData.department.toLowerCase() !== 'Customer Service'.toLowerCase() && userContext.userData.role.toLowerCase() !== 'CSA'.toLowerCase() && (
                         <Requisition id={data.data.delivery.deal._id} />
                     )}
                     <div className='mt-14 flex ml-10 ' > 
