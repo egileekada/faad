@@ -263,13 +263,13 @@ export default function CreateDealFromBargain() {
                                     <p className='text-sm font-Inter-Regular mb-2' >Quantity in Litres</p>
                                     <Input  
                                         name="quantity" 
-                                        // onChange={formik.handleChange}
+                                        onChange={formik.handleChange}
                                         value={formik.values.quantity}
-                                        // onFocus={() =>
-                                        //     formik.setFieldTouched("quantity", true, true)
-                                        // }  
+                                        onFocus={() =>
+                                            formik.setFieldTouched("quantity", true, true)
+                                        }  
                                         type='number'
-                                        fontSize='sm' placeholder='1000' size='lg' className='border cursor-not-allowed border-[#DDE2E5] rounded-lg ' />
+                                        fontSize='sm' placeholder='1000' size='lg' className='border border-[#DDE2E5] rounded-lg ' />
                                     <div className="w-full h-auto pt-2">
                                         {formik.touched.quantity && formik.errors.quantity && (
                                             <motion.p
