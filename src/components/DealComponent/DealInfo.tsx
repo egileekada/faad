@@ -144,7 +144,7 @@ export default function DealInfo() {
                         <button className='font-Inter-SemiBold text-xs h-10 text-white rounded-lg px-4 bg-[#F88C3A] ' >Send Email</button>
                         <button className='font-Inter-SemiBold text-xs h-10 flex justify-center items-center ml-4 text-[#ACB5BD] rounded-lg px-4 bg-[#DDE2E5] ' >Report issue</button>
                         
-                        {userContext.userData.department.toLowerCase() !== 'Customer Service'.toLowerCase() && userContext.userData.department.toLowerCase() !== 'Accounts'.toLowerCase() && (
+                        {userContext.userData.department.toLowerCase() !== 'Customer Service'.toLowerCase() && (
                             <> 
                                 {data.data.delivery.deal.status !== 'completed' && (
                                     <button onClick={()=> ClickHandler()} className='font-Inter-SemiBold text-xs h-10 flex justify-center items-center ml-4 text-white rounded-lg px-4 bg-[#F88C3A] ' >Finish Deal</button>
