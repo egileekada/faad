@@ -39,7 +39,7 @@ export default function DealsTable(props:any) {
 
 
     const ClickHandler =(item: any)=> {
-        navigate('info')
+        navigate('info') 
         localStorage.setItem('dealID', item) 
     }
 

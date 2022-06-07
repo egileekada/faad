@@ -67,7 +67,7 @@ export default function Deal() {
                         <OngoingDeals values={setValue} />
                     </div> 
                     {userContext.dealTab === 2 && (
-                        <ProcessDeal values={Value} />
+                        <ProcessDeal />
                     )}
                 </div>
             </div>

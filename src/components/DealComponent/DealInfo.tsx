@@ -35,7 +35,7 @@ export default function DealInfo() {
     const ClickHandler =()=> {
         navigate('/dashboard/deals')
         userContext.setDealTab(2)
-        userContext.dealValue(data.data.delivery.deal)
+        userContext.setDealValue(data.data.delivery.deal) 
     }
 
     const OnBackClicked =()=> {
@@ -45,7 +45,7 @@ export default function DealInfo() {
 
     return (
         <div className='w-full h-full px-8 py-8 overflow-y-auto' > 
-            <svg onClick={()=> navigate('/dashboard/deals')} className='cursor-pointer fixed z-50 top-14  ' width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg onClick={()=> OnBackClicked()} className='cursor-pointer fixed z-50 top-14  ' width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M20.3287 11.0001V13.0001L7.50042 13.0001L10.7429 16.2426L9.32873 17.6568L3.67188 12L9.32873 6.34314L10.7429 7.75735L7.50019 11.0001L20.3287 11.0001Z" fill="#495057"/>
             </svg>
             {!isLoading && ( 

@@ -28,7 +28,7 @@ export default function OngoingDeals(props: any) {
     const ClickHandler=(item: any)=> {
         userContext.setDealTab(2)
         userContext.setDealValue(item)
-        props.values(item)
+        // props.values(item)
     } 
 
     console.log(data.data.deals)
