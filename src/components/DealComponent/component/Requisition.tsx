@@ -92,7 +92,7 @@ export default function Requisition(props: any) {
                                                     <Td>{item.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} </Td> 
                                                     <Td>{item.paidTo}</Td>  
                                                     <Td>{DateFormat(item.date)}</Td>  
-                                                    <Td>{number.reduce((partialSum: any, a: any) => (partialSum + a), 0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Td>  
+                                                    <Td>{number.filter((item: any, id: any) => id  <= index).reduce((partialSum: any, a: any) => (partialSum + a), 0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Td>  
                                                 </Tr> 
                                             )  
                                         })}

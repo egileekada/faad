@@ -87,7 +87,7 @@ export default function AddTruck(props: any) {
                     onFocus={() =>
                         formik.setFieldTouched("capacity", true, true)
                     }  
-                    fontSize='sm'  placeholder='Tank Capacity'/>
+                    fontSize='sm'  placeholder='Truck Capacity'/>
                 <div className="w-full h-auto pt-2">
                     {formik.touched.capacity && formik.errors.capacity && (
                         <motion.p
@@ -108,7 +108,7 @@ export default function AddTruck(props: any) {
                     onFocus={() =>
                         formik.setFieldTouched("truckId", true, true)
                     }  
-                    fontSize='sm'  placeholder='Average Price'/>
+                    fontSize='sm'  placeholder='Truck ID'/>
                 <div className="w-full h-auto pt-2">
                     {formik.touched.truckId && formik.errors.truckId && (
                         <motion.p
