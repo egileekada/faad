@@ -28,6 +28,8 @@ export default function Bargin() {
         )
     ) 
 
+    console.log(data)
+
     const ClickHandler =(item: any)=> { 
         navigate('info')  
         localStorage.setItem('barginID', item) 

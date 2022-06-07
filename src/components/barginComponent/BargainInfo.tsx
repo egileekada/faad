@@ -29,11 +29,14 @@ export default function BargainInfo() {
 
     const DeleteHandler =async()=> {
         const request = await fetch(`https://faadoli.herokuapp.com/api/v1/bargain/${data.data.bargain._id}`, {
-            method: 'DELETE',
+            method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
                 Authorization : `Bearer ${localStorage.getItem('token')}` 
-            }, 
+            },  
+            body: JSON.stringify({
+                status: 'rejected'
+            }),
         });
         console.log(request.json())
         navigate('/dashboard/bargains')
