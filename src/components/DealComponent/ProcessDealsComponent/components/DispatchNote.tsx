@@ -26,7 +26,7 @@ const DispatchNote = React.forwardRef((props: any, ref: any) => {
                     </div>
                     <div className='w-auto' >
                         <p className='text-sm font-Inter-Regular text-[#414141] ' >{props.truck}</p> 
-                        <p className='text-sm font-Inter-Regular text-[#414141] mt-2 ' >{props.value.quantity}</p> 
+                        <p className='text-sm font-Inter-Regular text-[#414141] mt-2 ' >{(props.dispatch)}</p> 
                         <p className='text-sm font-Inter-Regular text-[#414141] mt-2 ' >{props.driver}</p> 
                         <p className='text-sm font-Inter-Regular text-[#414141] mt-2 ' >{props.agent}</p> 
                         <p className='text-sm font-Inter-Regular text-[#414141] mt-2 ' >{userContext.userData.name}</p> 

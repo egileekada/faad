@@ -51,12 +51,22 @@ export default function Trucks() {
                                         <p className='font-Inter-SemiBold text-lg mb-4 text-[#ACB5BD]' >Israelite</p>
                                         <p className='font-Inter-Bold mb-2 text-sm' >Truck ID<span className='font-Inter-Regular ml-3' >{item.truckId}</span></p>
                                         <p className='font-Inter-Bold mt-1 mb-2 text-sm' >Capacity<span className='font-Inter-Regular ml-3' >{Number(item.capacity).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')} ℓ</span></p> 
-                                        <div className='flex items-center' >
-                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M12 17C14.7614 17 17 14.7614 17 12C17 9.23858 14.7614 7 12 7C9.23858 7 7 9.23858 7 12C7 14.7614 9.23858 17 12 17ZM12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20Z" fill="#FF1F1F"/>
-                                            </svg>
-                                            <p className='font-Inter-Medium ml-1 text-xs' >enroute</p>
-                                        </div> 
+                                        {item.status !== 'available' && (
+                                            <div className='flex items-center' >
+                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M12 17C14.7614 17 17 14.7614 17 12C17 9.23858 14.7614 7 12 7C9.23858 7 7 9.23858 7 12C7 14.7614 9.23858 17 12 17ZM12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20Z" fill="#FF1F1F"/>
+                                                </svg>
+                                                <p className='font-Inter-Medium ml-1 text-xs' >enroute</p>
+                                            </div> 
+                                        )}
+                                        {item.status === 'available' && (
+                                            <div className='flex items-center' >
+                                                <svg width="16" height="16"  viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M8 13C10.7614 13 13 10.7614 13 8C13 5.23858 10.7614 3 8 3C5.23858 3 3 5.23858 3 8C3 10.7614 5.23858 13 8 13ZM8 16C12.4183 16 16 12.4183 16 8C16 3.58172 12.4183 0 8 0C3.58172 0 0 3.58172 0 8C0 12.4183 3.58172 16 8 16Z" fill="#00BE00"/>
+                                                </svg>
+                                                <p className='font-Inter-Medium ml-1 text-xs' >Available</p>
+                                            </div>
+                                        )}
                                     </div>
                                 </div>
                             )

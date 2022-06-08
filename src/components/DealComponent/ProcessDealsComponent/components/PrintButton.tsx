@@ -96,7 +96,7 @@ const PrintButton = (props: any) => {
         (
           <>
             <div style={{width: '700px' }} className="h-auto w-auto flex hidescrollbar justify-center items-start py-2 overflow-x-hidden overflow-y-auto  fixed inset-0 z-50 mx-auto outline-none focus:outline-none"> 
-              <div onClick={()=> setShow(true)}  style={{width: '650px' }} className=" bg-white h-auto flex flex-col rounded-lg relative z-50" >
+              <div  style={{width: '650px' }} className=" bg-white h-auto flex flex-col rounded-lg relative z-50" >
                 <div className='flex items-center px-10 mt-10' >
                   <p className=' font-Inter-Bold text-lg ' >Print Details</p>
                   <svg onClick={()=> setShow(false)} className='ml-auto cursor-pointer' xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
@@ -116,7 +116,7 @@ const PrintButton = (props: any) => {
                   <WaterTest agent={agentId} driver={driverId} truck={truck} value={props.values}  ref={componentRef} />  
                 )}
                 {props.name === 'dispatch' && (
-                  <DispatchNote agent={agentId} driver={driverId} truck={truck} value={props.values}  ref={componentRef} />  
+                  <DispatchNote dispatch={props.dispatch}  agent={agentId} driver={driverId} truck={truck} value={props.values}  ref={componentRef} />  
                 )}
                 <button onClick={()=> handlePrint()} className=' mr-10 mb-10 ml-auto font-Inter-SemiBold mt-10 text-sm h-10 flex justify-center items-center text-white rounded-lg px-4 py-2 bg-[#F88C3A] '>
                     <svg className='mr-2' width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -136,12 +136,29 @@ export default function ProcessDeal(props: any) {
                         }),
                     }) 
                     if (request.status === 200) {  
-                        alert('Deal Update')
+                        const request = await fetch(`https://faadoli.herokuapp.com/api/v1/truck/${truckInfo}`, {
+                            method: 'PUT',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                Authorization : `Bearer ${localStorage.getItem('token')}` 
+                            },
+                            body: JSON.stringify({  
+                                status: "enroute"
+                            }),
+                        }) 
+                        if (request.status === 200) { 
+                            alert('Truck Update')
+                        }else {
+                            alert(json.message);
+                            console.log(json)
+                            setLoading(false);
+                        } 
                     }else {
                         alert(json.message);
                         console.log(json)
                         setLoading(false);
                     } 
+                    // fetch('https://faadoli.herokuapp.com/api/v1/truck', {
                 // navigate(0);
                 userContext.setDealTab(1)
                 // const t1 = setTimeout(() => {   
@@ -153,6 +170,7 @@ export default function ProcessDeal(props: any) {
                 setLoading(false);
             } 
         } else {
+            setLoading(true); 
             const request = await fetch(`https://faadoli.herokuapp.com/api/v1/delivery/${deliveryId}`, {
                 method: 'PUT',
                 headers: {
@@ -181,7 +199,7 @@ export default function ProcessDeal(props: any) {
             const json = await request.json(); 
 
             if (request.status === 200) {     
-                alert('Sucessfull')
+                // alert('Sucessfull')
                 if(confirmedDeliveryInfo.receivedDeliveryNote){
 
                     const request = await fetch(`https://faadoli.herokuapp.com/api/v1/deals/${userContext.dealValue._id}`, {
@@ -195,7 +213,24 @@ export default function ProcessDeal(props: any) {
                         }),
                     }) 
                     if (request.status === 200) {  
-                        alert('Deal Update')
+                        // alert('Deal Update')
+                        const request = await fetch(`https://faadoli.herokuapp.com/api/v1/truck/${truckInfo}`, {
+                            method: 'PUT',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                Authorization : `Bearer ${localStorage.getItem('token')}` 
+                            },
+                            body: JSON.stringify({  
+                                status: "available"
+                            }),
+                        }) 
+                        if (request.status === 200) { 
+                            // alert('Truck Update')
+                        }else {
+                            alert(json.message);
+                            console.log(json)
+                            setLoading(false);
+                        } 
                     }else {
                         alert(json.message);
                         console.log(json)

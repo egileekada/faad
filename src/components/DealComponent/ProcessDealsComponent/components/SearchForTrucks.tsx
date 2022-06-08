@@ -34,7 +34,7 @@ export default function SearchForTrucks(props: any) {
                             <div className='w-full' >
                                 <Select onChange={(e)=> OnChangeHandle(e.target.value)} fontSize='sm' > 
                                     <option key='' >{props.show ? ''+props.truckName : 'Search'}</option>
-                                    {data.data.trucks.map((item: any, index: any ) => {
+                                    {data.data.trucks.filter((item: any) => item.status === 'available').map((item: any, index: any ) => {
                                         return(
                                             <option className='' key={index} value={item._id} >Truck{' '+(index+1)+'  TruckID: '}<span className='font-Inter-Regular' >{item.truckId}</span></option>
                                         )
