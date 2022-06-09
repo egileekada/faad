@@ -113,8 +113,7 @@ export default function CreateDealFromBargain() {
     
             const json = await request.json(); 
     
-            // if (request.status === 200) {    
-                setShow(true)  
+            // if (request.status === 200) { 
                 // const t1 = setTimeout(() => { 
                 //     navigate('/dashboard/deals');  
                 //     clearTimeout(t1);
@@ -124,6 +123,19 @@ export default function CreateDealFromBargain() {
             //     console.log(json)
             //     setLoading(false);
             // }
+            await fetch(`https://faadoli.herokuapp.com/api/v1/bargain/${data.data.bargain._id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization : `Bearer ${localStorage.getItem('token')}` 
+                },  
+                body: JSON.stringify({
+                    status: 'completed'
+                }),
+            });
+            console.log(request.json())   
+            setShow(true)  
+            // navigate('/dashboard/bargains')
         }
     } 
 

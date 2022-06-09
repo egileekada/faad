@@ -82,11 +82,11 @@ export default function Bargin() {
                                 </Tr>
                             </Thead>
                             <Tbody >
-                                {[...data.data.baragins].reverse().map((item: any, index: any)=> {
+                                {[...data.data.baragins].filter((item: any) => item.status !== "completed").reverse().map((item: any, index: any)=> {
                                     if(item.companyName.toLocaleLowerCase().includes(name.toLocaleLowerCase())){
                                         return(
                                             <Tr onClick={()=> ClickHandler(item._id)} className=' cursor-pointer font-Inter-Regular text-sm ' key={index} >
-                                                <Td>{index+1}</Td> 
+                                                <Td>{index+1}{item.status === 'rejected' ? '#' : ''}</Td> 
                                                 <Td>{item.companyName}</Td> 
                                                 <Td>
                                                     {/* <div className='w-8' > */}

@@ -371,7 +371,7 @@ export default function ProcessDeal(props: any) {
                     <StepThree show={showDetail} agentName={agentName} driverId={driverInfo} agentId={agentInfo} driverName={driverName} truck={truckInfo} dispatch={dispatchQuatity} values={userContext.dealValue} loading={loading} submit={submit} agent={setAgentInfo} driver={setDriverInfo} click={setTab} />
                 </div>
                 <div className={tab === 3 ? 'w-full ' : 'hidden'} >
-                    <StepFour deliveryDefault={confirmedDeliveryInfo} delivery={setConfirmedDeliveryInfo} submit={submit} />
+                    <StepFour deliveryDefault={confirmedDeliveryInfo} delivery={setConfirmedDeliveryInfo} submit={submit}  loading={loading}/>
                 </div>
                 {/* <div className={tab === 4 ? 'w-full ' : 'hidden'} > */}
                     

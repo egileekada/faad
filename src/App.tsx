@@ -29,6 +29,7 @@ import AccountTab from './Tabs/AccountTab';
 import EditClienteleProfile from './components/clienteleComponent/EditClienteleProfile';
 import PrintedSlip from './components/accountComponent/components/PrintedSlip';
 import CreateDealFromBargain from './components/barginComponent/CreateDealFromBargain';
+import ReportTab from './Tabs/ReportTab';
 
 function App() {
   return (  
@@ -61,6 +62,11 @@ function App() {
               <Route path='/dashboard/ourpeople' element={<OurPeople />}/>
               <Route path='/dashboard/ourpeople/newprofile' element={<NewProfile />}/>
               <Route path='/dashboard/ourpeople/profile' element={<EditPersonnel />}/>
+            </Route>  
+            <Route path='/dashboard/report' element={<ReportTab />} >
+              {/* <Route path='/dashboard/ourpeople' element={<OurPeople />}/>
+              <Route path='/dashboard/ourpeople/newprofile' element={<NewProfile />}/>
+              <Route path='/dashboard/ourpeople/profile' element={<EditPersonnel />}/> */}
             </Route> 
             <Route path='/dashboard/customerservicemessages' element={<CustomerService />}/>
             <Route path='/dashboard/operationsmessages' element={<Operations />}/>

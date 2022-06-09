@@ -37,24 +37,22 @@ export default function DealsDetail() {
             {!isLoading && (
                 <div className=' w-full flex mt-10' >
 
-                {[...data.data.deals].reverse().map((item: any, index: any)=> {
+                {[...data.data.deals].filter((item: any)=> item.status !== 'completed').reverse().map((item: any, index: any)=> {
                     if(index > 1) {
                         
-                    } else {
-                        if(item.status !== 'completed'){
-                            return(
-                                <div key={index} className='flex mx-auto' >
-                                    <div className='' >     
-                                        <p className=' text-[#212429] text-sm font-Inter-SemiBold '>{item.companyName}</p>
-                                        <p style={{marginTop: '2px', marginBottom: '2px'}} className=' text-[#212429] text-xs font-Inter-Regular '>{item.fuelType} • {item.quantity.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')} ℓ</p>
-                                        <p className=' text-[#212429] text-xs font-Inter-Bold '>Status: <span className='font-Inter-Regular' >In dispatch</span></p>
-                                    </div>
-                                    <div className='border-6 w-10 mt-auto ml-2 h-10 border-l-[#F66E09] flex justify-center items-center rotate-45 border-[#ECB891] rounded-full ' >
-                                        <p className='font-Inter-Medium text-xs -rotate-45  ' >25</p>
-                                    </div>
-                                </div> 
-                            )
-                        }
+                    } else { 
+                        return(
+                            <div key={index} className='flex mx-auto' >
+                                <div className='' >     
+                                    <p className=' text-[#212429] text-sm font-Inter-SemiBold '>{item.companyName}</p>
+                                    <p style={{marginTop: '2px', marginBottom: '2px'}} className=' text-[#212429] text-xs font-Inter-Regular '>{item.fuelType} • {item.quantity.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')} ℓ</p>
+                                    <p className=' text-[#212429] text-xs font-Inter-Bold '>Status: <span className='font-Inter-Regular' >In dispatch</span></p>
+                                </div>
+                                <div className='border-6 w-10 mt-auto ml-2 h-10 border-l-[#F66E09] flex justify-center items-center rotate-45 border-[#ECB891] rounded-full ' >
+                                    <p className='font-Inter-Medium text-xs -rotate-45  ' >25</p>
+                                </div>
+                            </div> 
+                        ) 
                     }
                 })}
                     {/* <div className='flex ' >

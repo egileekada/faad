@@ -62,11 +62,12 @@ export default function BargainInfo() {
                             <p className='font-Inter-Regular text-sm my-2' >{data.data.bargain.phoneNumber}</p>
                             <p className='font-Inter-Bold text-sm my-2' >Product: <span className='font-Inter-Regular mr-3' >{data.data.bargain.fuel}</span> Quantity: <span className='font-Inter-Regular'>{data.data.bargain.quantity} ℓ</span></p>
                             <p className='font-Inter-Bold text-sm my-2' >Asking price: <span className='font-Inter-Regular mr-3' >N{data.data.bargain.askingPrice}</span> Bidding price: <span className='font-Inter-Regular'>N{data.data.bargain.biddingPrice}</span></p>
-                        
-                            <div className='mt-14 flex ' > 
-                                <button onClick={()=>setDeleteModal(true)} className='font-Inter-SemiBold text-xs h-10 flex justify-center items-center text-white rounded-lg px-4 bg-[#FF1F1F] ' >Reject Bargain</button>
-                                <button onClick={()=> navigate('/dashboard/bargains/createdeals')} className='font-Inter-SemiBold text-xs h-10 text-white rounded-lg px-4 ml-4 bg-[#F88C3A] ' >Create deal from bargain</button>
-                            </div>
+                            {data.data.bargain.status !== 'rejected' && (
+                                <div className='mt-14 flex ' > 
+                                    <button onClick={()=>setDeleteModal(true)} className='font-Inter-SemiBold text-xs h-10 flex justify-center items-center text-white rounded-lg px-4 bg-[#FF1F1F] ' >Reject Bargain</button>
+                                    <button onClick={()=> navigate('/dashboard/bargains/createdeals')} className='font-Inter-SemiBold text-xs h-10 text-white rounded-lg px-4 ml-4 bg-[#F88C3A] ' >Create deal from bargain</button>
+                                </div>
+                            )}
                         </div>
                         <div className='w-80' > 
                             <div className='w-80 relative bg-[#495057] rounded-3xl pt-5 pb-4 px-4' >

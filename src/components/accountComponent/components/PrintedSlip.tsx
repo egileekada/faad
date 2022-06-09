@@ -7,57 +7,57 @@ const PrintedSlip = React.forwardRef((props: any, ref: any) => {
 
     // console.log(props.value)
 
-    const [driver, setDriverInfo] = React.useState('')
-    const [agent, setAgentInfo] = React.useState('')
-    const [truck, setTruckInfo] = React.useState('')
+    // const [driver, setDriverInfo] = React.useState('')
+    // const [agent, setAgentInfo] = React.useState('')
+    // const [truck, setTruckInfo] = React.useState('')
 
-    if(props.value.truck){  
-        fetch(`https://faadoli.herokuapp.com/api/v1/truck/${props.table ? props.value.truck._id : props.value.truck}`, {
-            method: 'GET', // or 'PUT'
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization : `Bearer ${localStorage.getItem('token')}`
-            }
-        })
-        .then(response => response.json())
-        .then(data => {    
-            // console.log('truck '+data.data.truck.truckId)
-            setTruckInfo(data.data.truck.truckId) 
-        })
-        .catch((error) => {
-            console.error('Error:', error); 
-        },);  
-    } 
+    // if(props.value.truck){  
+    //     fetch(`https://faadoli.herokuapp.com/api/v1/truck/${props.table ? props.value.truck._id : props.value.truck}`, {
+    //         method: 'GET', // or 'PUT'
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //             Authorization : `Bearer ${localStorage.getItem('token')}`
+    //         }
+    //     })
+    //     .then(response => response.json())
+    //     .then(data => {    
+    //         // console.log('truck '+data.data.truck.truckId)
+    //         setTruckInfo(data.data.truck.truckId) 
+    //     })
+    //     .catch((error) => {
+    //         console.error('Error:', error); 
+    //     },);  
+    // } 
 
-    if(props.value.driver){ 
+    // if(props.value.driver){ 
 
-        fetch(`https://faadoli.herokuapp.com/api/v1/auth/profile/all`, {
-            method: 'GET', // or 'PUT'
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization : `Bearer ${localStorage.getItem('token')}`
-            }
-        })
-        .then(response => response.json())
-        .then(data => {     
-            data.data.users.map((item: any) => { 
-                if(item._id === props.value.driver){ 
-                    setDriverInfo(item.name)
-                }
-                if(item._id === props.value.agent){ 
-                    setAgentInfo(item.name)
-                }
-            })
-            // if(!level){
-            //     setLevel([...level, data.data.tank.capacity])
-            // } else {
-            //     level[index] = data.data.tank.capacity
-            // }
-        })
-        .catch((error) => {
-            console.error('Error:', error); 
-        },);  
-    }
+    //     fetch(`https://faadoli.herokuapp.com/api/v1/auth/profile/all`, {
+    //         method: 'GET', // or 'PUT'
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //             Authorization : `Bearer ${localStorage.getItem('token')}`
+    //         }
+    //     })
+    //     .then(response => response.json())
+    //     .then(data => {     
+    //         data.data.users.map((item: any) => { 
+    //             if(item._id === props.value.driver){ 
+    //                 setDriverInfo(item.name)
+    //             }
+    //             if(item._id === props.value.agent){ 
+    //                 setAgentInfo(item.name)
+    //             }
+    //         })
+    //         // if(!level){
+    //         //     setLevel([...level, data.data.tank.capacity])
+    //         // } else {
+    //         //     level[index] = data.data.tank.capacity
+    //         // }
+    //     })
+    //     .catch((error) => {
+    //         console.error('Error:', error); 
+    //     },);  
+    // }
  
     return (
         <> 
@@ -74,9 +74,9 @@ const PrintedSlip = React.forwardRef((props: any, ref: any) => {
                     </div>
                     <div className='w-auto' >
                         <p className='text-sm font-Inter-Regular text-[#414141] ' >{props.value.vendor}</p> 
-                        <p className='text-sm font-Inter-Regular text-[#414141] mt-2 ' >{truck}</p> 
-                        <p className='text-sm font-Inter-Regular text-[#414141] mt-2 ' >{driver}</p> 
-                        <p className='text-sm font-Inter-Regular text-[#414141] mt-2 ' >{agent}</p> 
+                        <p className='text-sm font-Inter-Regular text-[#414141] mt-2 ' >{props.value.truck}</p> 
+                        <p className='text-sm font-Inter-Regular text-[#414141] mt-2 ' >{props.value.driver}</p> 
+                        <p className='text-sm font-Inter-Regular text-[#414141] mt-2 ' >{props.value.agent}</p> 
                     </div>
                 </div>
             </div> 

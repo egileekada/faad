@@ -8,7 +8,7 @@ export default function StepFive() {
     // const navigate = useNavigate()
     React.useEffect(() => {
         
-        const timer = setTimeout(() =>  userContext.setDealTab(1), 1000);
+        const timer = setTimeout(() =>  userContext.setDealTab(1), 2000);
     },)
 
     return (

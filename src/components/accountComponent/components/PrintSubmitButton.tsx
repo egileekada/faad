@@ -6,18 +6,15 @@ import PrintedSlip from "./PrintedSlip";
 const PrintButton = (props: any) => {
   const navigate = useNavigate()
   const componentRef = useRef(); 
-  const [show, setShow] = useState(false)
-  const [detail, setDetail] = useState({} as any)
+  const [show, setShow] = useState(props.show) 
   const handlePrint = useReactToPrint({ 
     content: () => componentRef.current as any
   });
 
-useEffect(() => {
-  setDetail(props.value)
-  setShow(props.show)
-}, [props.value, props.show])
-
-console.log(detail);
+// useEffect(() => { 
+//   setShow(props.show)
+// }, [ props.show])
+ 
 
 
 // useEffect(() => {
@@ -32,7 +29,7 @@ console.log(detail);
           'Content-Type': 'application/json',
           Authorization : `Bearer ${localStorage.getItem('token')}` 
       },
-      body: JSON.stringify(detail),
+      body: JSON.stringify(props.value),
     });
 
     const json = await request.json(); 
@@ -41,8 +38,15 @@ console.log(detail);
         alert('Entry Permit Created Successfully');
         const t1 = setTimeout(() => { 
             // props.close(false) 
-            props.reload()  
-            setShow(false)  
+            props.clear({
+              date: '',
+              fuel: '',
+              vendor: '', 
+              truck: '',
+              agent: '',
+              driver: ''
+          })
+            props.reload()   
             handlePrint()
             clearTimeout(t1);
         }, 1000); 
@@ -65,14 +69,14 @@ console.log(detail);
       {props.table && (
         <p onClick={()=> setShow(true)} className='text-[#ACB5BD] cursor-pointer ' >Reprint last entry permit</p> 
       )}
-      {show ? 
+      {props.show ? 
         (
           <>
             <div className="h-auto flex justify-center items-center overflow-x-hidden overflow-y-hidden fixed inset-0 z-50 outline-none focus:outline-none"> 
               <div style={{width: '500px'}} className=" bg-white flex flex-col rounded-lg" >
                 <div className='flex items-center px-10 mt-10' >
                   <p className=' font-Inter-Bold text-lg ' >Print Details</p>
-                  <svg onClick={()=> setShow(false)} className='ml-auto cursor-pointer' xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+                  <svg onClick={()=> props.close(false)} className='ml-auto cursor-pointer' xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
                       <g id="Iconly_Light_Close_Square" data-name="Iconly/Light/Close Square" transform="translate(0.75 0.75)">
                           <g id="Close_Square" data-name="Close Square">
                           <path id="Stroke_1" data-name="Stroke 1" d="M4.792,0,0,4.792" transform="translate(6.853 6.845)" fill="none" stroke="#F88C3A" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
@@ -82,7 +86,7 @@ console.log(detail);
                       </g>
                   </svg>
                 </div> 
-                <PrintedSlip table={props.table} value={props.values !== undefined ? props.values : props.value} ref={componentRef} />  
+                <PrintedSlip table={props.table} value={props.value} ref={componentRef} />  
                 
                   <button onClick={()=> ClickHandler()} className=' mr-10 mb-10 ml-auto font-Inter-SemiBold mt-10 text-sm h-10 flex justify-center items-center text-white rounded-lg px-4 bg-[#F88C3A] '>
                       <svg className='mr-2' width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
