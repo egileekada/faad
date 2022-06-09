@@ -5,21 +5,23 @@ import PrintedSlip from "./PrintedSlip";
 
 const PrintButton = (props: any) => {
   const navigate = useNavigate()
-  const componentRef = useRef(); 
-  const [show, setShow] = useState(props.show) 
+  const componentRef = useRef();  
   const handlePrint = useReactToPrint({ 
-    content: () => componentRef.current as any
-  });
+    content: () => componentRef.current as any,
+    onAfterPrint: () => navigate(0)
+  }); 
 
-// useEffect(() => { 
-//   setShow(props.show)
-// }, [ props.show])
- 
-
-
-// useEffect(() => {
-//   setDetail(props.value)
-// }, [props.value])
+  // const OnEnd = ()=> { 
+  //     props.clear({
+  //       date: '',
+  //       fuel: '',
+  //       vendor: '', 
+  //       truck: '',
+  //       agent: '',
+  //       driver: ''
+  //   })
+  //   props.close(false) 
+  // }
 
   const ClickHandler =async()=> {
 
@@ -38,14 +40,6 @@ const PrintButton = (props: any) => {
         alert('Entry Permit Created Successfully');
         const t1 = setTimeout(() => { 
             // props.close(false) 
-            props.clear({
-              date: '',
-              fuel: '',
-              vendor: '', 
-              truck: '',
-              agent: '',
-              driver: ''
-          })
             props.reload()   
             handlePrint()
             clearTimeout(t1);
@@ -57,18 +51,13 @@ const PrintButton = (props: any) => {
   }
 
   return (
-    <div className=""> 
-      {!props.table && (
-        <button onClick={()=> props.click()} className='font-Inter-SemiBold mt-10 text-sm h-10 flex justify-center items-center text-white rounded-lg px-4 bg-[#F88C3A] '>
-            <svg className='mr-2' width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M16.5 4H8.5V6H16.5V4ZM6.5 6H2.5V18H6.5V22H18.5V18H22.5V6H18.5V2H6.5V6ZM4.5 16H6.5V14H18.5V16H20.5V8H4.5V16ZM16.5 16H8.5V20H16.5V16ZM16.5 10H18.5V12H16.5V10Z" fill="white"/>
-            </svg> 
-            Print entry permit
-        </button> 
-      )}
-      {props.table && (
-        <p onClick={()=> setShow(true)} className='text-[#ACB5BD] cursor-pointer ' >Reprint last entry permit</p> 
-      )}
+    <div className="">  
+      <button onClick={()=> props.click()} className='font-Inter-SemiBold mt-10 text-sm h-10 flex justify-center items-center text-white rounded-lg px-4 bg-[#F88C3A] '>
+          <svg className='mr-2' width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M16.5 4H8.5V6H16.5V4ZM6.5 6H2.5V18H6.5V22H18.5V18H22.5V6H18.5V2H6.5V6ZM4.5 16H6.5V14H18.5V16H20.5V8H4.5V16ZM16.5 16H8.5V20H16.5V16ZM16.5 10H18.5V12H16.5V10Z" fill="white"/>
+          </svg> 
+          Print entry permit
+      </button>  
       {props.show ? 
         (
           <>
@@ -98,7 +87,10 @@ const PrintButton = (props: any) => {
             </div> 
             <div className="opacity-20 fixed flex flex-1 inset-0 z-40 bg-black"/>
           </>
-        ) : null}  
+        ) : null}   
+        {props.print && (
+          <PrintedSlip table={props.table} value={props.value} ref={componentRef} /> 
+        )} 
     </div>
   );
 };
