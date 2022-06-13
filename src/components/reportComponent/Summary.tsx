@@ -288,7 +288,7 @@ export default function Summary(props: any) {
                                         <p className=' font-Inter-SemiBold text-sm text-[#FF7070]  ' >Out</p>
                                         <p className=' font-Inter-SemiBold text-lg ' >{(item.capacity - item.level).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}ℓ</p>
                                     </div>
-                                </div>
+                                </div>  
                                 {ThisMonthTankInfo(item.product.productName, item.product.productCode)} 
                             </div>
                             <div className='pt-3' >
