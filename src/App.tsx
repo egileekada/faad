@@ -30,6 +30,7 @@ import EditClienteleProfile from './components/clienteleComponent/EditClienteleP
 import PrintedSlip from './components/accountComponent/components/PrintedSlip';
 import CreateDealFromBargain from './components/barginComponent/CreateDealFromBargain';
 import ReportTab from './Tabs/ReportTab';
+import Summary from './components/reportComponent/Summary';
 
 function App() {
   return (  
@@ -63,11 +64,7 @@ function App() {
               <Route path='/dashboard/ourpeople/newprofile' element={<NewProfile />}/>
               <Route path='/dashboard/ourpeople/profile' element={<EditPersonnel />}/>
             </Route>  
-            <Route path='/dashboard/report' element={<ReportTab />} >
-              {/* <Route path='/dashboard/ourpeople' element={<OurPeople />}/>
-              <Route path='/dashboard/ourpeople/newprofile' element={<NewProfile />}/>
-              <Route path='/dashboard/ourpeople/profile' element={<EditPersonnel />}/> */}
-            </Route> 
+            <Route path='/dashboard/report' element={<ReportTab />} />
             <Route path='/dashboard/customerservicemessages' element={<CustomerService />}/>
             <Route path='/dashboard/operationsmessages' element={<Operations />}/>
             <Route path='/dashboard/generalmessages' element={<General />}/>

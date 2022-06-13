@@ -26,17 +26,8 @@ export default function SearchForTank(props: any) {
             }
         })
         .then(response => response.json())
-        .then(data => {      
-            // if(props.id[index] !== null){
-                props.id.splice(index, 1, data.data.tank._id);
-            // } else {
-                // props.id.push(data.data.tank._id)
-            // }
-            // props.tank([...data.data.tank._id])
-            // if(!level){
-            //     setLevel([...level, data.data.tank.capacity])
-            // } else {
-            //     level[index] = data.data.tank.capacity
+        .then(data => {       
+                props.id.splice(index, 1, data.data.tank._id); 
             // }
             console.log(props.id);
             

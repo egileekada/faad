@@ -7,7 +7,7 @@ export default function SideBar() {
     
     const navigate = useNavigate()
     const userContext: IUser = React.useContext(UserContext);  
-    const managingdirector = ['Dashboard', 'Accounts','Bargains', 'Deals', 'Clientele', 'Our people', 'Activities']
+    const managingdirector = ['Dashboard', 'Accounts','Bargains', 'Deals', 'Clientele', 'Our people', 'Report']
     const CustomerCareAdmin = ['Dashboard', 'Bargains', 'Deals', 'Clientele', 'Our people']
     const CustomerCare = ['Dashboard', 'Bargains', 'Deals', 'Clientele', 'Our people']
     const Account = ['Dashboard', 'Accounts', 'Deals', 'Our people']

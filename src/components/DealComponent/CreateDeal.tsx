@@ -8,13 +8,18 @@ import * as yup from 'yup'
 import { useFormik } from 'formik';  
 import { IUser, UserContext } from '../context/UserContext'
 import ButtonLoader from '../ButtonLoader'
+import SearchProduct from '../barginComponent/components/SearchProduct'
 
 export default function CreateDeal() {
 
     const [show, setShow] = React.useState(false) 
     const navigate = useNavigate()
-    const [loading, setLoading] = React.useState(false); 
-    const userContext: IUser = React.useContext(UserContext);  
+    const [productName, setProductName] = React.useState('');
+    const [emailaddress, setEmail] = React.useState(''); 
+    const [name, setName] = React.useState('');
+    const [phone, setPhone] = React.useState('');  
+    const [price, setPrice] = React.useState(''); 
+    const [loading, setLoading] = React.useState(false);   
 
     const loginSchema = yup.object({  
         companyName: yup.string().required('Required'),
@@ -37,6 +42,13 @@ export default function CreateDeal() {
         onSubmit: () => {},
     });  
 
+    console.log(formik.values);
+    
+
+    React.useEffect(() => { 
+        formik.setFieldValue('fuelType', productName)
+        formik.setFieldValue('askingPrice', price)
+    }, [productName, price]) 
 
     const submit = async () => {
 
@@ -61,21 +73,20 @@ export default function CreateDeal() {
                 body: JSON.stringify(formik.values),
             });
     
-            const json = await request.json(); 
-    
-            // if (request.status === 200) {    
-                setShow(true)  
-                // const t1 = setTimeout(() => { 
-                //     navigate('/dashboard/deals');  
-                //     clearTimeout(t1);
-                // }, 1000); 
-            // }else {
-            //     alert(json.message);
-            //     console.log(json)
-            //     setLoading(false);
-            // }
+            const json = await request.json();     
+                setShow(true)   
         }
     } 
+
+    const ClickHandler =(item: any)=> {
+        setEmail(item.email)
+        setName('')
+        setPhone(item.phoneNumber)
+        formik.setFieldValue('email', item.email)
+        formik.setFieldValue('companyName', item.companyName)
+        // formik.setFieldValue('clientId', item._id)
+        formik.setFieldValue('phoneNumber', item.phoneNumber)
+    }
 
     return (
         <>
@@ -178,15 +189,7 @@ export default function CreateDeal() {
                                 </div>
                                 <div className='my-4 ' >
                                     <p className='text-sm font-Inter-Regular mb-2' >Fuel</p>
-                                    <Select  
-                                        name="fuelType"
-                                        onChange={formik.handleChange}
-                                        onFocus={() =>
-                                            formik.setFieldTouched("fuelType", true, true)
-                                        }  
-                                        fontSize='sm' placeholder='Select Type' size='lg' className='border border-[#DDE2E5] rounded-lg '>
-                                        <option>AGO</option>        
-                                    </Select>
+                                    <SearchProduct name={setProductName} price={setPrice} />
                                     <div className="w-full h-auto pt-2">
                                         {formik.touched.fuelType && formik.errors.fuelType && (
                                             <motion.p
@@ -228,7 +231,8 @@ export default function CreateDeal() {
                                     <p className='text-sm font-Inter-Regular mb-2' >Asking price</p>
                                     <Input  
                                         name="askingPrice"
-                                        onChange={formik.handleChange}
+                                        value={price}
+                                        // onChange={formik.handleChange}
                                         onFocus={() =>
                                             formik.setFieldTouched("askingPrice", true, true)
                                         }  

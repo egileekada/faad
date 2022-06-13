@@ -21,7 +21,7 @@ export default function ProductDetails() {
 
     React.useEffect(() => { 
         const t1 = setTimeout(() => {    
-        if(data.data.products.length !== end){ 
+        if(data.data.products.length -1 !== end){ 
             setStart(start+1)
             setEnd(end+1)
         } else { 
@@ -40,7 +40,7 @@ export default function ProductDetails() {
 
 
     const NextButton =()=>{
-        if(data.data.products.length !== end){
+        if(data.data.products.length-1 !== end){
             setStart(start+1)
             setEnd(end+1)
         }
@@ -51,18 +51,8 @@ export default function ProductDetails() {
             setStart(start-1)
             setEnd(end-1)
         }
-    } 
-
-    const Slideshow =()=> {
-
-        if(data.data.products.length !== end){ 
-        } else {
-            
-        }
-    }
-
-
-
+    }    
+    
     return (
         <div className='w-full rounded-3xl py-6 px-8 flex items-center  bg-[#FBF3EE] ' style={{border: '1px solid #F9A362', boxShadow: '4px 4px 6px 1px #0000000F'}} >
             <svg onClick={()=> PrevButton()} className='cursor-pointer' width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -72,7 +62,7 @@ export default function ProductDetails() {
             <div className='w-full flex justify-center mx-auto' >
                 {!isLoading && (
                     <>
-                        {data.data.products.slice(start, end).map((item: any, index: any ) => {
+                        {data.data.products.filter((item: any)=> item.newPrice >= 0 ).slice(start, end).map((item: any, index: any ) => {
                              
                             return(
                                 <div key={index} className='mx-auto' >

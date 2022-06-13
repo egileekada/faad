@@ -13,11 +13,9 @@ import SearchProduct from './components/SearchProduct'
 export default function CreateBargain() {
 
     const navigate = useNavigate()
-    const [loading, setLoading] = React.useState(false); 
-    const [emailaddress, setEmail] = React.useState(''); 
-    const [name, setName] = React.useState('');
-    const [phone, setPhone] = React.useState(''); 
+    const [loading, setLoading] = React.useState(false);  
     const [productName, setProductName] = React.useState(''); 
+    const check = [] as any 
     const [price, setPrice] = React.useState(''); 
     // const userContext: IUser = React.useContext(UserContext);  
 
@@ -51,8 +49,7 @@ export default function CreateBargain() {
         },
         validationSchema: loginSchema,
         onSubmit: () => {},
-    });
-
+    }); 
 
     React.useEffect(() => { 
         formik.setFieldValue('fuel', productName)
@@ -118,9 +115,9 @@ export default function CreateBargain() {
     )  
 
     const ClickHandler =(item: any)=> {
-        setEmail(item.email)
-        setName('')
-        setPhone(item.phoneNumber)
+        // setEmail(item.email)
+        // setName('')
+        // setPhone(item.phoneNumber)
         formik.setFieldValue('email', item.email)
         formik.setFieldValue('companyName', item.companyName)
         formik.setFieldValue('clientId', item._id)
@@ -128,7 +125,7 @@ export default function CreateBargain() {
     }
 
     const OnChangeHandler =(event: any)=> { 
-        setName(event)
+        // setName(event)
         formik.setFieldValue('companyName', event)
     }
 
@@ -156,16 +153,22 @@ export default function CreateBargain() {
                             
                             {!isLoading && (
                                 <> 
-                                    {name !== '' && (
+                                    {formik.values.companyName !== '' && (
                                         <div style={{boxShadow: '0px 2px 8px 0px #60617029'}} className='absolute top-20 w-full px-4 py-2 rounded-lg z-20 bg-white' >
-                                            {[...data.data.clients].reverse().map((item: any)=> { 
-
-                                                if(item.companyName.toLowerCase().includes(formik.values.companyName.toLowerCase())){
+                                            {[...data.data.clients].reverse().map((item: any, index: any)=> {  
+                                                if(item.companyName.toLowerCase().includes(formik.values.companyName.toLowerCase())){ 
+                                                    check.splice(index, 1, 'true');
                                                     return(
                                                         <p className=' font-Inter-Medium text-sm cursor-pointer my-2 ' onClick={()=> ClickHandler(item)} >{item.companyName}</p>
-                                                    )
-                                                } 
+                                                    ) 
+                                                } else {
+                                                    check.splice(index, 1, 'false');
+                                                }
                                             })}
+                                            {!check.includes('true') && (
+                                                    <p className=' font-Inter-Medium text-sm cursor-pointer my-2 ' >No Record found</p> 
+                                                )
+                                            }
                                         </div>
                                     )}
                                 </>

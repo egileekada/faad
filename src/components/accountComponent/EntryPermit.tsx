@@ -42,10 +42,7 @@ export default function EntryPermit() {
     });
  
 
-    React.useEffect(() => {
-        // formik.setFieldValue('agent', agent)
-        // formik.setFieldValue('driver', driver)
-        // formik.setFieldValue('truck', truck)
+    React.useEffect(() => { 
         formik.setFieldValue('fuel', fuel)
     }, [fuel])
 
@@ -73,9 +70,7 @@ export default function EntryPermit() {
         }).then(res =>
             res.json()
         )
-    )   
-
-    console.log(data)
+    )    
 
     return (
         <div className='w-full h-full bg-white rounded-2xl' >
