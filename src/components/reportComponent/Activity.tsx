@@ -1,41 +1,57 @@
 import { Table, Thead, Tr, Th, Tbody, Td } from '@chakra-ui/react'
 import React from 'react'
+import { useQuery } from 'react-query'
 import DateFormat from '../DateFormat'
 
 export default function Activity() {
 
-    const data = [
-        {
-            user: 'Beauty Bagins',
-            activity: 'Changed password',
-            contact: 'beauty@faadoil.com',
-            date: '12-11-2019'
-        },
-        {
-            user: 'Beauty Bagins',
-            activity: 'Changed password',
-            contact: 'beauty@faadoil.com',
-            date: '12-11-2019'
-        },
-        {
-            user: 'Beauty Bagins',
-            activity: 'Changed password',
-            contact: 'beauty@faadoil.com',
-            date: '12-11-2019'
-        },
-        {
-            user: 'Beauty Bagins',
-            activity: 'Changed password',
-            contact: 'beauty@faadoil.com',
-            date: '12-11-2019'
-        },
-        {
-            user: 'Beauty Bagins',
-            activity: 'Changed password',
-            contact: 'beauty@faadoil.com',
-            date: '12-11-2019'
-        }
-    ]
+    // const data = [
+    //     {
+    //         user: 'Beauty Bagins',
+    //         activity: 'Changed password',
+    //         contact: 'beauty@faadoil.com',
+    //         date: '12-11-2019'
+    //     },
+    //     {
+    //         user: 'Beauty Bagins',
+    //         activity: 'Changed password',
+    //         contact: 'beauty@faadoil.com',
+    //         date: '12-11-2019'
+    //     },
+    //     {
+    //         user: 'Beauty Bagins',
+    //         activity: 'Changed password',
+    //         contact: 'beauty@faadoil.com',
+    //         date: '12-11-2019'
+    //     },
+    //     {
+    //         user: 'Beauty Bagins',
+    //         activity: 'Changed password',
+    //         contact: 'beauty@faadoil.com',
+    //         date: '12-11-2019'
+    //     },
+    //     {
+    //         user: 'Beauty Bagins',
+    //         activity: 'Changed password',
+    //         contact: 'beauty@faadoil.com',
+    //         date: '12-11-2019'
+    //     }
+    // ]
+
+
+    const { isLoading, data } = useQuery('AllActivty', () =>
+        fetch('https://faadoli.herokuapp.com/api/v1/activity', {
+            method: 'GET', // or 'PUT'
+            headers: {
+                'Content-Type': 'application/json', 
+                Authorization : `Bearer ${localStorage.getItem('token')}`
+            }
+        }).then(res =>
+            res.json()
+        )
+    ) 
+
+    console.log(data)
 
     return (
         
@@ -53,7 +69,7 @@ export default function Activity() {
                         </Tr>
                     </Thead>
                     <Tbody >
-                        {[...data].reverse().map((item: any, index: any)=> { 
+                        {/* {[...data].reverse().map((item: any, index: any)=> { 
                             return(
                                 <Tr className=' font-Inter-Regular text-sm ' key={index} paddingBottom='30px' >
                                     <Td>{index+1}</Td> 
@@ -63,7 +79,7 @@ export default function Activity() {
                                     <Td>{item.date}</Td> 
                                 </Tr> 
                             ) 
-                        })}
+                        })} */}
                     </Tbody> 
                 </Table> 
             </div> 

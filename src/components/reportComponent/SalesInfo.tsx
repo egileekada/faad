@@ -116,64 +116,68 @@ export default function SalesInfo(props: any) {
                         </Tr>
                     </Thead>
                     <Tbody >
-                        {props.month === 'prev' && (
-                            <>
-                                {[...data.data.delivery].reverse().filter((item: any)=> new Date(item.updatedAt).getMonth() !== new Date().getMonth() && new Date(item.updatedAt).getFullYear() === new Date().getFullYear()).map((item: any, index: any)=> { 
-                                    return(
-                                        <Tr className=' font-Inter-Regular text-sm ' key={index} paddingBottom='30px' >
-                                            <Td>{index+1}</Td> 
-                                            <Td>{item.deal.companyName}</Td> 
-                                            <Td>{(item.deal._id).toUpperCase().substring(0, 7)}</Td> 
-                                            <Td>{item.deal.fuelType}</Td> 
-                                            <Td>{(item.deal.costBeforDispatched*item.deal.quantity).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Td> 
-                                            <Td>{item.requisitions}</Td> 
-                                            {/* <Td>{item.cummilative}</Td>   */}
-                                            <Td>{DateFormat(item.updatedAt)}</Td> 
-                                        </Tr> 
-                                    ) 
-                                })}
+                        {!isLoading && (
+                            <> 
+                                {props.month === 'prev' && (
+                                    <>
+                                        {[...data.data.delivery].reverse().filter((item: any)=> new Date(item.updatedAt).getMonth() !== new Date().getMonth() && new Date(item.updatedAt).getFullYear() === new Date().getFullYear()).map((item: any, index: any)=> { 
+                                            return(
+                                                <Tr className=' font-Inter-Regular text-sm ' key={index} paddingBottom='30px' >
+                                                    <Td>{index+1}</Td> 
+                                                    <Td>{item.deal.companyName}</Td> 
+                                                    <Td>{(item.deal._id).toUpperCase().substring(0, 7)}</Td> 
+                                                    <Td>{item.deal.fuelType}</Td> 
+                                                    <Td>{(item.deal.costBeforDispatched*item.deal.quantity).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Td> 
+                                                    <Td>{item.requisitions}</Td> 
+                                                    {/* <Td>{item.cummilative}</Td>   */}
+                                                    <Td>{DateFormat(item.updatedAt)}</Td> 
+                                                </Tr> 
+                                            ) 
+                                        })}
 
-                                {/* {data.data.delivery.length === 0 && (
-                                    <Tr className=' font-Inter-Regular text-sm text-center '>No Record Found</Tr>
-                                )} */}
-                            </>
-                        )}
+                                        {/* {data.data.delivery.length === 0 && (
+                                            <Tr className=' font-Inter-Regular text-sm text-center '>No Record Found</Tr>
+                                        )} */}
+                                    </>
+                                )}
 
-                        {props.month === 'this' && (
-                            <>
-                                {[...data.data.delivery].reverse().filter((item: any)=> new Date(item.updatedAt).getMonth() === new Date().getMonth() && new Date(item.updatedAt).getFullYear() === new Date().getFullYear()).map((item: any, index: any)=> { 
-                                    return(
-                                        <Tr className=' font-Inter-Regular text-sm ' key={index} paddingBottom='30px' >
-                                            <Td>{index+1}</Td> 
-                                            <Td>{item.deal.companyName}</Td> 
-                                            <Td>{(item.deal._id).toUpperCase().substring(0, 7)}</Td> 
-                                            <Td>{item.deal.fuelType}</Td> 
-                                            <Td>{(item.deal.costBeforDispatched*item.deal.quantity).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Td> 
-                                            <Td>{item.requisitions}</Td> 
-                                            {/* <Td>{item.cummilative}</Td>   */}
-                                            <Td>{DateFormat(item.updatedAt)}</Td> 
-                                        </Tr> 
-                                    ) 
-                                })}
-                            </>
-                        )}
+                                {props.month === 'this' && (
+                                    <>
+                                        {[...data.data.delivery].reverse().filter((item: any)=> new Date(item.updatedAt).getMonth() === new Date().getMonth() && new Date(item.updatedAt).getFullYear() === new Date().getFullYear()).map((item: any, index: any)=> { 
+                                            return(
+                                                <Tr className=' font-Inter-Regular text-sm ' key={index} paddingBottom='30px' >
+                                                    <Td>{index+1}</Td> 
+                                                    <Td>{item.deal.companyName}</Td> 
+                                                    <Td>{(item.deal._id).toUpperCase().substring(0, 7)}</Td> 
+                                                    <Td>{item.deal.fuelType}</Td> 
+                                                    <Td>{(item.deal.costBeforDispatched*item.deal.quantity).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Td> 
+                                                    <Td>{item.requisitions}</Td> 
+                                                    {/* <Td>{item.cummilative}</Td>   */}
+                                                    <Td>{DateFormat(item.updatedAt)}</Td> 
+                                                </Tr> 
+                                            ) 
+                                        })}
+                                    </>
+                                )}
 
-                        {props.month === 'all' && (
-                            <>
-                                {[...data.data.delivery].reverse().filter((item: any)=>  new Date(item.updatedAt).getFullYear() === new Date().getFullYear()).map((item: any, index: any)=> { 
-                                    return(
-                                        <Tr className=' font-Inter-Regular text-sm ' key={index} paddingBottom='30px' >
-                                            <Td>{index+1}</Td> 
-                                            <Td>{item.deal.companyName}</Td> 
-                                            <Td>{(item.deal._id).toUpperCase().substring(0, 7)}</Td> 
-                                            <Td>{item.deal.fuelType}</Td> 
-                                            <Td>{(item.deal.costBeforDispatched*item.deal.quantity).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Td> 
-                                            <Td>{item.requisitions}</Td> 
-                                            {/* <Td>{item.cummilative}</Td>   */}
-                                            <Td>{DateFormat(item.updatedAt)}</Td> 
-                                        </Tr> 
-                                    ) 
-                                })}
+                                {props.month === 'all' && (
+                                    <>
+                                        {[...data.data.delivery].reverse().filter((item: any)=>  new Date(item.updatedAt).getFullYear() === new Date().getFullYear()).map((item: any, index: any)=> { 
+                                            return(
+                                                <Tr className=' font-Inter-Regular text-sm ' key={index} paddingBottom='30px' >
+                                                    <Td>{index+1}</Td> 
+                                                    <Td>{item.deal.companyName}</Td> 
+                                                    <Td>{(item.deal._id).toUpperCase().substring(0, 7)}</Td> 
+                                                    <Td>{item.deal.fuelType}</Td> 
+                                                    <Td>{(item.deal.costBeforDispatched*item.deal.quantity).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Td> 
+                                                    <Td>{item.requisitions}</Td> 
+                                                    {/* <Td>{item.cummilative}</Td>   */}
+                                                    <Td>{DateFormat(item.updatedAt)}</Td> 
+                                                </Tr> 
+                                            ) 
+                                        })}
+                                    </>
+                                )}
                             </>
                         )}
                     </Tbody> 

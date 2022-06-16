@@ -47,7 +47,7 @@ export default function ChangePassword(props: any) {
           setLoading(false);
           return;
         }
-        else {
+        else { 
             const request = await fetch(`https://faadoli.herokuapp.com/api/v1/auth/change-password/${props.id}`, {
                 method: 'PUT',
                 headers: {
@@ -63,6 +63,32 @@ export default function ChangePassword(props: any) {
                 alert('Password Updated Successfully');
                 const t1 = setTimeout(() => { 
                     props.close(false) 
+
+                fetch(`https://faadoli.herokuapp.com/api/v1/activity`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization : `Bearer ${localStorage.getItem('token')}` 
+                    },
+                    body: JSON.stringify({
+                        userId: props.id
+                    }),
+                });
+        
+                // const json = request.json(); 
+        
+                // if (request.status === 201) {     
+                //     alert('Password Updated Successfully');
+                //     const t1 = setTimeout(() => { 
+                //         props.close(false) 
+                //         props.reload()  
+                //         clearTimeout(t1);
+                //     }, 1000); 
+                // }else {
+                //     alert(json.message);
+                //     console.log(json)
+                //     setLoading(false);
+                // }
                     props.reload()  
                     clearTimeout(t1);
                 }, 1000); 

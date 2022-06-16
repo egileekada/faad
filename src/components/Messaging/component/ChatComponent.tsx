@@ -100,14 +100,12 @@ export default function ChatComponent(props: any) {
         }); 
 
         formik.setFieldValue('text', '')  
-        setLoading(false)
-    }     
 
-    const ROOT_CSS = css({
-        height: 600,
-        width: 400
-      });
-    console.log(messages);
+        const t1 = setTimeout(() => {
+            setLoading(false)   
+            clearTimeout(t1);
+        }, 2000); 
+    }       
 
     return (
         <div style={{width: '70%'}}  className=' p-8 flex-1 bg-white  rounded-2xl' >
@@ -177,7 +175,7 @@ export default function ChatComponent(props: any) {
                     {loading && (
                         <> 
                             <ButtonLoader size='30' />
-                            <span className='ml-3'>Loading</span>
+                            <span className='ml-3'>Sending</span>
                         </>
                     )}
                     {!loading && (
