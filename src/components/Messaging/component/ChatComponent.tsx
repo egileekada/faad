@@ -5,7 +5,9 @@ import * as yup from 'yup'
 import ButtonLoader from '../../ButtonLoader';
 import { IUser, UserContext } from '../../context/UserContext';
 import DateFormat from '../../DateFormat';
+import ScrollToBottom from 'react-scroll-to-bottom';
 import PageLoader from '../../PageLoader';
+import { css } from '@emotion/react';
 
 export default function ChatComponent(props: any) {
 
@@ -31,11 +33,11 @@ export default function ChatComponent(props: any) {
         }, 3000); 
     },[])    
 
-    const divRef: any = React.useRef(null);
+    // const divRef: any = React.useRef(null);
 
-    React.useEffect(() => {
-      divRef.current.scrollIntoView({ behavior: 'smooth' });
-    }, [messages, isLoading]);
+    // React.useEffect(() => {
+    //   divRef.current?.scrollIntoView({ behavior: 'smooth' });
+    // }, [messages, isLoading]);
     
     const handleChange =async()=> {
 
@@ -101,60 +103,67 @@ export default function ChatComponent(props: any) {
         setLoading(false)
     }     
 
+    const ROOT_CSS = css({
+        height: 600,
+        width: 400
+      });
     console.log(messages);
 
     return (
-        <div style={{width: '70%'}}  className=' relative flex-1 bg-white rounded-2xl' >
-            <p className='font-Inter-SemiBold text-xl pt-8 px-8 mb-4' >#General</p> 
-            <div style={{height: '42vh' }} className=' w-auto pl-4 mx-8 rounded-2xl overflow-y-auto pr-6  flex-1 pt-4' >
-            {/* <div className=' w-full overflow-y-auto relative h-full pr-6  flex-1 pt-4' > */}
-                {!isLoading && (
-                    <>
-                        {messages.map((item: any)=> {  
-                            if( item.name !== userContext.userData.name) {
-                                return(
-                                    <div className='flex my-2' >
-                                        {/* Sender */}
-                                        <div className='bg-yellow-400 w-10 h-10 rounded-full' />
-                                        <div style={{width: '55%'}} className='pl-3 ' >
-                                            <div style={{borderRadius: '0px 12px 12px 12px', backgroundColor: '#DDE2E5'}} className=' p-3 ml-3 ' >
-                                                <div className='flex items-center' > 
-                                                    <p className='font-Inter-Bold text-sm' >{item.name}</p>
-                                                    <p className='font-Inter-Regular text-xs ml-auto' >{DateFormat(item.updatedAt)}</p>
+        <div style={{width: '70%'}}  className=' p-8 flex-1 bg-white  rounded-2xl' >
+            <p className='font-Inter-SemiBold text-xl' >#General</p> 
+            {/* <div className=' w-full pr-6  flex-1 pt-4' >  */}
+            <ScrollToBottom className=' h-47vh'>
+                <div className=' px-6' > 
+                    {!isLoading && (
+                        <>
+                            {messages.map((item: any)=> {  
+                                if( item.name !== userContext.userData.name) {
+                                    return(
+                                        <div className='flex my-2' >
+                                            {/* Sender */}
+                                            <div className='bg-yellow-400 w-10 h-10 rounded-full' />
+                                            <div style={{width: '55%'}} className='pl-3 ' >
+                                                <div style={{borderRadius: '0px 12px 12px 12px', backgroundColor: '#DDE2E5'}} className=' p-3 ml-3 ' >
+                                                    <div className='flex items-center' > 
+                                                        <p className='font-Inter-Bold text-sm' >{item.name}</p>
+                                                        <p className='font-Inter-Regular text-xs ml-auto' >{DateFormat(item.updatedAt)}</p>
+                                                    </div>
+                                                    <p className='font-Inter-Regular mt-3 text-sm' >{item.message}</p>
                                                 </div>
-                                                <p className='font-Inter-Regular mt-3 text-sm' >{item.message}</p>
                                             </div>
                                         </div>
-                                    </div>
-                                )
-                            } else {
-                                return( 
-                                    <div className='flex my-2 w-full justify-end' >
-                                        {/* Reciever */}
-                                        <div style={{width: '55%'}} className='pl-3 ' >
-                                            <div style={{borderRadius: '12px 0px 12px 12px', backgroundColor: '#F8F9FA'}} className=' p-3 ' >
-                                                <div className='flex items-center' > 
-                                                    <p className='font-Inter-Regular text-xs' >{DateFormat(item.updatedAt)}</p>
-                                                    <p className='font-Inter-Bold text-sm  ml-auto' >{item.name}</p>
+                                    )
+                                } else {
+                                    return( 
+                                        <div className='flex my-2 w-full justify-end' >
+                                            {/* Reciever */}
+                                            <div style={{width: '55%'}} className='pl-3 ' >
+                                                <div style={{borderRadius: '12px 0px 12px 12px', backgroundColor: '#F8F9FA'}} className=' p-3 ' >
+                                                    <div className='flex items-center' > 
+                                                        <p className='font-Inter-Regular text-xs' >{DateFormat(item.updatedAt)}</p>
+                                                        <p className='font-Inter-Bold text-sm  ml-auto' >{item.name}</p>
+                                                    </div>
+                                                    <p className='font-Inter-Regular mt-3 text-sm' >{item.message}</p>
                                                 </div>
-                                                <p className='font-Inter-Regular mt-3 text-sm' >{item.message}</p>
                                             </div>
+                                            <div className='bg-yellow-400 w-10 h-10 rounded-full ml-3' />
                                         </div>
-                                        <div className='bg-yellow-400 w-10 h-10 rounded-full ml-3' />
-                                    </div>
-                                )
-                            }
-                        })}  
-                    </>
-                )}
-                {isLoading && (
-                    <div className='w-full h-auto flex mt-12 justify-center  ' > 
-                        <PageLoader />
-                    </div>
-                )}
-                <div ref={divRef} /> 
-            </div>
-            <div className=' w-full flex px-8 pb-6 items-end bottom-6' >
+                                    )
+                                }
+                                // <div className='' ref={divRef} /> 
+                            })}   
+                        </>
+                    )}
+                    {isLoading && (
+                        <div className='w-full h-auto flex mt-12 justify-center  ' > 
+                            <PageLoader />
+                        </div>
+                    )}
+                </div>
+            </ScrollToBottom>
+            {/* </div> */}
+            <div className=' w-full flex px-8 py-4 items-end' >
                 <Textarea 
                     name="text"
                     onChange={formik.handleChange} 

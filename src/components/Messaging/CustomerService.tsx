@@ -1,11 +1,13 @@
+import { Textarea } from '@chakra-ui/react'
 import React from 'react'
+import ButtonLoader from '../ButtonLoader'
 
 export default function CustomerService() {
     return (
         <div className='w-full h-full flex px-8 py-8 overflow-y-auto bg-[#F9FAFC] border-t border-l border-[#DDE2E5]' > 
             <div style={{width: '70%'}}  className=' p-8 flex-1 bg-white  rounded-2xl' >
                 <p className='font-Inter-SemiBold text-xl' >#Customer Service</p> 
-                <div className=' w-full overflow-y-auto h-full pr-6  flex-1 pt-4' >
+                <div style={{ height: '47vh'}} className=' w-full overflow-y-auto pr-6  flex-1 pt-4' >
                     <div className='flex my-2' >
                         {/* Sender */}
                         <div className='bg-yellow-400 w-10 h-10 rounded-full' />
@@ -79,6 +81,30 @@ export default function CustomerService() {
                         </div>
                         <div className='bg-yellow-400 w-10 h-10 rounded-full ml-3' />
                     </div>
+                </div>
+
+                <div className=' w-full flex px-8 py-4 items-end bottom-6' >
+                    <Textarea 
+                        name="text"
+                        // onChange={formik.handleChange} 
+                        // onFocus={() =>
+                        //     formik.setFieldTouched("text", true, true)
+                        // } 
+                        // value={formik.values.text}
+                        background='#F4f4f4' className='' />
+                    
+                    <button className='font-Inter-SemiBold ml-3 flex justify-center items-center text-xs h-10 text-white rounded-lg w-44 bg-[#F88C3A] ' >
+                        {/* {loading && (
+                            <> 
+                                <ButtonLoader size='30' />
+                                <span className='ml-3'>Loading</span>
+                            </>
+                        )}
+                        {!loading && ( */}
+                            <span className='mx-4'>Send</span>
+                        {/* )} */}
+                    </button>
+                    {/* <button className='font-Inter-SemiBold text-xs h-10 text-white rounded-lg w-44 bg-[#F88C3A] ml-6 ' >Add Note</button> */}
                 </div>
             </div>
             <div style={{width: '30%'}} className=' p-8 ' >

@@ -96,7 +96,7 @@ export default function MyNotes() {
         <div className='w-full h-full flex px-8 py-8 overflow-y-auto bg-[#F9FAFC] border-t border-l border-[#DDE2E5]' > 
             <div style={{width: '70%'}}  className=' relative flex-1 bg-white rounded-2xl' >
                 <p className='font-Inter-SemiBold text-xl pt-8 px-8 mb-4' >#Operations</p> 
-                <div style={{height: '45vh', backgroundColor: '#f4f4f4'}} className=' w-auto pl-4 mx-8 rounded-2xl overflow-y-auto pr-6  flex-1 pt-4' >
+                <div style={{height: '40vh', backgroundColor: '#f4f4f4'}} className=' w-auto pl-4 mx-8 rounded-2xl overflow-y-auto pr-6  flex-1 pt-4' >
                     {!isLoading && (
                         <>
                             {data.data.user.notes.length !== 0 && (
@@ -131,7 +131,7 @@ export default function MyNotes() {
                         </>
                     )}
                 </div>
-                <div className=' absolute w-full flex px-8 items-end bottom-6' >
+                <div className=' w-full flex px-8 py-4 items-end bottom-6' >
                     <Textarea 
                         name="text"
                         onChange={formik.handleChange} 

@@ -39,11 +39,11 @@ export default function General() {
        
     React.useEffect(() => {  
         userContext.setTab('General')
-    },[]); 
+    },[]);  
      
     return (
-        <div className='w-full h-full flex px-8 py-8 overflow-y-auto relative bg-[#F9FAFC] border-t border-l border-[#DDE2E5]' > 
-            <ChatComponent socket={socket} reload={setLoading} />
+        <div className='w-full relative h-full flex px-8 py-8 overflow-y-auto bg-[#F9FAFC] border-t border-l border-[#DDE2E5]' > 
+            <ChatComponent socket={socket} reload={setLoading} /> 
             <div style={{width: '30%'}} className=' p-8 ' >
                 <p className='font-Inter-SemiBold text-xl' >Members</p>
                 <div className='mt-3' >

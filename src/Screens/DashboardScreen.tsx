@@ -67,7 +67,7 @@ export default function DashboardScreen() {
                                 <p className='font-Inter-Regular text-xs '>{userContext.userData.department}</p>
                             </div>
                         </div>
-                        <div style={{height: '80vh'}} className='h-auto overflow-y-hidden' >
+                        <div style={{height: '85vh'}} className=' overflow-y-hidden' >
                             <Outlet />
                         </div>
                     </div>
