@@ -25,8 +25,8 @@ export default function Deal() {
             res.json()
         )
     )   
-       
-    const [Value, setValue] = React.useState({} as any) 
+        
+    const [value, setValue] = React.useState({} as any) 
 
     return (
         <div className='w-full h-full px-8 py-8 overflow-y-auto' > 

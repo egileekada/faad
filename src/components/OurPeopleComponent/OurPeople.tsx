@@ -4,8 +4,7 @@ import { useQuery } from 'react-query'
 import { useNavigate } from 'react-router-dom'
 import { IUser, UserContext } from '../context/UserContext'
 import PageLoader from '../PageLoader'
-import Avatar from '../../assets/images/avatar.png'
-import axios from 'axios'  
+import Avatar from '../../assets/images/avatar.png' 
 
 export default function OurPeople() {
  
@@ -50,21 +49,9 @@ export default function OurPeople() {
             }
         } else {
             navigate('profile')
-        }
-
-        // {userContext.userData.role.toLowerCase() !== 'CSA'.toLowerCase() && (  
-        // )}
+        } 
         userContext.setProfileData(item)
-    } 
-
-    // const checkIfImageExists = (e: any, index: any) => {
-    //     if(e.target.onerror === null){
-    //         imageExist.splice(index, 1, false);
-    //     } else {
-    //         imageExist.splice(index, 1, true);
-    //     }
-    //     console.log(e.target.onerror)
-    // }
+    }  
 
     
 

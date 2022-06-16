@@ -40,9 +40,7 @@ export default function SideBar() {
             navigate('/')
             localStorage.clear()
         }
-    }
-
-    console.log(userContext.userData.department); 
+    } 
 
     return (
         <div className='w-72 py-10 pt-16 px-6 overflow-y-auto h-screen flex ' >
