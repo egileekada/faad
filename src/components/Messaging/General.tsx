@@ -26,28 +26,29 @@ export default function General() {
             res.json()
         )
     )     
-
+    console.log(data);
+     
     React.useEffect(() => { 
         socket.on("connect", () => {
             console.log('A Connection has been made')    
             socket.emit("join-group", {
-                groupId: "62a49b6fc592977ebe01a5ce",
+                groupId: "62ade34f15f3fa53457b1c2c",
                 userId:  userContext.userData._id,
             }); 
         });  
-      },[loading]); 
+    },[loading]); 
        
     React.useEffect(() => {  
         userContext.setTab('General')
     },[]);  
      
     return (
-        <div className='w-full relative h-full flex px-8 py-8 overflow-y-auto bg-[#F9FAFC] border-t border-l border-[#DDE2E5]' > 
-            <ChatComponent socket={socket} reload={setLoading} /> 
+        <div className='w-full relative h-full flex px-8 py-8 overflow-y-auto bg-[#F9FAFC] border-t border-l border-[#DDE2E5]' >  
+            <ChatComponent socket={socket} name='General' id="62ade34f15f3fa53457b1c2c" reload={setLoading} /> 
             <div style={{width: '30%'}} className=' p-8 ' >
                 <p className='font-Inter-SemiBold text-xl' >Members</p>
                 <div className='mt-3' >
-                    <GetUserOnGroup /> 
+                    <GetUserOnGroup id="62ade34f15f3fa53457b1c2c" /> 
                 </div>
             </div>
         </div>

@@ -65,10 +65,7 @@ export default function Summary(props: any) {
         .catch((error) => {
             console.error('Error:', error); 
         },); 
-    },) 
-
-    console.log(tankData);
-    
+    },)  
 
     const ClickHandler =(month: any)=>{
         props.tab(1)

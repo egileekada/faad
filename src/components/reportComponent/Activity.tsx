@@ -1,10 +1,14 @@
 import { Table, Thead, Tr, Th, Tbody, Td } from '@chakra-ui/react'
 import React from 'react'
 import { useQuery } from 'react-query'
+import { IUser, UserContext } from '../context/UserContext';
 import DateFormat from '../DateFormat'
 
 export default function Activity() {
 
+    const userContext: IUser = React.useContext(UserContext);  
+
+    console.log(userContext.userData._id);
     // const data = [
     //     {
     //         user: 'Beauty Bagins',
@@ -50,6 +54,27 @@ export default function Activity() {
             res.json()
         )
     ) 
+
+    React.useEffect(() => {
+       
+        {[...data.data].reverse().map((item: any, index: any)=> { 
+            fetch(`https://faadoli.herokuapp.com/api/v1/auth/user/${item._id}`, {
+                method: 'GET', // or 'PUT'
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization : `Bearer ${localStorage.getItem('token')}`
+                }
+            })
+            .then(response => response.json())
+            .then(data => {        
+                console.log(data);
+                
+            })
+            .catch((error) => {
+                console.error('Error:', error); 
+            },);  
+        })}
+    },)
 
     console.log(data)
 

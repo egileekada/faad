@@ -1,10 +1,10 @@
 import React from 'react'
 import { useQuery } from 'react-query'
 
-export default function GetUserOnGroup() {
+export default function GetUserOnGroup(props: any) {
  
     const { isLoading, data } = useQuery('ChatGroupMembers', () =>
-        fetch('https://faadoli.herokuapp.com/api/v1/group/62a49b6fc592977ebe01a5ce/members', {
+        fetch(`https://faadoli.herokuapp.com/api/v1/group/${props.id}/members`, {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 

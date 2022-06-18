@@ -17,13 +17,14 @@ export default function ChatComponent(props: any) {
     const [isLoading, setIsLoading] = React.useState(true);
 
     React.useEffect(() => { 
-        props.socket.emit("get-all-message", { groupId: "62a49b6fc592977ebe01a5ce" });  
+        props.socket.emit("get-all-message", { groupId: props.id });  
         props.socket.on("group-message", (data: any) => {  
             console.log(data) 
         });
         props.socket.on("all-message", (data:any) => {   
             setMessages([...data.messages]) 
-        }); 
+        });  
+        props.socket.emit("make-read", { messageId: props.id });
     },[props.socket]) 
     
     React.useEffect(() => { 
@@ -41,7 +42,35 @@ export default function ChatComponent(props: any) {
     
     const handleChange =async()=> {
 
-        const request = await fetch(`https://faadoli.herokuapp.com/api/v1/group/62a49b6fc592977ebe01a5ce`, {
+        // const request = await fetch(`https://faadoli.herokuapp.com/api/v1/group`, {
+        //     method: 'POST',
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //         Authorization : `Bearer ${localStorage.getItem('token')}` 
+        //     },
+        //     body: JSON.stringify({
+        //         name: "Operations",
+        //         description: "This is the Operations Group",
+        //         // userId: userContext.userData._id
+        //     }),
+        // });
+
+        // const json = await request.json(); 
+
+        // if (request.status === 200) {    
+        //     // setShow(true)  
+        //     alert('User Added');
+        //     const t1 = setTimeout(() => {  
+        //         // sessionStorage.setItem('tabIndex', 'Dashboard')
+        //         // navigate('/dashboard');  
+        //         // navigate(0);  
+        //         clearTimeout(t1);
+        //     }, 1000); 
+        // }else {
+        //     alert(json.message);
+        //     console.log(json) 
+        // }
+        const request = await fetch(`https://faadoli.herokuapp.com/api/v1/group/62ade34f15f3fa53457b1c2c`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -87,20 +116,45 @@ export default function ChatComponent(props: any) {
     const Submit =async()=> {  
         setLoading(true)
         props.socket.emit("send-group-message", {
-            groupId: "62a49b6fc592977ebe01a5ce",
+            groupId: props.id,
             message: formik.values.text,
             userId: userContext.userData._id,
             name: userContext.userData.name,
             avatar: userContext.userData.avatar
         });
+        if(formik.values.text.toLocaleLowerCase().includes(('#CustomerService').toLocaleLowerCase())){ 
+            props.socket.emit("send-group-message", {
+                groupId: "62ade8f1d73164d487087158",
+                message: formik.values.text,
+                userId: userContext.userData._id,
+                name: userContext.userData.name,
+                avatar: userContext.userData.avatar
+            });
+        } else if(formik.values.text.toLocaleLowerCase().includes(('#Account').toLocaleLowerCase())){ 
+            props.socket.emit("send-group-message", {
+                groupId: "62ade89ad73164d4870870ec",
+                message: formik.values.text,
+                userId: userContext.userData._id,
+                name: userContext.userData.name,
+                avatar: userContext.userData.avatar
+            });
+        } else if(formik.values.text.toLocaleLowerCase().includes(('#Operation').toLocaleLowerCase())){ 
+            props.socket.emit("send-group-message", {
+                groupId: "62ade91ed73164d487087180",
+                message: formik.values.text,
+                userId: userContext.userData._id,
+                name: userContext.userData.name,
+                avatar: userContext.userData.avatar
+            });
+        }
+
         props.reload(formik.values.text)
-        props.socket.on("group-message", (data: any) => {
-        console.log(data);
-            setMessages([...messages, data])
-        }); 
+        // props.socket.on("group-message", (data: any) => {
+        // console.log(data);
+        //     setMessages([...messages, data])
+        // });  
 
         formik.setFieldValue('text', '')  
-
         const t1 = setTimeout(() => {
             setLoading(false)   
             clearTimeout(t1);
@@ -109,7 +163,7 @@ export default function ChatComponent(props: any) {
 
     return (
         <div style={{width: '70%'}}  className=' p-8 flex-1 bg-white  rounded-2xl' >
-            <p className='font-Inter-SemiBold text-xl' >#General</p> 
+            <p className='font-Inter-SemiBold text-xl' >#{props.name}</p> 
             {/* <div className=' w-full pr-6  flex-1 pt-4' >  */}
             <ScrollToBottom className=' h-47vh'>
                 <div className=' px-6' > 
@@ -181,8 +235,7 @@ export default function ChatComponent(props: any) {
                     {!loading && (
                         <span className='mx-4'>Send</span>
                     )}
-                </button>
-                {/* <button className='font-Inter-SemiBold text-xs h-10 text-white rounded-lg w-44 bg-[#F88C3A] ml-6 ' >Add Note</button> */}
+                </button> 
             </div>
         </div> 
     )

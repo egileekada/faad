@@ -5,16 +5,7 @@ import React from 'react'
 import ButtonLoader from '../../ButtonLoader';
 import * as yup from 'yup'
 
-export default function ChangePassword(props: any) {
-
-    // {
-    //     productCode: string;
-    //     productName: string;
-    //     description: string;
-    //     oldPrice?: number;
-    //     newPrice?: number;
-    //     percentageDifference?: number;
-    //  }
+export default function ChangePassword(props: any) { 
 
     const [loading, setLoading] = React.useState(false); 
 
@@ -73,22 +64,22 @@ export default function ChangePassword(props: any) {
                     body: JSON.stringify({
                         userId: props.id
                     }),
-                });
+                }); 
         
-                // const json = request.json(); 
+                const json = request.json(); 
         
-                // if (request.status === 201) {     
-                //     alert('Password Updated Successfully');
-                //     const t1 = setTimeout(() => { 
-                //         props.close(false) 
-                //         props.reload()  
-                //         clearTimeout(t1);
-                //     }, 1000); 
-                // }else {
-                //     alert(json.message);
-                //     console.log(json)
-                //     setLoading(false);
-                // }
+                if (request.status === 201) {     
+                    alert('Password Updated Successfully');
+                    const t1 = setTimeout(() => { 
+                        props.close(false) 
+                        props.reload()  
+                        clearTimeout(t1);
+                    }, 1000); 
+                }else {
+                    // alert(json.message);
+                    console.log(json)
+                    setLoading(false);
+                }
                     props.reload()  
                     clearTimeout(t1);
                 }, 1000); 

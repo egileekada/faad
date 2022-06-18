@@ -12,9 +12,10 @@ export default function SideBar() {
     const CustomerCare = ['Dashboard', 'Bargains', 'Deals', 'Clientele', 'Our people']
     const Account = ['Dashboard', 'Accounts', 'Deals', 'Our people']
     const Operation = ['Dashboard', 'Bargains', 'Deals', 'Our people']
-    const messageArray = ['Customer Service', 'Operations', 'General', 'My Notes', 'Lock', 'Log out']
-    // const CustomerCaremessageArray = ['Customer Service', 'General', 'My Notes', 'Lock', 'Log out']
-    // const OperationmessageArray = ['Operations', 'General', 'My Notes', 'Lock', 'Log out']
+    const messageArray = [ 'General', 'Account','Customer Service', 'Operations', 'My Notes', 'Lock', 'Log out']
+    const CustomerCaremessageArray = ['General', 'Customer Service', 'My Notes', 'Lock', 'Log out']
+    const OperationmessageArray = ['General', 'Operations', 'My Notes', 'Lock', 'Log out']
+    const AccountmessageArray = ['General', 'Account', 'My Notes', 'Lock', 'Log out']
     // const messageArray = ['Customer Service', 'Operations', 'General', 'My Notes', 'Lock', 'Log out']
 
     const [active, setActive] = React.useState('Dashboard') 
@@ -33,6 +34,8 @@ export default function SideBar() {
                 navigate('/dashboard/'+rout+'messages')
             } else if(item === 'General') {
                 navigate('/dashboard/'+rout+'messages')
+            } else if(item === 'Account') {
+                navigate('/dashboard/accountsmessages')
             } else {
                 navigate('/dashboard/'+rout)
             }
@@ -52,8 +55,7 @@ export default function SideBar() {
                     </svg>
                 </div> 
                 <p className='font-Inter-ExtraBold text-xs text-[#ACB5BD] mt-8' >Menu</p>
-                {userContext.userData.department && (
-
+                {userContext.userData.department && ( 
                     <div className='mt-4' >
                         {userContext.userData.department.toLowerCase() === 'Customer Service'.toLowerCase() && (
                             <>
@@ -128,18 +130,86 @@ export default function SideBar() {
                     </div>
                 )}
                 <p className='font-Inter-ExtraBold text-xs text-[#ACB5BD] mt-5' >Menu</p>
-                <div className='mt-4' >
-                     {messageArray.map((item: any)=> {
-                         return(
-                            <div onClick={()=> ClickHandler(item)} style={item === userContext.tab ? {backgroundColor: '#FEE8D8'} : {}} key={item} className='flex items-center my-2 cursor-pointer py-2 rounded-md pl-5 ' >
-                                <div className='w-7 h-7 flex items-center justify-center' >
-                                    <SideBarIcons iconName={item} active={userContext.tab} />
-                                </div>
-                                <p style={item === userContext.tab ? {color: '#F88C3A'}: {color: '#212429'}} className='ml-3 font-Inter-SemiBold text-sm' >{item}</p>
-                            </div>
-                         )
-                     })}
-                </div>
+
+                {userContext.userData.department && ( 
+                    <div className='mt-4' >
+
+                        {userContext.userData.department.toLowerCase() === 'Customer Service'.toLowerCase() || userContext.userData.role.toLowerCase() === 'CSA'.toLowerCase() && (
+                            <>
+                                {CustomerCaremessageArray.map((item: any)=> {
+                                    return(
+                                        <div onClick={()=> ClickHandler(item)} style={item === userContext.tab ? {backgroundColor: '#FEE8D8'} : {}} key={item} className='flex items-center my-2 cursor-pointer py-2 rounded-md pl-5 ' >
+                                            <div className='w-7 h-7 flex items-center justify-center' >
+                                                <SideBarIcons iconName={item} active={userContext.tab} />
+                                            </div>
+                                            <p style={item === userContext.tab ? {color: '#F88C3A'}: {color: '#212429'}} className='ml-3 font-Inter-SemiBold text-sm' >{item}</p>
+                                        </div>
+                                    )
+                                })}
+                            </>
+                        )}
+
+                        {userContext.userData.department.toLowerCase() === 'Operations'.toLowerCase() && (
+                            <>
+                                {OperationmessageArray.map((item: any)=> {
+                                    return(
+                                        <div onClick={()=> ClickHandler(item)} style={item === userContext.tab ? {backgroundColor: '#FEE8D8'} : {}} key={item} className='flex items-center my-2 cursor-pointer py-2 rounded-md pl-5 ' >
+                                            <div className='w-7 h-7 flex items-center justify-center' >
+                                                <SideBarIcons iconName={item} active={userContext.tab} />
+                                            </div>
+                                            <p style={item === userContext.tab ? {color: '#F88C3A'}: {color: '#212429'}} className='ml-3 font-Inter-SemiBold text-sm' >{item}</p>
+                                        </div>
+                                    )
+                                })}
+                            </>
+                        )} 
+
+                        {userContext.userData.department.toLowerCase() === 'Operations'.toLowerCase() && (
+                            <>
+                                {OperationmessageArray.map((item: any)=> {
+                                    return(
+                                        <div onClick={()=> ClickHandler(item)} style={item === userContext.tab ? {backgroundColor: '#FEE8D8'} : {}} key={item} className='flex items-center my-2 cursor-pointer py-2 rounded-md pl-5 ' >
+                                            <div className='w-7 h-7 flex items-center justify-center' >
+                                                <SideBarIcons iconName={item} active={userContext.tab} />
+                                            </div>
+                                            <p style={item === userContext.tab ? {color: '#F88C3A'}: {color: '#212429'}} className='ml-3 font-Inter-SemiBold text-sm' >{item}</p>
+                                        </div>
+                                    )
+                                })}
+                            </>
+                        )} 
+
+                        {userContext.userData.department.toLowerCase() === 'Managing Director'.toLowerCase() && (
+                            <>
+                                {messageArray.map((item: any)=> {
+                                    return(
+                                    <div onClick={()=> ClickHandler(item)} style={item === userContext.tab ? {backgroundColor: '#FEE8D8'} : {}} key={item} className='flex items-center my-2 cursor-pointer py-2 rounded-md pl-5 ' >
+                                        <div className='w-7 h-7 flex items-center justify-center' >
+                                            <SideBarIcons iconName={item} active={userContext.tab} />
+                                        </div>
+                                        <p style={item === userContext.tab ? {color: '#F88C3A'}: {color: '#212429'}} className='ml-3 font-Inter-SemiBold text-sm' >{item}</p>
+                                    </div>
+                                    )
+                                })}
+                            </>
+                        )}
+
+                        {userContext.userData.department.toLowerCase() === 'Accounts'.toLowerCase() && (
+                            <>
+                                {AccountmessageArray.map((item: any)=> {
+                                    return(
+                                    <div onClick={()=> ClickHandler(item)} style={item === userContext.tab ? {backgroundColor: '#FEE8D8'} : {}} key={item} className='flex items-center my-2 cursor-pointer py-2 rounded-md pl-5 ' >
+                                        <div className='w-7 h-7 flex items-center justify-center' >
+                                            <SideBarIcons iconName={item} active={userContext.tab} />
+                                        </div>
+                                        <p style={item === userContext.tab ? {color: '#F88C3A'}: {color: '#212429'}} className='ml-3 font-Inter-SemiBold text-sm' >{item}</p>
+                                    </div>
+                                    )
+                                })}
+                            </>
+                        )}
+                    </div>
+                )}
                 <div className='mb-8 h-6' />
             </div>
         </div>

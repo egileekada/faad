@@ -31,6 +31,7 @@ import PrintedSlip from './components/accountComponent/components/PrintedSlip';
 import CreateDealFromBargain from './components/barginComponent/CreateDealFromBargain';
 import ReportTab from './Tabs/ReportTab';
 import Summary from './components/reportComponent/Summary';
+import AccountMessage from './components/Messaging/AccountMessage';
 
 function App() {
   return (  
@@ -68,6 +69,7 @@ function App() {
             <Route path='/dashboard/customerservicemessages' element={<CustomerService />}/>
             <Route path='/dashboard/operationsmessages' element={<Operations />}/>
             <Route path='/dashboard/generalmessages' element={<General />}/>
+            <Route path='/dashboard/accountsmessages' element={<AccountMessage />}/>
             <Route path='/dashboard/mynotes' element={<MyNotes />}/>
           </Route> 
         </Routes>

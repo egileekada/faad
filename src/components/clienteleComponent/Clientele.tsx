@@ -1,5 +1,6 @@
 import { Select, Table, Thead, Tr, Th, Tbody, Td, Input } from '@chakra-ui/react'
 import React from 'react'
+import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io'
 import { useQuery } from 'react-query'
 import { useNavigate } from 'react-router-dom'
 import { IUser, UserContext } from '../context/UserContext'
@@ -9,12 +10,23 @@ import PageLoader from '../PageLoader'
 export default function Clientele() {
  
     const navigate = useNavigate() 
+
+    let limit = 10
+    const [tabIndex, setTabIndex] = React.useState(1)
+    const [from, setFrom] = React.useState(1)
+    const [to, setTo] = React.useState(limit) 
     const userContext: IUser = React.useContext(UserContext);  
 
     const [name, setName] = React.useState('') 
     React.useEffect(() => {  
         userContext.setTab('Clientele')
     },[]); 
+
+    React.useEffect(() => {  
+        setTabIndex(1)
+        setFrom(1)
+        setTo(limit)
+    },[name]);  
 
     const { isLoading, data } = useQuery('AllClients', () =>
         fetch('https://faadoli.herokuapp.com/api/v1/client', {
@@ -31,7 +43,31 @@ export default function Clientele() {
     const ClickHandler =(item: any)=> { 
         navigate('info')  
         localStorage.setItem('clientID', item) 
-    } 
+    }  
+
+    const NextPage =()=> {
+        setTabIndex(tabIndex+1)
+        setFrom(from+limit)
+        setTo(to+limit)
+    }
+
+    const PrevPage =()=> {
+        if(tabIndex <= 1){
+        } else {
+
+            setTabIndex(tabIndex-1)
+
+            setFrom(from-limit)
+            setTo(to-limit)
+        }
+    }
+
+    const OnTabPage =(item: any)=> {
+        setTabIndex(item)
+
+        setFrom((limit * item) - (limit - 1))
+        setTo(limit * item)
+    }
     
     if (isLoading) return(
         <div className='w-full h-auto flex mt-12 justify-center  ' > 
@@ -68,11 +104,11 @@ export default function Clientele() {
                                 </Tr>
                             </Thead>
                             <Tbody >
-                                {[...data.data.clients].reverse().map((item: any, index: any)=> {
+                                {[...data.data.clients].reverse().slice(from-1, to).map((item: any, index: any)=> {
                                     if(item.companyName.toLocaleLowerCase().includes(name.toLocaleLowerCase())){
                                         return(
                                             <Tr onClick={()=> ClickHandler(item._id)} className=' cursor-pointer font-Inter-Regular text-sm ' key={index} >
-                                                <Td>{index+1}</Td> 
+                                                <Td>{[...data.data.clients].reverse().map((object: any) => object._id).indexOf(item._id)+1}</Td> 
                                                 <Td>{item.companyName}</Td> 
                                                 <Td>
                                                     {/* <div className='w-8' > */}
@@ -102,6 +138,32 @@ export default function Clientele() {
                         </Table> 
                     )}
                 </div> 
+                {!isLoading && (
+                    <>    
+                        {limit <= data.data.clients.length && (
+
+                            <div className='flex items-center mt-6' >
+                                <button onClick={()=> PrevPage()} style={{borderColor: '#C2C2C2'}} className='w-10 h-10 rounded-lg cursor-pointer flex justify-center items-center border' > 
+                                    <IoIosArrowBack color='#878787' />
+                                </button>
+                                    <div style={{borderColor: '#C2C2C2'}} className='w-auto h-10 font-Graphik-Bold rounded-lg flex border mx-2'> 
+                                        {[...data.data.clients].reverse().filter((item: any, index: any)=> index % limit === 0).map((item: any, index: any)=> {
+                                            if(index <= 10){
+                                                return( 
+                                                    <div onClick={()=> OnTabPage(index+1)} style={tabIndex=== index+1 ? {backgroundColor: '#3E3F41'}:{color: '#202020'}} className='w-10 cursor-pointer h-10 rounded-lg flex text-white justify-center items-center' >
+                                                        {index+1}
+                                                    </div>
+                                                )
+                                            }  
+                                        })} 
+                                    </div>
+                                <button disabled={to >= data.data.clients.length ? true: false} onClick={()=> NextPage()} style={{borderColor: '#C2C2C2'}} className='w-10 h-10 rounded-lg cursor-pointer flex justify-center items-center border' >
+                                    <IoIosArrowForward color='#878787' />
+                                </button>
+                            </div>
+                        )}
+                    </>
+                )} 
             </div>
         </div>
     )

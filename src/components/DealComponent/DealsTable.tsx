@@ -5,16 +5,11 @@ import { useNavigate } from 'react-router'
 import { IUser, UserContext } from '../context/UserContext'
 import DateFormat from '../DateFormat'
 import PageLoader from '../PageLoader'
+import ReactPaginate from 'react-paginate'; 
+import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io'
 
 export default function DealsTable(props:any) {
-
-    const navigate = useNavigate()
-    const userContext: IUser = React.useContext(UserContext);  
-
-    React.useEffect(() => {  
-        userContext.setTab('Deals')
-    },[]);  
-
+   
     const { isLoading, error, data } = useQuery('AllDelivery', () =>
         fetch('https://faadoli.herokuapp.com/api/v1/delivery', {
             method: 'GET', // or 'PUT'
@@ -25,7 +20,18 @@ export default function DealsTable(props:any) {
         }).then(res =>
             res.json()
         )
-    ) 
+    )  
+
+    let limit = 10
+    const [tabIndex, setTabIndex] = React.useState(1)
+    const [from, setFrom] = React.useState(1)
+    const [to, setTo] = React.useState(limit)
+    const userContext: IUser = React.useContext(UserContext);  
+
+    const navigate = useNavigate()
+    React.useEffect(() => {  
+        userContext.setTab('Deals')
+    },[]);  
 
     React.useEffect(() => {  
         userContext.setTab('Deals') 
@@ -35,20 +41,48 @@ export default function DealsTable(props:any) {
         if(!isLoading){
             props.delivery(data.data.delivery.length)
         }
-    },[data]);  
+    },[data]);   
 
-
+    React.useEffect(() => {  
+        setTabIndex(1)
+        setFrom(1)
+        setTo(limit)
+    },[props.name]);  
+    
     const ClickHandler =(item: any)=> {
         navigate('info') 
         localStorage.setItem('dealID', item) 
     }
 
+    const NextPage =()=> {
+        setTabIndex(tabIndex+1)
+        setFrom(from+limit)
+        setTo(to+limit)
+    }
+
+    const PrevPage =()=> {
+        if(tabIndex <= 1){
+        } else {
+
+            setTabIndex(tabIndex-1)
+
+            setFrom(from-limit)
+            setTo(to-limit)
+        }
+    }
+
+    const OnTabPage =(item: any)=> {
+        setTabIndex(item)
+
+        setFrom((limit * item) - (limit - 1))
+        setTo(limit * item)
+    }
+    
     if (isLoading) return(
         <div className='w-full h-auto flex mt-12 justify-center  ' > 
             <PageLoader />
         </div>
-    )       
-    
+    )    
     return (
         <div className='w-full relative' > 
             {!isLoading && (
@@ -68,14 +102,14 @@ export default function DealsTable(props:any) {
                             </Tr>
                         </Thead>
                         <Tbody >
-                            {[...data.data.delivery].reverse().map((item: any, index: any)=> {
+                            {[...data.data.delivery].reverse().slice(from-1, to).map((item: any, index: any)=> {
                                 if(item.deal === null) {
                                     <p className='font-Inter-SemiBold '>No Record Found</p>
                                 } else {
                                     if(item.deal.companyName.toLocaleLowerCase().includes(props.name.toLocaleLowerCase())){
                                         return(
                                             <Tr onClick={()=> ClickHandler(item._id)} className=' cursor-pointer font-Inter-Regular text-sm ' key={index} paddingBottom='30px' >
-                                                <Td>{index+1}</Td> 
+                                                <Td>{[...data.data.delivery].reverse().map((object: any) => object._id).indexOf(item._id)+1}</Td> 
                                                 <Td>
                                                     <div className='flex items-center' > 
                                                         <div className='w-20'>
@@ -120,11 +154,38 @@ export default function DealsTable(props:any) {
                                         )
                                     } 
                                 }
-                            })}
+                            })} 
                         </Tbody> 
                     </Table> 
                 </div>
             )} 
+
+            {!isLoading && (
+                <>    
+                    {limit <= data.data.delivery.length && (
+
+                        <div className='flex items-center mt-6' >
+                            <button onClick={()=> PrevPage()} style={{borderColor: '#C2C2C2'}} className='w-10 h-10 rounded-lg cursor-pointer flex justify-center items-center border' > 
+                                <IoIosArrowBack color='#878787' />
+                            </button>
+                                <div style={{borderColor: '#C2C2C2'}} className='w-auto h-10 font-Graphik-Bold rounded-lg flex border mx-2'> 
+                                    {[...data.data.delivery].reverse().filter((item: any, index: any)=> index % limit === 0).map((item: any, index: any)=> {
+                                        if(index <= 10){
+                                            return( 
+                                                <div onClick={()=> OnTabPage(index+1)} style={tabIndex=== index+1 ? {backgroundColor: '#3E3F41'}:{color: '#202020'}} className='w-10 cursor-pointer h-10 rounded-lg flex text-white justify-center items-center' >
+                                                    {index+1}
+                                                </div>
+                                            )
+                                        }  
+                                    })} 
+                                </div>
+                            <button disabled={to >= data.data.delivery.length ? true: false} onClick={()=> NextPage()} style={{borderColor: '#C2C2C2'}} className='w-10 h-10 rounded-lg cursor-pointer flex justify-center items-center border' >
+                                <IoIosArrowForward color='#878787' />
+                            </button>
+                        </div>
+                    )}
+                </>
+            )} 
         </div>
-    )
+    )  
 } 

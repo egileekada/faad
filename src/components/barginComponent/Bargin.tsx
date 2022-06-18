@@ -1,5 +1,6 @@
 import { Input, Select, Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react'
 import React from 'react'
+import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io'
 import { useQuery } from 'react-query'
 import { useNavigate } from 'react-router-dom'
 import { IUser, UserContext } from '../context/UserContext'
@@ -10,11 +11,21 @@ export default function Bargin() {
     const navigate = useNavigate()
     const [tab, setTab] = React.useState(false) 
     const [name, setName] = React.useState('')  
+    let limit = 10
+    const [tabIndex, setTabIndex] = React.useState(1)
+    const [from, setFrom] = React.useState(1)
+    const [to, setTo] = React.useState(limit)
     const userContext: IUser = React.useContext(UserContext);  
     
     React.useEffect(() => {  
         userContext.setTab('Bargains')
     },[]); 
+
+    React.useEffect(() => {  
+        setTabIndex(1)
+        setFrom(1)
+        setTo(limit)
+    },[name]);  
 
     const { isLoading, data } = useQuery('AllBargains', () =>
         fetch('https://faadoli.herokuapp.com/api/v1/bargain', {
@@ -26,10 +37,32 @@ export default function Bargin() {
         }).then(res =>
             res.json()
         )
-    ) 
+    )   
 
-    console.log(data)
+    const NextPage =()=> {
+        setTabIndex(tabIndex+1)
+        setFrom(from+limit)
+        setTo(to+limit)
+    }
 
+    const PrevPage =()=> {
+        if(tabIndex <= 1){
+        } else {
+
+            setTabIndex(tabIndex-1)
+
+            setFrom(from-limit)
+            setTo(to-limit)
+        }
+    }
+
+    const OnTabPage =(item: any)=> {
+        setTabIndex(item)
+
+        setFrom((limit * item) - (limit - 1))
+        setTo(limit * item)
+    }
+    
     const ClickHandler =(item: any)=> { 
         navigate('info')  
         localStorage.setItem('barginID', item) 
@@ -82,11 +115,11 @@ export default function Bargin() {
                                 </Tr>
                             </Thead>
                             <Tbody >
-                                {[...data.data.baragins].filter((item: any) => item.status !== "completed").reverse().map((item: any, index: any)=> {
+                                {[...data.data.baragins].filter((item: any) => item.status !== "completed").reverse().slice(from-1, to).map((item: any, index: any)=> {
                                     if(item.companyName.toLocaleLowerCase().includes(name.toLocaleLowerCase())){
                                         return(
                                             <Tr onClick={()=> ClickHandler(item._id)} className=' cursor-pointer font-Inter-Regular text-sm ' key={index} >
-                                                <Td>{index+1}{item.status === 'rejected' ? '#' : ''}</Td> 
+                                                <Td>{[...data.data.baragins].filter((item: any) => item.status !== "completed").reverse().map((object: any) => object._id).indexOf(item._id)+1}{item.status === 'rejected' ? '#' : ''}</Td> 
                                                 <Td>{item.companyName}</Td> 
                                                 <Td>
                                                     {/* <div className='w-8' > */}
@@ -116,8 +149,35 @@ export default function Bargin() {
                                 })}
                             </Tbody> 
                         </Table> 
+                    )} 
+                </div>
+
+            {!isLoading && (
+                <>    
+                    {limit <= data.data.baragins.length && (
+
+                        <div className='flex items-center mt-6' >
+                            <button onClick={()=> PrevPage()} style={{borderColor: '#C2C2C2'}} className='w-10 h-10 rounded-lg cursor-pointer flex justify-center items-center border' > 
+                                <IoIosArrowBack color='#878787' />
+                            </button>
+                                <div style={{borderColor: '#C2C2C2'}} className='w-auto h-10 font-Graphik-Bold rounded-lg flex border mx-2'> 
+                                    {[...data.data.baragins].reverse().filter((item: any, index: any)=> index % limit === 0).map((item: any, index: any)=> {
+                                        if(index <= 10){
+                                            return( 
+                                                <div onClick={()=> OnTabPage(index+1)} style={tabIndex=== index+1 ? {backgroundColor: '#3E3F41'}:{color: '#202020'}} className='w-10 cursor-pointer h-10 rounded-lg flex text-white justify-center items-center' >
+                                                    {index+1}
+                                                </div>
+                                            )
+                                        }  
+                                    })} 
+                                </div>
+                            <button disabled={to >= data.data.baragins.length ? true: false} onClick={()=> NextPage()} style={{borderColor: '#C2C2C2'}} className='w-10 h-10 rounded-lg cursor-pointer flex justify-center items-center border' >
+                                <IoIosArrowForward color='#878787' />
+                            </button>
+                        </div>
                     )}
-                </div> 
+                </>
+            )}  
             </div>
         </div>
     )
