@@ -55,28 +55,28 @@ export default function Activity() {
         )
     ) 
 
-    React.useEffect(() => {
+   // React.useEffect(() => {
        
-        {[...data.data].reverse().map((item: any, index: any)=> { 
-            fetch(`https://faadoli.herokuapp.com/api/v1/auth/user/${item._id}`, {
-                method: 'GET', // or 'PUT'
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization : `Bearer ${localStorage.getItem('token')}`
-                }
-            })
-            .then(response => response.json())
-            .then(data => {        
-                console.log(data);
+   //    {[...data.data].reverse().map((item: any, index: any)=> { 
+   //        fetch(`https://faadoli.herokuapp.com/api/v1/auth/user/${item._id}`, {
+   //            method: 'GET', // or 'PUT'
+   //             headers: {
+   //                 'Content-Type': 'application/json',
+   //                 Authorization : `Bearer ${localStorage.getItem('token')}`
+   //             }
+   //         })
+   //         .then(response => response.json())
+   //         .then(data => {        
+   //             console.log(data);
                 
-            })
-            .catch((error) => {
-                console.error('Error:', error); 
-            },);  
-        })}
-    },)
+   //        })
+   //        .catch((error) => {
+   //             console.error('Error:', error); 
+   //         },);  
+   //   })}
+   // },)
 
-    console.log(data)
+   //console.log(data)
 
     return (
         
