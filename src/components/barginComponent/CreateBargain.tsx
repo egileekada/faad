@@ -45,8 +45,7 @@ export default function CreateBargain() {
             fuel: '', 
             quantity: '', 
             address: '', 
-            clientId: '',
-            status: : 'pending'
+            clientId: ''
         },
         validationSchema: loginSchema,
         onSubmit: () => {},
