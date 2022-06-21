@@ -6,10 +6,10 @@ export default function StepFive() {
 
     const userContext: IUser = React.useContext(UserContext); 
     // const navigate = useNavigate()
-    React.useEffect(() => {
+    // React.useEffect(() => {
         
-        const timer = setTimeout(() =>  userContext.setDealTab(1), 2000);
-    },)
+    //     const timer = setTimeout(() =>  userContext.setDealTab(1), 2000);
+    // },)
 
     return (
         <div style={{border: '1px solid #DDE2E5', height: '60vh'}} className='bg-white rounded-lg p-8 ' >
@@ -22,7 +22,7 @@ export default function StepFive() {
             
                 <div className='w-full bottom-0 flex absolute ' >
                     <button className='py-2 text-sm font-Inter-SemiBold text-[#ACB5BD] rounded-md  bg-[#DDE2E5] px-6' >Report issue</button>
-                    <button className='py-2 text-sm font-Inter-SemiBold text-[#ACB5BD] rounded-md ml-auto bg-[#DDE2E5] px-16'>Finish</button>
+                    <button onClick={()=> userContext.setDealTab(1)} className='py-2 text-sm font-Inter-SemiBold text-[#ACB5BD] rounded-md ml-auto bg-[#DDE2E5] px-16'>Finish</button>
                 </div>
             </div> 
         </div>

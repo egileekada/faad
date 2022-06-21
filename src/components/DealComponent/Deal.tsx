@@ -36,19 +36,24 @@ export default function Deal() {
                         <div className='w-64' >
                             <Input onChange={(e)=> setName(e.target.value)} border='1px solid #DDE2E5' className='relative z-30' backgroundColor='white' placeholder='Search by Company Name' fontSize='sm' /> 
                         </div>  
-                        {userContext.userData.department.toLowerCase() !== 'Customer Service'.toLowerCase() && ( 
-                            <div className='w-full flex items-center absolute justify-center inset-0' >
-                                <div className='p-1 bg-[rgba(224,224,224,0.5)] rounded-xl flex' style={{boxShadow: 'inset 0px 1px 2px rgba(97, 97, 97, 0.2), inset 0px 2px 4px rgba(97, 97, 97, 0.2)'}}  >
-                                    <div onClick={()=> userContext.setDealTab(0)} className={!userContext.dealTab ? 'w-20 bg-white cursor-pointer h-10 font-Inter-Regular rounded-xl flex justify-center items-center' : 'w-20 cursor-pointer h-10 font-Inter-Regular rounded-xl flex justify-center items-center'} >
-                                        All Deals
+                        {userContext.userData.department !== undefined &&(
+                            <>
+                            
+                                {userContext.userData.department.toLowerCase() !== 'Customer Service'.toLowerCase() && ( 
+                                    <div className='w-full flex items-center absolute justify-center inset-0' >
+                                        <div className='p-1 bg-[rgba(224,224,224,0.5)] rounded-xl flex' style={{boxShadow: 'inset 0px 1px 2px rgba(97, 97, 97, 0.2), inset 0px 2px 4px rgba(97, 97, 97, 0.2)'}}  >
+                                            <div onClick={()=> userContext.setDealTab(0)} className={!userContext.dealTab ? 'w-20 bg-white cursor-pointer h-10 font-Inter-Regular rounded-xl flex justify-center items-center' : 'w-20 cursor-pointer h-10 font-Inter-Regular rounded-xl flex justify-center items-center'} >
+                                                All Deals
+                                            </div>
+                                            <div onClick={()=> userContext.setDealTab(1)} className={userContext.dealTab ? 'w-40 bg-white cursor-pointer h-10 font-Inter-Regular rounded-xl flex justify-center items-center' : 'w-40 cursor-pointer h-10 font-Inter-Regular rounded-xl flex justify-center items-center'}  >
+                                                Ongoing deals {!isLoading && ( 
+                                                    <p className=' bg-[#F66E09] w-6 h-6 flex justify-center items-center font-Inter-Bold text-sm rounded-full ml-1 text-white ' >{data.data.deals.length - numbLength}</p> 
+                                                ) }
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div onClick={()=> userContext.setDealTab(1)} className={userContext.dealTab ? 'w-40 bg-white cursor-pointer h-10 font-Inter-Regular rounded-xl flex justify-center items-center' : 'w-40 cursor-pointer h-10 font-Inter-Regular rounded-xl flex justify-center items-center'}  >
-                                        Ongoing deals {!isLoading && ( 
-                                            <p className=' bg-[#F66E09] w-6 h-6 flex justify-center items-center font-Inter-Bold text-sm rounded-full ml-1 text-white ' >{data.data.deals.length - numbLength}</p> 
-                                        ) }
-                                    </div>
-                                </div>
-                            </div>
+                                )}
+                            </>
                         )}
                         <button disabled={userContext.dealTab === 0 ? false:true}  onClick={()=> navigate('createdeal')} className={userContext.dealTab  === 0 ? ' rounded relative w-36 flex justify-center items-center h-10 font-Inter-SemiBold ml-auto text-sm text-white bg-[#F88C3A]' : ' rounded relative w-36 flex justify-center items-center h-10 font-Inter-SemiBold ml-auto text-sm text-[#ACB5BD] bg-[#DDE2E5]'} >
                             <svg className='mr-2' width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

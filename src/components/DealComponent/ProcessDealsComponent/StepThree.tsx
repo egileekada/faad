@@ -30,15 +30,15 @@ export default function StepThree(props: any) {
                 <div className='mt-auto flex justify-end' > 
                     
                     {!props.show && (
-                        <button onClick={()=> props.submit()} className='py-2 text-sm font-Inter-SemiBold text-white rounded-md flex items-center bg-[#F1BD37] px-16' >
+                        <button disabled={props.loading ? true : false} onClick={()=> props.submit()} className=' text-sm font-Inter-SemiBold text-white flex justify-center items-center rounded-md bg-[#F1BD37] h-11 w-44' >
                             {props.loading && (
                                 <> 
-                                    <ButtonLoader size='20' />
+                                    <ButtonLoader size='23' />
                                     <span className='ml-3'>Loading</span>
                                 </>
                             )}
                             {!props.loading && (
-                                <span className='mx-4'>Proccess Deal</span>
+                                <span className=''>Proccess Deal</span>
                             )}  
                         </button>
                     )}

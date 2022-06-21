@@ -7,7 +7,7 @@ import PageLoader from '../PageLoader'
 export default function OngoingDeals(props: any) { 
  
     const userContext: IUser = React.useContext(UserContext); 
-    const { isLoading, data } = useQuery('AllDeals', () =>
+    const { isLoading, data, refetch } = useQuery('AllDeals', () =>
         fetch('https://faadoli.herokuapp.com/api/v1/deals', {
             method: 'GET', // or 'PUT'
             headers: {
@@ -17,7 +17,11 @@ export default function OngoingDeals(props: any) {
         }).then(res =>
             res.json()
         )
-    ) 
+    )  
+
+    React.useEffect(() => {
+        refetch()
+    }, [userContext.dealTab])
 
     if (isLoading) return(
         <div className='w-full h-auto flex mt-12 justify-center  ' > 

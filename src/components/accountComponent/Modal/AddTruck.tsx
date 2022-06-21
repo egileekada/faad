@@ -4,9 +4,11 @@ import { motion } from 'framer-motion';
 import React from 'react'
 import * as yup from 'yup'
 import ButtonLoader from '../../ButtonLoader';
+import SuccessModal from '../../SuccessModal';
 
 export default function AddTruck(props: any) {
-    const [loading, setLoading] = React.useState(false); 
+    const [loading, setLoading] = React.useState(false);  
+    const [modal, setModal] = React.useState(false);  
 
     const loginSchema = yup.object({ 
         capacity: yup.string().required('Required'),
@@ -51,8 +53,10 @@ export default function AddTruck(props: any) {
             const json = await request.json(); 
     
             if (request.status === 200) {     
-                alert('Truck Created Successfully');
+                // alert('Truck Created Successfully');
+                setModal(true)
                 const t1 = setTimeout(() => { 
+                    setModal(false)
                     props.close(false) 
                     props.reload()  
                     clearTimeout(t1);
@@ -68,6 +72,7 @@ export default function AddTruck(props: any) {
     return (
         <div style={{ boxShadow: '0px 3px 34px 0px #5F67771C', width: '432px'}} className='  font-Ubuntu-Regular h-auto px-8 rounded-lg py-8 border border-[#E0E0E0] z-50 bg-white right-auto mx-auto left-auto  ' > 
             <div className='flex items-center' >
+                <SuccessModal close={modal} message='Truck Created Successfully' />
                 <p className=' font-Inter-Bold text-lg ' >Add Trucks</p>
                 <svg onClick={()=> props.close(false)} className='ml-auto cursor-pointer' xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
                     <g id="Iconly_Light_Close_Square" data-name="Iconly/Light/Close Square" transform="translate(0.75 0.75)">

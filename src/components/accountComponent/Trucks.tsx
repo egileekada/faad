@@ -18,8 +18,12 @@ export default function Trucks() {
         )
     )  
 
+    React.useEffect(() => {
+        refetch()
+    },[])
+
     const [showModal, setShowModal] = React.useState(false)
-    console.log(data)
+    // console.log(data)
 
     if (isLoading) return(
         <div className='w-full h-auto flex mt-12 justify-center  ' > 

@@ -36,7 +36,8 @@ export default function SearchForTrucks(props: any) {
                                     <option key='' >{props.show ? ''+props.truckName : 'Search'}</option>
                                     {data.data.trucks.filter((item: any) => item.status === 'available').map((item: any, index: any ) => {
                                         return(
-                                            <option className='' key={index} value={item._id} >Truck{' '+(index+1)+'  TruckID: '}<span className='font-Inter-Regular' >{item.truckId}</span></option>
+                                            <option key={index} value={item._id}>{'Truck '+(index+1)+'  TruckID: '+item.truckId+'ℓ  Capacity: '+item.capacity}</option>
+                                            // <option className='' key={index} value={item._id} >Truck{' '+(index+1)+'  TruckID: '}<span className='font-Inter-Regular' >{item.truckId}</span></option>
                                         )
                                     })}
                                 </Select>

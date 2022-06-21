@@ -5,6 +5,7 @@ import { useQuery } from 'react-query'
 import { useNavigate } from 'react-router-dom'
 import { IUser, UserContext } from '../context/UserContext'
 import PageLoader from '../PageLoader'
+import SuccessModal from '../SuccessModal'
 import StepFive from './ProcessDealsComponent/StepFive'
 import StepFour from './ProcessDealsComponent/StepFour'
 import StepOne from './ProcessDealsComponent/StepOne'
@@ -19,6 +20,7 @@ export default function ProcessDeal(props: any) {
 
     const [showDetail, setShowDetail] = React.useState(false); 
     const [loading, setLoading] = React.useState(false); 
+    const [processing, setProcessing] = React.useState(false); 
     const [loadingPage, setLoadingPage] = React.useState(true); 
     // const [clientInfo, setClientInfo] = React.useState({} as any); 
     const [truckInfo, setTruckInfo] = React.useState('');
@@ -31,7 +33,8 @@ export default function ProcessDeal(props: any) {
     const [sealNumber, setSealNumber] = React.useState(''); 
     const [dispatchQuatity, setDispatchQuatity] = React.useState('');
     const [driverInfo, setDriverInfo] = React.useState('');
-    const [driverName, setDriverName] = React.useState('');
+    const [driverName, setDriverName] = React.useState(''); 
+    const [modal, setModal] = React.useState(false); 
     const [inspectInfo, setInspectInfo] = React.useState({
         waterCheck: false,
         truckSealed: false
@@ -124,7 +127,8 @@ export default function ProcessDeal(props: any) {
             const json = await request.json(); 
 
             if (request.status === 200) {     
-                alert('Sucessfull')
+                // alert('Sucessfull')
+                setProcessing(true)
                 const request = await fetch(`https://faadoli.herokuapp.com/api/v1/deals/${userContext.dealValue._id}`, {
                         method: 'PUT',
                         headers: {
@@ -147,7 +151,10 @@ export default function ProcessDeal(props: any) {
                             }),
                         }) 
                         if (request.status === 200) { 
-                            alert('Truck Update')
+                            // alert('Truck Update')
+                            setProcessing(false)
+                            setModal(true)
+
                         }else {
                             alert(json.message);
                             console.log(json)
@@ -157,13 +164,12 @@ export default function ProcessDeal(props: any) {
                         alert(json.message);
                         console.log(json)
                         setLoading(false);
-                    } 
-                    // fetch('https://faadoli.herokuapp.com/api/v1/truck', {
-                // navigate(0);
-                userContext.setDealTab(1)
-                // const t1 = setTimeout(() => {   
-                //     clearTimeout(t1);
-                // }, 1000); 
+                    }  
+
+                const t1 = setTimeout(() => { 
+                    userContext.setDealTab(1)  
+                    clearTimeout(t1);
+                }, 2000); 
             }else {
                 alert(json.message);
                 console.log(json)
@@ -269,6 +275,7 @@ export default function ProcessDeal(props: any) {
         
     return (
         <div className='w-full h-full py-8' > 
+            <SuccessModal close={modal} message='Deal Processed Successfull' />
             <svg onClick={()=> userContext.setDealTab(1)} className='cursor-pointer fixed z-50 top-14  ' width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M20.3287 11.0001V13.0001L7.50042 13.0001L10.7429 16.2426L9.32873 17.6568L3.67188 12L9.32873 6.34314L10.7429 7.75735L7.50019 11.0001L20.3287 11.0001Z" fill="#495057"/>
             </svg>
@@ -379,6 +386,17 @@ export default function ProcessDeal(props: any) {
                         <StepFive />
                     )}
             </div>
+
+            {processing ?  
+                <div className='fixed w-full h-full flex z-50 justify-center top-0 left-0 items-center' >
+                    <div className='w-64 bg-[#000000A6] py-8 flex justify-center items-center flex-col rounded-xl ' > 
+                        <svg  className='animate-spin'width='140px' height='140px'  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">
+                            <path fill='#F88C3A' d="M41.9 23.9c-.3-6.1-4-11.8-9.5-14.4-6-2.7-13.3-1.6-18.3 2.6-4.8 4-7 10.5-5.6 16.6 1.3 6 6 10.9 11.9 12.5 7.1 2 13.6-1.4 17.6-7.2-3.6 4.8-9.1 8-15.2 6.9-6.1-1.1-11.1-5.7-12.5-11.7-1.5-6.4 1.5-13.1 7.2-16.4 5.9-3.4 14.2-2.1 18.1 3.7 1 1.4 1.7 3.1 2 4.8.3 1.4.2 2.9.4 4.3.2 1.3 1.3 3 2.8 2.1 1.3-.8 1.2-2.5 1.1-3.8 0-.4.1.7 0 0z"/>
+                        </svg>
+                        <p className='font-Inter-Bold text-white mt-6 w-56 text-center  ' >Processing Deal...</p>
+                    </div>
+                </div>
+            :null}
         </div>
     )
 } 
