@@ -6,7 +6,7 @@ import OnCreateModal from '../Modals/OnCreateModal'
 import { motion } from 'framer-motion'
 import * as yup from 'yup'
 import { useFormik } from 'formik';  
-import { IUser, UserContext } from '../context/UserContext'
+// import { IUser, UserContext } from '../context/UserContext'
 import ButtonLoader from '../ButtonLoader'
 import { useQuery } from 'react-query'
 import PageLoader from '../PageLoader'
@@ -15,6 +15,7 @@ export default function CreateDealFromBargain() {
 
     const [show, setShow] = React.useState(false) 
     const navigate = useNavigate()
+    // const [modal, setModal] = React.useState(false);  
     const [loading, setLoading] = React.useState(false); 
     
     const { isLoading, data } = useQuery('DealsCreationBargainByID', () =>
@@ -150,7 +151,7 @@ export default function CreateDealFromBargain() {
         <>
             {show && (
                 <OnCreateModal failed={false} />  
-            )}
+            )} 
 
             {!show && ( 
                 <div className='w-full h-full px-8 py-8 overflow-y-auto' > 

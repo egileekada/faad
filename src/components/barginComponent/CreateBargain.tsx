@@ -9,12 +9,14 @@ import ButtonLoader from '../ButtonLoader'
 import { useQuery } from 'react-query'
 import PageLoader from '../PageLoader'
 import SearchProduct from './components/SearchProduct'
+import SuccessModal from '../SuccessModal'
 
 export default function CreateBargain() {
 
     const navigate = useNavigate()
     const [name, setName] = React.useState('');  
     const [loading, setLoading] = React.useState(false);  
+    const [modal, setModal] = React.useState(false);  
     const [productName, setProductName] = React.useState(''); 
     const check = [] as any 
     const [price, setPrice] = React.useState(''); 
@@ -86,7 +88,8 @@ export default function CreateBargain() {
     
             if (request.status === 200) {    
                 // setShow(true)  
-                alert('Account Created Successfully');
+                setModal(true)
+                // alert('Account Created Successfully');
                 const t1 = setTimeout(() => { 
                     navigate('/dashboard/bargains');  
                     clearTimeout(t1);
@@ -135,6 +138,7 @@ export default function CreateBargain() {
 
     return (
         <div className='w-full h-full px-8 py-8 overflow-y-auto' > 
+            <SuccessModal close={modal} message='Bargain Created Successfully' />
             <svg onClick={()=> navigate('/dashboard/bargains')} className='cursor-pointer fixed z-50 top-14  ' width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M20.3287 11.0001V13.0001L7.50042 13.0001L10.7429 16.2426L9.32873 17.6568L3.67188 12L9.32873 6.34314L10.7429 7.75735L7.50019 11.0001L20.3287 11.0001Z" fill="#495057"/>
             </svg>
