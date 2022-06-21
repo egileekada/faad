@@ -19,7 +19,7 @@ export default function ChatComponent(props: any) {
     React.useEffect(() => { 
         props.socket.emit("get-all-message", { groupId: props.id });  
         props.socket.on("group-message", (data: any) => {  
-            console.log(data) 
+            // console.log(data) 
         });
         props.socket.on("all-message", (data:any) => {   
             setMessages([...data.messages]) 
@@ -225,7 +225,7 @@ export default function ChatComponent(props: any) {
                     value={formik.values.text}
                     background='#F4f4f4' className='' />
                 
-                <button onClick={()=> Submit()} className='font-Inter-SemiBold ml-3 flex justify-center items-center text-xs h-10 text-white rounded-lg w-44 bg-[#F88C3A] ' >
+                <button disabled={formik.values.text === '' ? true : false} onClick={()=> Submit()} className='font-Inter-SemiBold ml-3 flex justify-center items-center text-xs h-10 text-white rounded-lg w-44 bg-[#F88C3A] ' >
                     {loading && (
                         <> 
                             <ButtonLoader size='30' />

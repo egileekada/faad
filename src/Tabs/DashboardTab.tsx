@@ -3,13 +3,60 @@ import { useQuery } from 'react-query'
 import { IUser, UserContext } from '../components/context/UserContext';
 import DealsDetail from '../components/dashboardComponent/DealsDetail'
 import ProductDetails from '../components/dashboardComponent/ProductDetails'
+import io from "socket.io-client";
+import DateFormat from '../components/DateFormat';
+import PageLoader from '../components/PageLoader';
 
 export default function DashboardTab() { 
     
     const userContext: IUser = React.useContext(UserContext);  
+    const [messages, setMessages] = React.useState([] as any);
+    const [loading, setLoading] = React.useState(false);
     React.useEffect(() => {  
         userContext.setTab('Dashboard')
     },[]); 
+
+    const socket : any= io("https://faadoli.herokuapp.com");
+    
+    const { isLoading, data } = useQuery('AllBargains', () =>
+        fetch('https://faadoli.herokuapp.com/api/v1/bargain', {
+            method: 'GET', // or 'PUT'
+            headers: {
+                'Content-Type': 'application/json', 
+                Authorization : `Bearer ${localStorage.getItem('token')}`
+            }
+        }).then(res =>
+            res.json()
+        )
+    )  
+ 
+    React.useEffect(() => { 
+        socket.on("connect", () => {    
+            socket.emit("join-group", {
+                groupId: "62ade34f15f3fa53457b1c2c",
+                userId:  userContext.userData._id,
+            }); 
+        });  
+    },[]);  
+ 
+    React.useEffect(() => { 
+        socket.emit("get-all-message", { groupId: "62ade34f15f3fa53457b1c2c" });  
+        socket.on("group-message", (data: any) => {  
+            console.log(data) 
+        });
+        socket.on("all-message", (data:any) => {   
+            setMessages([...data.messages]) 
+        });  
+        // socket.emit("make-read", { messageId: props.id });
+    },[socket]) 
+
+      
+    React.useEffect(() => { 
+        const t1 = setTimeout(() => { 
+            setLoading(false)
+            clearTimeout(t1);
+        }, 4000); 
+    },[])   
 
     return (
         <div className='w-full h-full px-8 py-8 overflow-y-auto'> 
@@ -63,18 +110,32 @@ export default function DashboardTab() {
                             </svg> 
                             <p className=' ml-2 font-Inter-SemiBold text-2xl text-white' >Alerts</p>
                         </div>
-                        <div className='w-full text-white bg-[#5A6167] py-4 px-3 rounded-xl my-4' >
-                            <div className='flex' >
-                                <p className='font-Inter-Bold text-sm' >Olabanji is Bargaining</p>
-                                <svg className='ml-auto' width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M10.2426 0.34314C10.6331 -0.0473839 11.2663 -0.0473839 11.6568 0.34314C12.0474 0.733665 12.0474 1.36683 11.6568 1.75735L1.75734 11.6568C1.36681 12.0474 0.733649 12.0474 0.343125 11.6568C-0.047399 11.2663 -0.0473993 10.6332 0.343125 10.2426L10.2426 0.34314Z" fill="#DDE2E5"/>
-                                    <path d="M3.87866 3.87867C3.09761 4.65972 1.83128 4.65972 1.05023 3.87867C0.269183 3.09763 0.269184 1.8313 1.05023 1.05025C1.83128 0.269199 3.09761 0.269199 3.87866 1.05025C4.65971 1.8313 4.65971 3.09763 3.87866 3.87867Z" fill="#DDE2E5"/>
-                                    <path d="M8.1213 10.9497C8.90235 11.7308 10.1687 11.7308 10.9497 10.9497C11.7308 10.1687 11.7308 8.90236 10.9497 8.12132C10.1687 7.34027 8.90235 7.34027 8.1213 8.12132C7.34025 8.90236 7.34025 10.1687 8.1213 10.9497Z" fill="#DDE2E5"/>
-                                </svg>
+
+                        {isLoading && (
+                            <div className='w-full h-auto flex my-4 justify-center  ' > 
+                                <PageLoader />
                             </div>
-                            <p  className='text-xs font-Inter-Regular mt-1'>Bidding for AGO at N290 for 2000 ℓ from Eagle Island, Port Harcourt.</p>
-                        </div>
-                        <div className='w-full text-white bg-[#5A6167] py-4 px-3 rounded-xl my-4' >
+                        )}
+                        {!isLoading && (
+                            <>
+                                {[...data.data.baragins].filter((item: any) => item.status !== "completed" &&  item.status !== "rejected").reverse().slice(0, 2).map((item: any, index: any)=> {
+                                    return(
+                                        <div className='w-full text-white bg-[#5A6167] py-4 px-3 rounded-xl my-4' >
+                                            <div className='flex' >
+                                                <p className='font-Inter-Bold text-sm' >{item.companyName} is Bargaining</p>
+                                                <svg className='ml-auto' width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M10.2426 0.34314C10.6331 -0.0473839 11.2663 -0.0473839 11.6568 0.34314C12.0474 0.733665 12.0474 1.36683 11.6568 1.75735L1.75734 11.6568C1.36681 12.0474 0.733649 12.0474 0.343125 11.6568C-0.047399 11.2663 -0.0473993 10.6332 0.343125 10.2426L10.2426 0.34314Z" fill="#DDE2E5"/>
+                                                    <path d="M3.87866 3.87867C3.09761 4.65972 1.83128 4.65972 1.05023 3.87867C0.269183 3.09763 0.269184 1.8313 1.05023 1.05025C1.83128 0.269199 3.09761 0.269199 3.87866 1.05025C4.65971 1.8313 4.65971 3.09763 3.87866 3.87867Z" fill="#DDE2E5"/>
+                                                    <path d="M8.1213 10.9497C8.90235 11.7308 10.1687 11.7308 10.9497 10.9497C11.7308 10.1687 11.7308 8.90236 10.9497 8.12132C10.1687 7.34027 8.90235 7.34027 8.1213 8.12132C7.34025 8.90236 7.34025 10.1687 8.1213 10.9497Z" fill="#DDE2E5"/>
+                                                </svg>
+                                            </div>
+                                            <p  className='text-xs font-Inter-Regular mt-1'>Bidding for {item.fuel} at N{item.biddingPrice} for {item.quantity} ℓ from {item.address}.</p>
+                                        </div> 
+                                    )
+                                })}
+                            </>
+                        )}
+                        {/* <div className='w-full text-white bg-[#5A6167] py-4 px-3 rounded-xl my-4' >
                             <div className='flex' >
                                 <p className='font-Inter-Bold text-sm' >Kimora is Bargaining</p>
                                 <svg className='ml-auto' width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -84,9 +145,32 @@ export default function DashboardTab() {
                                 </svg>
                             </div>
                             <p  className='text-xs font-Inter-Regular mt-1'>Bidding for PMS at N130 for 6500 ℓ from Transamadi, Port Harcourt.</p>
-                        </div>
+                        </div> */}
                         <div style={{height: '1px'}} className='w-full bg-[#E0E0E0] ' />
-                        <div className='w-full text-white bg-[#5A6167] py-4 px-3 rounded-xl my-4' >
+
+                        {loading && (
+                            <div className='w-full h-auto flex my-4 justify-center  ' > 
+                                <PageLoader />
+                            </div>
+                        )}
+
+                        {[...messages].reverse().slice(0, 3).map((item: any, index)=> {
+                            return(
+                                <div key={index} className='w-full text-white bg-[#5A6167] py-4 px-3 rounded-xl my-4' >
+                                    <div className='flex items-center' >
+                                        <svg className='mr-2' width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M18 0H2C1.46957 0 0.960859 0.210714 0.585786 0.585786C0.210714 0.960859 0 1.46957 0 2V18.5C0 18.7761 0.223858 19 0.5 19H0.792893C0.925501 19 1.05268 18.9473 1.14645 18.8536L4.85355 15.1464C4.94732 15.0527 5.0745 15 5.20711 15H18C18.5304 15 19.0391 14.7893 19.4142 14.4142C19.7893 14.0391 20 13.5304 20 13V2C20 1.46957 19.7893 0.960859 19.4142 0.585786C19.0391 0.210714 18.5304 0 18 0ZM18 13H4.20711C4.0745 13 3.94732 13.0527 3.85355 13.1464L2.85355 14.1464C2.53857 14.4614 2 14.2383 2 13.7929V2.5C2 2.22386 2.22386 2 2.5 2H18" fill="#F88C3A"/>
+                                        </svg>
+                                        <p className='font-Inter-Bold text-sm' >Message from {item.name} <span className='font-Inter-Regular text-[#F88C3A] ' >{DateFormat(item.updatedAt)}</span></p>
+                                        <svg className='ml-auto cursor-pointer' width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M2.2253 0.811082C1.83477 0.420557 1.20161 0.420557 0.811082 0.811082C0.420557 1.20161 0.420557 1.83477 0.811082 2.2253L6.58582 8.00003L0.811141 13.7747C0.420617 14.1652 0.420617 14.7984 0.811141 15.1889C1.20167 15.5794 1.83483 15.5794 2.22535 15.1889L8.00003 9.41424L13.7747 15.1889C14.1652 15.5794 14.7984 15.5794 15.1889 15.1889C15.5794 14.7984 15.5794 14.1652 15.1889 13.7747L9.41424 8.00003L15.189 2.2253C15.5795 1.83477 15.5795 1.20161 15.189 0.811082C14.7985 0.420557 14.1653 0.420557 13.7748 0.811082L8.00003 6.58582L2.2253 0.811082Z" fill="#ACB5BD"/>
+                                        </svg>
+                                    </div>
+                                    <p  className='text-xs font-Inter-Regular mt-1'>{item.message}</p>
+                                </div>
+                            )
+                        })}
+                        {/* <div className='w-full text-white bg-[#5A6167] py-4 px-3 rounded-xl my-4' >
                             <div className='flex items-center' >
                                 <svg className='mr-2' width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M18 0H2C1.46957 0 0.960859 0.210714 0.585786 0.585786C0.210714 0.960859 0 1.46957 0 2V18.5C0 18.7761 0.223858 19 0.5 19H0.792893C0.925501 19 1.05268 18.9473 1.14645 18.8536L4.85355 15.1464C4.94732 15.0527 5.0745 15 5.20711 15H18C18.5304 15 19.0391 14.7893 19.4142 14.4142C19.7893 14.0391 20 13.5304 20 13V2C20 1.46957 19.7893 0.960859 19.4142 0.585786C19.0391 0.210714 18.5304 0 18 0ZM18 13H4.20711C4.0745 13 3.94732 13.0527 3.85355 13.1464L2.85355 14.1464C2.53857 14.4614 2 14.2383 2 13.7929V2.5C2 2.22386 2.22386 2 2.5 2H18" fill="#F88C3A"/>
@@ -109,19 +193,7 @@ export default function DashboardTab() {
                                 </svg>
                             </div>
                             <p  className='text-xs font-Inter-Regular mt-1'>Please confirm 195/litre for Total and let the other guys know that our trucks are busy till next Tuesday</p>
-                        </div>
-                        <div className='w-full text-white bg-[#5A6167] py-4 px-3 rounded-xl my-4' >
-                            <div className='flex items-center' >
-                                <svg className='mr-2' width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M18 0H2C1.46957 0 0.960859 0.210714 0.585786 0.585786C0.210714 0.960859 0 1.46957 0 2V18.5C0 18.7761 0.223858 19 0.5 19H0.792893C0.925501 19 1.05268 18.9473 1.14645 18.8536L4.85355 15.1464C4.94732 15.0527 5.0745 15 5.20711 15H18C18.5304 15 19.0391 14.7893 19.4142 14.4142C19.7893 14.0391 20 13.5304 20 13V2C20 1.46957 19.7893 0.960859 19.4142 0.585786C19.0391 0.210714 18.5304 0 18 0ZM18 13H4.20711C4.0745 13 3.94732 13.0527 3.85355 13.1464L2.85355 14.1464C2.53857 14.4614 2 14.2383 2 13.7929V2.5C2 2.22386 2.22386 2 2.5 2H18" fill="#F88C3A"/>
-                                </svg>
-                                <p className='font-Inter-Bold text-sm' >Message from Kimora <span className='font-Inter-Regular text-[#F88C3A] ' >NOW</span></p>
-                                <svg className='ml-auto cursor-pointer' width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M2.2253 0.811082C1.83477 0.420557 1.20161 0.420557 0.811082 0.811082C0.420557 1.20161 0.420557 1.83477 0.811082 2.2253L6.58582 8.00003L0.811141 13.7747C0.420617 14.1652 0.420617 14.7984 0.811141 15.1889C1.20167 15.5794 1.83483 15.5794 2.22535 15.1889L8.00003 9.41424L13.7747 15.1889C14.1652 15.5794 14.7984 15.5794 15.1889 15.1889C15.5794 14.7984 15.5794 14.1652 15.1889 13.7747L9.41424 8.00003L15.189 2.2253C15.5795 1.83477 15.5795 1.20161 15.189 0.811082C14.7985 0.420557 14.1653 0.420557 13.7748 0.811082L8.00003 6.58582L2.2253 0.811082Z" fill="#ACB5BD"/>
-                                </svg>
-                            </div>
-                            <p  className='text-xs font-Inter-Regular mt-1'>Please confirm 195/litre for Total and let the other guys know that our trucks are busy till next Tuesday</p>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </div>

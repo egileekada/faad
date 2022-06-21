@@ -324,28 +324,7 @@ export default function NewProfile() {
                                     </motion.p>
                                 )}
                             </div> 
-                        </div>
-                        {/* <div className='w-full font-Inter-Regular' >
-                            <p className=' text-sm font-Inter-Regular mb-2' >Password</p>
-                            <Input 
-                                name="password"
-                                onChange={formik.handleChange}
-                                onFocus={() =>
-                                    formik.setFieldTouched("password", true, true)
-                                }  type='password'
-                                fontSize='sm' border='1px solid #DDE2E5' backgroundColor='white' placeholder='Enter Password' />
-                            <div className="w-full h-auto pt-2">
-                                {formik.touched.password && formik.errors.password && (
-                                    <motion.p
-                                        initial={{ y: -100, opacity: 0 }}
-                                        animate={{ y: 0, opacity: 1 }}
-                                        className="text-xs font-Inter-SemiBold text-[#ff0000]"
-                                    >
-                                        {formik.errors.password}
-                                    </motion.p>
-                                )}
-                            </div> 
-                        </div> */}
+                        </div> 
                     </div>  
                     <div className='mt-14 flex ' >  
                         <button onClick={()=> submit()} disabled={loading ? true : false} className='font-Inter-SemiBold text-sm h-10 flex justify-center items-center text-white rounded-lg px-4 bg-[#F88C3A] ' >
@@ -365,12 +344,7 @@ export default function NewProfile() {
                     <div className='w-full font-Inter-Regular flex flex-col items-center ' >
                         <div className='' >
                             <p className='font-Inter-SemiBold mb-4' >Groups</p>
-                            <RadioGroup
-                                // name="chatGroup"
-                                // onChange={formik.handleChange}
-                                // onFocus={() =>
-                                //     formik.setFieldTouched("chatGroup", true, true)
-                                // }  
+                            <RadioGroup 
                                 onChange={(e)=> onChangeChatGroup(e)}
                                 colorScheme='yellow'>
                                 <Stack> 
