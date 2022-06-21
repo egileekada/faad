@@ -56,6 +56,7 @@ export default function CreateBargain() {
     React.useEffect(() => { 
         formik.setFieldValue('fuel', productName)
         formik.setFieldValue('askingPrice', price)
+        formik.setFieldValue('status', 'pending')
     }, [productName, price])
 
     const submit = async () => {
