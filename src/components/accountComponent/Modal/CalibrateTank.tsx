@@ -4,10 +4,12 @@ import { motion } from 'framer-motion';
 import React from 'react'
 import ButtonLoader from '../../ButtonLoader';
 import * as yup from 'yup'
+import SuccessModal from '../../SuccessModal';
 
 export default function CalibrateTank(props: any) {
     
-    const [loading, setLoading] = React.useState(false); 
+    const [loading, setLoading] = React.useState(false);
+    const [modal, setModal] = React.useState(false);  
 
     const loginSchema = yup.object({ 
         dirt: yup.string().required('Required'),
@@ -59,9 +61,11 @@ export default function CalibrateTank(props: any) {
             const json = await request.json(); 
     
             if (request.status === 200) {     
-                alert('Tank Updated Successfully');
+                // alert('Tank Updated Successfully');
+                setModal(true)
                 const t1 = setTimeout(() => { 
                     props.close(false) 
+                    props.close2(false)
                     props.reload()  
                     clearTimeout(t1);
                 }, 1000); 
@@ -73,8 +77,7 @@ export default function CalibrateTank(props: any) {
         }
     }   
 
-    const OnChangeHandler =(item: any)=> {
-        
+    const OnChangeHandler =(item: any)=> { 
         let ReLevel = Number(props.values.capacity) - Number(formik.values.dirt)
         console.log(ReLevel)
         if(Number(item) > ReLevel) {
@@ -84,11 +87,18 @@ export default function CalibrateTank(props: any) {
         }
     }
 
+    const CloseHandler =()=> {
+        props.close(false)
+        props.close2(false)
+    }
+
     return (
-        <div style={{ boxShadow: '0px 3px 34px 0px #5F67771C', width: '432px'}} className='  font-Ubuntu-Regular absolute top-14 h-auto px-8 rounded-lg py-8 border border-[#E0E0E0] z-50 bg-white right-auto mx-auto left-auto  ' > 
-            <div className='flex items-center' >
-                <p className=' font-Inter-Bold text-lg ' >Calibrate Tank</p>
-                <svg onClick={()=> props.close(false)} className='ml-auto cursor-pointer' xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+        <div style={{ boxShadow: '0px 3px 34px 0px #5F67771C', width: '432px'}} className='  font-Ubuntu-Regular h-auto px-8 rounded-lg py-8 border border-[#E0E0E0] z-50 bg-white right-auto mx-auto left-auto  ' > 
+            
+            <SuccessModal close={modal} message='Tank Updated Successfully' />
+            <div className='flex items-center mb-8' >
+                <p className=' font-Inter-Bold text-lg ' >{props.name} Tank</p>
+                <svg onClick={()=> CloseHandler()} className='ml-auto cursor-pointer' xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
                     <g id="Iconly_Light_Close_Square" data-name="Iconly/Light/Close Square" transform="translate(0.75 0.75)">
                         <g id="Close_Square" data-name="Close Square">
                         <path id="Stroke_1" data-name="Stroke 1" d="M4.792,0,0,4.792" transform="translate(6.853 6.845)" fill="none" stroke="#F88C3A" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
@@ -98,29 +108,31 @@ export default function CalibrateTank(props: any) {
                     </g>
                 </svg>
             </div> 
-            <div className=' w-full mr-2 mt-8' >
-                <p className='text-sm mb-2 font-Inter-Medium' >Tank Dirt</p>
-                <Input  
-                    name="dirt"
-                    onChange={formik.handleChange}
-                    onFocus={() =>
-                        formik.setFieldTouched("dirt", true, true)
-                    }  
-                    type='number'
-                    value={formik.values.dirt}
-                    fontSize='sm'  placeholder='Tank Dirt'/>
-                <div className="w-full h-auto pt-2">
-                    {formik.touched.dirt && formik.errors.dirt && (
-                        <motion.p
-                            initial={{ y: -100, opacity: 0 }}
-                            animate={{ y: 0, opacity: 1 }}
-                            className="text-xs font-Ubuntu-Medium text-[#ff0000]"
-                        >
-                            {formik.errors.dirt}
-                        </motion.p>
-                    )}
+            {!props.fill && ( 
+                <div className=' w-full mr-2 ' >
+                    <p className='text-sm mb-2 font-Inter-Medium' >Tank Dirt</p>
+                    <Input  
+                        name="dirt"
+                        onChange={formik.handleChange}
+                        onFocus={() =>
+                            formik.setFieldTouched("dirt", true, true)
+                        }  
+                        type='number'
+                        value={formik.values.dirt}
+                        fontSize='sm'  placeholder='Tank Dirt'/>
+                    <div className="w-full h-auto pt-2">
+                        {formik.touched.dirt && formik.errors.dirt && (
+                            <motion.p
+                                initial={{ y: -100, opacity: 0 }}
+                                animate={{ y: 0, opacity: 1 }}
+                                className="text-xs font-Ubuntu-Medium text-[#ff0000]"
+                            >
+                                {formik.errors.dirt}
+                            </motion.p>
+                        )}
+                    </div> 
                 </div> 
-            </div> 
+            )}
             <div className=' w-full mr-2 mt-2' >
                 <p className='text-sm mb-2 font-Inter-Medium' >New Quantity Of Tank</p>
                 <Input  
@@ -155,7 +167,7 @@ export default function CalibrateTank(props: any) {
                     </>
                 )}
                 {!loading && (
-                    <span className='mx-4'>Calibrate</span>
+                    <span className='mx-4'>{props.name}</span>
                 )} 
             </button>
             {/* <button onClick={()=> submit()} className=' relative rounded w-full flex justify-center items-center h-10 font-Inter-SemiBold mt-8 text-sm text-white bg-[#F88C3A]' >

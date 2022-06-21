@@ -6,6 +6,7 @@ import { useQuery } from 'react-query';
 import * as yup from 'yup'
 import ButtonLoader from '../../ButtonLoader';
 import PageLoader from '../../PageLoader';
+import SuccessModal from '../../SuccessModal';
 
 export default function AddStorageTanks(props: any) { 
 
@@ -18,15 +19,16 @@ export default function AddStorageTanks(props: any) {
         level: yup.string().required('Required'),   
         avgPrice: yup.string().required('Required'),   
         productId: yup.string().required('Required')   
-    })    
+    })     
+    const [modal, setModal] = React.useState(false);  
  
     // formik
     const formik = useFormik({
         initialValues: {
             capacity: '',
-            dirt: '',
+            dirt: 0,
             location: '', 
-            level: '',
+            level: 0,
             avgPrice: '',
             productId: ''
         },
@@ -62,7 +64,8 @@ export default function AddStorageTanks(props: any) {
             const json = await request.json(); 
     
             if (request.status === 200) {     
-                alert('Storage Tanks Created Successfully');
+                setModal(true)
+                // alert('Storage Tanks Created Successfully');
                 const t1 = setTimeout(() => { 
                     props.close(false) 
                     props.reload()  
@@ -87,18 +90,42 @@ export default function AddStorageTanks(props: any) {
             res.json()
         )
     ) 
+ 
 
-    const [name, setName] = React.useState('');
-    const [intialName, setIntialName] = React.useState('');
+    const OnChangeLevel =(item: any)=> {  
+        let NewCapacity = Number(formik.values.capacity) - Number(formik.values.dirt)
+        console.log(NewCapacity)
+        if(Number(item) > NewCapacity) {
 
-    const OnChangeHandler =(event: any)=> { 
-        setName(event)
-        console.log(event)
-        setIntialName(event)
-        formik.setFieldValue('productId', event)
+        } else {
+            formik.setFieldValue('level', item)
+        }
+    }
+
+    const OnChangeDirt =(item: any)=> {  
+        let NewCapacity = Number(formik.values.capacity) - Number(formik.values.level)
+        // console.log(ReLevel)
+        if(Number(item) > NewCapacity) {
+
+        } else {
+            formik.setFieldValue('dirt', item)
+        }
+    }
+
+    const [intialName, setIntialName] = React.useState('Enter company name');
+
+    const OnChangeHandler =(event: any)=> {   
+        console.log(JSON.parse(event).productName)
+        setIntialName(JSON.parse(event).productName)
+        formik.setFieldValue('productId', JSON.parse(event)._id)
+        formik.setFieldValue('avgPrice', JSON.parse(event).newPrice)
         // formik.setFieldValue('companyName', event)
     } 
     
+    console.log(formik.values.productId);
+    console.log(intialName);
+    
+
     if (isLoading) return(
         <div className='w-full h-auto flex mt-12 justify-center  ' > 
             <PageLoader />
@@ -119,6 +146,7 @@ export default function AddStorageTanks(props: any) {
                     </g>
                 </svg>
             </div> 
+            <SuccessModal close={modal} message='Storage Tanks Created Successfully' />
             <div className=' w-full relative mr-2 mt-8' >
                 <p className='text-sm mb-2 font-Inter-Medium' >Product Name</p>
                 
@@ -127,15 +155,15 @@ export default function AddStorageTanks(props: any) {
                     value={intialName} 
                     autoComplete="off"
                     // onChange={formik.handleChange}
-                    onFocus={() =>
-                        formik.setFieldTouched("productId", true, true)
-                    }  
+                    // onFocus={() =>
+                    //     formik.setFieldTouched("productId", true, true)
+                    // }  
                     onChange={(e)=> OnChangeHandler(e.target.value)}
-                    fontSize='sm' placeholder='Enter company name' size='lg' className='border border-[#DDE2E5] rounded-lg '>
-                    {data.data.products.map((item: any)=> {
+                    fontSize='sm' placeholder={intialName} size='lg' className='border border-[#DDE2E5] rounded-lg '>
+                    {data.data.products.filter((item: any)=> item.productName !== intialName).map((item: any)=> {
                         // if(item.productName.toLowerCase().includes(name)){
                             return(
-                                <option value={item._id} >{item.productName}</option>
+                                <option value={JSON.stringify(item)} >{item.productName}</option>
                                 // <p className=' font-Inter-Medium text-sm cursor-pointer my-1 ' onClick={()=> ClickHandler(item)} >{item.productName}</p>
                             )
                         // }
@@ -172,6 +200,7 @@ export default function AddStorageTanks(props: any) {
                 <p className='text-sm mb-2 font-Inter-Medium' >Tank Capacity</p>
                 <Input  
                     name="capacity"
+                    type='number'
                     onChange={formik.handleChange}
                     onFocus={() =>
                         formik.setFieldTouched("capacity", true, true)
@@ -192,11 +221,13 @@ export default function AddStorageTanks(props: any) {
             <div className=' w-full mr-2 mt-2' >
                 <p className='text-sm mb-2 font-Inter-Medium' >Average Price</p>
                 <Input  
-                    name="avgPrice"
-                    onChange={formik.handleChange}
-                    onFocus={() =>
-                        formik.setFieldTouched("avgPrice", true, true)
-                    }  
+                    name="avgPrice" 
+                    type='number'
+                    // onChange={formik.handleChange}
+                    // onFocus={() =>
+                    //     formik.setFieldTouched("avgPrice", true, true)
+                    // }  
+                    value={formik.values.avgPrice}
                     fontSize='sm'  placeholder='Average Price'/>
                 <div className="w-full h-auto pt-2">
                     {formik.touched.avgPrice && formik.errors.avgPrice && (
@@ -215,10 +246,13 @@ export default function AddStorageTanks(props: any) {
                     <p className='text-sm mb-2 font-Inter-Medium' >Tank Level</p>
                     <Input  
                         name="level"
-                        onChange={formik.handleChange}
-                        onFocus={() =>
-                            formik.setFieldTouched("level", true, true)
-                        }  
+                        type='number'
+                        onChange={(e)=> OnChangeLevel(e.target.value)}
+                        // onChange={formik.handleChange}
+                        // onFocus={() =>
+                        //     formik.setFieldTouched("level", true, true)
+                        // }  
+                        value={formik.values.level}
                         fontSize='sm'  placeholder='Level'/>
                     <div className="w-full h-auto pt-2">
                         {formik.touched.level && formik.errors.level && (
@@ -235,11 +269,9 @@ export default function AddStorageTanks(props: any) {
                 <div className=' w-full mr-2' >
                     <p className='text-sm mb-2 font-Inter-Medium' >Tank Dirt</p>
                     <Input  
-                        name="dirt"
-                        onChange={formik.handleChange}
-                        onFocus={() =>
-                            formik.setFieldTouched("dirt", true, true)
-                        }  
+                        type='number'
+                        value={formik.values.dirt}
+                        onChange={(e)=> OnChangeDirt(e.target.value)}
                         fontSize='sm'  placeholder='Tank Dirt'/>
                     <div className="w-full h-auto pt-2">
                         {formik.touched.dirt && formik.errors.dirt && (

@@ -97,36 +97,36 @@ export default function StorageTanks() {
         )
     )  
 
-    const FillTank = async()=> {
-        // tankDetail.
+    // const FillTank = async()=> {
+    //     // tankDetail.
 
-        setShowFill(false) 
-        let NewLevel = await tankDetail.capacity - tankDetail.dirt
-        const request = await fetch(`https://faadoli.herokuapp.com/api/v1/tank/${tankId}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization : `Bearer ${localStorage.getItem('token')}` 
-                },
-                body: JSON.stringify({
-                    level: NewLevel
-                }),
-            });
+    //     setShowFill(false) 
+    //     let NewLevel = await tankDetail.capacity - tankDetail.dirt
+    //     const request = await fetch(`https://faadoli.herokuapp.com/api/v1/tank/${tankId}`, {
+    //             method: 'PUT',
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //                 Authorization : `Bearer ${localStorage.getItem('token')}` 
+    //             },
+    //             body: JSON.stringify({
+    //                 level: NewLevel
+    //             }),
+    //         });
     
-            const json = await request.json(); 
+    //         const json = await request.json(); 
     
-            if (request.status === 200) {     
-                alert('Tank Filled Successfully');
-                const t1 = setTimeout(() => {  
-                    refetch()
-                    clearTimeout(t1);
-                }, 1000); 
-            }else {
-                alert(json.message);
-                console.log(json)
-                // setLoading(false);
-            }
-    }
+    //         if (request.status === 200) {     
+    //             alert('Tank Filled Successfully');
+    //             const t1 = setTimeout(() => {  
+    //                 refetch()
+    //                 clearTimeout(t1);
+    //             }, 1000); 
+    //         }else {
+    //             alert(json.message);
+    //             console.log(json)
+    //             // setLoading(false);
+    //         }
+    // }
 
     if (isLoading) return(
         <div className='w-full h-auto flex mt-12 justify-center  ' > 
@@ -135,7 +135,7 @@ export default function StorageTanks() {
     )    
 
     return (
-        <div className='w-full h-full rounded-2xl bg-white' >
+        <div className='w-full h-full flex flex-col rounded-2xl bg-white' >
             <div className='flex w-full p-10 items-center' >
                 <p className='font-Inter-SemiBold text-2xl ' >Storage Tanks</p>
                 <button onClick={()=> setShowModal(true)} className=' relative rounded w-36 flex justify-center items-center h-10 font-Inter-SemiBold ml-auto text-sm text-white bg-[#F88C3A]' >
@@ -266,16 +266,8 @@ export default function StorageTanks() {
             {showFill ? 
                 (
                     <>
-                        <div className="h-auto flex justify-center items-center overflow-x-hidden overflow-y-hidden fixed inset-0 z-50 outline-none focus:outline-none"> 
-                            <div className='w-80 rounded-lg flex flex-col justify-center items-center bg-white p-8' >
-                                <img className='w-32 mb-6' alt='alert' src={Alert} />
-                                <p className=' font-Inter-SemiBold text-sm mt-3 text-black text-center' >Do You Want To Fill This Tank?</p>
-                                <div className='flex mt-8 w-full' >
-                                    <button onClick={()=> setShowFill(false) } className=' bg-gray-400 text-white py-2 rounded mr-1 w-full font-Inter-Bold text-sm' >No</button>
-                                    <button onClick={()=> FillTank()} className=' bg-[#F88C3A] text-white py-2 rounded ml-1 w-full font-Inter-Bold text-sm' >Yes</button>
-                                </div> 
-                                {/* <button onClick={()=> DeleteHandler(item._id)} ></button> */}
-                            </div>
+                        <div className="h-full flex justify-center items-center overflow-x-hidden overflow-y-hidden fixed inset-0 z-50 outline-none focus:outline-none"> 
+                            <CalibrateTank fill={true} name='Fill' reload={refetch} values={tankDetail} close={setShowCalibrate} close2={setShowFill} />
                         </div> 
                         <div className="opacity-20 fixed flex flex-1 inset-0 z-40 bg-black"/>
                     </>
@@ -285,7 +277,7 @@ export default function StorageTanks() {
                 (
                     <>
                         <div className="h-auto flex justify-center items-center overflow-x-hidden overflow-y-hidden fixed inset-0 z-50 outline-none focus:outline-none"> 
-                            <CalibrateTank reload={refetch} values={tankDetail} close={setShowCalibrate} />
+                            <CalibrateTank name='Calibrate' reload={refetch} values={tankDetail} close={setShowCalibrate} close2={setShowFill} />
                         </div> 
                         <div className="opacity-20 fixed flex flex-1 inset-0 z-40 bg-black"/>
                     </>

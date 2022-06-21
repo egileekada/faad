@@ -4,18 +4,11 @@ import { motion } from 'framer-motion'
 import React from 'react'
 import * as yup from 'yup'
 import ButtonLoader from '../../ButtonLoader' 
+import SuccessModal from '../../SuccessModal'
 
 export default function AddProduct(props: any) {
-
-    // {
-    //     productCode: string;
-    //     productName: string;
-    //     description: string;
-    //     oldPrice?: number;
-    //     newPrice?: number;
-    //     percentageDifference?: number;
-    //  }
-
+ 
+    const [modal, setModal] = React.useState(false);   
     const [loading, setLoading] = React.useState(false); 
 
     const loginSchema = yup.object({ 
@@ -65,13 +58,15 @@ export default function AddProduct(props: any) {
     
             const json = await request.json(); 
     
-            if (request.status === 200) {     
-                alert('Product Created Successfully');
-                const t1 = setTimeout(() => { 
+            if (request.status === 200) { 
+                // alert('Product Created Successfully');
+                setModal(true)     
+                const t1 = setTimeout(() => {
                     props.close(false) 
+                    setModal(false)
                     props.reload()  
                     clearTimeout(t1);
-                }, 1000); 
+                }, 2000); 
             }else {
                 alert(json.message);
                 console.log(json)
@@ -82,6 +77,8 @@ export default function AddProduct(props: any) {
 
     return (
         <div style={{ boxShadow: '0px 3px 34px 0px #5F67771C', width: '432px'}} className='  font-Ubuntu-Regular absolute top-14 h-auto px-8 rounded-lg py-8 border border-[#E0E0E0] z-50 bg-white right-auto mx-auto left-auto  ' > 
+            
+            <SuccessModal close={modal} message='Product Created Successfully' />
             <div className='flex items-center' >
                 <p className=' font-Inter-Bold text-lg ' >Add Product And Pricing</p>
                 <svg onClick={()=> props.close(false)} className='ml-auto cursor-pointer' xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
