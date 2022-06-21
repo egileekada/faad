@@ -42,10 +42,11 @@ export default function DashboardTab() {
     React.useEffect(() => { 
         socket.emit("get-all-message", { groupId: "62ade34f15f3fa53457b1c2c" });  
         socket.on("group-message", (data: any) => {  
-            console.log(data) 
+            // console.log(data) 
         });
         socket.on("all-message", (data:any) => {   
-            setMessages([...data.messages]) 
+            setMessages([...data.messages])  
+            // console.log(data) 
         });  
         // socket.emit("make-read", { messageId: props.id });
     },[socket]) 
