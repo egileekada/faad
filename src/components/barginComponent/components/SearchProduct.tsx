@@ -22,7 +22,7 @@ export default function SearchProduct(props: any) {
     const OnChangeHandler =(id: any)=> { 
         {data.data.products.map((item: any)=> {
             if(item._id === id){
-                props.name(item.productName)
+                props.name(item.productCode)
                 props.price(item.newPrice)
             }
         })} 

@@ -13,6 +13,7 @@ import SearchProduct from './components/SearchProduct'
 export default function CreateBargain() {
 
     const navigate = useNavigate()
+    const [name, setName] = React.useState('');  
     const [loading, setLoading] = React.useState(false);  
     const [productName, setProductName] = React.useState(''); 
     const check = [] as any 
@@ -45,7 +46,8 @@ export default function CreateBargain() {
             fuel: '', 
             quantity: '', 
             address: '', 
-            clientId: ''
+            clientId: '',
+            status: ''
         },
         validationSchema: loginSchema,
         onSubmit: () => {},
@@ -116,8 +118,9 @@ export default function CreateBargain() {
 
     const ClickHandler =(item: any)=> {
         // setEmail(item.email)
-        // setName('')
+        setName('')
         // setPhone(item.phoneNumber)
+        formik.setFieldValue('status', 'pending')
         formik.setFieldValue('email', item.email)
         formik.setFieldValue('companyName', item.companyName)
         formik.setFieldValue('clientId', item._id)
@@ -125,7 +128,7 @@ export default function CreateBargain() {
     }
 
     const OnChangeHandler =(event: any)=> { 
-        // setName(event)
+        setName(event)
         formik.setFieldValue('companyName', event)
     }
 
@@ -153,7 +156,7 @@ export default function CreateBargain() {
                             
                             {!isLoading && (
                                 <> 
-                                    {formik.values.companyName !== '' && (
+                                    {name !== '' && (
                                         <div style={{boxShadow: '0px 2px 8px 0px #60617029'}} className='absolute top-20 w-full px-4 py-2 rounded-lg z-20 bg-white' >
                                             {[...data.data.clients].reverse().map((item: any, index: any)=> {  
                                                 if(item.companyName.toLowerCase().includes(formik.values.companyName.toLowerCase())){ 
