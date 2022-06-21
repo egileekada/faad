@@ -6,8 +6,7 @@ import ButtonLoader from '../../ButtonLoader';
 import { IUser, UserContext } from '../../context/UserContext';
 import DateFormat from '../../DateFormat';
 import ScrollToBottom from 'react-scroll-to-bottom';
-import PageLoader from '../../PageLoader';
-import { css } from '@emotion/react';
+import PageLoader from '../../PageLoader'; 
 
 export default function ChatComponent(props: any) {
 
