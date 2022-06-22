@@ -4,7 +4,7 @@ import { useQuery } from 'react-query'
 
 export default function SearchProduct(props: any) {
 
-    const { isLoading, data, refetch } = useQuery('AllProductAndPricing', () =>
+    const { isLoading, data } = useQuery('AllProductAndPricing', () =>
         fetch('https://faadoli.herokuapp.com/api/v1/product', {
             method: 'GET', // or 'PUT'
             headers: {
@@ -14,10 +14,7 @@ export default function SearchProduct(props: any) {
         }).then(res =>
             res.json()
         )
-    )  
-
-
-
+    )   
 
     const OnChangeHandler =(id: any)=> { 
         {data.data.products.map((item: any)=> {

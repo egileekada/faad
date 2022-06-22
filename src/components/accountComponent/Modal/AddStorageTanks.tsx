@@ -5,6 +5,7 @@ import React from 'react'
 import { useQuery } from 'react-query';
 import * as yup from 'yup'
 import ButtonLoader from '../../ButtonLoader';
+import { IUser, UserContext } from '../../context/UserContext';
 import PageLoader from '../../PageLoader';
 import SuccessModal from '../../SuccessModal';
 
@@ -12,6 +13,7 @@ export default function AddStorageTanks(props: any) {
 
     const [loading, setLoading] = React.useState(false); 
 
+    const userContext: IUser = React.useContext(UserContext);  
     const loginSchema = yup.object({ 
         capacity: yup.string().required('Required'),
         dirt: yup.string().required('Required'),
@@ -26,11 +28,12 @@ export default function AddStorageTanks(props: any) {
     const formik = useFormik({
         initialValues: {
             capacity: '',
-            dirt: 0,
+            dirt: '',
             location: '', 
-            level: 0,
+            level: '',
             avgPrice: '',
-            productId: ''
+            productId: '',
+            userId: ''
         },
         validationSchema: loginSchema,
         onSubmit: () => {},
@@ -114,18 +117,14 @@ export default function AddStorageTanks(props: any) {
 
     const [intialName, setIntialName] = React.useState('Enter company name');
 
-    const OnChangeHandler =(event: any)=> {   
-        console.log(JSON.parse(event).productName)
+    const OnChangeHandler =(event: any)=> {    
         setIntialName(JSON.parse(event).productName)
+        formik.setFieldValue('userId', userContext.userData._id)
         formik.setFieldValue('productId', JSON.parse(event)._id)
         formik.setFieldValue('avgPrice', JSON.parse(event).newPrice)
         // formik.setFieldValue('companyName', event)
-    } 
+    }  
     
-    console.log(formik.values.productId);
-    console.log(intialName);
-    
-
     if (isLoading) return(
         <div className='w-full h-auto flex mt-12 justify-center  ' > 
             <PageLoader />

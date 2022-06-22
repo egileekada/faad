@@ -10,7 +10,7 @@ export default function DashboardScreen() {
 
     const userContext: IUser = React.useContext(UserContext);  
     const navigate = useNavigate() 
-
+    const [general, setGeneral] = React.useState([] as any) 
 
     const { isLoading, data } = useQuery('userData'+localStorage.getItem('token'), () =>
         fetch('https://faadoli.herokuapp.com/api/v1/auth/profile', {
@@ -23,6 +23,70 @@ export default function DashboardScreen() {
             res.json()
         )
     )   
+
+    const AddToChatGroup =async(item: any)=> { 
+        const request = await fetch(`https://faadoli.herokuapp.com/api/v1/group/${item}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization : `Bearer ${localStorage.getItem('token')}` 
+            },
+            body: JSON.stringify({
+                userId: userContext.userData._id
+            }),
+        });
+
+        const json = await request.json(); 
+
+        if (request.status === 200) {    
+            // setShow(true)  
+            alert('User Added');
+            const t1 = setTimeout(() => {  
+                // sessionStorage.setItem('tabIndex', 'Dashboard')
+                // navigate('/dashboard');  
+                // navigate(0);  
+                clearTimeout(t1);
+            }, 1000); 
+        }else {
+            alert(json.message);
+            console.log(json) 
+        }
+    }
+
+    // React.useEffect(() => {
+
+    //     fetch(`https://faadoli.herokuapp.com/api/v1/group/62ade34f15f3fa53457b1c2c/members`, {
+    //         method: 'GET', // or 'PUT'
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //             Authorization : `Bearer ${localStorage.getItem('token')}`
+    //         }
+    //     })
+    //     .then(response => response.json())
+    //     .then(data => {      
+    //         if(data.data.length === 0){ 
+    //             AddToChatGroup('62ade34f15f3fa53457b1c2c')
+    //         }
+    //         console.log(data.data.length);
+            
+    //         for(var index = 0; index < data.data.length; index++) {
+    //             console.log(index+1);
+                
+    //             if (data.data[index]._id == userContext.userData._id) { 
+    //                 console.log('close'); 
+    //                 break;
+    //             }else {
+    //                 if(data.data.length === index+1){
+    //                     console.log('pass')
+    //                     AddToChatGroup('62ade34f15f3fa53457b1c2c')
+    //                 }
+    //             }
+    //         }  
+    //     })
+    //     .catch((error) => {
+    //         console.error('Error:', error); 
+    //     },); 
+    // })
 
     React.useEffect(() => {   
         if(!isLoading){ 

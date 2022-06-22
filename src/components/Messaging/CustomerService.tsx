@@ -43,8 +43,8 @@ export default function CustomerService() {
             <ChatComponent socket={socket} name='Customer Service' id="62ade8f1d73164d487087158" reload={setLoading} /> 
             <div style={{width: '30%'}} className=' p-8 ' >
                 <p className='font-Inter-SemiBold text-xl' >Members</p>
-                <div className='mt-3' >
-                    <GetUserOnGroup id="62ade8f1d73164d487087158" /> 
+                <div className='mt-3 overflow-y-auto h-47vh' > 
+                    <GetUserOnGroup department='Customer Service' second='Customer Service Admin' id="62ade8f1d73164d487087158" /> 
                 </div>
             </div>
         </div>

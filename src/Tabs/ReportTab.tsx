@@ -1,6 +1,7 @@
 import { Input } from '@chakra-ui/react'
 import React from 'react'
 import { Outlet, useNavigate } from 'react-router-dom'
+import { IUser, UserContext } from '../components/context/UserContext'
 import Activity from '../components/reportComponent/Activity'
 import Permission from '../components/reportComponent/Permission'
 import SalesInfo from '../components/reportComponent/SalesInfo'
@@ -12,6 +13,11 @@ export default function ReportTab() {
     const [tab, setTab] = React.useState(0)
     const [subTab, setSubTab] = React.useState(0) 
     const [month, setMonth] = React.useState('') 
+    const userContext: IUser = React.useContext(UserContext);  
+
+    React.useEffect(() => {  
+        userContext.setTab('Report')
+    },[]); 
 
     return (
         <div className='w-full h-full border-t border-l border-[#DDE2E5] px-8 bg-[#F8F9FA] py-8 overflow-y-auto' > 

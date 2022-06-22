@@ -43,8 +43,8 @@ export default function AccountMessage() {
             <ChatComponent socket={socket} name='Accounts' id="62ade89ad73164d4870870ec" reload={setLoading} /> 
             <div style={{width: '30%'}} className=' p-8 ' >
                 <p className='font-Inter-SemiBold text-xl' >Members</p>
-                <div className='mt-3' >
-                    <GetUserOnGroup id="62ade89ad73164d4870870ec" /> 
+                <div className='mt-3 overflow-y-auto h-47vh' > 
+                    <GetUserOnGroup department='Accounts' second='Accounts' id="62ade89ad73164d4870870ec" /> 
                 </div>
             </div>
         </div>

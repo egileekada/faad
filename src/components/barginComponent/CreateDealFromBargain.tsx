@@ -10,6 +10,7 @@ import { useFormik } from 'formik';
 import ButtonLoader from '../ButtonLoader'
 import { useQuery } from 'react-query'
 import PageLoader from '../PageLoader'
+import { IUser, UserContext } from '../context/UserContext'
 
 export default function CreateDealFromBargain() {
 
@@ -17,6 +18,7 @@ export default function CreateDealFromBargain() {
     const navigate = useNavigate()
     // const [modal, setModal] = React.useState(false);  
     const [loading, setLoading] = React.useState(false); 
+    const userContext: IUser = React.useContext(UserContext);  
     
     const { isLoading, data } = useQuery('DealsCreationBargainByID', () =>
         fetch(`https://faadoli.herokuapp.com/api/v1/bargain/${localStorage.getItem('barginID')}`, {
@@ -28,18 +30,7 @@ export default function CreateDealFromBargain() {
         }).then(res =>
             res.json()
         )
-    ) 
-
-    // companyName: '', 
-    // askingPrice: '', 
-    // email: '', 
-    // biddingPrice: '',  
-    // phoneNumber: '',
-    // fuel: '', 
-    // quantity: '', 
-    // address: '',  
-
-
+    )  
 
     const loginSchema = yup.object({  
         companyName: yup.string().required('Required'),
@@ -67,7 +58,8 @@ export default function CreateDealFromBargain() {
             backupPhoneNumber: '', 
             fuelType: '', 
             quantity: '', 
-            dispatchNote: ''},
+            dispatchNote: '',
+            userId: ''},
         validationSchema: loginSchema,
         onSubmit: () => {},
     });  
@@ -84,9 +76,10 @@ export default function CreateDealFromBargain() {
                 backupPhoneNumber: '', 
                 fuelType: data.data.bargain.fuel, 
                 quantity: data.data.bargain.quantity, 
-                dispatchNote: ''
+                dispatchNote: '',
+                userId: userContext.userData._id
             })
-        )}
+        )} 
     }, [data]) 
 
     const submit = async () => {

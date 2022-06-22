@@ -7,6 +7,7 @@ import { IUser, UserContext } from '../../context/UserContext';
 import DateFormat from '../../DateFormat';
 import ScrollToBottom from 'react-scroll-to-bottom';
 import PageLoader from '../../PageLoader'; 
+import Avatar from '../../../assets/images/avatar.png' 
 
 export default function ChatComponent(props: any) {
 
@@ -31,73 +32,7 @@ export default function ChatComponent(props: any) {
             setIsLoading(false)
             clearTimeout(t1);
         }, 3000); 
-    },[])    
-
-    // const divRef: any = React.useRef(null);
-
-    // React.useEffect(() => {
-    //   divRef.current?.scrollIntoView({ behavior: 'smooth' });
-    // }, [messages, isLoading]);
-    
-    const handleChange =async()=> {
-
-        // const request = await fetch(`https://faadoli.herokuapp.com/api/v1/group`, {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //         Authorization : `Bearer ${localStorage.getItem('token')}` 
-        //     },
-        //     body: JSON.stringify({
-        //         name: "Operations",
-        //         description: "This is the Operations Group",
-        //         // userId: userContext.userData._id
-        //     }),
-        // });
-
-        // const json = await request.json(); 
-
-        // if (request.status === 200) {    
-        //     // setShow(true)  
-        //     alert('User Added');
-        //     const t1 = setTimeout(() => {  
-        //         // sessionStorage.setItem('tabIndex', 'Dashboard')
-        //         // navigate('/dashboard');  
-        //         // navigate(0);  
-        //         clearTimeout(t1);
-        //     }, 1000); 
-        // }else {
-        //     alert(json.message);
-        //     console.log(json) 
-        // }
-        const request = await fetch(`https://faadoli.herokuapp.com/api/v1/group/62ade34f15f3fa53457b1c2c`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization : `Bearer ${localStorage.getItem('token')}` 
-            },
-            body: JSON.stringify({
-                userId: userContext.userData._id
-            }),
-        });
-
-        const json = await request.json(); 
-
-        if (request.status === 200) {    
-            // setShow(true)  
-            alert('User Added');
-            const t1 = setTimeout(() => {  
-                // sessionStorage.setItem('tabIndex', 'Dashboard')
-                // navigate('/dashboard');  
-                // navigate(0);  
-                clearTimeout(t1);
-            }, 1000); 
-        }else {
-            alert(json.message);
-            console.log(json) 
-        }
-        // "62a49b6fc592977ebe01a5ce"
-    }
-    
+    },[])      
 
     const loginSchema = yup.object({   
         text: yup.string().required('Required'), 
@@ -160,6 +95,9 @@ export default function ChatComponent(props: any) {
         }, 2000); 
     }       
 
+    console.log(messages);
+    
+
     return (
         <div style={{width: '70%'}}  className=' p-8 flex-1 bg-white  rounded-2xl' >
             <p className='font-Inter-SemiBold text-xl' >#{props.name}</p> 
@@ -173,7 +111,15 @@ export default function ChatComponent(props: any) {
                                     return(
                                         <div className='flex my-2' >
                                             {/* Sender */}
-                                            <div className='bg-yellow-400 w-10 h-10 rounded-full' />
+                                            <div className='w-10 h-10 rounded-full mr-3 bg-white' > 
+                                                {item.avatar === 'avatar.png' && (
+                                                    <img src={Avatar} alt='avatar' className='rounded-full bg-white object-cover' />
+                                                )} 
+                                                {item.avatar !== 'avatar.png' && (
+                                                    <img src={`https://faadoli.herokuapp.com/uploads/images/${item.avatar}`} alt='' className='w-full h-full object-cover rounded-full' /> 
+                                                )} 
+                                            </div>
+                                            {/* <div className='bg-yellow-400 w-10 h-10 rounded-full' /> */}
                                             <div style={{width: '55%'}} className='pl-3 ' >
                                                 <div style={{borderRadius: '0px 12px 12px 12px', backgroundColor: '#DDE2E5'}} className=' p-3 ml-3 ' >
                                                     <div className='flex items-center' > 
@@ -198,7 +144,16 @@ export default function ChatComponent(props: any) {
                                                     <p className='font-Inter-Regular mt-3 text-sm' >{item.message}</p>
                                                 </div>
                                             </div>
-                                            <div className='bg-yellow-400 w-10 h-10 rounded-full ml-3' />
+
+                                            <div className='w-10 h-10 rounded-full ml-3 bg-white' > 
+                                                {item.avatar === 'avatar.png' && (
+                                                    <img src={Avatar} alt='avatar' className='rounded-full bg-white object-cover' />
+                                                )} 
+                                                {item.avatar !== 'avatar.png' && (
+                                                    <img src={`https://faadoli.herokuapp.com/uploads/images/${item.avatar}`} alt='' className='w-full h-full object-cover rounded-full' /> 
+                                                )} 
+                                            </div>
+                                            {/* <div className='bg-yellow-400 w-10 h-10 rounded-full ml-3' /> */}
                                         </div>
                                     )
                                 }

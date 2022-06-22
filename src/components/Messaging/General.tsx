@@ -8,6 +8,7 @@ import { IUser, UserContext } from '../context/UserContext';
 import GetUserOnGroup from './component/GetUserOnGroup';
 import DateFormat from '../DateFormat';
 import ChatComponent from './component/ChatComponent';
+import ScrollToBottom from 'react-scroll-to-bottom';
 
 export default function General() { 
 
@@ -47,8 +48,10 @@ export default function General() {
             <ChatComponent socket={socket} name='General' id="62ade34f15f3fa53457b1c2c" reload={setLoading} /> 
             <div style={{width: '30%'}} className=' p-8 ' >
                 <p className='font-Inter-SemiBold text-xl' >Members</p>
-                <div className='mt-3' >
-                    <GetUserOnGroup id="62ade34f15f3fa53457b1c2c" /> 
+                <div className='mt-3 overflow-y-auto h-47vh' > 
+                    {/* <ScrollToBottom className=' h-47vh'> */}
+                        <GetUserOnGroup department='' id="62ade34f15f3fa53457b1c2c" /> 
+                    {/* </ScrollToBottom> */}
                 </div>
             </div>
         </div>

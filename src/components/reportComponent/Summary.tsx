@@ -191,7 +191,7 @@ export default function Summary(props: any) {
         <div className='w-full h-full px-8 py-8 bg-white rounded-xl overflow-y-auto' > 
             <p className=' font-Inter-SemiBold text-xl text-[#F66E09] ' >Sales</p>
             <div className='mt-6 w-full flex' >
-                <div onClick={()=> ClickHandler('prev')} className=' w-auto bg-[#0A3977] cursor-pointer py-4 px-6 rounded-lg text-white ' >
+                {/* <div onClick={()=> ClickHandler('prev')} className=' w-auto bg-[#0A3977] cursor-pointer py-4 px-6 rounded-lg text-white ' >
                     <div className=' pb-3 border-b border-[#0F56B3] ' >
                         <p className=' font-Inter-Medium ' >Last month <span className='text-[#47FF47] ml-3 '>11% ↑</span></p>
                         {LastMonth('', '')} 
@@ -215,16 +215,18 @@ export default function Summary(props: any) {
                             </div>
                         )}
                     </div>
-                </div>
-                <div onClick={()=> ClickHandler('this')}  className=' w-auto bg-[#0A3977] cursor-pointer ml-6  py-4 px-6 rounded-lg text-white ' >
+                </div> */}
+                <div onClick={()=> ClickHandler('this')}  className=' w-auto bg-[#0A3977] cursor-pointer py-4 px-6 rounded-lg text-white ' >
                     <div className=' pb-3 border-b border-[#0F56B3] ' >
-                        <p className=' font-Inter-Medium flex ' >This month <span className='text-[#47FF47] ml-3 '>11% ↑</span></p>
+                        <p className=' font-Inter-Medium flex ' >This month
+                         {/* <span className='text-[#47FF47] ml-3 '>11% ↑</span> */}
+                        </p>
                         {ThisMonth('', '')} 
                     </div>
-                    <div className='pt-3 relative text-sm grid grid-cols-1 gap-x-3 gap-y-1 ' > 
+                    <div className='pt-3 relative text-sm grid grid-cols-2 gap-x-3 gap-y-1 ' > 
                         {!loading && (
                             <>
-                                {productData.filter((item: any, index: any)=> index <=2).map((item: any, index: any)=> { 
+                                {productData.filter((item: any, index: any)=> index <= 5).map((item: any, index: any)=> { 
                                     return( 
                                         <div key={index} className='flex mt-1' >
                                             <p className=' font-Inter-Regular w-8' >{item.productCode}</p>
@@ -243,7 +245,9 @@ export default function Summary(props: any) {
                 </div>
                 <div onClick={()=> ClickHandler('all')} className=' w-auto bg-[#0A3977] ml-6 cursor-pointer py-4 px-6 rounded-lg text-white ' >
                     <div className=' pb-3 border-b border-[#0F56B3] ' >
-                        <p className=' font-Inter-Medium flex ' >This Year <span className='text-[#47FF47] ml-3 '>11% ↑</span></p>
+                        <p className=' font-Inter-Medium flex ' >This Year 
+                        {/* <span className='text-[#47FF47] ml-3 '>11% ↑</span> */}
+                        </p>
                         {ThisYear('', '')} 
                     </div>
                     <div className='pt-3 text-sm' >

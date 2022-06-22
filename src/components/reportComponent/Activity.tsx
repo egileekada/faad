@@ -1,47 +1,9 @@
 import { Table, Thead, Tr, Th, Tbody, Td } from '@chakra-ui/react'
 import React from 'react'
-import { useQuery } from 'react-query'
-import { IUser, UserContext } from '../context/UserContext';
+import { useQuery } from 'react-query' 
 import DateFormat from '../DateFormat'
 
-export default function Activity() {
-
-    const userContext: IUser = React.useContext(UserContext);  
-
-    console.log(userContext.userData._id);
-    // const data = [
-    //     {
-    //         user: 'Beauty Bagins',
-    //         activity: 'Changed password',
-    //         contact: 'beauty@faadoil.com',
-    //         date: '12-11-2019'
-    //     },
-    //     {
-    //         user: 'Beauty Bagins',
-    //         activity: 'Changed password',
-    //         contact: 'beauty@faadoil.com',
-    //         date: '12-11-2019'
-    //     },
-    //     {
-    //         user: 'Beauty Bagins',
-    //         activity: 'Changed password',
-    //         contact: 'beauty@faadoil.com',
-    //         date: '12-11-2019'
-    //     },
-    //     {
-    //         user: 'Beauty Bagins',
-    //         activity: 'Changed password',
-    //         contact: 'beauty@faadoil.com',
-    //         date: '12-11-2019'
-    //     },
-    //     {
-    //         user: 'Beauty Bagins',
-    //         activity: 'Changed password',
-    //         contact: 'beauty@faadoil.com',
-    //         date: '12-11-2019'
-    //     }
-    // ]
-
+export default function Activity() {  
 
     const { isLoading, data } = useQuery('AllActivty', () =>
         fetch('https://faadoli.herokuapp.com/api/v1/activity', {
@@ -53,30 +15,7 @@ export default function Activity() {
         }).then(res =>
             res.json()
         )
-    ) 
-
-   // React.useEffect(() => {
-       
-   //    {[...data.data].reverse().map((item: any, index: any)=> { 
-   //        fetch(`https://faadoli.herokuapp.com/api/v1/auth/user/${item._id}`, {
-   //            method: 'GET', // or 'PUT'
-   //             headers: {
-   //                 'Content-Type': 'application/json',
-   //                 Authorization : `Bearer ${localStorage.getItem('token')}`
-   //             }
-   //         })
-   //         .then(response => response.json())
-   //         .then(data => {        
-   //             console.log(data);
-                
-   //        })
-   //        .catch((error) => {
-   //             console.error('Error:', error); 
-   //         },);  
-   //   })}
-   // },)
-
-   console.log(data)
+    )   
 
     return (
         
@@ -94,17 +33,21 @@ export default function Activity() {
                         </Tr>
                     </Thead>
                     <Tbody >
-                        {/* {[...data].reverse().map((item: any, index: any)=> { 
-                            return(
-                                <Tr className=' font-Inter-Regular text-sm ' key={index} paddingBottom='30px' >
-                                    <Td>{index+1}</Td> 
-                                    <Td>{item.user}</Td> 
-                                    <Td>{item.activity}</Td> 
-                                    <Td>{item.contact}</Td> 
-                                    <Td>{item.date}</Td> 
-                                </Tr> 
-                            ) 
-                        })} */}
+                        {!isLoading && (
+                            <> 
+                                {[...data.data].filter((item: any)=> item.user !== undefined).reverse().map((item: any, index: any)=> { 
+                                    return(
+                                        <Tr className=' font-Inter-Regular text-sm ' key={index} paddingBottom='30px' >
+                                            <Td>{index+1}</Td> 
+                                            <Td>{item.user.name}</Td> 
+                                            <Td>Changed password</Td> 
+                                            <Td>{item.user.companyEmail}</Td> 
+                                            <Td>{DateFormat(item.updatedAt)}</Td> 
+                                        </Tr> 
+                                    ) 
+                                })}
+                            </>
+                        )}
                     </Tbody> 
                 </Table> 
             </div> 

@@ -97,6 +97,8 @@ export default function StorageTanks() {
         )
     )  
 
+    console.log(data);
+    
     // const FillTank = async()=> {
     //     // tankDetail.
 

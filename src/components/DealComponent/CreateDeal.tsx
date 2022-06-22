@@ -13,6 +13,7 @@ import SearchProduct from '../barginComponent/components/SearchProduct'
 export default function CreateDeal() {
 
     const [show, setShow] = React.useState(false) 
+    const userContext: IUser = React.useContext(UserContext);  
     const navigate = useNavigate()
     const [productName, setProductName] = React.useState('');
     const [emailaddress, setEmail] = React.useState(''); 
@@ -37,7 +38,7 @@ export default function CreateDeal() {
 
     // formik
     const formik = useFormik({
-        initialValues: {companyName: '', askingPrice: '', email: '', costBeforDispatched: '',  phoneNumber: '',address: '', backupPhoneNumber: '', fuelType: '', quantity: '', dispatchNote: ''},
+        initialValues: {companyName: '', askingPrice: '', email: '', costBeforDispatched: '',  phoneNumber: '',address: '', backupPhoneNumber: '', fuelType: '', quantity: '', dispatchNote: '', userId: ''},
         validationSchema: loginSchema,
         onSubmit: () => {},
     });  
@@ -47,6 +48,7 @@ export default function CreateDeal() {
 
     React.useEffect(() => { 
         formik.setFieldValue('fuelType', productName)
+        formik.setFieldValue('userId', userContext.userData._id)
         formik.setFieldValue('askingPrice', price)
     }, [productName, price]) 
 
@@ -82,9 +84,10 @@ export default function CreateDeal() {
         setEmail(item.email)
         setName('')
         setPhone(item.phoneNumber)
+
         formik.setFieldValue('email', item.email)
-        formik.setFieldValue('companyName', item.companyName)
-        // formik.setFieldValue('clientId', item._id)
+        formik.setFieldValue('userId', item.email)
+        formik.setFieldValue('companyName', item.companyName) 
         formik.setFieldValue('phoneNumber', item.phoneNumber)
     }
 

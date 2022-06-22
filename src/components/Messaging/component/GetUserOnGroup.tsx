@@ -1,10 +1,11 @@
 import React from 'react'
 import { useQuery } from 'react-query'
+import Avatar from '../../../assets/images/avatar.png' 
 
 export default function GetUserOnGroup(props: any) {
  
     const { isLoading, data } = useQuery('ChatGroupMembers', () =>
-        fetch(`https://faadoli.herokuapp.com/api/v1/group/${props.id}/members`, {
+        fetch(`https://faadoli.herokuapp.com/api/v1/auth/profile/all`, {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 
@@ -19,14 +20,45 @@ export default function GetUserOnGroup(props: any) {
         <> 
             {!isLoading && (
                 <>
-                    {data.data.map((item: any)=> {
-                        return( 
-                            <div key={item._id} className='flex items-center my-2' > 
-                                <div className='bg-yellow-400 w-10 h-10 rounded-full mr-3' />
-                                <p className='font-Inter-Medium' >{item.name}</p>
-                            </div>
-                        )
-                    })}
+                    {props.department === '' ? 
+                        <>
+                            {data.data.users.map((item: any)=> {
+                                return( 
+                                    <div key={item._id} className='flex items-center my-2' > 
+                                        <div className='w-10 h-10 rounded-full mr-3 bg-white' > 
+                                            {item.avatar === 'avatar.png' && (
+                                                <img src={Avatar} alt='avatar' className='rounded-full bg-white object-cover' />
+                                            )} 
+                                            {item.avatar !== 'avatar.png' && (
+                                                <img src={`https://faadoli.herokuapp.com/uploads/images/${item.avatar}`} alt='' className='w-full h-full object-cover rounded-full' /> 
+                                            )} 
+                                        </div>
+                                        {/* <div className='bg-yellow-400 w-10 h-10 rounded-full mr-3' /> */}
+                                        <p className='font-Inter-Medium' >{item.name}</p>
+                                    </div>
+                                )
+                            })}
+                        </>
+                    :
+                        <>
+                            {data.data.users.filter((item: any) => item.department.toLowerCase() === 'Managing Director'.toLowerCase() || (item.department.toLowerCase() === props.department.toLowerCase() || item.department.toLowerCase() === props.second.toLowerCase())).map((item: any)=> {
+                                return( 
+                                    <div key={item._id} className='flex items-center my-2' > 
+                                        <div className='w-10 h-10 rounded-full mr-3 bg-white' > 
+                                            {item.avatar === 'avatar.png' && (
+                                                <img src={Avatar} alt='avatar' className='rounded-full bg-white object-cover' />
+                                            )} 
+                                            {item.avatar !== 'avatar.png' && (
+                                                <img src={`https://faadoli.herokuapp.com/uploads/images/${item.avatar}`} alt='' className='w-full h-full object-cover rounded-full' /> 
+                                            )} 
+                                        </div>
+                                        {/* <div className='bg-yellow-400 w-10 h-10 rounded-full mr-3' /> */}
+                                        <p className='font-Inter-Medium' >{item.name}</p>
+                                    </div>
+                                )
+                            })}
+                        </>
+                    }
                 </>
             )}
         </>

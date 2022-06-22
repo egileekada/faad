@@ -43,8 +43,8 @@ export default function Opterations() {
             <ChatComponent socket={socket} name='Operations' id='62ade91ed73164d487087180' reload={setLoading} /> 
             <div style={{width: '30%'}} className=' p-8 ' >
                 <p className='font-Inter-SemiBold text-xl' >Members</p>
-                <div className='mt-3' >
-                    <GetUserOnGroup id='62ade91ed73164d487087180' /> 
+                <div className='mt-3 overflow-y-auto h-47vh' > 
+                    <GetUserOnGroup department='Operations' second='Operations' id='62ade91ed73164d487087180' /> 
                 </div>
             </div>
         </div>
