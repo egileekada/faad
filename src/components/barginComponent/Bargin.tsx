@@ -17,9 +17,6 @@ export default function Bargin() {
     const [to, setTo] = React.useState(limit)
     const userContext: IUser = React.useContext(UserContext);  
     
-    React.useEffect(() => {  
-        userContext.setTab('Bargains')
-    },[]); 
 
     React.useEffect(() => {  
         setTabIndex(1)
@@ -27,7 +24,7 @@ export default function Bargin() {
         setTo(limit)
     },[name]);  
 
-    const { isLoading, data } = useQuery('AllBargains', () =>
+    const { isLoading, data, refetch } = useQuery('AllBargains', () =>
         fetch('https://faadoli.herokuapp.com/api/v1/bargain', {
             method: 'GET', // or 'PUT'
             headers: {
@@ -38,6 +35,11 @@ export default function Bargin() {
             res.json()
         )
     )   
+
+    React.useEffect(() => {  
+        userContext.setTab('Bargains')
+        refetch()
+    },[]); 
 
     const NextPage =()=> {
         setTabIndex(tabIndex+1)

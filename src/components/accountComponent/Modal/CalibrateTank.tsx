@@ -5,11 +5,13 @@ import React from 'react'
 import ButtonLoader from '../../ButtonLoader';
 import * as yup from 'yup'
 import SuccessModal from '../../SuccessModal';
+import { IUser, UserContext } from '../../context/UserContext';
 
 export default function CalibrateTank(props: any) {
     
     const [loading, setLoading] = React.useState(false);
-    const [modal, setModal] = React.useState(false);  
+    const [modal, setModal] = React.useState(false); 
+    const userContext: IUser = React.useContext(UserContext);   
 
     const loginSchema = yup.object({ 
         dirt: yup.string().required('Required'),
@@ -22,6 +24,7 @@ export default function CalibrateTank(props: any) {
         initialValues: {
             dirt: '',
             level: '', 
+            userId: ''
             // percentageDifference: ''
         },
         validationSchema: loginSchema,
@@ -31,7 +34,8 @@ export default function CalibrateTank(props: any) {
     React.useEffect(() => {
         formik.setValues({
             dirt: props.values.dirt,
-            level: ''
+            level: '',
+            userId: userContext.userData._id
         })
     }, [])
 
