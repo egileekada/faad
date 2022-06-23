@@ -12,6 +12,7 @@ export default function ReportTab() {
 
     const [tab, setTab] = React.useState(0)
     const [subTab, setSubTab] = React.useState(0) 
+    const [type, setType ] = React.useState('')
     const [month, setMonth] = React.useState('') 
     const userContext: IUser = React.useContext(UserContext);  
 
@@ -45,13 +46,13 @@ export default function ReportTab() {
                                 </svg>
                                 Activity
                             </div>
-                            {/* <div  onClick={()=> setTab(2)} className={tab === 2 ? 'w-36 bg-white cursor-pointer h-10 font-Inter-Regular rounded-xl flex justify-center items-center' : 'w-36 cursor-pointer h-10 font-Inter-Regular rounded-xl flex justify-center items-center'}  >
+                            <div  onClick={()=> setTab(2)} className={tab === 2 ? 'w-36 bg-white cursor-pointer h-10 font-Inter-Regular rounded-xl flex justify-center items-center' : 'w-36 cursor-pointer h-10 font-Inter-Regular rounded-xl flex justify-center items-center'}  >
                                 <svg  className='mr-2' width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M14.0367 10.0367H16.0367V16.0367H10.0367V14.0367H12.6225L7.29297 8.70713L8.70718 7.29292L14.0367 12.6225L14.0367 10.0367Z" fill={tab === 2 ? '#F88C3A':"#ACB5BD"}/>
                                     <path fill-rule="evenodd" clip-rule="evenodd" d="M1 5C1 2.79086 2.79086 1 5 1H19C21.2091 1 23 2.79086 23 5V19C23 21.2091 21.2091 23 19 23H5C2.79086 23 1 21.2091 1 19V5ZM5 3H19C20.1046 3 21 3.89543 21 5V19C21 20.1046 20.1046 21 19 21H5C3.89543 21 3 20.1046 3 19V5C3 3.89543 3.89543 3 5 3Z" fill={tab === 2 ? '#F88C3A':"#ACB5BD"}/>
                                 </svg>
                                 Permissions
-                            </div> */}
+                            </div>
                         </div>
                     </div>  
                 </div> 
@@ -60,7 +61,7 @@ export default function ReportTab() {
                     <div className={tab === 0 ? 'flex' : 'hidden'} > 
                         {subTab === 0 && (
                             <div className='w-full' > 
-                                <Summary tab={setSubTab} month={setMonth} />
+                                <Summary type={setType} tab={setSubTab} month={setMonth} />
                             </div>
                         )}
                         {subTab === 1 && (
@@ -70,7 +71,7 @@ export default function ReportTab() {
                         )}
                         {subTab === 2 && (
                             <div className='w-full' > 
-                                <StockInfo tab={setSubTab} />
+                                <StockInfo type={type} tab={setSubTab} />
                             </div>
                         )}
                     </div> 

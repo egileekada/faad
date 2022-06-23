@@ -24,7 +24,8 @@ export default function CalibrateTank(props: any) {
         initialValues: {
             dirt: '',
             level: '', 
-            userId: ''
+            userId: '',
+            productId: ''
             // percentageDifference: ''
         },
         validationSchema: loginSchema,
@@ -35,9 +36,10 @@ export default function CalibrateTank(props: any) {
         formik.setValues({
             dirt: props.values.dirt,
             level: '',
-            userId: userContext.userData._id
+            userId: userContext.userData._id,
+            productId: props.values.product._id
         })
-    }, [])
+    }, []) 
 
     const submit = async () => {
 

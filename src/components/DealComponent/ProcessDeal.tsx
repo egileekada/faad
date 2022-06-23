@@ -115,6 +115,7 @@ export default function ProcessDeal(props: any) {
                         waterCheck: inspectInfo.waterCheck,
                         truckSealed: inspectInfo.truckSealed
                     },
+                    level: dispatchQuatity,
                     agentId: agentInfo,
                     driverId: driverInfo,
                     confirmedDelivery: {

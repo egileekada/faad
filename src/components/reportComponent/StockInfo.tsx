@@ -1,9 +1,11 @@
 import { Table, Thead, Tr, Th, Tbody, Td } from '@chakra-ui/react'
 import React from 'react'
+import { useQuery } from 'react-query'
+import DateFormat from '../DateFormat'
 
 export default function StockInfo(props: any) {
 
-    const data = [
+    const dataAll = [
         {
             month: 'January', 
             product: 'AGO',
@@ -55,6 +57,19 @@ export default function StockInfo(props: any) {
         },
     ]
 
+     
+    const { isLoading, data, refetch } = useQuery('AllStock', () =>
+        fetch('https://faadoli.herokuapp.com/api/v1/stock', {
+            method: 'GET', // or 'PUT'
+            headers: {
+                'Content-Type': 'application/json', 
+                Authorization : `Bearer ${localStorage.getItem('token')}`
+            }
+        }).then(res =>
+            res.json()
+        )
+    )   
+
     return (
         
         <div className='w-full relative' > 
@@ -75,18 +90,22 @@ export default function StockInfo(props: any) {
                         </Tr>
                     </Thead>
                     <Tbody >
-                        {[...data].reverse().map((item: any, index: any)=> { 
-                            return(
-                                <Tr className=' font-Inter-Regular text-sm ' key={index} paddingBottom='30px' >
-                                    <Td>{index+1}</Td> 
-                                    <Td>{item.month}</Td>  
-                                    <Td>{item.product}</Td> 
-                                    <Td>{item.stockin}</Td> 
-                                    <Td>{item.stoctout}</Td> 
-                                    <Td>{item.closestock}</Td>   
-                                </Tr> 
-                            ) 
-                        })}
+                        {!isLoading && (
+                            <> 
+                                {[...data.data.stocks].filter((item: any)=> new Date(item.date).getMonth() === new Date().getMonth() && new Date(item.date).getFullYear() === new Date().getFullYear() && item.isAdding === true && item.product !== null && item.product.productCode === props.type).reverse().map((item: any, index: any)=> { 
+                                    return(
+                                        <Tr className=' font-Inter-Regular text-sm ' key={index} paddingBottom='30px' >
+                                            <Td>{index+1}</Td> 
+                                            <Td>{DateFormat(item.date)}</Td>  
+                                            <Td>{item.product.productCode}</Td> 
+                                            <Td>{item.level}</Td> 
+                                            <Td>{item.level}</Td> 
+                                            <Td>{item.level}</Td>   
+                                        </Tr> 
+                                    ) 
+                                })}
+                            </>
+                        )}
                     </Tbody> 
                 </Table> 
             </div> 
