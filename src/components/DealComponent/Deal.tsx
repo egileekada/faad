@@ -39,7 +39,7 @@ export default function Deal() {
                         {userContext.userData.department !== undefined &&(
                             <>
                             
-                                {userContext.userData.department.toLowerCase() !== 'Customer Service'.toLowerCase() && ( 
+                                {userContext.userData.department.toLowerCase() !== 'Customer Service'.toLowerCase() && userContext.userData.department.toLowerCase() !== 'Customer Service Admin'.toLowerCase() && ( 
                                     <div className='w-full flex items-center absolute justify-center inset-0' >
                                         <div className='p-1 bg-[rgba(224,224,224,0.5)] rounded-xl flex' style={{boxShadow: 'inset 0px 1px 2px rgba(97, 97, 97, 0.2), inset 0px 2px 4px rgba(97, 97, 97, 0.2)'}}  >
                                             <div onClick={()=> userContext.setDealTab(0)} className={!userContext.dealTab ? 'w-20 bg-white cursor-pointer h-10 font-Inter-Regular rounded-xl flex justify-center items-center' : 'w-20 cursor-pointer h-10 font-Inter-Regular rounded-xl flex justify-center items-center'} >
