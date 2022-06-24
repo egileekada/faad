@@ -10,6 +10,7 @@ import { IUser, UserContext } from '../../context/UserContext';
 export default function CalibrateTank(props: any) {
     
     const [loading, setLoading] = React.useState(false);
+    const [newLevel, setNewLevel] = React.useState('');
     const [modal, setModal] = React.useState(false); 
     const userContext: IUser = React.useContext(UserContext);   
 
@@ -55,43 +56,94 @@ export default function CalibrateTank(props: any) {
           return;
         }
         else {
-            const request = await fetch(`https://faadoli.herokuapp.com/api/v1/tank/${props.values._id}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization : `Bearer ${localStorage.getItem('token')}` 
-                },
-                body: JSON.stringify(formik.values),
-            });
-    
-            const json = await request.json(); 
-    
-            if (request.status === 200) {     
-                // alert('Tank Updated Successfully');
-                setModal(true)
-                const t1 = setTimeout(() => { 
-                    props.close(false) 
-                    props.close2(false)
-                    props.reload()  
-                    clearTimeout(t1);
-                }, 1000); 
-            }else {
-                alert(json.message);
-                console.log(json)
-                setLoading(false);
+            if(props.fill) {
+
+                const request = await fetch(`https://faadoli.herokuapp.com/api/v1/tank/${props.values._id}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization : `Bearer ${localStorage.getItem('token')}` 
+                    },
+                    body: JSON.stringify({
+                        dirt: formik.values.dirt,
+                        level: newLevel, 
+                        userId: userContext.userData._id,
+                        productId: props.values.product._id 
+                    },),
+                });
+        
+                const json = await request.json(); 
+        
+                if (request.status === 200) {     
+                    // alert('Tank Updated Successfully');
+                    setModal(true)
+                    const t1 = setTimeout(() => { 
+                        props.close(false) 
+                        props.close2(false)
+                        props.reload()  
+                        clearTimeout(t1);
+                    }, 1000); 
+                }else {
+                    alert(json.message);
+                    console.log(json)
+                    setLoading(false);
+                }
+            } else {
+
+                const request = await fetch(`https://faadoli.herokuapp.com/api/v1/tank/${props.values._id}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization : `Bearer ${localStorage.getItem('token')}` 
+                    },
+                    body: JSON.stringify(formik.values),
+                });
+        
+                const json = await request.json(); 
+        
+                if (request.status === 200) {     
+                    // alert('Tank Updated Successfully');
+                    setModal(true)
+                    const t1 = setTimeout(() => { 
+                        props.close(false) 
+                        props.close2(false)
+                        props.reload()  
+                        clearTimeout(t1);
+                    }, 1000); 
+                }else {
+                    alert(json.message);
+                    console.log(json)
+                    setLoading(false);
+                }
             }
         }
     }   
 
     const OnChangeHandler =(item: any)=> { 
         let ReLevel = Number(props.values.capacity) - Number(formik.values.dirt)
-        console.log(ReLevel)
+        // console.log(ReLevel)
         if(Number(item) > ReLevel) {
 
         } else {
             formik.setFieldValue('level', item)
         }
     }
+
+
+    const OnTopUpHandler =(item: any)=> { 
+        let ReLevel = Number(props.values.capacity) - Number(formik.values.dirt) 
+        let NewLevel = Number(item) + Number(formik.values.level)
+        if(NewLevel > ReLevel) {
+
+        } else {
+            setNewLevel(Number(item) + Number(props.values.level)+'')
+            formik.setFieldValue('level', item)
+        }
+    }
+
+    // console.log(formik.values.level);
+    console.log(newLevel);
+    
 
     const CloseHandler =()=> {
         props.close(false)
@@ -139,31 +191,58 @@ export default function CalibrateTank(props: any) {
                     </div> 
                 </div> 
             )}
-            <div className=' w-full mr-2 mt-2' >
-                <p className='text-sm mb-2 font-Inter-Medium' >New Quantity Of Tank</p>
-                <Input  
-                    name="level"
-                    onChange={(e)=> OnChangeHandler(e.target.value)}
-                    type='number'
-                    // onChange={formik.handleChange}
-                    // onFocus={() =>
-                    //     formik.setFieldTouched("level", true, true)
-                    // }  
-                    value={formik.values.level}
-                    fontSize='sm'  placeholder={props.values.level}/>
-                <div className="w-full h-auto pt-2">
-                    {formik.touched.level && formik.errors.level && (
-                        <motion.p
-                            initial={{ y: -100, opacity: 0 }}
-                            animate={{ y: 0, opacity: 1 }}
-                            className="text-xs font-Ubuntu-Medium text-[#ff0000]"
-                        >
-                            {formik.errors.level}
-                        </motion.p>
-                    )}
-                </div> 
-            </div> 
-
+            {!props.fill && ( 
+                <div className=' w-full mr-2 mt-2' >
+                    <p className='text-sm mb-2 font-Inter-Medium' >New Quantity Of Tank</p>
+                    <Input  
+                        name="level"
+                        onChange={(e)=> OnChangeHandler(e.target.value)}
+                        type='number'
+                        // onChange={formik.handleChange}
+                        // onFocus={() =>
+                        //     formik.setFieldTouched("level", true, true)
+                        // }  
+                        value={formik.values.level}
+                        fontSize='sm'  placeholder={props.values.level}/>
+                    <div className="w-full h-auto pt-2">
+                        {formik.touched.level && formik.errors.level && (
+                            <motion.p
+                                initial={{ y: -100, opacity: 0 }}
+                                animate={{ y: 0, opacity: 1 }}
+                                className="text-xs font-Ubuntu-Medium text-[#ff0000]"
+                            >
+                                {formik.errors.level}
+                            </motion.p>
+                        )}
+                    </div> 
+                </div>  
+            )}
+            {props.fill && ( 
+                <div className=' w-full mr-2 mt-2' >
+                    <p className='text-sm mb-2 font-Inter-Medium' >New Quantity Of Tank</p>
+                    <Input  
+                        name="level"
+                        onChange={(e)=> OnTopUpHandler(e.target.value)}
+                        type='number'
+                        // onChange={formik.handleChange}
+                        // onFocus={() =>
+                        //     formik.setFieldTouched("level", true, true)
+                        // }  
+                        value={formik.values.level}
+                        fontSize='sm'  placeholder={props.values.level}/>
+                    <div className="w-full h-auto pt-2">
+                        {formik.touched.level && formik.errors.level && (
+                            <motion.p
+                                initial={{ y: -100, opacity: 0 }}
+                                animate={{ y: 0, opacity: 1 }}
+                                className="text-xs font-Ubuntu-Medium text-[#ff0000]"
+                            >
+                                {formik.errors.level}
+                            </motion.p>
+                        )}
+                    </div> 
+                </div>  
+            )}
             <p className='text-sm font-Inter-Regular mb-2' >Tank Capacity: {props.values.capacity.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</p>
             <button onClick={()=> submit()} disabled={loading ? true : false} className='font-Inter-SemiBold mt-8 flex justify-center items-center text-sm h-11 text-white rounded-lg w-full bg-[#F88C3A] ' >
                 {loading && (

@@ -15,12 +15,7 @@ export default function TopUpHistory() {
         }).then(res =>
             res.json()
         )
-    )    
-
-    console.log(data); 
-
-    const dataall = [ 
-    ] as any
+    )     
 
     return ( 
         <div className=' w-full px-10 py-12 ' >

@@ -145,10 +145,10 @@ export default function StorageTanks() {
                                             <p className='font-Inter-SemiBold text-lg mb-4 text-[#ACB5BD]' >FAAD Oil</p>
                                             <p className='font-Inter-Bold mb-2 text-sm' >Product<span className='font-Inter-Regular ml-3' >{item.product === null ? '' :item.product.productName} ({item.product === null ? '' :item.product.productCode})</span></p>
                                             <p className='font-Inter-Bold mt-1 mb-2 text-sm' >Capacity<span className='font-Inter-Regular ml-3' >{item.capacity.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')} ℓ</span></p>
-                                            <p className='font-Inter-Bold my-1 mb-2 text-sm' >Dirt<span className='font-Inter-Regular ml-3' >{item.dirt.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')} ℓ</span></p>
+                                            <p className='font-Inter-Bold my-1 mb-2 text-sm' >Dirt<span className='font-Inter-Regular ml-3' >{item.dirt?.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')} ℓ</span></p>
                                             <p className='font-Inter-Bold my-1 mb-2 text-sm' >Tank ID<span className='font-Inter-Regular ml-3' >{item.tankId}</span></p>
                                             <p className='font-Inter-Bold my-1 mb-2 text-sm' >Location<span className='font-Inter-Regular ml-3' >{item.location}</span></p>
-                                            <p className='font-Inter-Bold my-1 mb-2 text-sm text-[#00BE00] ' >Level<span className='font-Inter-Regular ml-3' >{item.level.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')} ℓ</span></p>
+                                            <p className='font-Inter-Bold my-1 mb-2 text-sm text-[#00BE00] ' >Level<span className='font-Inter-Regular ml-3' >{item.level?.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')} ℓ</span></p>
                                             <p className='font-Inter-Bold my-1 mb-2 text-sm' >Avg Price<span className='font-Inter-Regular ml-3' >{item.avgPrice}/ℓ</span></p> 
                                             <div className='flex items-center mt-4' >
                                                 <button onClick={()=> ClickFill(item) } className=' rounded px-3 flex justify-center items-center h-10 font-Inter-SemiBold text-sm text-white bg-[#F88C3A]' >Fill Tank</button>
@@ -177,7 +177,7 @@ export default function StorageTanks() {
                 (
                     <>
                         <div className="h-full flex justify-center items-center overflow-x-hidden overflow-y-hidden fixed inset-0 z-50 outline-none focus:outline-none"> 
-                            <CalibrateTank fill={true} name='Fill' reload={refetch} values={tankDetail} close={setShowCalibrate} close2={setShowFill} />
+                            <CalibrateTank fill={true} name='Top Up' reload={refetch} values={tankDetail} close={setShowCalibrate} close2={setShowFill} />
                         </div> 
                         <div className="opacity-20 fixed flex flex-1 inset-0 z-40 bg-black"/>
                     </>
