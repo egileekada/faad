@@ -41,6 +41,7 @@ export default function TopUpHistory(props: any) {
             setTo(to-limit)
         }
     }
+    
     React.useEffect(() => {
       return () => {
         refetch() 
@@ -83,7 +84,7 @@ export default function TopUpHistory(props: any) {
                                 <Tr className=' cursor-pointer font-Inter-Regular text-sm ' key={index} paddingBottom='30px' >
                                     <Td>{[...data.data.stocks].reverse().filter((item: any)=> item.user !== null).map((object: any) => object._id).indexOf(item._id)+1}</Td> 
                                     <Td>
-                                        {item?.tank?.tankId} 
+                                        {item?.tank[0]?.tankId} 
                                     </Td> 
                                     <Td>
                                         {/* <div className='w-8' > */}
