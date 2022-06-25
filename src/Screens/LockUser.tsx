@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import LoginImage from '../assets/images/LoginImage.png'
 import TopEllipse from '../assets/images/TopEllipse.png'
 import SecondEllipse from '../assets/images/LoginEllipse.png'
@@ -11,33 +11,34 @@ import { useFormik } from 'formik';
 import ButtonLoader from '../components/ButtonLoader'
 import { IUser, UserContext } from '../components/context/UserContext'
 
-export default function LoginScreen() { 
+export default function LockUser() {
 
     const navigate = useNavigate()
  
     const [showpassword, setShowpass] = React.useState(false);
     const [loading, setLoading] = React.useState(false);
-    const [tokenvalue, setToken] = React.useState(''); 
+    const [tokenvalue, setToken] = React.useState('');
+    const [email, setEmail] = React.useState(localStorage.getItem('email')+'');  
     const userContext: IUser = React.useContext(UserContext);  
 
     const handleShowpassword = () => {
         setShowpass(prev => !prev);
     } 
 
-    const loginSchema = yup.object({ 
-        companyEmail: yup.string().email('This email is not valid').required('Your email is required'),
+    const loginSchema = yup.object({  
         password: yup.string().required('Your password is required').min(4, 'A minimium of 4 characters')
     }) 
 
     // formik
     const formik = useFormik({
-        initialValues: {companyEmail: '', password: ''},
+        initialValues: {password: ''},
         validationSchema: loginSchema,
         onSubmit: () => {},
     });  
 
     React.useEffect(() => {  
         localStorage.setItem('token', tokenvalue);   
+        setEmail(localStorage.getItem('email')+'')
     }); 
 
     const submit = async () => {
@@ -57,15 +58,17 @@ export default function LoginScreen() {
                 headers: {
                 'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(formik.values),
+                body: JSON.stringify({
+                    companyEmail: email, 
+                    password: formik.values.password
+                }),
             });
     
             const json = await request.json(); 
     
             if (request.status === 200) {    
                 setToken(json.data.token)  
-                localStorage.setItem('token',json.data.token) 
-                localStorage.setItem('email', formik.values.companyEmail)
+                localStorage.setItem('token',json.data.token)  
                 sessionStorage.setItem('token',json.data.token) 
                 userContext.setToken(json.data.token)
                 sessionStorage.setItem('tabIndex', 'Dashboard') 
@@ -107,7 +110,8 @@ export default function LoginScreen() {
                     <div className='w-80 ml-auto bg-white' > 
                         <p className='font-Inter-SemiBold text-3xl' >Log in</p> 
                         <div className='mt-4' >
-                            <input
+                            <p className='font-Inter-Medium ' >{email}</p>
+                            {/* <input
                                 name="companyEmail"
                                 onChange={formik.handleChange}
                                 onFocus={() =>
@@ -124,7 +128,7 @@ export default function LoginScreen() {
                                         {formik.errors.companyEmail}
                                     </motion.p>
                                 )}
-                            </div>
+                            </div> */}
                             <input 
                                 name="password"
                                 onChange={formik.handleChange}

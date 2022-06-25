@@ -36,7 +36,9 @@ export default function SideBar() {
                 navigate('/dashboard/'+rout+'messages')
             } else if(item === 'Account') {
                 navigate('/dashboard/accountsmessages')
-            } else {
+            } else if(item === 'Lock') {
+                navigate('/lock')
+            }else {
                 navigate('/dashboard/'+rout)
             }
         } else {

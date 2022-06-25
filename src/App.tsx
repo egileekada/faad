@@ -32,6 +32,7 @@ import CreateDealFromBargain from './components/barginComponent/CreateDealFromBa
 import ReportTab from './Tabs/ReportTab';
 import Summary from './components/reportComponent/Summary';
 import AccountMessage from './components/Messaging/AccountMessage';
+import LockUser from './Screens/LockUser';
 
 function App() {
   return (  
@@ -39,6 +40,7 @@ function App() {
         <Routes>     
           <Route path='/' element={<LoginScreen />}/>  
           <Route path='/print' element={<PrintedSlip />}/> 
+          <Route path='/lock' element={<LockUser />}/> 
           <Route path='/dashboard' element={<DashboardScreen />} >
             <Route path='/dashboard' element={<DashboardTab />}/>
             <Route path='/dashboard/accounts' element={<AccountTab />} />
