@@ -43,13 +43,13 @@ export default function Stock(props: any) {
     },)  
 
 
-    const ThisMonthTankInfo =(fuel: any, fuelType: any, sold: any)=> {  
+    const ThisMonthTankInfo =(tankID: any, fuelType: any, sold: any)=> {  
         
         const stockDetail = [] as any 
 
         {!isLoading && (
             <>
-                {data.data.stocks.filter((item: any)=> new Date(item.date).getMonth() === new Date().getMonth() && new Date(item.date).getFullYear() === new Date().getFullYear() && item.isAdding === sold && item.product !== null && item.product.productCode === fuelType).map((item: any, index: any) => {   
+                {data.data.stocks.filter((item: any)=> new Date(item.date).getMonth() === new Date().getMonth() && new Date(item.date).getFullYear() === new Date().getFullYear() && item.isAdding === sold && item.product !== null && item.product.productCode === fuelType && tankID === item?.tank?._id).map((item: any, index: any) => {   
                     stockDetail.splice(index, 1, item.level);  
                 })}
             </>
@@ -59,12 +59,12 @@ export default function Stock(props: any) {
         ) 
     }
 
-    const ThisYearTankInfo =(fuel: any, fuelType: any, sold: any)=> { 
+    const ThisYearTankInfo =(tankID: any, fuelType: any, sold: any)=> { 
         const stockDetail = [] as any 
         {!isLoading && (
             <>
-                {data.data.stocks.filter((item: any)=> new Date(item.date).getFullYear() === new Date().getFullYear() && item.isAdding === sold && item.product !== null && item.product.productCode === fuelType).map((item: any, index: any) => {   
-                    stockDetail.splice(index, 1, item.level);  
+                {data.data.stocks.filter((item: any)=> new Date(item.date).getFullYear() === new Date().getFullYear() && item.isAdding === sold && item.product !== null && item.product.productCode === fuelType && tankID === item?.tank?._id).map((item: any, index: any) => {   
+                    stockDetail.splice(index, 1, (item?.oldLevel ? item.level - item?.oldLevel : item.level - 0));  
                 })}
             </>
         )} 
@@ -88,12 +88,12 @@ export default function Stock(props: any) {
                             <div className='mt-2 flex' >
                                 <div className=' border-[#68A4F3] border-r pr-3 ' >
                                     <p className=' font-Inter-SemiBold text-sm text-[#47FF47]  ' >In</p> 
-                                    {ThisMonthTankInfo(item.product.productName, item.product.productCode, true)} 
+                                    {ThisMonthTankInfo(item._id, item.product.productCode, true)} 
                                     {/* <p className=' font-Inter-SemiBold text-lg ' >{(item.capacity).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}ℓ</p> */}
                                 </div>
                                 <div className=' pl-3' > 
                                     <p className=' font-Inter-SemiBold text-sm text-[#FF7070]  ' >Out</p> 
-                                    {ThisMonthTankInfo(item.product.productName, item.product.productCode, false)} 
+                                    {ThisMonthTankInfo(item._id, item.product.productCode, false)} 
                                     {/* <p className=' font-Inter-SemiBold text-lg ' >{(item.capacity - item.level).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}ℓ</p> */}
                                 </div>
                             </div>   
@@ -104,12 +104,12 @@ export default function Stock(props: any) {
                             <div className='mt-2 flex' >
                                 <div className=' border-[#68A4F3] border-r pr-3 ' >
                                     <p className=' font-Inter-SemiBold text-sm text-[#47FF47]  ' >In</p>
-                                    {ThisYearTankInfo(item.product.productName, item.product.productCode, true)} 
+                                    {ThisYearTankInfo(item._id, item.product.productCode, true)} 
                                     {/* <p className=' font-Inter-SemiBold text-lg ' >{(item.capacity).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}ℓ</p> */}
                                 </div>
                                 <div className=' pl-3' > 
                                     <p className=' font-Inter-SemiBold text-sm text-[#FF7070]  ' >Out</p>
-                                    {ThisYearTankInfo(item.product.productName, item.product.productCode, false)} 
+                                    {ThisYearTankInfo(item._id, item.product.productCode, false)} 
                                     {/* <p className=' font-Inter-SemiBold text-lg ' >{(item.capacity - item.level).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}ℓ</p> */}
                                 </div>
                             </div>

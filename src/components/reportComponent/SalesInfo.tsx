@@ -2,6 +2,7 @@ import { Table, Thead, Tr, Th, Tbody, Td } from '@chakra-ui/react'
 import React from 'react'
 import { useQuery } from 'react-query'
 import DateFormat from '../DateFormat'
+import Requisition from './component/Requisition'
 
 export default function SalesInfo(props: any) {
 
@@ -90,9 +91,7 @@ export default function SalesInfo(props: any) {
         }).then(res =>
             res.json()
         )
-    ) 
-
-    console.log(data)
+    )  
 
     return (
         
@@ -128,7 +127,7 @@ export default function SalesInfo(props: any) {
                                                     <Td>{(item.deal._id).toUpperCase().substring(0, 7)}</Td> 
                                                     <Td>{item.deal.fuelType}</Td> 
                                                     <Td>{(item.deal.costBeforDispatched*item.deal.quantity).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Td> 
-                                                    <Td>{item.requisitions}</Td> 
+                                                    <Td><Requisition id={item.deal._id} /></Td> 
                                                     {/* <Td>{item.cummilative}</Td>   */}
                                                     <Td>{DateFormat(item.updatedAt)}</Td> 
                                                 </Tr> 
@@ -151,7 +150,7 @@ export default function SalesInfo(props: any) {
                                                     <Td>{(item.deal._id).toUpperCase().substring(0, 7)}</Td> 
                                                     <Td>{item.deal.fuelType}</Td> 
                                                     <Td>{(item.deal.costBeforDispatched*item.deal.quantity).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Td> 
-                                                    <Td>{item.requisitions}</Td> 
+                                                    <Td><Requisition id={item.deal._id} /></Td> 
                                                     {/* <Td>{item.cummilative}</Td>   */}
                                                     <Td>{DateFormat(item.updatedAt)}</Td> 
                                                 </Tr> 
@@ -170,7 +169,7 @@ export default function SalesInfo(props: any) {
                                                     <Td>{(item.deal._id).toUpperCase().substring(0, 7)}</Td> 
                                                     <Td>{item.deal.fuelType}</Td> 
                                                     <Td>{(item.deal.costBeforDispatched*item.deal.quantity).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Td> 
-                                                    <Td>{item.requisitions}</Td> 
+                                                    <Td><Requisition id={item.deal._id} /></Td> 
                                                     {/* <Td>{item.cummilative}</Td>   */}
                                                     <Td>{DateFormat(item.updatedAt)}</Td> 
                                                 </Tr> 

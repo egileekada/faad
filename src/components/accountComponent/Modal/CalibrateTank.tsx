@@ -1,4 +1,4 @@
-import { Input, Textarea } from '@chakra-ui/react';
+import { Input } from '@chakra-ui/react';
 import { useFormik } from 'formik';
 import { motion } from 'framer-motion';
 import React from 'react'
@@ -67,9 +67,10 @@ export default function CalibrateTank(props: any) {
                     body: JSON.stringify({
                         dirt: formik.values.dirt,
                         level: newLevel, 
+                        oldLevel: props.values.level, 
                         userId: userContext.userData._id,
                         productId: props.values.product._id 
-                    },),
+                    }),
                 });
         
                 const json = await request.json(); 
@@ -96,7 +97,10 @@ export default function CalibrateTank(props: any) {
                         'Content-Type': 'application/json',
                         Authorization : `Bearer ${localStorage.getItem('token')}` 
                     },
-                    body: JSON.stringify(formik.values),
+                    body: JSON.stringify({
+                        dirt: formik.values.dirt,
+                        level: formik.values.level
+                    }),
                 });
         
                 const json = await request.json(); 
