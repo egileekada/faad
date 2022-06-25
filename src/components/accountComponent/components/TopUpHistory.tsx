@@ -3,7 +3,7 @@ import React from 'react'
 import { useQuery } from 'react-query'
 import DateFormat from '../../DateFormat';
 
-export default function TopUpHistory() {
+export default function TopUpHistory(props: any) {
  
     const { isLoading, data, refetch } = useQuery('AllStock', () =>
         fetch('https://faadoli.herokuapp.com/api/v1/stock', {
@@ -17,11 +17,16 @@ export default function TopUpHistory() {
         )
     )    
 
-    console.log(data);
-    const t1 = setTimeout(() => { 
+    React.useEffect(() => {
+      return () => {
         refetch() 
-        clearTimeout(t1);
-    }, 1000); 
+      };
+    }, [props.reload])
+
+    // console.log(data);
+    // const t1 = setTimeout(() => { 
+    //     clearTimeout(t1);
+    // }, 1000); 
      
 
     return ( 

@@ -13,64 +13,8 @@ export default function StorageTanks() {
     const [showCalibrate, setShowCalibrate] = React.useState(false)
     const [showFill, setShowFill] = React.useState(false)
     const [tankId, setTankId] = React.useState('')
-    const [tankDetail, setTankDetail] = React.useState({} as any)
-
-    const dataall = [
-        // { 
-        //     tank: 'Polar Bear FD442', 
-        //     product: 'AGO',  
-        //     qty: '1,000,000 ℓ', 
-        //     price: '185.67', 
-        //     cost: '20,000',
-        //     vendor: 'NNPC',  
-        //     date: '19-02-2022 - 5:30', 
-        // }, 
-        // { 
-        //     tank: 'Polar Bear FD442', 
-        //     product: 'AGO',  
-        //     qty: '1,000,000 ℓ', 
-        //     price: '185.67', 
-        //     cost: '20,000',
-        //     vendor: 'NNPC',  
-        //     date: '19-02-2022 - 5:30', 
-        // },
-        // { 
-        //     tank: 'Polar Bear FD442', 
-        //     product: 'AGO',  
-        //     qty: '1,000,000 ℓ', 
-        //     price: '185.67', 
-        //     cost: '20,000',
-        //     vendor: 'NNPC',  
-        //     date: '19-02-2022 - 5:30', 
-        // },
-        // { 
-        //     tank: 'Polar Bear FD442', 
-        //     product: 'AGO',  
-        //     qty: '1,000,000 ℓ', 
-        //     price: '185.67', 
-        //     cost: '20,000',
-        //     vendor: 'NNPC',  
-        //     date: '19-02-2022 - 5:30', 
-        // },
-        // { 
-        //     tank: 'Polar Bear FD442', 
-        //     product: 'AGO',  
-        //     qty: '1,000,000 ℓ', 
-        //     price: '185.67', 
-        //     cost: '20,000',
-        //     vendor: 'NNPC',  
-        //     date: '19-02-2022 - 5:30', 
-        // },
-        // { 
-        //     tank: 'Polar Bear FD442', 
-        //     product: 'AGO',  
-        //     qty: '1,000,000 ℓ', 
-        //     price: '185.67', 
-        //     cost: '20,000',
-        //     vendor: 'NNPC',  
-        //     date: '19-02-2022 - 5:30', 
-        // },
-    ] as any
+    const [reload, setReload] = React.useState('')
+    const [tankDetail, setTankDetail] = React.useState({} as any) 
 
     const ClickCalibrate =(item: any)=> {
         setTankId(item._id)
@@ -162,7 +106,7 @@ export default function StorageTanks() {
                     </>
                 )}
             </div> 
-            <TopUpHistory />
+            <TopUpHistory reload={reload} />
             {showModal ? 
                 (
                     <>
@@ -177,7 +121,7 @@ export default function StorageTanks() {
                 (
                     <>
                         <div className="h-full flex justify-center items-center overflow-x-hidden overflow-y-hidden fixed inset-0 z-50 outline-none focus:outline-none"> 
-                            <CalibrateTank fill={true} name='Top Up' reload={refetch} values={tankDetail} close={setShowCalibrate} close2={setShowFill} />
+                            <CalibrateTank top={setReload} fill={true} name='Top Up' reload={refetch} values={tankDetail} close={setShowCalibrate} close2={setShowFill} />
                         </div> 
                         <div className="opacity-20 fixed flex flex-1 inset-0 z-40 bg-black"/>
                     </>
@@ -187,7 +131,7 @@ export default function StorageTanks() {
                 (
                     <>
                         <div className="h-auto flex justify-center items-center overflow-x-hidden overflow-y-hidden fixed inset-0 z-50 outline-none focus:outline-none"> 
-                            <CalibrateTank name='Calibrate' reload={refetch} values={tankDetail} close={setShowCalibrate} close2={setShowFill} />
+                            <CalibrateTank top={setReload} name='Calibrate' reload={refetch} values={tankDetail} close={setShowCalibrate} close2={setShowFill} />
                         </div> 
                         <div className="opacity-20 fixed flex flex-1 inset-0 z-40 bg-black"/>
                     </>

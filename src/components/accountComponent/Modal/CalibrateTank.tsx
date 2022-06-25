@@ -81,6 +81,7 @@ export default function CalibrateTank(props: any) {
                     const t1 = setTimeout(() => { 
                         props.close(false) 
                         props.close2(false)
+                        props.top('userContext.userData._id')
                         props.reload()  
                         clearTimeout(t1);
                     }, 1000); 
