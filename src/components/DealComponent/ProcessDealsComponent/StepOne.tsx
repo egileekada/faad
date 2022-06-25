@@ -53,7 +53,7 @@ export default function StepOne(props: any) {
                         <p className=' w-64 font-Inter-Regular mt-1 text-[#ACB5BD] text-sm ' >{props.values.address}</p>
                     </div>
                 </div> 
-                <SearchForTank show={props.show} fuelType={props.values.fuelType} tankName={props.tankName} id={props.tankId} tank={props.tank} tankNo={numberOfTanks} />
+                <SearchForTank show={props.show} quantity={props.values.quantity} fuelType={props.values.fuelType} tankName={props.tankName} id={props.tankId} tank={props.tank} product={props.product} tankNo={numberOfTanks} />
                 <div className='flex mt-4 items-center' >  
                     <p className='font-Inter-Regulartext-[#ACB5BD] text-sm w-28 ' >Enter dispatch quantity (ℓ)</p> 
                     <div className='w-96' >

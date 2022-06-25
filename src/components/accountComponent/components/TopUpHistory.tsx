@@ -1,5 +1,6 @@
 import { Table, Thead, Tr, Th, Tbody, Td } from '@chakra-ui/react'
 import React from 'react'
+import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import { useQuery } from 'react-query'
 import DateFormat from '../../DateFormat';
 
@@ -17,12 +18,41 @@ export default function TopUpHistory(props: any) {
         )
     )    
 
+    let limit = 10
+    const [tabIndex, setTabIndex] = React.useState(1)
+    const [from, setFrom] = React.useState(1)
+    const [to, setTo] = React.useState(limit)
+    console.log(data);
+    
+
+    const NextPage =()=> {
+        setTabIndex(tabIndex+1)
+        setFrom(from+limit)
+        setTo(to+limit)
+    }
+
+    const PrevPage =()=> {
+        if(tabIndex <= 1){
+        } else {
+
+            setTabIndex(tabIndex-1)
+
+            setFrom(from-limit)
+            setTo(to-limit)
+        }
+    }
     React.useEffect(() => {
       return () => {
         refetch() 
       };
     }, [props.reload])
 
+    const OnTabPage =(item: any)=> {
+        setTabIndex(item)
+
+        setFrom((limit * item) - (limit - 1))
+        setTo(limit * item)
+    }
     // console.log(data);
     // const t1 = setTimeout(() => { 
     //     clearTimeout(t1);
@@ -48,10 +78,10 @@ export default function TopUpHistory(props: any) {
                         </Tr>
                     </Thead>
                     <Tbody >
-                        {data.data.stocks.reverse().filter((item: any)=> item.user !== null).map((item:any , index: any)=> {
+                        {[...data.data.stocks].reverse().filter((item: any)=> item.user !== null).slice(from-1, to).map((item:any , index: any)=> {
                             return(
                                 <Tr className=' cursor-pointer font-Inter-Regular text-sm ' key={index} paddingBottom='30px' >
-                                    <Td>{index+1}</Td> 
+                                    <Td>{[...data.data.stocks].reverse().filter((item: any)=> item.user !== null).map((object: any) => object._id).indexOf(item._id)+1}</Td> 
                                     <Td>
                                         {item?.tank?.tankId} 
                                     </Td> 
@@ -81,6 +111,33 @@ export default function TopUpHistory(props: any) {
                     )}
                 </>
             )}
+
+            {!isLoading && (
+                <>    
+                    {limit < data.data.stocks.filter((item: any)=> item.user !== null).length && (
+
+                        <div className='flex items-center mt-6' >
+                            <button onClick={()=> PrevPage()} style={{borderColor: '#C2C2C2'}} className='w-10 h-10 rounded-lg cursor-pointer flex justify-center items-center border' > 
+                                <IoIosArrowBack color='#878787' />
+                            </button>
+                                <div style={{borderColor: '#C2C2C2'}} className='w-auto h-10 font-Graphik-Bold rounded-lg flex border mx-2'> 
+                                    {[...data.data.stocks].filter((item: any)=> item.user !== null).reverse().filter((item: any, index: any)=> index % limit === 0).map((item: any, index: any)=> {
+                                        if(index <= 10){
+                                            return( 
+                                                <div onClick={()=> OnTabPage(index+1)} style={tabIndex=== index+1 ? {backgroundColor: '#3E3F41'}:{color: '#202020'}} className='w-10 cursor-pointer h-10 rounded-lg flex text-white justify-center items-center' >
+                                                    {index+1}
+                                                </div>
+                                            )
+                                        }  
+                                    })} 
+                                </div>
+                            <button disabled={to >= data.data.stocks.filter((item: any)=> item.user !== null).length ? true: false} onClick={()=> NextPage()} style={{borderColor: '#C2C2C2'}} className='w-10 h-10 rounded-lg cursor-pointer flex justify-center items-center border' >
+                                <IoIosArrowForward color='#878787' />
+                            </button>
+                        </div>
+                    )}
+                </>
+            )} 
         </div> 
     )
 } 

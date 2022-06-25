@@ -16,7 +16,7 @@ export default function StepTwo(props: any) {
         <div style={{border: '1px solid #DDE2E5', height: '60vh'}} className='bg-white rounded-lg p-8 ' >
             <div  className='w-full h-full flex flex-col' >
                 <p className='font-Inter-SemiBold text-xl text-[#212429]' >Inspect and seal truck</p>
-                <p className='font-Inter-Regular mt-1 text-[#495057] text-sm ' >20000ℓ • Waterfall </p>
+                <p className='font-Inter-Regular mt-1 text-[#495057] text-sm ' >{props.values.quantity}ℓ • Waterfall </p>
                 <div className='flex mt-8 items-center' >
                     <Checkbox 
                         isChecked={props.inspectDefault.waterCheck} 

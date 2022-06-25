@@ -28,8 +28,9 @@ export default function SearchForTank(props: any) {
         .then(response => response.json())
         .then(data => {       
                 props.id.splice(index, 1, data.data.tank._id); 
+                props.product(data.data.tank.product._id)
             // }
-            console.log(props.id);
+            // console.log(data.data.tank);
             
         })
         .catch((error) => {
@@ -50,8 +51,8 @@ export default function SearchForTank(props: any) {
                                     <div className='w-full' >
                                         <Select disabled={props.show ? true : false} onChange={(e)=> OnChangeHandle(e.target.value, index)} fontSize='sm' >
                                             <option key='' >{props.show ? ''+props.tankName[index] : 'Search'}</option>
-                                            {data.data.tanks.filter((item: any)=> item.product.productCode === props.fuelType || item.product.productName === props.fuelType).map((item: any, index: any ) => { 
-                                                console.log(item);
+                                            {data.data.tanks.filter((item: any)=> item.level >= props.quantity &&(item.product.productCode === props.fuelType || item.product.productName === props.fuelType)).map((item: any, index: any ) => { 
+                                                // console.log(item);
                                                 
                                                 return(
                                                     <option  key={index} value={item._id} >{'Tank '+(index+1)+'  Tank Level: '+item.level+'ℓ  Product Name: '+(item.product === null ? '':item.product.productCode)}</option>

@@ -31,6 +31,7 @@ export default function ProcessDeal(props: any) {
     const [tankName, setTankName] = React.useState([]as any);
     const [agentName, setAgentName] = React.useState('');
     const [sealNumber, setSealNumber] = React.useState(''); 
+    const [productID, setProductID] = React.useState(''); 
     const [dispatchQuatity, setDispatchQuatity] = React.useState('');
     const [driverInfo, setDriverInfo] = React.useState('');
     const [driverName, setDriverName] = React.useState(''); 
@@ -108,7 +109,9 @@ export default function ProcessDeal(props: any) {
                 body: JSON.stringify({ 
                     dealId: userContext.dealValue._id,
                     tanks: tankInfo,
-                    truckId: truckInfo,    
+                    truckId: truckInfo,   
+                    userId: userContext.userData._id,
+                    productId: productID, 
                     sealNumber: sealNumber,
                     dispatchQuantity: dispatchQuatity,
                     inspect: {
@@ -370,10 +373,10 @@ export default function ProcessDeal(props: any) {
             </div> 
             <div className='w-full mt-8 relative' >
                 <div className={tab === 0 ? 'w-full ' : 'hidden'} >
-                    <StepOne show={showDetail} truckId={truckInfo} tankId={tankInfo} dispatch={dispatchQuatity} truckName={truckName} tankName={tankName} values={userContext.dealValue} dispatchquatity={setDispatchQuatity} tank={setTankInfo} truck={setTruckInfo} click={ClickHandler} />
+                    <StepOne show={showDetail} truckId={truckInfo} tankId={tankInfo} dispatch={dispatchQuatity} truckName={truckName} tankName={tankName} values={userContext.dealValue} dispatchquatity={setDispatchQuatity} tank={setTankInfo} truck={setTruckInfo} product={setProductID} click={ClickHandler} />
                 </div>
                 <div className={tab === 1 ? 'w-full ' : 'hidden'} >
-                    <StepTwo sealNumber={setSealNumber} seal={sealNumber} show={showDetail} inspectDefault={inspectInfo} inspect={setInspectInfo} click={setTab} />
+                    <StepTwo sealNumber={setSealNumber} seal={sealNumber} show={showDetail} inspectDefault={inspectInfo} inspect={setInspectInfo} click={setTab} values={userContext.dealValue} />
                 </div>
                 <div className={tab === 2 ? 'w-full ' : 'hidden'} >
                     <StepThree show={showDetail} agentName={agentName} driverId={driverInfo} agentId={agentInfo} driverName={driverName} truck={truckInfo} dispatch={dispatchQuatity} values={userContext.dealValue} loading={loading} submit={submit} agent={setAgentInfo} driver={setDriverInfo} click={setTab} />

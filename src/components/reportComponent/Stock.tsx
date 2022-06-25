@@ -49,7 +49,7 @@ export default function Stock(props: any) {
 
         {!isLoading && (
             <>
-                {data.data.stocks.filter((item: any)=> new Date(item.date).getMonth() === new Date().getMonth() && new Date(item.date).getFullYear() === new Date().getFullYear() && item.isAdding === sold && item.product !== null && item.product.productCode === fuelType && tankID === item?.tank?._id).map((item: any, index: any) => {   
+                {data.data.stocks.filter((item: any)=> new Date(item.date).getMonth() === new Date().getMonth() && new Date(item.date).getFullYear() === new Date().getFullYear() && item.isAdding === sold && item.product !== null && item.product.productCode === fuelType && tankID === item?.tank[0]?._id).map((item: any, index: any) => {   
                     stockDetail.splice(index, 1, item.level);  
                 })}
             </>
@@ -63,7 +63,7 @@ export default function Stock(props: any) {
         const stockDetail = [] as any 
         {!isLoading && (
             <>
-                {data.data.stocks.filter((item: any)=> new Date(item.date).getFullYear() === new Date().getFullYear() && item.isAdding === sold && item.product !== null && item.product.productCode === fuelType && tankID === item?.tank?._id).map((item: any, index: any) => {   
+                {data.data.stocks.filter((item: any)=> new Date(item.date).getFullYear() === new Date().getFullYear() && item.isAdding === sold && item.product !== null && item.product.productCode === fuelType && tankID === item?.tank[0]?._id).map((item: any, index: any) => {   
                     stockDetail.splice(index, 1, (item?.oldLevel ? item.level - item?.oldLevel : item.level - 0));  
                 })}
             </>
