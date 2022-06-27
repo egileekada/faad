@@ -8,6 +8,9 @@ export default function BargainInfo() {
 
     const navigate = useNavigate()
     const [deleteModal, setDeleteModal] = React.useState(false)
+    const [text, setText] = React.useState('')
+    const [tab, setTab] = React.useState(0)
+    const Subject ='Processing Bargain'
     
     const { isLoading, data } = useQuery('BargainByID'+localStorage.getItem('barginID'), () =>
         fetch(`https://faadoli.herokuapp.com/api/v1/bargain/${localStorage.getItem('barginID')}`, {
@@ -42,6 +45,10 @@ export default function BargainInfo() {
         navigate('/dashboard/bargains')
     }
 
+    const ClickHandler =(tab: any, item: any)=> {
+        setTab(tab)
+        setText(item)
+    }
     // console.log(data.data.bargain._id)
 
     return (
@@ -99,30 +106,28 @@ export default function BargainInfo() {
                         </div>
                     </div>
                     <div className='py-10 w-auto flex' >
-                        <div style={{width: '345px', height: '198px'}} className='rounded-3xl text-sm font-Inter-Regular bg-[#F8F9FA] py-3 px-4' >
-                            <div style={{height: '175px'}} className='overflow-y-auto' >
+                        <div style={{width: '345px', height: '198px'}} className={tab === 1 ? 'rounded-3xl border border-[#F88C3A] text-sm font-Inter-Regular bg-[#F8F9FA] py-3 px-4': 'rounded-3xl text-sm font-Inter-Regular bg-[#F8F9FA] py-3 px-4'} >
+                            <button onClick={()=> ClickHandler(1, 'Hello, Thank you for sending your bargain. Please be notified that your bargain is accepted and we’d love to process your order immediately. Kindly reply this email to confirm that we can proceed with your order')} style={{height: '175px'}} className='overflow-y-auto text-left ' >
                                 <p className='mt-2' >Hello,</p>
                                 <p className='mt-2'>Thank you for sending your bargain.</p>
                                 <p className='mt-2'>Please be notified that your bargain is accepted and we’d love to process your order immediately.</p>
                                 <p className='mt-2'>Kindly reply this email to confirm that we can proceed with your order</p> 
-                                <p className='mt-2'>Please be notified that your bargain is accepted and we’d love to process your order immediately.</p>
-                                <p className='mt-2'>Kindly reply this email to confirm that we can proceed with your order</p> 
-                            </div>
+                                {/* <p className='mt-2'>Please be notified that your bargain is accepted and we’d love to process your order immediately.</p>
+                                <p className='mt-2'>Kindly reply this email to confirm that we can proceed with your order</p>  */}
+                            </button>
                         </div>
                         <div className=' w-8/12 ml-4' >
                             <p className='font-Inter-SemiBold text-xl mb-3' >Auto messages</p>
                             <div className='grid grid-cols-3 gap-x-4  text-xs' >
-                                <p className='p-4 bg-[#F8F9FA] rounded-2xl ' >Sorry, we cannot accept your offer at the moment. We can do 20% above your offer. Sorry, we cannot accept your offer at the moment. We can do 20% above your offer</p>
-                                <p className='p-4 bg-[#F8F9FA] rounded-2xl '>Sorry, we cannot accept your offer at the moment. We can do 20% above your offer. Sorry, we cannot accept your offer at the moment. We can do 20% above your offer</p>
-                                <p className='p-4 bg-[#F8F9FA] rounded-2xl '>Sorry, we cannot accept your offer at the moment. We can do 20% above your offer. Sorry, we cannot accept your offer at the moment. We can do 20% above your offer</p>
+                                <button onClick={()=> ClickHandler(2, 'Sorry, we cannot accept your offer at the moment. We can do 20% above your offer.')} className={tab === 2 ? 'p-4 bg-[#F8F9FA] rounded-2xl border border-[#F88C3A] text-left': 'text-left p-4 bg-[#F8F9FA] rounded-2xl '} >Sorry, we cannot accept your offer at the moment. We can do 20% above your offer. Sorry, we cannot accept your offer at the moment. We can do 20% above your offer</button>
+                                <button onClick={()=> ClickHandler(3, 'Sorry, we cannot accept your offer at the moment. We can do 20% above your offer.')} className={tab === 3 ? 'p-4 bg-[#F8F9FA] rounded-2xl border border-[#F88C3A] text-left': 'p-4 text-left bg-[#F8F9FA] rounded-2xl '}>Sorry, we cannot accept your offer at the moment. We can do 20% above your offer. Sorry, we cannot accept your offer at the moment. We can do 20% above your offer</button>
+                                <button onClick={()=> ClickHandler(4, 'Sorry, we cannot accept your offer at the moment. We can do 20% above your offer.')} className={tab === 4 ? 'p-4 bg-[#F8F9FA] rounded-2xl border border-[#F88C3A] text-left': 'p-4 text-left bg-[#F8F9FA] rounded-2xl '}>Sorry, we cannot accept your offer at the moment. We can do 20% above your offer. Sorry, we cannot accept your offer at the moment. We can do 20% above your offer</button>
                             </div>
                         </div>
                     </div>
-                    <button className='font-Inter-SemiBold text-xs h-10 text-white rounded-lg w-44 bg-[#F88C3A] ' >Send email</button>
+                    <a target="_blank" href={"https://mail.google.com/mail/?view=cm&fs=1&tf=1&to="+data.data.bargain.email+"&su="+Subject+"&body="+text} className={tab !==0 ? 'font-Inter-SemiBold flex justify-center items-center text-sm h-10 text-white rounded-lg w-44 bg-[#F88C3A]':' h-10 hidden justify-center items-center text-sm font-Inter-SemiBold text-[#ACB5BD] rounded-md  bg-[#DDE2E5] w-44'} >Send email</a>
                 </div>
-            )}
-
-
+            )} 
 
             {deleteModal ? 
                 (

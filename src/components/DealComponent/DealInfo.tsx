@@ -141,7 +141,7 @@ export default function DealInfo() {
                         <Requisition id={data.data.delivery.deal._id} />
                     )}
                     <div className='mt-14 flex ml-10 ' > 
-                        <button className='font-Inter-SemiBold text-xs h-10 text-white rounded-lg px-4 bg-[#F88C3A] ' >Send Email</button>
+                        <a target="_blank" href={"https://mail.google.com/mail/?view=cm&fs=1&tf=1&to="+data.data.delivery.deal.email+""} className='font-Inter-SemiBold text-xs h-10 flex justify-center items-center text-white rounded-lg px-4 bg-[#F88C3A] ' >Send Email</a>
                         <button className='font-Inter-SemiBold text-xs h-10 flex justify-center items-center ml-4 text-[#ACB5BD] rounded-lg px-4 bg-[#DDE2E5] ' >Report issue</button>
                         
                         {userContext.userData.department.toLowerCase() !== 'Customer Service'.toLowerCase() && (

@@ -58,7 +58,7 @@ export default function OngoingDeals(props: any) {
                                     <p className='font-Inter-Bold text-sm text-[#414141]' >Dispatch Note</p>
                                     <p className='font-Inter-Regular mt-1 text-sm text-[#414141]' >{item.dispatchNote}</p>
                                 </div>
-                                    <p className='font-Inter-Regular ml-auto mt-auto text-sm flex text-[#414141]' >{DateFormat(item.updatedAt)} <span className='ml-2' >Created by Kimora</span><span className='ml-2 font-Inter-Bold' >FA2343-B3</span></p>
+                                    <p className='font-Inter-Regular ml-auto mt-auto text-sm flex text-[#414141]' >{DateFormat(item.updatedAt)} <span className='ml-2' >Created by {item?.createdBy?.name}</span><span className='ml-2 font-Inter-Bold' >{item._id.toUpperCase().slice(0,8)}</span></p>
                             </div>
                         </div>
                     )
