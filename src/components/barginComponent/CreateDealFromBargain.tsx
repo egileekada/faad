@@ -143,7 +143,7 @@ export default function CreateDealFromBargain() {
     return (
         <>
             {show && (
-                <OnCreateModal failed={false} />  
+                <OnCreateModal email={data.data.bargain.email} failed={false} />  
             )} 
 
             {!show && ( 

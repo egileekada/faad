@@ -23,6 +23,10 @@ export default function OngoingDeals(props: any) {
         refetch()
     }, [userContext.dealTab])
 
+    React.useEffect(() => {
+        refetch()
+    }, [])
+
     if (isLoading) return(
         <div className='w-full h-auto flex mt-12 justify-center  ' > 
             <PageLoader />
