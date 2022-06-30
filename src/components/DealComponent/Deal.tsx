@@ -47,7 +47,7 @@ export default function Deal() {
                                             </div>
                                             <div onClick={()=> userContext.setDealTab(1)} className={userContext.dealTab ? 'w-40 bg-white cursor-pointer h-10 font-Inter-Regular rounded-xl flex justify-center items-center' : 'w-40 cursor-pointer h-10 font-Inter-Regular rounded-xl flex justify-center items-center'}  >
                                                 Ongoing deals {!isLoading && ( 
-                                                    <p className=' bg-[#F66E09] w-6 h-6 flex justify-center items-center font-Inter-Bold text-sm rounded-full ml-1 text-white ' >{data.data.deals.length - numbLength}</p> 
+                                                    <p className=' bg-[#F66E09] w-6 h-6 flex justify-center items-center font-Inter-Bold text-sm rounded-full ml-1 text-white ' >{data.data.deals.filter((item: any) => item.status === 'pending').length}</p> 
                                                 ) }
                                             </div>
                                         </div>

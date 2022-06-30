@@ -1,6 +1,8 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom' 
+import BargainNotification from './barginComponent/components/BargainNotification';
 import { IUser, UserContext } from './context/UserContext';
+import DealNotification from './DealComponent/component/DealNotification';
 import SideBarIcons from './SideBarIcons'
 
 export default function SideBar() {
@@ -110,6 +112,14 @@ export default function SideBar() {
                                                 <SideBarIcons iconName={item} active={userContext.tab} />
                                             </div>
                                             <p style={item === userContext.tab ? {color: '#F88C3A'}: {color: '#212429'}} className='ml-4 font-Inter-SemiBold text-sm' >{item}</p>
+                                            <div className=' ml-auto mr-2' >
+                                                {item === "Deals" && (
+                                                    <DealNotification />
+                                                )}
+                                                {item === "Bargains" && (
+                                                    <BargainNotification />
+                                                )}
+                                            </div>
                                         </div>
                                     )
                                 })}
