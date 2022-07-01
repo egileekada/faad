@@ -156,7 +156,7 @@ export default function Bargin() {
 
             {!isLoading && (
                 <>    
-                    {limit <= data.data.baragins.length && (
+                    {limit <= data.data.baragins.filter((item: any) => item.status !== "completed").length && (
 
                         <div className='flex items-center mt-6' >
                             <button onClick={()=> PrevPage()} style={{borderColor: '#C2C2C2'}} className='w-10 h-10 rounded-lg cursor-pointer flex justify-center items-center border' > 

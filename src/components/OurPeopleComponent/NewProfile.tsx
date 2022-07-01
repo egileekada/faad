@@ -144,7 +144,7 @@ export default function NewProfile() {
                 <path d="M20.3287 11.0001V13.0001L7.50042 13.0001L10.7429 16.2426L9.32873 17.6568L3.67188 12L9.32873 6.34314L10.7429 7.75735L7.50019 11.0001L20.3287 11.0001Z" fill="#495057"/>
             </svg>
             <div className='w-full rounded-2xl p-10 bg-white flex ' >
-                <div className='w-8/12 pr-12 border-r-2 border-[#DDE2E5] ' >
+                <div className='w-8/12 pr-12 border-r-0 border-[#DDE2E5] ' >
                     <div className='w-full flex' > 
                         <div className='w-full flex' > 
                             <label className='w-44 h-44 cursor-not-allowed rounded-xl'>
@@ -347,7 +347,7 @@ export default function NewProfile() {
                 </div>
                 <div className='flex flex-1' >
                     <div className='w-full font-Inter-Regular flex flex-col items-center ' >
-                        <div className='' >
+                        {/* <div className='' >
                             <p className='font-Inter-SemiBold mb-4' >Groups</p>
                             <RadioGroup 
                                 onChange={(e)=> onChangeChatGroup(e)}
@@ -359,7 +359,7 @@ export default function NewProfile() {
                                     <Radio value='Accounts'>Accounts</Radio>
                                 </Stack>
                             </RadioGroup> 
-                        </div>
+                        </div> */}
                     </div>
                 </div>
                 {showModal ?  
