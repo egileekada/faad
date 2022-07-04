@@ -132,9 +132,9 @@ export default function Bargin() {
                                                     {/* <div className='w-32' > */}
                                                         {item.address}
                                                     {/* </div>  */}
-                                                </Td>  
-                                                <Td>{item.askingPrice}</Td> 
+                                                </Td>   
                                                 <Td>{item.quantity}</Td> 
+                                                <Td>{item.askingPrice}</Td>
                                                 <Td>{item.biddingPrice}</Td> 
                                                 <Td>
                                                     <div className='flex items-center' >
