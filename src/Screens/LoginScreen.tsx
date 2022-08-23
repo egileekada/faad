@@ -10,11 +10,14 @@ import * as yup from 'yup'
 import { useFormik } from 'formik';  
 import ButtonLoader from '../components/ButtonLoader'
 import { IUser, UserContext } from '../components/context/UserContext'
+import Modal from '../components/Modal'
 
 export default function LoginScreen() { 
 
     const navigate = useNavigate()
  
+    const [modal, setShowModal] = React.useState(0) 
+    const [message, setMessage] = React.useState('');
     const [showpassword, setShowpass] = React.useState(false);
     const [loading, setLoading] = React.useState(false);
     const [tokenvalue, setToken] = React.useState(''); 
@@ -44,11 +47,23 @@ export default function LoginScreen() {
 
         setLoading(true);
         if (!formik.dirty) {
-          alert('You have to fill in th form to continue');
+        //   alert('You have to fill in th form to continue');
+          setMessage('You have to fill in th form to continue')
+          setShowModal(2)  
+          const t1 = setTimeout(() => {   
+              setShowModal(0)       
+              clearTimeout(t1); 
+          }, 2000); 
           setLoading(false);
           return;
         }else if (!formik.isValid) {
-          alert('You have to fill in the form correctly to continue');
+            setMessage('You have to fill in th form to continue')
+            setShowModal(2)  
+            const t1 = setTimeout(() => {   
+                setShowModal(0)       
+                clearTimeout(t1); 
+            }, 2000); 
+        //   alert('You have to fill in the form correctly to continue');
           setLoading(false);
           return;
         }else {
@@ -62,7 +77,7 @@ export default function LoginScreen() {
     
             const json = await request.json(); 
     
-            if (request.status === 200) {    
+            if (request.status === 200) {
                 setToken(json.data.token)  
                 localStorage.setItem('token',json.data.token) 
                 localStorage.setItem('email', formik.values.companyEmail)
@@ -70,20 +85,35 @@ export default function LoginScreen() {
                 userContext.setToken(json.data.token)
                 sessionStorage.setItem('tabIndex', 'Dashboard') 
                 console.log(json.data.token)
-                const t1 = setTimeout(() => { 
+                // const t1 = setTimeout(() => { 
+                //     navigate('/dashboard');  
+                //     clearTimeout(t1);
+                // }, 1000);      
+                setMessage('Login successful')
+                setShowModal(1)  
+                const t1 = setTimeout(() => {   
+                    setShowModal(0)      
                     navigate('/dashboard');  
-                    clearTimeout(t1);
-                }, 1000); 
+                    clearTimeout(t1); 
+                }, 2000); 
             }else {
                 alert(json.message);
                 console.log(json)
+                setMessage('Error Occured While Logging In')
+                setShowModal(2)  
+                const t1 = setTimeout(() => {   
+                    setShowModal(0)      
+                    navigate('/dashboard');  
+                    clearTimeout(t1); 
+                }, 2000); 
                 setLoading(false);
             }
         }
     } 
 
     return (
-        <div className='w-full h-screen overflow-hidden pb-10 ' > 
+        <div className='w-full h-screen overflow-hidden pb-10 ' >
+            <Modal message={message} modal={modal} />  
             <div className='w-full flex relative mr-40' > 
                 <svg className='ml-28 mt-10' width="386" height="24" viewBox="0 0 386 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" clip-rule="evenodd" d="M23.6936 0H4.03842L0 3.57155H23.6936V0Z" fill="#212429"/>

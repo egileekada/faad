@@ -20,16 +20,18 @@ export default function ProductDetails() {
     const [end, setEnd] = React.useState(3)
 
     React.useEffect(() => { 
-        const t1 = setTimeout(() => {    
-        if(data.data.products.length -1 !== end){ 
-            setStart(start+1)
-            setEnd(end+1)
-        } else { 
-            setStart(0)
-            setEnd(3)
+        if(data?.data?.products.length !< end){ 
+            const t1 = setTimeout(() => {  
+                    if(data?.data?.products.length -1 !== end){ 
+                        setStart(start+1)
+                        setEnd(end+1)
+                    } else { 
+                        setStart(0)
+                        setEnd(3)
+                    }
+            clearTimeout(t1);
+            }, 5000); 
         }
-        clearTimeout(t1);
-        }, 5000);
     },)
  
     if (isLoading) return(
@@ -40,7 +42,7 @@ export default function ProductDetails() {
 
 
     const NextButton =()=>{
-        if(data.data.products.length-1 !== end){
+        if(data?.data?.products.length-1 !== end){
             setStart(start+1)
             setEnd(end+1)
         }
@@ -62,7 +64,7 @@ export default function ProductDetails() {
             <div className='w-full flex justify-center mx-auto' >
                 {!isLoading && (
                     <>
-                        {data.data.products.filter((item: any)=> item.newPrice >= 0 ).slice(start, end).map((item: any, index: any ) => {
+                        {data?.data?.products?.filter((item: any)=> item.newPrice >= 0 ).slice(start, end).map((item: any, index: any ) => {
                              
                             return(
                                 <div key={index} className='mx-auto' >

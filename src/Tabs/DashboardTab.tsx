@@ -45,7 +45,7 @@ export default function DashboardTab() {
             // console.log(data) 
         });
         socket.on("all-message", (data:any) => {   
-            setMessages([...data.messages])  
+            setMessages([...data?.messages])  
             // console.log(data) 
         });  
         // socket.emit("make-read", { messageId: props.id });
@@ -155,7 +155,7 @@ export default function DashboardTab() {
                             </div>
                         )}
 
-                        {[...messages].reverse().slice(0, 3).map((item: any, index)=> {
+                        {[...messages]?.reverse().slice(0, 3).map((item: any, index)=> {
                             return(
                                 <div key={index} className='w-full text-white bg-[#5A6167] py-4 px-3 rounded-xl my-4' >
                                     <div className='flex items-center' >

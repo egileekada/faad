@@ -106,7 +106,7 @@ export default function ChatComponent(props: any) {
                 <div className=' px-6' > 
                     {!isLoading && (
                         <>
-                            {messages.map((item: any)=> {  
+                            {messages?.map((item: any)=> {  
                                 if( item.name !== userContext.userData.name) {
                                     return(
                                         <div className='flex my-2' >
