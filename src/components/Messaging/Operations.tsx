@@ -28,7 +28,7 @@ export default function Opterations() {
         socket.on("connect", () => {
             console.log('A Connection has been made')    
             socket.emit("join-group", {
-                groupId: '62ade91ed73164d487087180',
+                groupId: '63075d2ffe33c8d27bbc3e34',
                 userId:  userContext.userData._id,
             }); 
         });  
@@ -40,11 +40,11 @@ export default function Opterations() {
      
     return (
         <div className='w-full relative h-full flex px-8 py-8 overflow-y-auto bg-[#F9FAFC] border-t border-l border-[#DDE2E5]' >  
-            <ChatComponent socket={socket} name='Operations' id='62ade91ed73164d487087180' reload={setLoading} /> 
+            <ChatComponent socket={socket} name='Operations' id='63075d2ffe33c8d27bbc3e34' reload={setLoading} /> 
             <div style={{width: '30%'}} className=' p-8 ' >
                 <p className='font-Inter-SemiBold text-xl' >Members</p>
                 <div className='mt-3 overflow-y-auto h-47vh' > 
-                    <GetUserOnGroup department='Operations' second='Operations' id='62ade91ed73164d487087180' /> 
+                    <GetUserOnGroup department='Operations' second='Operations' id='63075d2ffe33c8d27bbc3e34' /> 
                 </div>
             </div>
         </div>
