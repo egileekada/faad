@@ -33,14 +33,14 @@ export default function DashboardTab() {
     React.useEffect(() => { 
         socket.on("connect", () => {    
             socket.emit("join-group", {
-                groupId: "62ade34f15f3fa53457b1c2c",
+                groupId: "63075b1decb359ecf4f83199",
                 userId:  userContext.userData._id,
             }); 
         });  
     },[]);  
  
     React.useEffect(() => { 
-         socket.emit("get-all-message", { groupId: "62ade34f15f3fa53457b1c2c" });  
+         socket.emit("get-all-message", { groupId: "63075b1decb359ecf4f83199" });  
         socket.on("group-message", (data: any) => {  
             // console.log(data) 
          });
