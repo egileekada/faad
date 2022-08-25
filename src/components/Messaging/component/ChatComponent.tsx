@@ -16,16 +16,16 @@ export default function ChatComponent(props: any) {
     const [loading, setLoading] = React.useState(false);
     const [isLoading, setIsLoading] = React.useState(true);
 
-//     React.useEffect(() => { 
-//         props.socket.emit("get-all-message", { groupId: props.id });  
-//         props.socket.on("group-message", (data: any) => {  
-//             // console.log(data) 
-//         });
-//         props.socket.on("all-message", (data:any) => {   
-//             setMessages([...data.messages]) 
-//         });  
-//         props.socket.emit("make-read", { messageId: props.id });
-//     },[props.socket]) 
+    React.useEffect(() => { 
+        props.socket.emit("get-all-message", { groupId: props.id });  
+       props.socket.on("group-message", (data: any) => {  
+             // console.log(data) 
+         });
+         props.socket.on("all-message", (data:any) => {   
+             setMessages([...data.messages]) 
+        });  
+        props.socket.emit("make-read", { messageId: props.id });
+     },[props.socket]) 
     
     React.useEffect(() => { 
         const t1 = setTimeout(() => { 
