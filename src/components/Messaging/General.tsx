@@ -33,7 +33,7 @@ export default function General() {
         socket.on("connect", () => {
             console.log('A Connection has been made')    
             socket.emit("join-group", {
-                groupId: "62ade34f15f3fa53457b1c2c",
+                groupId: "63075b1decb359ecf4f83199",
                 userId:  userContext.userData._id,
             }); 
         });  
@@ -45,12 +45,12 @@ export default function General() {
      
     return (
         <div className='w-full relative h-full flex px-8 py-8 overflow-y-auto bg-[#F9FAFC] border-t border-l border-[#DDE2E5]' >  
-            <ChatComponent socket={socket} name='General' id="62ade34f15f3fa53457b1c2c" reload={setLoading} /> 
+            <ChatComponent socket={socket} name='General' id="63075b1decb359ecf4f83199" reload={setLoading} /> 
             <div style={{width: '30%'}} className=' p-8 ' >
                 <p className='font-Inter-SemiBold text-xl' >Members</p>
                 <div className='mt-3 overflow-y-auto h-47vh' > 
                     {/* <ScrollToBottom className=' h-47vh'> */}
-                        <GetUserOnGroup department='' id="62ade34f15f3fa53457b1c2c" /> 
+                        <GetUserOnGroup department='' id="63075b1decb359ecf4f83199" /> 
                     {/* </ScrollToBottom> */}
                 </div>
             </div>
