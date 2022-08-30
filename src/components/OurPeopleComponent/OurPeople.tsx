@@ -130,7 +130,7 @@ export default function OurPeople() {
                                                     <img src={`https://faadoli.herokuapp.com/uploads/images/${item.avatar}`} alt='avatar' className='w-full h-full object-cover rounded-full' /> 
                                                 )} 
                                             </div>
-                                            <p className='font-Inter-SemiBold text-xl mt-4' >{item.name}</p>
+                                            <p className='font-Inter-SemiBold text-center text-xl mt-4' >{item.name}</p>
                                             <p className='font-Inter-Regular text-sm' >{item.department}</p>
                                             <p className='font-Inter-Regular text-xs'>{item.companyEmail}</p>
                                             <svg className='mt-6 mb-3' width="18" height="12" viewBox="0 0 18 12" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -157,7 +157,7 @@ export default function OurPeople() {
                                                         <img src={`https://faadoli.herokuapp.com/uploads/images/${item.avatar}`} alt='avatar' className='w-full h-full object-cover rounded-full' /> 
                                                     )} 
                                                 </div>
-                                                <p className='font-Inter-SemiBold text-xl mt-4' >{item.name}</p>
+                                                <p className='font-Inter-SemiBold text-xl text-center mt-4' >{item.name}</p>
                                                 <p className='font-Inter-Regular text-sm' >{item.department}</p>
                                                 <p className='font-Inter-Regular text-xs'>{item.companyEmail}</p>
                                                 <svg className='mt-6 mb-3' width="18" height="12" viewBox="0 0 18 12" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -181,7 +181,7 @@ export default function OurPeople() {
                                                     )} 
                                                     
                                                 </div>
-                                                <p className='font-Inter-SemiBold text-xl mt-4' >{item.name}</p>
+                                                <p className='font-Inter-SemiBold text-xl text-center mt-4' >{item.name}</p>
                                                 <p className='font-Inter-Regular text-sm' >{item.department}</p>
                                                 <p className='font-Inter-Regular text-xs'>{item.companyEmail}</p>
                                                 <svg className='mt-6 mb-3' width="18" height="12" viewBox="0 0 18 12" fill="none" xmlns="http://www.w3.org/2000/svg">

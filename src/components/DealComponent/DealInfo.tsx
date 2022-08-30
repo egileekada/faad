@@ -58,8 +58,8 @@ export default function DealInfo() {
                                 <p className='font-Inter-SemiBold text-2xl ' >{data.data.delivery.deal.companyName}</p>
                                 <div className='ml-auto' >
                                     <p className='font-Inter-Regular text-sm ' >{DateFormat(data.data.delivery.deal.createdAt)}</p>
-                                    <p className='font-Inter-Regular text-sm ' >Created by Kimora</p>
-                                    <p className='font-Inter-Bold text-sm ' >FA2343-B3</p>
+                                    {/* <p className='font-Inter-Regular text-sm ' >Created by Kimora</p>
+                                    <p className='font-Inter-Bold text-sm ' >FA2343-B3</p> */}
                                 </div> 
                             </div>
                             <p className='font-Inter-Regular mt-4 text-sm px-10 ' >{data.data.delivery.deal.address}</p>
