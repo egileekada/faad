@@ -92,8 +92,12 @@ export default function LoginScreen() {
                 setMessage('Login successful')
                 setShowModal(1)  
                 const t1 = setTimeout(() => {   
-                    setShowModal(0)      
-                    navigate('/dashboard');  
+                    setShowModal(0) 
+                    if(localStorage.getItem("current")){
+                        navigate(localStorage.getItem("current")+"");  
+                    }else {
+                        navigate('/dashboard');  
+                    }
                     clearTimeout(t1); 
                 }, 2000); 
             }else {

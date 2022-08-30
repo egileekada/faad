@@ -12,6 +12,8 @@ export default function NewProfile() {
     const [showModal, setShowModal] = React.useState(false) 
     const navigate = useNavigate()
 
+    const current = window.location.pathname 
+    localStorage.setItem("current", current)
 
     const [image, SetImage] = React.useState('');   
     const [selectedImage, setSelectedImage] = React.useState('');   

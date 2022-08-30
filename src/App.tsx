@@ -34,7 +34,7 @@ import Summary from './components/reportComponent/Summary';
 import AccountMessage from './components/Messaging/AccountMessage';
 import LockUser from './Screens/LockUser';
 
-function App() {
+function App() { 
   return (  
       <Router>  
         <Routes>     

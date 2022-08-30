@@ -14,6 +14,8 @@ import { IUser, UserContext } from '../context/UserContext'
 
 export default function CreateDealFromBargain() {
 
+    const current = window.location.pathname 
+    localStorage.setItem("current", current)
     const [show, setShow] = React.useState(false) 
     const navigate = useNavigate()
     // const [modal, setModal] = React.useState(false);  

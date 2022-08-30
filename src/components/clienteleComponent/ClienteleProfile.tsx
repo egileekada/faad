@@ -9,6 +9,8 @@ import ButtonLoader from '../ButtonLoader'
 
 export default function ClienteleProfile() { 
 
+    const current = window.location.pathname 
+    localStorage.setItem("current", current)
     const [show, setShow] = React.useState(false) 
     const navigate = useNavigate()
     const [loading, setLoading] = React.useState(false); 

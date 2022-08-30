@@ -12,6 +12,8 @@ import SearchProduct from '../barginComponent/components/SearchProduct'
 
 export default function CreateDeal() {
 
+    const current = window.location.pathname 
+    localStorage.setItem("current", current)
     const [show, setShow] = React.useState(false) 
     const userContext: IUser = React.useContext(UserContext);  
     const navigate = useNavigate()

@@ -12,6 +12,8 @@ export default function AccountTab() {
     React.useEffect(() => {  
         userContext.setTab('Accounts')
     },[]); 
+    const current = window.location.pathname 
+    localStorage.setItem("current", current)
 
     return (
         <div className='w-full bg-[#F8F9FA] border-t border-l border-[#DDE2E5] h-full px-8 overflow-y-auto'> 

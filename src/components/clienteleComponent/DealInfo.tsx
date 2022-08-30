@@ -7,6 +7,8 @@ import PageLoader from '../PageLoader'
 
 export default function DealInfo() {
 
+    const current = window.location.pathname 
+    localStorage.setItem("current", current)
     const dataLocal = [
         { 
             title: 'Truck repair', 

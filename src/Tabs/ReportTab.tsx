@@ -19,6 +19,8 @@ export default function ReportTab() {
     React.useEffect(() => {  
         userContext.setTab('Report')
     },[]); 
+    const current = window.location.pathname 
+    localStorage.setItem("current", current)
 
     return (
         <div className='w-full h-full border-t border-l border-[#DDE2E5] px-8 bg-[#F8F9FA] py-8 overflow-y-auto' > 

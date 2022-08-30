@@ -14,6 +14,8 @@ export default function DealInfo() {
     const navigate = useNavigate()
     const userContext: IUser = React.useContext(UserContext); 
 
+    const current = window.location.pathname 
+    localStorage.setItem("current", current)
     const { isLoading, data } = useQuery('DeliveryById'+localStorage.getItem('dealID'), () =>
         fetch(`https://faadoli.herokuapp.com/api/v1/delivery/${localStorage.getItem('dealID')}`, {
             method: 'GET', // or 'PUT'
@@ -41,7 +43,7 @@ export default function DealInfo() {
     const OnBackClicked =()=> {
         navigate('/dashboard/deals')
         userContext.setDealTab(0)
-    }
+    } 
 
     return (
         <div className='w-full h-full px-8 py-8 overflow-y-auto' > 
@@ -137,11 +139,14 @@ export default function DealInfo() {
                             </div>
                         </div>
                     </div>
+                    {/* + encodeURIComponent(formattedBody) */}
                     {userContext.userData.department.toLowerCase() !== 'Customer Service'.toLowerCase() && userContext.userData.role.toLowerCase() !== 'CSA'.toLowerCase() && (
                         <Requisition id={data.data.delivery.deal._id} />
                     )}
-                    <div className='mt-14 flex ml-10 ' > 
-                        <a target="_blank" href={"https://mail.google.com/mail/?view=cm&fs=1&tf=1&to="+data.data.delivery.deal.email+""} className='font-Inter-SemiBold text-xs h-10 flex justify-center items-center text-white rounded-lg px-4 bg-[#F88C3A] ' >Send Email</a>
+                    <div className='mt-14 flex ml-10 ' >
+                        {!isLoading && (
+                            <a target="_blank" href={"https://mail.google.com/mail/?view=cm&fs=1&tf=1&to="+data.data.delivery.deal.email+"&su=Processing Deal&body=Good%20morning%20"+data.data.delivery.deal.companyName+"%2C%0D%0AKindly%20ignore%20previous%20mail%20sent%0D%0APlease%20see%20below%20the%20correct%20update.%0D%0A%0D%0ADELIVERY%20AGENT: "+data.data.delivery.agent.name+"%0D%0A%0D%0ACONTACT%20NUMBER: "+'+234'+data.data.delivery.deal.phoneNumber+"%0D%0A%0D%0AREQUESTED%20QUANTITY: "+data.data.delivery.deal.quantity.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+' LITERS'+"%0D%0A%0D%0ADECANTED%20QUANTITY: TO BE DETERMINED AFTER SUPPLY%0D%0A%0D%0ADESTINATION: "+data.data.delivery.deal.address+"%0D%0A%0D%0ASTATUS: EN ROUTE TO YOUR DESTINATION%0D%0A%0D%0AThank%20you.%0D%0A"} className='font-Inter-SemiBold text-xs h-10 flex justify-center items-center text-white rounded-lg px-4 bg-[#F88C3A] ' >Send Email</a> 
+                        )}
                         <button className='font-Inter-SemiBold text-xs h-10 flex justify-center items-center ml-4 text-[#ACB5BD] rounded-lg px-4 bg-[#DDE2E5] ' >Report issue</button>
                         
                         {userContext.userData.department.toLowerCase() !== 'Customer Service'.toLowerCase() && (

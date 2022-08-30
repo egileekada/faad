@@ -13,6 +13,8 @@ import SuccessModal from '../SuccessModal'
 
 export default function CreateBargain() {
 
+    const current = window.location.pathname 
+    localStorage.setItem("current", current)
     const navigate = useNavigate()
     const [name, setName] = React.useState('');  
     const [loading, setLoading] = React.useState(false);  

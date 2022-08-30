@@ -13,6 +13,8 @@ import ScrollToBottom from 'react-scroll-to-bottom';
 
 export default function MyNotes() {
 
+    const current = window.location.pathname 
+    localStorage.setItem("current", current)
     const navigate = useNavigate()
     const [loading, setLoading] = React.useState(false);  
     // const userContext: IUser = React.useContext(UserContext);  

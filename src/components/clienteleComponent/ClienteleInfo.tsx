@@ -10,6 +10,8 @@ import PageLoader from '../PageLoader'
 export default function ClienteleInfo() {
 
     const navigate = useNavigate() 
+    const current = window.location.pathname 
+    localStorage.setItem("current", current)
  
     const { isLoading, data } = useQuery('ClientsByID'+localStorage.getItem('clientID'), () =>
         fetch(`https://faadoli.herokuapp.com/api/v1/client/${localStorage.getItem('clientID')}`, {

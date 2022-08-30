@@ -16,6 +16,8 @@ export default function General() {
     const userContext: IUser = React.useContext(UserContext);  
     const [loading, setLoading] = React.useState('');
 
+    const current = window.location.pathname 
+    localStorage.setItem("current", current)
     const { isLoading, data, refetch, } = useQuery('ChatGroup', () =>
         fetch('https://faadoli.herokuapp.com/api/v1/group', {
             method: 'GET', // or 'PUT'

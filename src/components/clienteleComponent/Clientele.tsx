@@ -74,6 +74,8 @@ export default function Clientele() {
             <PageLoader />
         </div>
     )  
+    const current = window.location.pathname 
+    localStorage.setItem("current", current)
 
     return (
         <div className='w-full h-full px-8 py-8 overflow-y-auto' > 

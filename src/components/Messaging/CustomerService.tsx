@@ -23,6 +23,8 @@ export default function CustomerService() {
         )
     )     
     console.log(data);
+    const current = window.location.pathname 
+    localStorage.setItem("current", current)
      
     React.useEffect(() => { 
         socket.on("connect", () => {
