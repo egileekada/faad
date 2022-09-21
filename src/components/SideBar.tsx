@@ -146,7 +146,22 @@ export default function SideBar() {
                 {userContext.userData.department && ( 
                     <div className='mt-4' >
 
-                        {userContext.userData.department.toLowerCase() === 'Customer Service'.toLowerCase() || userContext.userData.role.toLowerCase() === 'CSA'.toLowerCase() && (
+                        {userContext.userData.department.toLowerCase() === 'Customer Service'.toLowerCase() && (
+                            <>
+                                {CustomerCaremessageArray.map((item: any)=> {
+                                    return(
+                                        <div onClick={()=> ClickHandler(item)} style={item === userContext.tab ? {backgroundColor: '#FEE8D8'} : {}} key={item} className='flex items-center my-2 cursor-pointer py-2 rounded-md pl-5 ' >
+                                            <div className='w-7 h-7 flex items-center justify-center' >
+                                                <SideBarIcons iconName={item} active={userContext.tab} />
+                                            </div>
+                                            <p style={item === userContext.tab ? {color: '#F88C3A'}: {color: '#212429'}} className='ml-3 font-Inter-SemiBold text-sm' >{item}</p>
+                                        </div>
+                                    )
+                                })}
+                            </>
+                        )}
+                        
+                        {userContext.userData.role.toLowerCase() === 'CSA'.toLowerCase() && (
                             <>
                                 {CustomerCaremessageArray.map((item: any)=> {
                                     return(
