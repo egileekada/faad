@@ -141,9 +141,9 @@ export default function ProductAndPricing() {
             <div className='pb-14 border-b px-8 py-8  border-[#e0e0e0]' >
                 {!isLoading && (
                     <>
-                        {[...data.data.products].reverse().map((item: any)=> {
+                        {[...data.data.products].reverse().map((item: any, index: any)=> {
                             return(
-                                <div className='w-full mb-4' >
+                                <div key={index} className='w-full mb-4' >
                                     <p className='font-Inter-SemiBold text-xl ' >{item.productName} ({item.productCode})</p>
                                     <div className='w-full flex items-end mt-4' >
                                         <div className='w-full' >

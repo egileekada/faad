@@ -6,6 +6,22 @@ import AddTruck from './Modal/AddTruck'
 
 export default function Trucks() {
 
+    const [deleteModal, setDeleteModal] = React.useState(false)  
+    const [deleteId, setDeleteId] = React.useState(''); 
+    const DeleteHandler =async(index: any)=> {
+        await fetch(`https://faadoli.herokuapp.com/api/v1/tank/${index}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization : `Bearer ${localStorage.getItem('token')}` 
+            }, 
+        });
+
+        refetch()
+        setDeleteModal(false)
+        // {DeleteTank(index)}
+    }
+
     const { isLoading, data, refetch } = useQuery('AllTruck', () =>
         fetch('https://faadoli.herokuapp.com/api/v1/truck', {
             method: 'GET', // or 'PUT'
@@ -17,6 +33,9 @@ export default function Trucks() {
             res.json()
         )
     )  
+
+    console.log(data);
+    
 
     React.useEffect(() => {
         refetch()
@@ -30,6 +49,11 @@ export default function Trucks() {
             <PageLoader />
         </div>
     ) 
+
+    const ClickHandler =(item: any)=> {
+        setDeleteModal(true)
+        setDeleteId(item)
+    }
     
     return (
         <div className='w-full h-full p-10 rounded-2xl bg-white' >
@@ -47,13 +71,18 @@ export default function Trucks() {
                     <>
                         {data.data.trucks.map((item: any ) => {
                             return(
-                                <div className='w-full flex items-center' >
-                                    <div className='bg-[#C4C4C4] py-10 rounded-2xl px-2' >
-                                        <img src={Truck} alt='tanker' className='object-cover' style={{width: '227px'}} />
+                                <div key={item} className='w-full flex items-center' >
+                                    <div className='bg-[#C4C4C4] py-10 rounded-2xl relative px-2' >
+                                        <img src={Truck} alt='tanker' className='object-cover' style={{width: '227px'}} /> 
+                                        <svg onClick={()=> ClickHandler(item._id)} className=' cursor-pointer absolute top-2 left-2 ' width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M17 5V4C17 2.89543 16.1046 2 15 2H9C7.89543 2 7 2.89543 7 4V5H4C3.44772 5 3 5.44772 3 6C3 6.55228 3.44772 7 4 7H5V18C5 19.6569 6.34315 21 8 21H16C17.6569 21 19 19.6569 19 18V7H20C20.5523 7 21 6.55228 21 6C21 5.44772 20.5523 5 20 5H17ZM15 4H9V5H15V4ZM17 7H7V18C7 18.5523 7.44772 19 8 19H16C16.5523 19 17 18.5523 17 18V7Z" fill="black"/>
+                                            <path d="M9 9H11V17H9V9Z" fill="black"/>
+                                            <path d="M13 9H15V17H13V9Z" fill="black"/>
+                                        </svg> 
                                     </div>
                                     <div className='ml-6' > 
-                                        <p className='font-Inter-SemiBold text-lg mb-4 text-[#ACB5BD]' >Israelite</p>
-                                        <p className='font-Inter-Bold mb-2 text-sm' >Truck ID<span className='font-Inter-Regular ml-3' >{item.truckId}</span></p>
+                                        <p className='font-Inter-SemiBold text-lg mb-4 text-[#ACB5BD]' >FAAD OIL</p>
+                                        <p className='font-Inter-Bold mb-2 text-sm' >Truck ID<span className='font-Inter-Regular ml-3' >{(item.truckId).toUpperCase()}</span></p>
                                         <p className='font-Inter-Bold mt-1 mb-2 text-sm' >Capacity<span className='font-Inter-Regular ml-3' >{Number(item.capacity).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')} ℓ</span></p> 
                                         {item.status !== 'available' && (
                                             <div className='flex items-center' >
@@ -104,6 +133,30 @@ export default function Trucks() {
                         <div className="opacity-20 fixed flex flex-1 inset-0 z-40 bg-black"/>
                     </>
                 ) : null}  
+
+
+            {deleteModal ? 
+                (
+                    <>
+                        <div className="h-auto flex justify-center items-center overflow-x-hidden overflow-y-hidden fixed inset-0 z-50 outline-none focus:outline-none"> 
+                            <div className='w-80 rounded-lg flex flex-col justify-center items-center bg-white p-8' >
+                                <svg width="100" height="100" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M17 5V4C17 2.89543 16.1046 2 15 2H9C7.89543 2 7 2.89543 7 4V5H4C3.44772 5 3 5.44772 3 6C3 6.55228 3.44772 7 4 7H5V18C5 19.6569 6.34315 21 8 21H16C17.6569 21 19 19.6569 19 18V7H20C20.5523 7 21 6.55228 21 6C21 5.44772 20.5523 5 20 5H17ZM15 4H9V5H15V4ZM17 7H7V18C7 18.5523 7.44772 19 8 19H16C16.5523 19 17 18.5523 17 18V7Z" fill="#ff0000"/>
+                                    <path d="M9 9H11V17H9V9Z" fill="#ff0000"/>
+                                    <path d="M13 9H15V17H13V9Z" fill="#ff0000"/>
+                                </svg>
+                                <p className=' font-Inter-Medium text-sm mt-3 text-black text-center' >Do You Want To Delete This Truck?</p>
+                                {/* <p className=' font-Inter-Medium text-xs mt-1 text-gray-400 text-center'>Note: The Storage Tank Of This Product Will Be Deleted</p> */}
+                                <div className='flex mt-8' >
+                                    <button onClick={()=> setDeleteModal(false) } className=' bg-gray-400 text-white py-2 rounded mr-1 px-6 font-Inter-Bold text-sm' >Cancel</button>
+                                    <button  onClick={()=> DeleteHandler(deleteId)} className=' bg-[#ff0000] text-white py-2 rounded ml-1 px-6 font-Inter-Bold text-sm' >Delete</button>
+                                </div> 
+                                {/* <button onClick={()=> DeleteHandler(item._id)} ></button> */}
+                            </div>
+                        </div> 
+                        <div className="opacity-20 fixed flex flex-1 inset-0 z-40 bg-black"/>
+                    </>
+                ) : null} 
         </div>
     )
 } 
