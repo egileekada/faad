@@ -9,7 +9,7 @@ export default function Trucks() {
     const [deleteModal, setDeleteModal] = React.useState(false)  
     const [deleteId, setDeleteId] = React.useState(''); 
     const DeleteHandler =async(index: any)=> {
-        await fetch(`https://faadoli.herokuapp.com/api/v1/tank/${index}`, {
+        await fetch(`https://faadoli.herokuapp.com/api/v1/truck/${index}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
