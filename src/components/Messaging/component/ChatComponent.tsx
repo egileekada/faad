@@ -106,10 +106,10 @@ export default function ChatComponent(props: any) {
                 <div className=' px-6' > 
                     {!isLoading && (
                         <>
-                            {messages?.map((item: any)=> {  
+                            {messages?.map((item: any, index: any)=> {  
                                 if( item.name !== userContext.userData.name) {
                                     return(
-                                        <div className='flex my-2' >
+                                        <div key={index} className='flex my-2' >
                                             {/* Sender */}
                                             <div className='w-10 h-10 rounded-full mr-3 bg-white' > 
                                                 {item.avatar === 'avatar.png' && (
@@ -133,7 +133,7 @@ export default function ChatComponent(props: any) {
                                     )
                                 } else {
                                     return( 
-                                        <div className='flex my-2 w-full justify-end' >
+                                        <div key={index} className='flex my-2 w-full justify-end' >
                                             {/* Reciever */}
                                             <div style={{width: '55%'}} className='pl-3 ' >
                                                 <div style={{borderRadius: '12px 0px 12px 12px', backgroundColor: '#F8F9FA'}} className=' p-3 ' >

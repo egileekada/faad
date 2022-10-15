@@ -33,6 +33,7 @@ export default function AccountMessage() {
                 groupId: "63075ce539365c20af019804",
                 userId:  userContext.userData._id,
             }); 
+            socket.emit("make-read", { messageId: "63075ce539365c20af019804" });
         });  
     },[loading]); 
        
