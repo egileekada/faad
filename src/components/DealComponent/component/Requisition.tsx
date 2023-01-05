@@ -40,7 +40,7 @@ export default function Requisition(props: any) {
     console.log(props.id);
     
     const { isLoading, data } = useQuery('AllRequisition', () =>
-        fetch(`https://faadoli.herokuapp.com/api/v1/requisition`, {
+        fetch(`http://faad-env.eba-kfucwakm.eu-central-1.elasticbeanstalk.com/api/v1/requisition`, {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 
