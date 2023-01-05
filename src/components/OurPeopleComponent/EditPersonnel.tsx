@@ -46,7 +46,7 @@ export default function EditPersonnel() {
     } 
 
     const DeleteHandler =async(index: any)=> {
-        await fetch(`http://faad-env.eba-kfucwakm.eu-central-1.elasticbeanstalk.com/api/v1/auth/profile/${index}`, {
+        await fetch(`https://obscure-oasis-95161.herokuapp.com/api/v1/auth/profile/${index}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
@@ -95,7 +95,7 @@ export default function EditPersonnel() {
     const submit = async () => {
 
         setLoading(true) 
-        const request = await fetch(`http://faad-env.eba-kfucwakm.eu-central-1.elasticbeanstalk.com/api/v1/auth/profile/${userContext.profileData._id}`, {
+        const request = await fetch(`https://obscure-oasis-95161.herokuapp.com/api/v1/auth/profile/${userContext.profileData._id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -111,7 +111,7 @@ export default function EditPersonnel() {
                 formData.append('avatar', image)  
 
                 // make request to server 
-                await axios.default.put(`http://faad-env.eba-kfucwakm.eu-central-1.elasticbeanstalk.com/api/v1/auth/profile/${userContext.profileData._id}/picture`, formData, {
+                await axios.default.put(`https://obscure-oasis-95161.herokuapp.com/api/v1/auth/profile/${userContext.profileData._id}/picture`, formData, {
                     headers: { 'content-type': 'application/json', 
                         Authorization : `Bearer ${localStorage.getItem('token')}` 
                     }
@@ -161,7 +161,7 @@ export default function EditPersonnel() {
                             )}
 
                             {userContext.profileData.avatar !== 'avatar.png' && ( 
-                                <img src={`http://faad-env.eba-kfucwakm.eu-central-1.elasticbeanstalk.com/uploads/images/${userContext.profileData.avatar}`} alt='avatar' className='w-full h-full object-cover rounded-xl' />
+                                <img src={`https://obscure-oasis-95161.herokuapp.com/uploads/images/${userContext.profileData.avatar}`} alt='avatar' className='w-full h-full object-cover rounded-xl' />
                             )}
                             {image && (
                                 <img src={selectedImage} className='w-44 h-44 object-cover absolute inset-0 z-40 rounded-xl' />
