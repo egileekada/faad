@@ -116,7 +116,7 @@ export default function ChatComponent(props: any) {
                                                     <img src={Avatar} alt='avatar' className='rounded-full bg-white object-cover' />
                                                 )} 
                                                 {item.avatar !== 'avatar.png' && (
-                                                    <img src={`https://faadoli.herokuapp.com/uploads/images/${item.avatar}`} alt='' className='w-full h-full object-cover rounded-full' /> 
+                                                    <img src={`https://obscure-oasis-95161.herokuapp.com/uploads/images/${item.avatar}`} alt='' className='w-full h-full object-cover rounded-full' /> 
                                                 )} 
                                             </div>
                                             {/* <div className='bg-yellow-400 w-10 h-10 rounded-full' /> */}
@@ -150,7 +150,7 @@ export default function ChatComponent(props: any) {
                                                     <img src={Avatar} alt='avatar' className='rounded-full bg-white object-cover' />
                                                 )} 
                                                 {item.avatar !== 'avatar.png' && (
-                                                    <img src={`https://faadoli.herokuapp.com/uploads/images/${item.avatar}`} alt='' className='w-full h-full object-cover rounded-full' /> 
+                                                    <img src={`https://obscure-oasis-95161.herokuapp.com/uploads/images/${item.avatar}`} alt='' className='w-full h-full object-cover rounded-full' /> 
                                                 )} 
                                             </div>
                                             {/* <div className='bg-yellow-400 w-10 h-10 rounded-full ml-3' /> */}
