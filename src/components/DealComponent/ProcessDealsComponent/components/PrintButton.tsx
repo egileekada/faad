@@ -17,7 +17,7 @@ const PrintButton = (props: any) => {
   const [truck, setTruckInfo] = React.useState('')
 
   if(props.agent){  
-    fetch(`http://faad-env.eba-kfucwakm.eu-central-1.elasticbeanstalk.com/api/v1/auth/profile/all`, {
+    fetch(`https://obscure-oasis-95161.herokuapp.com/api/v1/auth/profile/all`, {
         method: 'GET', // or 'PUT'
         headers: {
             'Content-Type': 'application/json',
@@ -46,7 +46,7 @@ const PrintButton = (props: any) => {
   }
   
   if(props.truck){  
-    fetch(`http://faad-env.eba-kfucwakm.eu-central-1.elasticbeanstalk.com/api/v1/truck/${props.truck}`, {
+    fetch(`https://obscure-oasis-95161.herokuapp.com/api/v1/truck/${props.truck}`, {
         method: 'GET', // or 'PUT'
         headers: {
             'Content-Type': 'application/json',
