@@ -93,7 +93,7 @@ export default function NewProfile() {
                 }
 
 
-                const request = await fetch(`https://faadoli.herokuapp.com/api/v1/auth/signup`, {
+                const request = await fetch(`http://faad-env.eba-kfucwakm.eu-central-1.elasticbeanstalk.com/api/v1/auth/signup`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
