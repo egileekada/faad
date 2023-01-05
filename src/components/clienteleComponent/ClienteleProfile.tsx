@@ -50,7 +50,7 @@ export default function ClienteleProfile() {
           return;
         }
         else {
-            const request = await fetch(`http://faad-env.eba-kfucwakm.eu-central-1.elasticbeanstalk.com/api/v1/client`, {
+            const request = await fetch(`https://obscure-oasis-95161.herokuapp.com/api/v1/client`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
