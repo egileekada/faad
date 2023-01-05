@@ -16,10 +16,10 @@ export default function DashboardTab() {
         userContext.setTab('Dashboard')
     },[]); 
 
-    const socket : any= io("https://faadoli.herokuapp.com");
+    const socket : any= io("http://faad-env.eba-kfucwakm.eu-central-1.elasticbeanstalk.com");
     
     const { isLoading, data } = useQuery('AllBargains', () =>
-        fetch('https://faadoli.herokuapp.com/api/v1/bargain', {
+        fetch('http://faad-env.eba-kfucwakm.eu-central-1.elasticbeanstalk.com/api/v1/bargain', {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 
