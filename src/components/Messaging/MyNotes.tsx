@@ -34,7 +34,7 @@ export default function MyNotes() {
     });
 
     const { isLoading, data, refetch, } = useQuery('Note', () =>
-        fetch('http://faad-env.eba-kfucwakm.eu-central-1.elasticbeanstalk.com/api/v1/auth/profile', {
+        fetch('https://obscure-oasis-95161.herokuapp.com/api/v1/auth/profile', {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 
@@ -59,7 +59,7 @@ export default function MyNotes() {
           return;
         }
         else {
-            const request = await fetch(`http://faad-env.eba-kfucwakm.eu-central-1.elasticbeanstalk.com/api/v1/note`, {
+            const request = await fetch(`https://obscure-oasis-95161.herokuapp.com/api/v1/note`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
