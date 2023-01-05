@@ -61,7 +61,7 @@ export default function OurPeople() {
      
 
     const { isLoading, error, data } = useQuery('userDataAll', () =>
-        fetch('http://faad-env.eba-kfucwakm.eu-central-1.elasticbeanstalk.com/api/v1/auth/profile/all', {
+        fetch('https://obscure-oasis-95161.herokuapp.com/api/v1/auth/profile/all', {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 
@@ -127,7 +127,7 @@ export default function OurPeople() {
                                                     <img src={Avatar} alt='avatar' className='rounded-full bg-white object-cover' />
                                                 )} 
                                                 {item.avatar !== 'avatar.png' && (
-                                                    <img src={`http://faad-env.eba-kfucwakm.eu-central-1.elasticbeanstalk.com/uploads/images/${item.avatar}`} alt='avatar' className='w-full h-full object-cover rounded-full' /> 
+                                                    <img src={`https://obscure-oasis-95161.herokuapp.com/uploads/images/${item.avatar}`} alt='avatar' className='w-full h-full object-cover rounded-full' /> 
                                                 )} 
                                             </div>
                                             <p className='font-Inter-SemiBold text-center text-xl mt-4' >{item.name}</p>
@@ -154,7 +154,7 @@ export default function OurPeople() {
                                                         <img src={Avatar} alt='avatar' className='rounded-full bg-white object-cover' />
                                                     )} 
                                                     {item.avatar !== 'avatar.png' && (
-                                                        <img src={`http://faad-env.eba-kfucwakm.eu-central-1.elasticbeanstalk.com/uploads/images/${item.avatar}`} alt='avatar' className='w-full h-full object-cover rounded-full' /> 
+                                                        <img src={`https://obscure-oasis-95161.herokuapp.com/uploads/images/${item.avatar}`} alt='avatar' className='w-full h-full object-cover rounded-full' /> 
                                                     )} 
                                                 </div>
                                                 <p className='font-Inter-SemiBold text-xl text-center mt-4' >{item.name}</p>
@@ -177,7 +177,7 @@ export default function OurPeople() {
                                                         <img src={Avatar} alt='avatar' className='rounded-full bg-white object-cover' />
                                                     )} 
                                                     {item.avatar !== 'avatar.png' && (
-                                                        <img src={`http://faad-env.eba-kfucwakm.eu-central-1.elasticbeanstalk.com/uploads/images/${item.avatar}`} alt='avatar' className='w-full h-full object-cover rounded-full' /> 
+                                                        <img src={`https://obscure-oasis-95161.herokuapp.com/uploads/images/${item.avatar}`} alt='avatar' className='w-full h-full object-cover rounded-full' /> 
                                                     )} 
                                                     
                                                 </div>
