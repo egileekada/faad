@@ -29,7 +29,7 @@ export default function Clientele() {
     },[name]);  
 
     const { isLoading, data } = useQuery('AllClients', () =>
-        fetch('https://faadoli.herokuapp.com/api/v1/client', {
+        fetch('http://faad-env.eba-kfucwakm.eu-central-1.elasticbeanstalk.com/api/v1/client', {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 
