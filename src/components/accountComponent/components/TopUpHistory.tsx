@@ -7,7 +7,7 @@ import DateFormat from '../../DateFormat';
 export default function TopUpHistory(props: any) {
  
     const { isLoading, data, refetch } = useQuery('AllStock', () =>
-        fetch('http://faad-env.eba-kfucwakm.eu-central-1.elasticbeanstalk.com/api/v1/stock', {
+        fetch('https://obscure-oasis-95161.herokuapp.com/api/v1/stock', {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 
