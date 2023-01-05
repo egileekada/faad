@@ -61,7 +61,7 @@ export default function EntryPermit() {
 
 
     const { isLoading, data, refetch } = useQuery('Permit', () =>
-        fetch('https://faadoli.herokuapp.com/api/v1/permit', {
+        fetch('http://faad-env.eba-kfucwakm.eu-central-1.elasticbeanstalk.com/api/v1/permit', {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 
