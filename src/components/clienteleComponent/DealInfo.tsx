@@ -38,7 +38,7 @@ export default function DealInfo() {
     const navigate = useNavigate()
 
     // const { isLoading, data } = useQuery('DealsByID'+localStorage.getItem('dealID'), () =>
-    //     fetch(`http://faad-env.eba-kfucwakm.eu-central-1.elasticbeanstalk.com/api/v1/deals/${localStorage.getItem('dealID')}`, {
+    //     fetch(`https://obscure-oasis-95161.herokuapp.com/api/v1/deals/${localStorage.getItem('dealID')}`, {
     //         method: 'GET', // or 'PUT'
     //         headers: {
     //             'Content-Type': 'application/json', 
@@ -50,7 +50,7 @@ export default function DealInfo() {
     // )  
 
     const { isLoading, data } = useQuery('DeliveryById'+localStorage.getItem('dealID'), () =>
-        fetch(`http://faad-env.eba-kfucwakm.eu-central-1.elasticbeanstalk.com/api/v1/delivery/${localStorage.getItem('dealID')}`, {
+        fetch(`https://obscure-oasis-95161.herokuapp.com/api/v1/delivery/${localStorage.getItem('dealID')}`, {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 
