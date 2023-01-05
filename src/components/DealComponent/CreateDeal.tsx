@@ -68,7 +68,7 @@ export default function CreateDeal() {
           return;
         }
         else {
-            const request = await fetch(`http://faad-env.eba-kfucwakm.eu-central-1.elasticbeanstalk.com/api/v1/deals`, {
+            const request = await fetch(`https://obscure-oasis-95161.herokuapp.com/api/v1/deals`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
