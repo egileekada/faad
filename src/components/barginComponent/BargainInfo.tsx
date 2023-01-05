@@ -13,7 +13,7 @@ export default function BargainInfo() {
     const Subject ='Processing Bargain'
     
     const { isLoading, data } = useQuery('BargainByID'+localStorage.getItem('barginID'), () =>
-        fetch(`http://faad-env.eba-kfucwakm.eu-central-1.elasticbeanstalk.com/api/v1/bargain/${localStorage.getItem('barginID')}`, {
+        fetch(`https://obscure-oasis-95161.herokuapp.com/api/v1/bargain/${localStorage.getItem('barginID')}`, {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 
@@ -31,7 +31,7 @@ export default function BargainInfo() {
     )    
 
     const DeleteHandler =async()=> {
-        const request = await fetch(`http://faad-env.eba-kfucwakm.eu-central-1.elasticbeanstalk.com/api/v1/bargain/${data.data.bargain._id}`, {
+        const request = await fetch(`https://obscure-oasis-95161.herokuapp.com/api/v1/bargain/${data.data.bargain._id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
