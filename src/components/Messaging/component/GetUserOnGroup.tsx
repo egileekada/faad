@@ -5,7 +5,7 @@ import Avatar from '../../../assets/images/avatar.png'
 export default function GetUserOnGroup(props: any) {
  
     const { isLoading, data } = useQuery('ChatGroupMembers', () =>
-        fetch(`http://faad-env.eba-kfucwakm.eu-central-1.elasticbeanstalk.com/api/v1/auth/profile/all`, {
+        fetch(`https://obscure-oasis-95161.herokuapp.com/api/v1/auth/profile/all`, {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 
@@ -30,7 +30,7 @@ export default function GetUserOnGroup(props: any) {
                                                 <img src={Avatar} alt='avatar' className='rounded-full bg-white object-cover' />
                                             )} 
                                             {item.avatar !== 'avatar.png' && (
-                                                <img src={`https://faadoli.herokuapp.com/uploads/images/${item.avatar}`} alt='' className='w-full h-full object-cover rounded-full' /> 
+                                                <img src={`https://obscure-oasis-95161.herokuapp.com/uploads/images/${item.avatar}`} alt='' className='w-full h-full object-cover rounded-full' /> 
                                             )} 
                                         </div>
                                         {/* <div className='bg-yellow-400 w-10 h-10 rounded-full mr-3' /> */}
@@ -49,7 +49,7 @@ export default function GetUserOnGroup(props: any) {
                                                 <img src={Avatar} alt='avatar' className='rounded-full bg-white object-cover' />
                                             )} 
                                             {item.avatar !== 'avatar.png' && (
-                                                <img src={`https://faadoli.herokuapp.com/uploads/images/${item.avatar}`} alt='' className='w-full h-full object-cover rounded-full' /> 
+                                                <img src={`https://obscure-oasis-95161.herokuapp.com/uploads/images/${item.avatar}`} alt='' className='w-full h-full object-cover rounded-full' /> 
                                             )} 
                                         </div>
                                         {/* <div className='bg-yellow-400 w-10 h-10 rounded-full mr-3' /> */}
