@@ -5,7 +5,7 @@ import Avatar from '../../../assets/images/avatar.png'
 export default function GetUserOnGroup(props: any) {
  
     const { isLoading, data } = useQuery('ChatGroupMembers', () =>
-        fetch(`https://faadoli.herokuapp.com/api/v1/auth/profile/all`, {
+        fetch(`http://faad-env.eba-kfucwakm.eu-central-1.elasticbeanstalk.com/api/v1/auth/profile/all`, {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 
