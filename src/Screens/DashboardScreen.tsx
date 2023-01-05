@@ -13,7 +13,7 @@ export default function DashboardScreen() {
     const [general, setGeneral] = React.useState([] as any) 
 
     const { isLoading, data } = useQuery('userData'+localStorage.getItem('token'), () =>
-        fetch('http://faad-env.eba-kfucwakm.eu-central-1.elasticbeanstalk.com/api/v1/auth/profile', {
+        fetch('https://obscure-oasis-95161.herokuapp.com/api/v1/auth/profile', {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 
@@ -25,7 +25,7 @@ export default function DashboardScreen() {
     )   
 
     const AddToChatGroup =async(item: any)=> { 
-        const request = await fetch(`http://faad-env.eba-kfucwakm.eu-central-1.elasticbeanstalk.com/api/v1/group/${item}`, {
+        const request = await fetch(`https://obscure-oasis-95161.herokuapp.com/api/v1/group/${item}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -55,7 +55,7 @@ export default function DashboardScreen() {
 
     // React.useEffect(() => {
 
-    //     fetch(`http://faad-env.eba-kfucwakm.eu-central-1.elasticbeanstalk.com/api/v1/group/62ade34f15f3fa53457b1c2c/members`, {
+    //     fetch(`https://obscure-oasis-95161.herokuapp.com/api/v1/group/62ade34f15f3fa53457b1c2c/members`, {
     //         method: 'GET', // or 'PUT'
     //         headers: {
     //             'Content-Type': 'application/json',
@@ -123,7 +123,7 @@ export default function DashboardScreen() {
                                     <img src={Avatar} alt='avatar' className='rounded-full bg-white object-cover' />
                                 )}
                                 {userContext.userData.avatar !== 'avatar.png' && ( 
-                                    <img src={`https://faadoli.herokuapp.com/uploads/images/${userContext.userData.avatar}`} alt='avatar' className='w-full h-full object-cover rounded-full' />
+                                    <img src={`https://obscure-oasis-95161.herokuapp.com/uploads/images/${userContext.userData.avatar}`} alt='avatar' className='w-full h-full object-cover rounded-full' />
                                 )}
                             </div>
                             <div className='ml-3' >
