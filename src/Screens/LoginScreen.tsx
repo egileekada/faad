@@ -67,7 +67,7 @@ export default function LoginScreen() {
           setLoading(false);
           return;
         }else {
-            const request = await fetch(`http://faad-env.eba-kfucwakm.eu-central-1.elasticbeanstalk.com/api/v1/auth/login`, {
+            const request = await fetch(`https://obscure-oasis-95161.herokuapp.com/api/v1/auth/login`, {
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/json',
