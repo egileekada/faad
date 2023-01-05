@@ -25,7 +25,7 @@ export default function Bargin() {
     },[name]);  
 
     const { isLoading, data, refetch } = useQuery('AllBargains', () =>
-        fetch('https://faadoli.herokuapp.com/api/v1/bargain', {
+        fetch('http://faad-env.eba-kfucwakm.eu-central-1.elasticbeanstalk.com/api/v1/bargain', {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 
