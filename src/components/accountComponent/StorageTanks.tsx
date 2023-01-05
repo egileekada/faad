@@ -30,7 +30,7 @@ export default function StorageTanks() {
     } 
 
     const { isLoading, data, refetch } = useQuery('AllTank', () =>
-        fetch('https://faadoli.herokuapp.com/api/v1/tank', {
+        fetch('http://faad-env.eba-kfucwakm.eu-central-1.elasticbeanstalk.com/api/v1/tank', {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 
