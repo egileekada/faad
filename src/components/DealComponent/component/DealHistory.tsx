@@ -10,7 +10,7 @@ export default function DealHistory(props: any) {
     const navigate = useNavigate() 
 
     const { isLoading, error, data } = useQuery('AllDelivery', () =>
-        fetch('https://faadoli.herokuapp.com/api/v1/delivery', {
+        fetch('http://faad-env.eba-kfucwakm.eu-central-1.elasticbeanstalk.com/api/v1/delivery', {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 
