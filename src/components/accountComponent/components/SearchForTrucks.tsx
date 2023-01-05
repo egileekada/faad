@@ -5,7 +5,7 @@ import { useQuery } from 'react-query'
 export default function SearchForTrucks(props: any) {
  
     const { isLoading, data } = useQuery('SearchAllTruck', () =>
-        fetch('https://faadoli.herokuapp.com/api/v1/truck', {
+        fetch('http://faad-env.eba-kfucwakm.eu-central-1.elasticbeanstalk.com/api/v1/truck', {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 
