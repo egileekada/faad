@@ -27,7 +27,7 @@ export default function ProductAndPricing() {
     },[]); 
 
     const { isLoading, data, refetch } = useQuery('AllProductAndPricing', () =>
-        fetch('http://faad-env.eba-kfucwakm.eu-central-1.elasticbeanstalk.com/api/v1/product', {
+        fetch('https://obscure-oasis-95161.herokuapp.com/api/v1/product', {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 
@@ -46,7 +46,7 @@ export default function ProductAndPricing() {
 
     // const DeleteTank=(index: any)=> {
 
-    //     fetch(`http://faad-env.eba-kfucwakm.eu-central-1.elasticbeanstalk.com/api/v1/tank`, {
+    //     fetch(`https://obscure-oasis-95161.herokuapp.com/api/v1/tank`, {
     //         method: 'GET', // or 'PUT'
     //         headers: {
     //             'Content-Type': 'application/json',
@@ -58,7 +58,7 @@ export default function ProductAndPricing() {
     //         {data.data.tanks.map((item: any)=> {
     //             if(index === item.product._id){ 
     //                 console.log(item)
-    //                 fetch(`http://faad-env.eba-kfucwakm.eu-central-1.elasticbeanstalk.com/api/v1/tank/${item._id}`, {
+    //                 fetch(`https://obscure-oasis-95161.herokuapp.com/api/v1/tank/${item._id}`, {
     //                     method: 'DELETE',
     //                     headers: {
     //                         'Content-Type': 'application/json',
@@ -77,7 +77,7 @@ export default function ProductAndPricing() {
     // }
 
     const DeleteHandler =async(index: any)=> {
-        await fetch(`http://faad-env.eba-kfucwakm.eu-central-1.elasticbeanstalk.com/api/v1/product/${index}`, {
+        await fetch(`https://obscure-oasis-95161.herokuapp.com/api/v1/product/${index}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
@@ -96,7 +96,7 @@ export default function ProductAndPricing() {
             alert('Enter New Price')
             setLoading('')
         } else{ 
-            await fetch(`http://faad-env.eba-kfucwakm.eu-central-1.elasticbeanstalk.com/api/v1/product/${item}`, {
+            await fetch(`https://obscure-oasis-95161.herokuapp.com/api/v1/product/${item}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
