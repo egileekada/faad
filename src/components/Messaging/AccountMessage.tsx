@@ -7,14 +7,14 @@ import GetUserOnGroup from './component/GetUserOnGroup';
 
 export default function AccountMessage() {
 
-    const socket : any= io("http://faad-env.eba-kfucwakm.eu-central-1.elasticbeanstalk.com");
+    const socket : any= io("https://obscure-oasis-95161.herokuapp.com");
     const userContext: IUser = React.useContext(UserContext);  
     const [loading, setLoading] = React.useState('');
 
     const current = window.location.pathname 
     localStorage.setItem("current", current)
     const { isLoading, data, refetch, } = useQuery('ChatGroup', () =>
-        fetch('http://faad-env.eba-kfucwakm.eu-central-1.elasticbeanstalk.com/api/v1/group', {
+        fetch('https://obscure-oasis-95161.herokuapp.com/api/v1/group', {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 
