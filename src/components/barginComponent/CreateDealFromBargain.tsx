@@ -23,7 +23,7 @@ export default function CreateDealFromBargain() {
     const userContext: IUser = React.useContext(UserContext);  
     
     const { isLoading, data } = useQuery('DealsCreationBargainByID', () =>
-        fetch(`https://faadoli.herokuapp.com/api/v1/bargain/${localStorage.getItem('barginID')}`, {
+        fetch(`http://faad-env.eba-kfucwakm.eu-central-1.elasticbeanstalk.com/api/v1/bargain/${localStorage.getItem('barginID')}`, {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 
@@ -98,7 +98,7 @@ export default function CreateDealFromBargain() {
           return;
         }
         else {
-            const request = await fetch(`https://faadoli.herokuapp.com/api/v1/deals`, {
+            const request = await fetch(`http://faad-env.eba-kfucwakm.eu-central-1.elasticbeanstalk.com/api/v1/deals`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -119,7 +119,7 @@ export default function CreateDealFromBargain() {
             //     console.log(json)
             //     setLoading(false);
             // }
-            await fetch(`https://faadoli.herokuapp.com/api/v1/bargain/${data.data.bargain._id}`, {
+            await fetch(`http://faad-env.eba-kfucwakm.eu-central-1.elasticbeanstalk.com/api/v1/bargain/${data.data.bargain._id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
