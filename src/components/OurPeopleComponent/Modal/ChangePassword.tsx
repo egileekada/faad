@@ -39,7 +39,7 @@ export default function ChangePassword(props: any) {
           return;
         }
         else { 
-            const request = await fetch(`http://faad-env.eba-kfucwakm.eu-central-1.elasticbeanstalk.com/api/v1/auth/change-password/${props.id}`, {
+            const request = await fetch(`https://obscure-oasis-95161.herokuapp.com/api/v1/auth/change-password/${props.id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -55,7 +55,7 @@ export default function ChangePassword(props: any) {
                 const t1 = setTimeout(() => { 
                     props.close(false) 
 
-                    fetch(`http://faad-env.eba-kfucwakm.eu-central-1.elasticbeanstalk.com/api/v1/activity`, {
+                    fetch(`https://obscure-oasis-95161.herokuapp.com/api/v1/activity`, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
