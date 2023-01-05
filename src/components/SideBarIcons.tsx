@@ -2,6 +2,7 @@ import React from 'react'
 
 export default function SideBarIcons(props: any) {
     
+    
     return (
         <div className='w-auto' >
             {props.iconName === 'Dashboard' ?

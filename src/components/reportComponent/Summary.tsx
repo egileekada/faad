@@ -2,6 +2,7 @@ import React from 'react'
 import { useQuery } from 'react-query'
 import PageLoader from '../PageLoader'
 import Stock from './Stock'
+import { BASEURL } from '../../assets/BasicUrl/Url'
 
 export default function Summary(props: any) {
   

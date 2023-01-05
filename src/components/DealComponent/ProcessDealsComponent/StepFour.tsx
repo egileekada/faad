@@ -5,6 +5,7 @@ import ButtonLoader from '../../ButtonLoader'
 export default function StepFour(props: any) {
 
     const [show, setShow] = React.useState(false)
+    
 
     return (
         <div style={{border: '1px solid #DDE2E5'}} className='bg-white rounded-lg p-8 ' >

@@ -11,7 +11,9 @@ const PrintButton = (props: any) => {
   const handlePrint = useReactToPrint({ 
     content: () => componentRef.current as any,
     onAfterPrint: () => setShow(false)
-  });
+  });  
+
+  
 
 useEffect(() => {
   setDetail(props.value)

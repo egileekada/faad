@@ -9,7 +9,7 @@ import { motion } from 'framer-motion'
 import * as yup from 'yup'
 import { useFormik } from 'formik';  
 import ButtonLoader from '../components/ButtonLoader'
-import { IUser, UserContext } from '../components/context/UserContext'
+import { IUser, UserContext } from '../components/context/UserContext' 
 
 export default function LockUser() {
 

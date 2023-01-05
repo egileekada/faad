@@ -4,7 +4,7 @@ import { Outlet, useNavigate } from 'react-router-dom'
 import SideBar from '../components/SideBar'
 import { IUser, UserContext } from '../components/context/UserContext';
 import Avatar from '../assets/images/avatar.png'
-import PageLoader from '../components/PageLoader';
+import PageLoader from '../components/PageLoader'; 
 
 export default function DashboardScreen() {
 

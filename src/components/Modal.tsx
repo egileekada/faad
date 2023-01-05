@@ -9,7 +9,8 @@ export default function Modal(props: any) {
     React.useEffect(() => {
         setModal(props.modal)
     }, [props.modal])    
-
+ 
+    
     return (
         <> 
             {modal === 1 ? 

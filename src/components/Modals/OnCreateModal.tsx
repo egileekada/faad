@@ -6,6 +6,7 @@ export default function OnCreateModal(props: any) {
     const [notify, setNotify] = React.useState(false)
     const navigate = useNavigate()
 
+    
     return (
         <div className='absolute flex z-50 rounded-2xl p-10 mx-8 my-8 bg-white flex-1 inset-0 justify-center items-center flex-col' >
             

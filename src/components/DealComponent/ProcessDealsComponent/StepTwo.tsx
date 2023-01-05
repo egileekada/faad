@@ -11,6 +11,7 @@ export default function StepTwo(props: any) {
     // React.useEffect(() => {
     //     props.inspect(inspect)
     // }, [inspect]) 
+    
 
     return (
         <div style={{border: '1px solid #DDE2E5', height: '60vh'}} className='bg-white rounded-lg p-8 ' >

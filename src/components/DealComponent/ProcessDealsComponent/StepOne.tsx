@@ -8,6 +8,7 @@ import SearchForTrucks from './components/SearchForTrucks'
 export default function StepOne(props: any) {
     
     const [numberOfTanks, setNumberOfTanks] = React.useState(['One'])  
+    
 
     const OnChangeHandler=(item: any)=> {
             if(item > props.values.quantity ){

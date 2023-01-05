@@ -156,23 +156,26 @@ export default function DashboardTab() {
                                 <PageLoader />
                             </div>
                         )}
-
-                        {[...messages]?.reverse().slice(0, 3).map((item: any, index)=> {
-                            return(
-                                <div key={index} className='w-full text-white bg-[#5A6167] py-4 px-3 rounded-xl my-4' >
-                                    <div className='flex items-center' >
-                                        <svg className='mr-2' width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M18 0H2C1.46957 0 0.960859 0.210714 0.585786 0.585786C0.210714 0.960859 0 1.46957 0 2V18.5C0 18.7761 0.223858 19 0.5 19H0.792893C0.925501 19 1.05268 18.9473 1.14645 18.8536L4.85355 15.1464C4.94732 15.0527 5.0745 15 5.20711 15H18C18.5304 15 19.0391 14.7893 19.4142 14.4142C19.7893 14.0391 20 13.5304 20 13V2C20 1.46957 19.7893 0.960859 19.4142 0.585786C19.0391 0.210714 18.5304 0 18 0ZM18 13H4.20711C4.0745 13 3.94732 13.0527 3.85355 13.1464L2.85355 14.1464C2.53857 14.4614 2 14.2383 2 13.7929V2.5C2 2.22386 2.22386 2 2.5 2H18" fill="#F88C3A"/>
-                                        </svg>
-                                        <p className='font-Inter-Bold text-sm' >Message from {item.name} <span className='font-Inter-Regular text-[#F88C3A] ' >{DateFormat(item.updatedAt)}</span></p>
-                                        {/* <svg className='ml-auto cursor-pointer' width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M2.2253 0.811082C1.83477 0.420557 1.20161 0.420557 0.811082 0.811082C0.420557 1.20161 0.420557 1.83477 0.811082 2.2253L6.58582 8.00003L0.811141 13.7747C0.420617 14.1652 0.420617 14.7984 0.811141 15.1889C1.20167 15.5794 1.83483 15.5794 2.22535 15.1889L8.00003 9.41424L13.7747 15.1889C14.1652 15.5794 14.7984 15.5794 15.1889 15.1889C15.5794 14.7984 15.5794 14.1652 15.1889 13.7747L9.41424 8.00003L15.189 2.2253C15.5795 1.83477 15.5795 1.20161 15.189 0.811082C14.7985 0.420557 14.1653 0.420557 13.7748 0.811082L8.00003 6.58582L2.2253 0.811082Z" fill="#ACB5BD"/>
-                                        </svg> */}
-                                    </div>
-                                    <p  className='text-xs font-Inter-Regular mt-1'>{item.message}</p>
-                                </div>
-                            )
-                        })}
+                        {messages && (
+                            <>
+                                {[...messages]?.reverse().slice(0, 3).map((item: any, index)=> {
+                                    return(
+                                        <div key={index} className='w-full text-white bg-[#5A6167] py-4 px-3 rounded-xl my-4' >
+                                            <div className='flex items-center' >
+                                                <svg className='mr-2' width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M18 0H2C1.46957 0 0.960859 0.210714 0.585786 0.585786C0.210714 0.960859 0 1.46957 0 2V18.5C0 18.7761 0.223858 19 0.5 19H0.792893C0.925501 19 1.05268 18.9473 1.14645 18.8536L4.85355 15.1464C4.94732 15.0527 5.0745 15 5.20711 15H18C18.5304 15 19.0391 14.7893 19.4142 14.4142C19.7893 14.0391 20 13.5304 20 13V2C20 1.46957 19.7893 0.960859 19.4142 0.585786C19.0391 0.210714 18.5304 0 18 0ZM18 13H4.20711C4.0745 13 3.94732 13.0527 3.85355 13.1464L2.85355 14.1464C2.53857 14.4614 2 14.2383 2 13.7929V2.5C2 2.22386 2.22386 2 2.5 2H18" fill="#F88C3A"/>
+                                                </svg>
+                                                <p className='font-Inter-Bold text-sm' >Message from {item?.name} <span className='font-Inter-Regular text-[#F88C3A] ' >{DateFormat(item?.updatedAt)}</span></p>
+                                                {/* <svg className='ml-auto cursor-pointer' width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M2.2253 0.811082C1.83477 0.420557 1.20161 0.420557 0.811082 0.811082C0.420557 1.20161 0.420557 1.83477 0.811082 2.2253L6.58582 8.00003L0.811141 13.7747C0.420617 14.1652 0.420617 14.7984 0.811141 15.1889C1.20167 15.5794 1.83483 15.5794 2.22535 15.1889L8.00003 9.41424L13.7747 15.1889C14.1652 15.5794 14.7984 15.5794 15.1889 15.1889C15.5794 14.7984 15.5794 14.1652 15.1889 13.7747L9.41424 8.00003L15.189 2.2253C15.5795 1.83477 15.5795 1.20161 15.189 0.811082C14.7985 0.420557 14.1653 0.420557 13.7748 0.811082L8.00003 6.58582L2.2253 0.811082Z" fill="#ACB5BD"/>
+                                                </svg> */}
+                                            </div>
+                                            <p  className='text-xs font-Inter-Regular mt-1'>{item?.message}</p>
+                                        </div>
+                                    )
+                                })}
+                            </>
+                        )}
                         {/* <div className='w-full text-white bg-[#5A6167] py-4 px-3 rounded-xl my-4' >
                             <div className='flex items-center' >
                                 <svg className='mr-2' width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">

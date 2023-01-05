@@ -11,6 +11,7 @@ export default function StepFive() {
     //     const timer = setTimeout(() =>  userContext.setDealTab(1), 2000);
     // },)
 
+    
     return (
         <div style={{border: '1px solid #DDE2E5', height: '60vh'}} className='bg-white rounded-lg p-8 ' >
             <div  className='w-full relative h-full flex flex-col justify-center items-center' >

@@ -5,7 +5,8 @@ import { IUser, UserContext } from '../../../context/UserContext'
 import DateFormat from '../../../DateFormat'
  
 const DeliveryNote = React.forwardRef((props: any, ref: any) => { 
-
+ 
+    
     const userContext: IUser = React.useContext(UserContext); 
     return (
         <> 

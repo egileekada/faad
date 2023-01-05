@@ -10,7 +10,7 @@ import * as yup from 'yup'
 import { useFormik } from 'formik';  
 import ButtonLoader from '../components/ButtonLoader'
 import { IUser, UserContext } from '../components/context/UserContext'
-import Modal from '../components/Modal'
+import Modal from '../components/Modal' 
 
 export default function LoginScreen() { 
 

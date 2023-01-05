@@ -58,7 +58,8 @@ const PrintedSlip = React.forwardRef((props: any, ref: any) => {
     //         console.error('Error:', error); 
     //     },);  
     // }
- 
+  
+    
     return (
         <> 
             <div ref={ref} className='w-full h-full p-10' >
