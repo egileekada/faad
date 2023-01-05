@@ -55,7 +55,7 @@ export default function AddStorageTanks(props: any) {
           return;
         }
         else {
-            const request = await fetch(`http://faad-env.eba-kfucwakm.eu-central-1.elasticbeanstalk.com/api/v1/tank`, {
+            const request = await fetch(`https://obscure-oasis-95161.herokuapp.com/api/v1/tank`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -83,7 +83,7 @@ export default function AddStorageTanks(props: any) {
     }   
 
     const { isLoading, data } = useQuery('SelectProductAndPricing', () =>
-        fetch('http://faad-env.eba-kfucwakm.eu-central-1.elasticbeanstalk.com/api/v1/product', {
+        fetch('https://obscure-oasis-95161.herokuapp.com/api/v1/product', {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 
