@@ -10,7 +10,7 @@ export default function Summary(props: any) {
     const [type, setType ] = React.useState('')
     const [loading, setLoading] = React.useState(true)
     const { isLoading, data } = useQuery('AllDelivery', () =>
-        fetch('https://faadoli.herokuapp.com/api/v1/delivery', {
+        fetch('https://obscure-oasis-95161.herokuapp.com/api/v1/delivery', {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 
@@ -28,7 +28,7 @@ export default function Summary(props: any) {
 
 
     React.useEffect(() => {
-        fetch('http://faad-env.eba-kfucwakm.eu-central-1.elasticbeanstalk.com/api/v1/product', {
+        fetch('https://obscure-oasis-95161.herokuapp.com/api/v1/product', {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json',
