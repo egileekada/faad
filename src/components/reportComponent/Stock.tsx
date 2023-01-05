@@ -5,7 +5,7 @@ export default function Stock(props: any) {
     const [tankData, setTankData ] = React.useState([] as any)
  
     const { isLoading, data, refetch } = useQuery('AllStock', () =>
-        fetch('https://faadoli.herokuapp.com/api/v1/stock', {
+        fetch('http://faad-env.eba-kfucwakm.eu-central-1.elasticbeanstalk.com/api/v1/stock', {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 
@@ -18,7 +18,7 @@ export default function Stock(props: any) {
  
     React.useEffect(() => {
         
-        fetch('https://faadoli.herokuapp.com/api/v1/tank', {
+        fetch('http://faad-env.eba-kfucwakm.eu-central-1.elasticbeanstalk.com/api/v1/tank', {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json',
