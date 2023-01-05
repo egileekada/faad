@@ -5,7 +5,7 @@ import { useQuery } from 'react-query'
 export default function SearchForTank(props: any) {
  
     const { isLoading, data } = useQuery('SearchAllTank', () =>
-        fetch('https://faadoli.herokuapp.com/api/v1/tank', {
+        fetch('http://faad-env.eba-kfucwakm.eu-central-1.elasticbeanstalk.com/api/v1/tank', {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 
@@ -18,7 +18,7 @@ export default function SearchForTank(props: any) {
 
     const OnChangeHandle =async(item: any, index: any)=> {
         // await GetData(index) 
-        fetch(`https://faadoli.herokuapp.com/api/v1/tank/${item}`, {
+        fetch(`http://faad-env.eba-kfucwakm.eu-central-1.elasticbeanstalk.com/api/v1/tank/${item}`, {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json',
