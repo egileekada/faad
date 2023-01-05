@@ -7,7 +7,7 @@ import DateFormat from '../DateFormat'
 export default function Permission() {  
 
     const { isLoading, data } = useQuery('AllActivty', () =>
-        fetch('http://faad-env.eba-kfucwakm.eu-central-1.elasticbeanstalk.com/api/v1/activity', {
+        fetch('https://obscure-oasis-95161.herokuapp.com/api/v1/activity', {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 
