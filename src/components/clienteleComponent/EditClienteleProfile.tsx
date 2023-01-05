@@ -52,7 +52,7 @@ export default function ClienteleProfile() {
           return;
         }
         else {
-            const request = await fetch(`https://faadoli.herokuapp.com/api/v1/client`, {
+            const request = await fetch(`http://faad-env.eba-kfucwakm.eu-central-1.elasticbeanstalk.com/api/v1/client`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -95,7 +95,7 @@ export default function ClienteleProfile() {
 
 
     const { isLoading, data } = useQuery('EditClientsByID'+localStorage.getItem('editClientID'), () =>
-        fetch(`https://faadoli.herokuapp.com/api/v1/client/${localStorage.getItem('editClientID')}`, {
+        fetch(`http://faad-env.eba-kfucwakm.eu-central-1.elasticbeanstalk.com/api/v1/client/${localStorage.getItem('editClientID')}`, {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 
@@ -121,7 +121,7 @@ export default function ClienteleProfile() {
           return;
         }
         else {
-            const request = await fetch(`https://faadoli.herokuapp.com/api/v1/client/${data.data.client._id}`, {
+            const request = await fetch(`http://faad-env.eba-kfucwakm.eu-central-1.elasticbeanstalk.com/api/v1/client/${data.data.client._id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
