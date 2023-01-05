@@ -14,7 +14,7 @@ export default function ClienteleInfo() {
     localStorage.setItem("current", current)
  
     const { isLoading, data } = useQuery('ClientsByID'+localStorage.getItem('clientID'), () =>
-        fetch(`http://faad-env.eba-kfucwakm.eu-central-1.elasticbeanstalk.com/api/v1/client/${localStorage.getItem('clientID')}`, {
+        fetch(`https://obscure-oasis-95161.herokuapp.com/api/v1/client/${localStorage.getItem('clientID')}`, {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 
