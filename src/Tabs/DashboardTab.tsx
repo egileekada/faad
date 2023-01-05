@@ -16,10 +16,10 @@ export default function DashboardTab() {
         userContext.setTab('Dashboard')
     },[]); 
 
-    const socket : any= io("http://faad-env.eba-kfucwakm.eu-central-1.elasticbeanstalk.com");
+    const socket : any= io("https://obscure-oasis-95161.herokuapp.com");
     
     const { isLoading, data } = useQuery('AllBargains', () =>
-        fetch('http://faad-env.eba-kfucwakm.eu-central-1.elasticbeanstalk.com/api/v1/bargain', {
+        fetch('https://obscure-oasis-95161.herokuapp.com/api/v1/bargain', {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 
