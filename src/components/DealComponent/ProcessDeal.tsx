@@ -46,7 +46,7 @@ export default function ProcessDeal(props: any) {
     });    
 
     React.useEffect(() => {
-        fetch(`https://faadoli.herokuapp.com/api/v1/delivery`, {
+        fetch(`http://faad-env.eba-kfucwakm.eu-central-1.elasticbeanstalk.com/api/v1/delivery`, {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json',
@@ -100,7 +100,7 @@ export default function ProcessDeal(props: any) {
         
         setLoading(true); 
         if(!showDetail){ 
-            const request = await fetch(`https://faadoli.herokuapp.com/api/v1/delivery`, {
+            const request = await fetch(`http://faad-env.eba-kfucwakm.eu-central-1.elasticbeanstalk.com/api/v1/delivery`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -133,7 +133,7 @@ export default function ProcessDeal(props: any) {
             if (request.status === 200) {     
                 // alert('Sucessfull')
                 setProcessing(true)
-                const request = await fetch(`https://faadoli.herokuapp.com/api/v1/deals/${userContext.dealValue._id}`, {
+                const request = await fetch(`http://faad-env.eba-kfucwakm.eu-central-1.elasticbeanstalk.com/api/v1/deals/${userContext.dealValue._id}`, {
                         method: 'PUT',
                         headers: {
                             'Content-Type': 'application/json',
@@ -144,7 +144,7 @@ export default function ProcessDeal(props: any) {
                         }),
                     }) 
                     if (request.status === 200) {  
-                        const request = await fetch(`https://faadoli.herokuapp.com/api/v1/truck/${truckInfo}`, {
+                        const request = await fetch(`http://faad-env.eba-kfucwakm.eu-central-1.elasticbeanstalk.com/api/v1/truck/${truckInfo}`, {
                             method: 'PUT',
                             headers: {
                                 'Content-Type': 'application/json',
@@ -181,7 +181,7 @@ export default function ProcessDeal(props: any) {
             } 
         } else {
             setLoading(true); 
-            const request = await fetch(`https://faadoli.herokuapp.com/api/v1/delivery/${deliveryId}`, {
+            const request = await fetch(`http://faad-env.eba-kfucwakm.eu-central-1.elasticbeanstalk.com/api/v1/delivery/${deliveryId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -212,7 +212,7 @@ export default function ProcessDeal(props: any) {
                 // alert('Sucessfull')
                 if(confirmedDeliveryInfo.receivedDeliveryNote){
 
-                    const request = await fetch(`https://faadoli.herokuapp.com/api/v1/deals/${userContext.dealValue._id}`, {
+                    const request = await fetch(`http://faad-env.eba-kfucwakm.eu-central-1.elasticbeanstalk.com/api/v1/deals/${userContext.dealValue._id}`, {
                         method: 'PUT',
                         headers: {
                             'Content-Type': 'application/json',
@@ -224,7 +224,7 @@ export default function ProcessDeal(props: any) {
                     }) 
                     if (request.status === 200) {  
                         // alert('Deal Update')
-                        const request = await fetch(`https://faadoli.herokuapp.com/api/v1/truck/${truckInfo}`, {
+                        const request = await fetch(`http://faad-env.eba-kfucwakm.eu-central-1.elasticbeanstalk.com/api/v1/truck/${truckInfo}`, {
                             method: 'PUT',
                             headers: {
                                 'Content-Type': 'application/json',
