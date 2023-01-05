@@ -5,7 +5,7 @@ import { useQuery } from 'react-query'
 export default function SearchProduct(props: any) {
 
     const { isLoading, data } = useQuery('AllProductAndPricing', () =>
-        fetch('https://faadoli.herokuapp.com/api/v1/product', {
+        fetch('http://faad-env.eba-kfucwakm.eu-central-1.elasticbeanstalk.com/api/v1/product', {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 
