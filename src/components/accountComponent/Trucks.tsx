@@ -9,7 +9,7 @@ export default function Trucks() {
     const [deleteModal, setDeleteModal] = React.useState(false)  
     const [deleteId, setDeleteId] = React.useState(''); 
     const DeleteHandler =async(index: any)=> {
-        await fetch(`http://faad-env.eba-kfucwakm.eu-central-1.elasticbeanstalk.com/api/v1/truck/${index}`, {
+        await fetch(`https://obscure-oasis-95161.herokuapp.com/api/v1/truck/${index}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
@@ -23,7 +23,7 @@ export default function Trucks() {
     }
 
     const { isLoading, data, refetch } = useQuery('AllTruck', () =>
-        fetch('http://faad-env.eba-kfucwakm.eu-central-1.elasticbeanstalk.com/api/v1/truck', {
+        fetch('https://obscure-oasis-95161.herokuapp.com/api/v1/truck', {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 
