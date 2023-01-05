@@ -29,7 +29,7 @@ export default function Clientele() {
     },[name]);  
 
     const { isLoading, data } = useQuery('AllClients', () =>
-        fetch('http://faad-env.eba-kfucwakm.eu-central-1.elasticbeanstalk.com/api/v1/client', {
+        fetch('https://obscure-oasis-95161.herokuapp.com/api/v1/client', {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 
