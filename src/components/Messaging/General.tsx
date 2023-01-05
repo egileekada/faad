@@ -12,14 +12,14 @@ import ScrollToBottom from 'react-scroll-to-bottom';
 
 export default function General() { 
 
-    const socket : any= io("https://faadoli.herokuapp.com");
+    const socket : any= io("http://faad-env.eba-kfucwakm.eu-central-1.elasticbeanstalk.com");
     const userContext: IUser = React.useContext(UserContext);  
     const [loading, setLoading] = React.useState('');
 
     const current = window.location.pathname 
     localStorage.setItem("current", current)
     const { isLoading, data, refetch, } = useQuery('ChatGroup', () =>
-        fetch('https://faadoli.herokuapp.com/api/v1/group', {
+        fetch('http://faad-env.eba-kfucwakm.eu-central-1.elasticbeanstalk.com/api/v1/group', {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 
