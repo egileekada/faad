@@ -8,7 +8,7 @@ export default function OngoingDeals(props: any) {
  
     const userContext: IUser = React.useContext(UserContext); 
     const { isLoading, data, refetch } = useQuery('AllDeals', () =>
-        fetch('https://faadoli.herokuapp.com/api/v1/deals', {
+        fetch('http://faad-env.eba-kfucwakm.eu-central-1.elasticbeanstalk.com/api/v1/deals', {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 
