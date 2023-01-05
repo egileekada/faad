@@ -13,7 +13,7 @@ export default function DashboardScreen() {
     const [general, setGeneral] = React.useState([] as any) 
 
     const { isLoading, data } = useQuery('userData'+localStorage.getItem('token'), () =>
-        fetch('https://faadoli.herokuapp.com/api/v1/auth/profile', {
+        fetch('http://faad-env.eba-kfucwakm.eu-central-1.elasticbeanstalk.com/api/v1/auth/profile', {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 
@@ -25,7 +25,7 @@ export default function DashboardScreen() {
     )   
 
     const AddToChatGroup =async(item: any)=> { 
-        const request = await fetch(`https://faadoli.herokuapp.com/api/v1/group/${item}`, {
+        const request = await fetch(`http://faad-env.eba-kfucwakm.eu-central-1.elasticbeanstalk.com/api/v1/group/${item}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -55,7 +55,7 @@ export default function DashboardScreen() {
 
     // React.useEffect(() => {
 
-    //     fetch(`https://faadoli.herokuapp.com/api/v1/group/62ade34f15f3fa53457b1c2c/members`, {
+    //     fetch(`http://faad-env.eba-kfucwakm.eu-central-1.elasticbeanstalk.com/api/v1/group/62ade34f15f3fa53457b1c2c/members`, {
     //         method: 'GET', // or 'PUT'
     //         headers: {
     //             'Content-Type': 'application/json',
