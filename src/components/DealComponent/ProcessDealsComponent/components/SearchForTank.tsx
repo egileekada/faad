@@ -1,11 +1,12 @@
 import { Select } from '@chakra-ui/react'
 import React from 'react'
 import { useQuery } from 'react-query'
+import { BASEURL } from '../../../../assets/BasicUrl/Url'
 
 export default function SearchForTank(props: any) {
  
     const { isLoading, data } = useQuery('SearchAllTank', () =>
-        fetch('https://obscure-oasis-95161.herokuapp.com/api/v1/tank', {
+        fetch(BASEURL.URL+'tank', {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 
@@ -18,7 +19,7 @@ export default function SearchForTank(props: any) {
 
     const OnChangeHandle =async(item: any, index: any)=> {
         // await GetData(index) 
-        fetch(`https://obscure-oasis-95161.herokuapp.com/api/v1/tank/${item}`, {
+        fetch(`${BASEURL.URL}tank/${item}`, {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json',

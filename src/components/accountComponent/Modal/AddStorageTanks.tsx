@@ -8,6 +8,7 @@ import ButtonLoader from '../../ButtonLoader';
 import { IUser, UserContext } from '../../context/UserContext';
 import PageLoader from '../../PageLoader';
 import SuccessModal from '../../SuccessModal';
+import { BASEURL } from '../../../assets/BasicUrl/Url';
 
 export default function AddStorageTanks(props: any) { 
 
@@ -55,7 +56,7 @@ export default function AddStorageTanks(props: any) {
           return;
         }
         else {
-            const request = await fetch(`https://obscure-oasis-95161.herokuapp.com/api/v1/tank`, {
+            const request = await fetch(`${BASEURL.URL}tank`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -83,7 +84,7 @@ export default function AddStorageTanks(props: any) {
     }   
 
     const { isLoading, data } = useQuery('SelectProductAndPricing', () =>
-        fetch('https://obscure-oasis-95161.herokuapp.com/api/v1/product', {
+        fetch(BASEURL.URL+'product', {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 

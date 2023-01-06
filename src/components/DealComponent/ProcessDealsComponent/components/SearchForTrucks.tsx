@@ -1,11 +1,12 @@
 import { Select } from '@chakra-ui/react'
 import React from 'react'
 import { useQuery } from 'react-query'
+import { BASEURL } from '../../../../assets/BasicUrl/Url'
 
 export default function SearchForTrucks(props: any) {
  
     const { isLoading, data } = useQuery('SearchAllTruck', () =>
-        fetch('https://obscure-oasis-95161.herokuapp.com/api/v1/truck', {
+        fetch(BASEURL.URL+'truck', {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 

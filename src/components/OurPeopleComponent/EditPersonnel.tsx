@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom'
 import { IUser, UserContext } from '../context/UserContext'
 import ButtonLoader from '../ButtonLoader'
 import ChangePassword from './Modal/ChangePassword'
+import { BASEURL } from '../../assets/BasicUrl/Url'
 
 export default function EditPersonnel() {
 
@@ -46,7 +47,7 @@ export default function EditPersonnel() {
     } 
 
     const DeleteHandler =async(index: any)=> {
-        await fetch(`https://obscure-oasis-95161.herokuapp.com/api/v1/auth/profile/${index}`, {
+        await fetch(`${BASEURL.URL}auth/profile/${index}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
@@ -95,7 +96,7 @@ export default function EditPersonnel() {
     const submit = async () => {
 
         setLoading(true) 
-        const request = await fetch(`https://obscure-oasis-95161.herokuapp.com/api/v1/auth/profile/${userContext.profileData._id}`, {
+        const request = await fetch(`${BASEURL.URL}auth/profile/${userContext.profileData._id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -110,8 +111,8 @@ export default function EditPersonnel() {
                 let formData = new FormData()     
                 formData.append('avatar', image)  
 
-                // make request to server 
-                await axios.default.put(`https://obscure-oasis-95161.herokuapp.com/api/v1/auth/profile/${userContext.profileData._id}/picture`, formData, {
+                // make request to server  
+                await axios.default.put(`${BASEURL.URL}auth/profile/${userContext.profileData._id}/picture`, formData, {
                     headers: { 'content-type': 'application/json', 
                         Authorization : `Bearer ${localStorage.getItem('token')}` 
                     }

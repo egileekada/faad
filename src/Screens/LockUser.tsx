@@ -10,6 +10,7 @@ import * as yup from 'yup'
 import { useFormik } from 'formik';  
 import ButtonLoader from '../components/ButtonLoader'
 import { IUser, UserContext } from '../components/context/UserContext' 
+import { BASEURL } from '../assets/BasicUrl/Url'
 
 export default function LockUser() {
 
@@ -53,7 +54,7 @@ export default function LockUser() {
           setLoading(false);
           return;
         }else {
-            const request = await fetch(`https://obscure-oasis-95161.herokuapp.com/api/v1/auth/login`, {
+            const request = await fetch(`${BASEURL.URL}auth/login`, {
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/json',

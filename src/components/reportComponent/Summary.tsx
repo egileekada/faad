@@ -11,7 +11,7 @@ export default function Summary(props: any) {
     const [type, setType ] = React.useState('')
     const [loading, setLoading] = React.useState(true)
     const { isLoading, data } = useQuery('AllDelivery', () =>
-        fetch('https://obscure-oasis-95161.herokuapp.com/api/v1/delivery', {
+        fetch(BASEURL.URL+'delivery', {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 
@@ -29,7 +29,7 @@ export default function Summary(props: any) {
 
 
     React.useEffect(() => {
-        fetch('https://obscure-oasis-95161.herokuapp.com/api/v1/product', {
+        fetch(BASEURL.URL+'product', {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json',

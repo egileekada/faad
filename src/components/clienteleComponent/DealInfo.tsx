@@ -4,6 +4,7 @@ import { useQuery } from 'react-query'
 import { useNavigate } from 'react-router-dom'
 import DateFormat from '../DateFormat'
 import PageLoader from '../PageLoader'
+import { BASEURL } from '../../assets/BasicUrl/Url'
 
 export default function DealInfo() {
 
@@ -38,7 +39,7 @@ export default function DealInfo() {
     const navigate = useNavigate()
 
     // const { isLoading, data } = useQuery('DealsByID'+localStorage.getItem('dealID'), () =>
-    //     fetch(`https://obscure-oasis-95161.herokuapp.com/api/v1/deals/${localStorage.getItem('dealID')}`, {
+    //     fetch(`${BASEURL.URL}deals/${localStorage.getItem('dealID')}`, {
     //         method: 'GET', // or 'PUT'
     //         headers: {
     //             'Content-Type': 'application/json', 
@@ -50,7 +51,7 @@ export default function DealInfo() {
     // )  
 
     const { isLoading, data } = useQuery('DeliveryById'+localStorage.getItem('dealID'), () =>
-        fetch(`https://obscure-oasis-95161.herokuapp.com/api/v1/delivery/${localStorage.getItem('dealID')}`, {
+        fetch(`${BASEURL.URL}delivery/${localStorage.getItem('dealID')}`, {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 

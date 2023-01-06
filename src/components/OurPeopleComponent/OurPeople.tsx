@@ -6,6 +6,7 @@ import { IUser, UserContext } from '../context/UserContext'
 import PageLoader from '../PageLoader'
 import Avatar from '../../assets/images/avatar.png' 
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io'
+import { BASEURL } from '../../assets/BasicUrl/Url'
 
 export default function OurPeople() {
  
@@ -61,7 +62,7 @@ export default function OurPeople() {
      
 
     const { isLoading, error, data } = useQuery('userDataAll', () =>
-        fetch('https://obscure-oasis-95161.herokuapp.com/api/v1/auth/profile/all', {
+        fetch(BASEURL.URL+'auth/profile/all', {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 

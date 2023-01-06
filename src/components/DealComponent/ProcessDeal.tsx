@@ -11,6 +11,7 @@ import StepFour from './ProcessDealsComponent/StepFour'
 import StepOne from './ProcessDealsComponent/StepOne'
 import StepThree from './ProcessDealsComponent/StepThree'
 import StepTwo from './ProcessDealsComponent/StepTwo'
+import { BASEURL } from '../../assets/BasicUrl/Url'
 
 export default function ProcessDeal(props: any) {
 
@@ -46,7 +47,7 @@ export default function ProcessDeal(props: any) {
     });    
 
     React.useEffect(() => {
-        fetch(`https://obscure-oasis-95161.herokuapp.com/api/v1/delivery`, {
+        fetch(`${BASEURL.URL}delivery`, {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json',
@@ -100,7 +101,7 @@ export default function ProcessDeal(props: any) {
         
         setLoading(true); 
         if(!showDetail){ 
-            const request = await fetch(`https://obscure-oasis-95161.herokuapp.com/api/v1/delivery`, {
+            const request = await fetch(`${BASEURL.URL}delivery`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -133,7 +134,7 @@ export default function ProcessDeal(props: any) {
             if (request.status === 200) {     
                 // alert('Sucessfull')
                 setProcessing(true)
-                const request = await fetch(`https://obscure-oasis-95161.herokuapp.com/api/v1/deals/${userContext.dealValue._id}`, {
+                const request = await fetch(`${BASEURL.URL}deals/${userContext.dealValue._id}`, {
                         method: 'PUT',
                         headers: {
                             'Content-Type': 'application/json',
@@ -144,7 +145,7 @@ export default function ProcessDeal(props: any) {
                         }),
                     }) 
                     if (request.status === 200) {  
-                        const request = await fetch(`https://obscure-oasis-95161.herokuapp.com/api/v1/truck/${truckInfo}`, {
+                        const request = await fetch(`${BASEURL.URL}truck/${truckInfo}`, {
                             method: 'PUT',
                             headers: {
                                 'Content-Type': 'application/json',
@@ -181,7 +182,7 @@ export default function ProcessDeal(props: any) {
             } 
         } else {
             setLoading(true); 
-            const request = await fetch(`https://obscure-oasis-95161.herokuapp.com/api/v1/delivery/${deliveryId}`, {
+            const request = await fetch(`${BASEURL.URL}delivery/${deliveryId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -212,7 +213,7 @@ export default function ProcessDeal(props: any) {
                 // alert('Sucessfull')
                 if(confirmedDeliveryInfo.receivedDeliveryNote){
 
-                    const request = await fetch(`https://obscure-oasis-95161.herokuapp.com/api/v1/deals/${userContext.dealValue._id}`, {
+                    const request = await fetch(`${BASEURL.URL}deals/${userContext.dealValue._id}`, {
                         method: 'PUT',
                         headers: {
                             'Content-Type': 'application/json',
@@ -224,7 +225,7 @@ export default function ProcessDeal(props: any) {
                     }) 
                     if (request.status === 200) {  
                         // alert('Deal Update')
-                        const request = await fetch(`https://obscure-oasis-95161.herokuapp.com/api/v1/truck/${truckInfo}`, {
+                        const request = await fetch(`${BASEURL.URL}truck/${truckInfo}`, {
                             method: 'PUT',
                             headers: {
                                 'Content-Type': 'application/json',

@@ -3,6 +3,7 @@ import { useReactToPrint } from "react-to-print";
 import DeliveryNote from "./DeliveryNote";
 import DispatchNote from "./DispatchNote";
 import WaterTest from "./WaterTest";
+import { BASEURL } from "../../../../assets/BasicUrl/Url";
 
 const PrintButton = (props: any) => {
   const componentRef = useRef(); 
@@ -17,7 +18,7 @@ const PrintButton = (props: any) => {
   const [truck, setTruckInfo] = React.useState('')
 
   if(props.agent){  
-    fetch(`https://obscure-oasis-95161.herokuapp.com/api/v1/auth/profile/all`, {
+    fetch(`${BASEURL.URL}auth/profile/all`, {
         method: 'GET', // or 'PUT'
         headers: {
             'Content-Type': 'application/json',
@@ -46,7 +47,7 @@ const PrintButton = (props: any) => {
   }
   
   if(props.truck){  
-    fetch(`https://obscure-oasis-95161.herokuapp.com/api/v1/truck/${props.truck}`, {
+    fetch(`${BASEURL.URL}truck/${props.truck}`, {
         method: 'GET', // or 'PUT'
         headers: {
             'Content-Type': 'application/json',

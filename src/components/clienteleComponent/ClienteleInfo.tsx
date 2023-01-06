@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import DateFormat from '../DateFormat'
 import DealHistory from '../DealComponent/component/DealHistory'
 import PageLoader from '../PageLoader'
+import { BASEURL } from '../../assets/BasicUrl/Url'
 
 export default function ClienteleInfo() {
 
@@ -14,7 +15,7 @@ export default function ClienteleInfo() {
     localStorage.setItem("current", current)
  
     const { isLoading, data } = useQuery('ClientsByID'+localStorage.getItem('clientID'), () =>
-        fetch(`https://obscure-oasis-95161.herokuapp.com/api/v1/client/${localStorage.getItem('clientID')}`, {
+        fetch(`${BASEURL.URL}client/${localStorage.getItem('clientID')}`, {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 

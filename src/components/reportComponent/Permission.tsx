@@ -3,11 +3,12 @@ import React from 'react'
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io'
 import { useQuery } from 'react-query' 
 import DateFormat from '../DateFormat'
+import { BASEURL } from '../../assets/BasicUrl/Url'
 
 export default function Permission() {  
 
     const { isLoading, data } = useQuery('AllActivty', () =>
-        fetch('https://obscure-oasis-95161.herokuapp.com/api/v1/activity', {
+        fetch(BASEURL.URL+'activity', {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 

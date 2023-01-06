@@ -7,6 +7,7 @@ import { useFormik } from 'formik';
 import * as axios from 'axios'   
 import { useNavigate } from 'react-router-dom'
 import ButtonLoader from '../ButtonLoader'
+import { BASEURL } from '../../assets/BasicUrl/Url'
 
 export default function NewProfile() {
     const [showModal, setShowModal] = React.useState(false) 
@@ -93,7 +94,7 @@ export default function NewProfile() {
                 }
 
 
-                const request = await fetch(`https://obscure-oasis-95161.herokuapp.com/api/v1/auth/signup`, {
+                const request = await fetch(`${BASEURL.URL}auth/signup`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

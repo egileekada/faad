@@ -5,6 +5,7 @@ import { useQuery } from 'react-query'
 import { useNavigate } from 'react-router-dom'
 import { IUser, UserContext } from '../context/UserContext'
 import PageLoader from '../PageLoader'
+import { BASEURL } from '../../assets/BasicUrl/Url'
 
 export default function Bargin() {
  
@@ -25,7 +26,7 @@ export default function Bargin() {
     },[name]);  
 
     const { isLoading, data, refetch } = useQuery('AllBargains', () =>
-        fetch('https://obscure-oasis-95161.herokuapp.com/api/v1/bargain', {
+        fetch(BASEURL.URL+'bargain', {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 

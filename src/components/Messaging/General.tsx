@@ -9,17 +9,18 @@ import GetUserOnGroup from './component/GetUserOnGroup';
 import DateFormat from '../DateFormat';
 import ChatComponent from './component/ChatComponent';
 import ScrollToBottom from 'react-scroll-to-bottom';
+import { BASEURL } from '../../assets/BasicUrl/Url';
 
 export default function General() { 
 
-    const socket : any= io("https://obscure-oasis-95161.herokuapp.com");
+    const socket : any= io(BASEURL.SNG);
     const userContext: IUser = React.useContext(UserContext);  
     const [loading, setLoading] = React.useState('');
 
     const current = window.location.pathname 
     localStorage.setItem("current", current)
     const { isLoading, data, refetch, } = useQuery('ChatGroup', () =>
-        fetch('https://obscure-oasis-95161.herokuapp.com/api/v1/group', {
+        fetch(BASEURL.URL+'group', {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 

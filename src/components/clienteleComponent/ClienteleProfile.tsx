@@ -6,6 +6,7 @@ import { motion } from 'framer-motion'
 import * as yup from 'yup'
 import { useFormik } from 'formik';  
 import ButtonLoader from '../ButtonLoader' 
+import { BASEURL } from '../../assets/BasicUrl/Url'
 
 export default function ClienteleProfile() { 
 
@@ -50,7 +51,7 @@ export default function ClienteleProfile() {
           return;
         }
         else {
-            const request = await fetch(`https://obscure-oasis-95161.herokuapp.com/api/v1/client`, {
+            const request = await fetch(`${BASEURL.URL}client`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

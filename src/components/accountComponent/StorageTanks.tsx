@@ -6,6 +6,7 @@ import AddStorageTanks from './Modal/AddStorageTanks'
 import CalibrateTank from './Modal/CalibrateTank'
 import Alert from '../../assets/images/alert.png' 
 import TopUpHistory from './components/TopUpHistory'
+import { BASEURL } from '../../assets/BasicUrl/Url'
 
 export default function StorageTanks() {
 
@@ -30,7 +31,7 @@ export default function StorageTanks() {
     } 
 
     const { isLoading, data, refetch } = useQuery('AllTank', () =>
-        fetch('https://obscure-oasis-95161.herokuapp.com/api/v1/tank', {
+        fetch(BASEURL.URL+'tank', {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 

@@ -6,6 +6,7 @@ import { IUser, UserContext } from '../context/UserContext'
 import DealsTable from './DealsTable'
 import OngoingDeals from './OngoingDeals'
 import ProcessDeal from './ProcessDeal'
+import { BASEURL } from '../../assets/BasicUrl/Url'
 
 export default function Deal() {
  
@@ -15,7 +16,7 @@ export default function Deal() {
     const userContext: IUser = React.useContext(UserContext);   
 
     const { isLoading, data } = useQuery('AllDeals', () =>
-        fetch('https://obscure-oasis-95161.herokuapp.com/api/v1/deals', {
+        fetch(BASEURL.URL+'deals', {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 

@@ -3,12 +3,13 @@ import { useQuery } from 'react-query'
 import { IUser, UserContext } from '../context/UserContext';
 import DateFormat from '../DateFormat'
 import PageLoader from '../PageLoader'
+import { BASEURL } from '../../assets/BasicUrl/Url';
 
 export default function OngoingDeals(props: any) { 
  
     const userContext: IUser = React.useContext(UserContext); 
     const { isLoading, data, refetch } = useQuery('AllDeals', () =>
-        fetch('https://obscure-oasis-95161.herokuapp.com/api/v1/deals', {
+        fetch(BASEURL.URL+'deals', {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 

@@ -1,10 +1,11 @@
 import React from 'react'
 import { useQuery } from 'react-query'
+import { BASEURL } from '../../../assets/BasicUrl/Url'
 
 export default function BargainNotification() {
 
     const { isLoading, data, refetch } = useQuery('AllBargains', () =>
-        fetch('https://obscure-oasis-95161.herokuapp.com/api/v1/bargain', {
+        fetch(BASEURL.URL+'bargain', {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 

@@ -3,6 +3,7 @@ import React from 'react'
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io'
 import { useQuery } from 'react-query'
 import DateFormat from '../DateFormat'
+import { BASEURL } from '../../assets/BasicUrl/Url'
 
 export default function StockInfo(props: any) {
 
@@ -60,7 +61,7 @@ export default function StockInfo(props: any) {
 
      
     const { isLoading, data, refetch } = useQuery('AllStock', () =>
-        fetch('https://obscure-oasis-95161.herokuapp.com/api/v1/stock', {
+        fetch(BASEURL.URL+'stock', {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 

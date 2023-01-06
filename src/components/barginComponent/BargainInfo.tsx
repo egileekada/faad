@@ -3,6 +3,7 @@ import { useQuery } from 'react-query'
 import { useNavigate } from 'react-router-dom'
 import DateFormat from '../DateFormat'
 import PageLoader from '../PageLoader'
+import { BASEURL } from '../../assets/BasicUrl/Url'
 
 export default function BargainInfo() {
 
@@ -13,7 +14,7 @@ export default function BargainInfo() {
     const Subject ='Processing Bargain'
     
     const { isLoading, data } = useQuery('BargainByID'+localStorage.getItem('barginID'), () =>
-        fetch(`https://obscure-oasis-95161.herokuapp.com/api/v1/bargain/${localStorage.getItem('barginID')}`, {
+        fetch(`${BASEURL.URL}bargain/${localStorage.getItem('barginID')}`, {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 
@@ -31,7 +32,7 @@ export default function BargainInfo() {
     )    
 
     const DeleteHandler =async()=> {
-        const request = await fetch(`https://obscure-oasis-95161.herokuapp.com/api/v1/bargain/${data.data.bargain._id}`, {
+        const request = await fetch(`${BASEURL.URL}bargain/${data.data.bargain._id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

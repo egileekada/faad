@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import React from 'react'
 import ButtonLoader from '../../ButtonLoader';
 import * as yup from 'yup'
+import { BASEURL } from '../../../assets/BasicUrl/Url';
 
 export default function ChangePassword(props: any) { 
 
@@ -39,7 +40,7 @@ export default function ChangePassword(props: any) {
           return;
         }
         else { 
-            const request = await fetch(`https://obscure-oasis-95161.herokuapp.com/api/v1/auth/change-password/${props.id}`, {
+            const request = await fetch(`${BASEURL.URL}auth/change-password/${props.id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -55,7 +56,7 @@ export default function ChangePassword(props: any) {
                 const t1 = setTimeout(() => { 
                     props.close(false) 
 
-                    fetch(`https://obscure-oasis-95161.herokuapp.com/api/v1/activity`, {
+                    fetch(`${BASEURL.URL}activity`, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',

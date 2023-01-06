@@ -6,6 +6,7 @@ import ButtonLoader from '../../ButtonLoader';
 import * as yup from 'yup'
 import SuccessModal from '../../SuccessModal';
 import { IUser, UserContext } from '../../context/UserContext';
+import { BASEURL } from '../../../assets/BasicUrl/Url';
 
 export default function CalibrateTank(props: any) {
     
@@ -58,7 +59,7 @@ export default function CalibrateTank(props: any) {
         else {
             if(props.fill) {
 
-                const request = await fetch(`https://obscure-oasis-95161.herokuapp.com/api/v1/tank/${props.values._id}`, {
+                const request = await fetch(`${BASEURL.URL}tank/${props.values._id}`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
@@ -92,7 +93,7 @@ export default function CalibrateTank(props: any) {
                 }
             } else {
 
-                const request = await fetch(`https://obscure-oasis-95161.herokuapp.com/api/v1/tank/${props.values._id}`, {
+                const request = await fetch(`${BASEURL.URL}tank/${props.values._id}`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',

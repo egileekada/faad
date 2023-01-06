@@ -2,12 +2,13 @@ import React from 'react'
 import { useQuery } from 'react-query'
 import { useNavigate } from 'react-router-dom'
 import PageLoader from '../PageLoader'
+import { BASEURL } from '../../assets/BasicUrl/Url'
 
 export default function DealsDetail() {
   
     const navigate = useNavigate()
     const { isLoading, data } = useQuery('AllDeals', () =>
-        fetch('https://obscure-oasis-95161.herokuapp.com/api/v1/deals', {
+        fetch(BASEURL.URL+'deals', {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 

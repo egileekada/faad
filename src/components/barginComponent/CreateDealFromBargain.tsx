@@ -11,6 +11,7 @@ import ButtonLoader from '../ButtonLoader'
 import { useQuery } from 'react-query'
 import PageLoader from '../PageLoader'
 import { IUser, UserContext } from '../context/UserContext'
+import { BASEURL } from '../../assets/BasicUrl/Url'
 
 export default function CreateDealFromBargain() {
 
@@ -23,7 +24,7 @@ export default function CreateDealFromBargain() {
     const userContext: IUser = React.useContext(UserContext);  
     
     const { isLoading, data } = useQuery('DealsCreationBargainByID', () =>
-        fetch(`https://obscure-oasis-95161.herokuapp.com/api/v1/bargain/${localStorage.getItem('barginID')}`, {
+        fetch(`${BASEURL.URL}bargain/${localStorage.getItem('barginID')}`, {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 
@@ -98,7 +99,7 @@ export default function CreateDealFromBargain() {
           return;
         }
         else {
-            const request = await fetch(`https://obscure-oasis-95161.herokuapp.com/api/v1/deals`, {
+            const request = await fetch(`${BASEURL.URL}deals`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -119,7 +120,7 @@ export default function CreateDealFromBargain() {
             //     console.log(json)
             //     setLoading(false);
             // }
-            await fetch(`https://obscure-oasis-95161.herokuapp.com/api/v1/bargain/${data.data.bargain._id}`, {
+            await fetch(`${BASEURL.URL}bargain/${data.data.bargain._id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

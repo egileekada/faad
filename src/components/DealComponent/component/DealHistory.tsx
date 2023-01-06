@@ -4,13 +4,14 @@ import { useQuery } from 'react-query'
 import { useNavigate } from 'react-router-dom'
 import DateFormat from '../../DateFormat'
 import PageLoader from '../../PageLoader'
+import { BASEURL } from '../../../assets/BasicUrl/Url'
 
 export default function DealHistory(props: any) {
 
     const navigate = useNavigate() 
 
     const { isLoading, error, data } = useQuery('AllDelivery', () =>
-        fetch('https://obscure-oasis-95161.herokuapp.com/api/v1/delivery', {
+        fetch(BASEURL.URL+'delivery', {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 

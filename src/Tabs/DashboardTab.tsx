@@ -6,6 +6,7 @@ import ProductDetails from '../components/dashboardComponent/ProductDetails'
 import io from "socket.io-client";
 import DateFormat from '../components/DateFormat';
 import PageLoader from '../components/PageLoader';
+import { BASEURL } from '../assets/BasicUrl/Url';
 
 export default function DashboardTab() { 
     
@@ -19,7 +20,7 @@ export default function DashboardTab() {
     const socket : any= io("https://obscure-oasis-95161.herokuapp.com");
     
     const { isLoading, data } = useQuery('AllBargains', () =>
-        fetch('https://obscure-oasis-95161.herokuapp.com/api/v1/bargain', {
+        fetch(BASEURL.URL+'bargain', {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 

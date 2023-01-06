@@ -4,11 +4,12 @@ import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import { useQuery } from 'react-query'
 import { useNavigate } from 'react-router-dom';
 import DateFormat from '../DateFormat';
+import { BASEURL } from '../../assets/BasicUrl/Url';
 
 export default function Activity() { 
 
     const { isLoading, data, refetch } = useQuery('AllDeals', () =>
-        fetch('https://obscure-oasis-95161.herokuapp.com/api/v1/deals', {
+        fetch(BASEURL.URL+'deals', {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 

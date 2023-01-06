@@ -5,6 +5,7 @@ import AddRequisition from '../Modal/AddRequisition'
 import DateFormat from '../../DateFormat' 
 import PageLoader from '../../PageLoader'
 import { IUser, UserContext } from '../../context/UserContext'
+import { BASEURL } from '../../../assets/BasicUrl/Url'
 
 export default function Requisition(props: any) {
     
@@ -35,12 +36,10 @@ export default function Requisition(props: any) {
     const [show, setShow] = React.useState(false)
     const [number, setNumber] = React.useState([] as any)
     const [total, setTotal] = React.useState(0)
-    const userContext: IUser = React.useContext(UserContext); 
-
-    console.log(props.id);
+    const userContext: IUser = React.useContext(UserContext);  
     
     const { isLoading, data } = useQuery('AllRequisition', () =>
-        fetch(`https://obscure-oasis-95161.herokuapp.com/api/v1/requisition`, {
+        fetch(`${BASEURL.URL}requisition`, {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 

@@ -10,6 +10,7 @@ import { IUser, UserContext } from '../context/UserContext'
 import DateFormat from '../DateFormat'
 import PageLoader from '../PageLoader'
 import ScrollToBottom from 'react-scroll-to-bottom';
+import { BASEURL } from '../../assets/BasicUrl/Url'
 
 export default function MyNotes() {
 
@@ -34,7 +35,7 @@ export default function MyNotes() {
     });
 
     const { isLoading, data, refetch, } = useQuery('Note', () =>
-        fetch('https://obscure-oasis-95161.herokuapp.com/api/v1/auth/profile', {
+        fetch(BASEURL.URL+'auth/profile', {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 
@@ -59,7 +60,7 @@ export default function MyNotes() {
           return;
         }
         else {
-            const request = await fetch(`https://obscure-oasis-95161.herokuapp.com/api/v1/note`, {
+            const request = await fetch(`${BASEURL.URL}note`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

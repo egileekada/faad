@@ -4,15 +4,16 @@ import { io } from 'socket.io-client';
 import { IUser, UserContext } from '../context/UserContext';
 import ChatComponent from './component/ChatComponent';
 import GetUserOnGroup from './component/GetUserOnGroup';
+import { BASEURL } from '../../assets/BasicUrl/Url';
 
 export default function CustomerService() {
 
-    const socket : any= io("https://obscure-oasis-95161.herokuapp.com");
+    const socket : any= io(BASEURL.SNG);
     const userContext: IUser = React.useContext(UserContext);  
     const [loading, setLoading] = React.useState('');
 
     const { isLoading, data, refetch, } = useQuery('ChatGroup', () =>
-        fetch('https://obscure-oasis-95161.herokuapp.com/api/v1/group', {
+        fetch(BASEURL.URL+'group', {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 

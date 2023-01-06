@@ -5,6 +5,7 @@ import React from 'react'
 import * as yup from 'yup'
 import ButtonLoader from '../../ButtonLoader';
 import SuccessModal from '../../SuccessModal';
+import { BASEURL } from '../../../assets/BasicUrl/Url';
 
 export default function AddTruck(props: any) {
     const [loading, setLoading] = React.useState(false);  
@@ -41,7 +42,7 @@ export default function AddTruck(props: any) {
           return;
         }
         else {
-            const request = await fetch(`https://obscure-oasis-95161.herokuapp.com/api/v1/truck`, {
+            const request = await fetch(`${BASEURL.URL}truck`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

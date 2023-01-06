@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useReactToPrint } from "react-to-print";
 import SuccessModal from "../../SuccessModal";
 import PrintedSlip from "./PrintedSlip";
+import { BASEURL } from "../../../assets/BasicUrl/Url";
 
 const PrintButton = (props: any) => {
   const navigate = useNavigate()
@@ -27,7 +28,7 @@ const PrintButton = (props: any) => {
 
   const ClickHandler =async()=> {
 
-    const request = await fetch(`https://obscure-oasis-95161.herokuapp.com/api/v1/permit`, {
+    const request = await fetch(`${BASEURL.URL}permit`, {
       method: 'POST',
       headers: {
           'Content-Type': 'application/json',

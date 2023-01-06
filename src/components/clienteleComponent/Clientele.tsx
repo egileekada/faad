@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import { IUser, UserContext } from '../context/UserContext'
 import DateFormat from '../DateFormat'
 import PageLoader from '../PageLoader'
+import { BASEURL } from '../../assets/BasicUrl/Url'
 
 export default function Clientele() {
  
@@ -29,7 +30,7 @@ export default function Clientele() {
     },[name]);  
 
     const { isLoading, data } = useQuery('AllClients', () =>
-        fetch('https://obscure-oasis-95161.herokuapp.com/api/v1/client', {
+        fetch(BASEURL.URL+'client', {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 

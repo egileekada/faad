@@ -1,11 +1,12 @@
 import React from 'react'
 import { useQuery } from 'react-query'
+import { BASEURL } from '../../assets/BasicUrl/Url'
 
 export default function Stock(props: any) {
     const [tankData, setTankData ] = React.useState([] as any)
  
     const { isLoading, data, refetch } = useQuery('AllStock', () =>
-        fetch('https://obscure-oasis-95161.herokuapp.com/api/v1/stock', {
+        fetch(BASEURL.URL+'stock', {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 
@@ -18,7 +19,7 @@ export default function Stock(props: any) {
  
     React.useEffect(() => {
         
-        fetch('https://obscure-oasis-95161.herokuapp.com/api/v1/tank', {
+        fetch(BASEURL.URL+'tank', {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json',

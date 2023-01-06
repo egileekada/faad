@@ -5,6 +5,7 @@ import PageLoader from '../PageLoader'
 import AddProduct from './Modal/AddProduct'
 import ButtonLoader from '../ButtonLoader' 
 import { IUser, UserContext } from '../context/UserContext'
+import { BASEURL } from '../../assets/BasicUrl/Url'
 
 export default function ProductAndPricing() {
 
@@ -27,7 +28,7 @@ export default function ProductAndPricing() {
     },[]); 
 
     const { isLoading, data, refetch } = useQuery('AllProductAndPricing', () =>
-        fetch('https://obscure-oasis-95161.herokuapp.com/api/v1/product', {
+        fetch(BASEURL.URL+'product', {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 
@@ -46,7 +47,7 @@ export default function ProductAndPricing() {
 
     // const DeleteTank=(index: any)=> {
 
-    //     fetch(`https://obscure-oasis-95161.herokuapp.com/api/v1/tank`, {
+    //     fetch(`${BASEURL.URL}tank`, {
     //         method: 'GET', // or 'PUT'
     //         headers: {
     //             'Content-Type': 'application/json',
@@ -58,7 +59,7 @@ export default function ProductAndPricing() {
     //         {data.data.tanks.map((item: any)=> {
     //             if(index === item.product._id){ 
     //                 console.log(item)
-    //                 fetch(`https://obscure-oasis-95161.herokuapp.com/api/v1/tank/${item._id}`, {
+    //                 fetch(`${BASEURL.URL}tank/${item._id}`, {
     //                     method: 'DELETE',
     //                     headers: {
     //                         'Content-Type': 'application/json',
@@ -77,7 +78,7 @@ export default function ProductAndPricing() {
     // }
 
     const DeleteHandler =async(index: any)=> {
-        await fetch(`https://obscure-oasis-95161.herokuapp.com/api/v1/product/${index}`, {
+        await fetch(`${BASEURL.URL}product/${index}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
@@ -96,7 +97,7 @@ export default function ProductAndPricing() {
             alert('Enter New Price')
             setLoading('')
         } else{ 
-            await fetch(`https://obscure-oasis-95161.herokuapp.com/api/v1/product/${item}`, {
+            await fetch(`${BASEURL.URL}product/${item}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

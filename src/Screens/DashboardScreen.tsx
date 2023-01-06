@@ -5,6 +5,7 @@ import SideBar from '../components/SideBar'
 import { IUser, UserContext } from '../components/context/UserContext';
 import Avatar from '../assets/images/avatar.png'
 import PageLoader from '../components/PageLoader'; 
+import { BASEURL } from '../assets/BasicUrl/Url';
 
 export default function DashboardScreen() {
 
@@ -13,7 +14,7 @@ export default function DashboardScreen() {
     const [general, setGeneral] = React.useState([] as any) 
 
     const { isLoading, data } = useQuery('userData'+localStorage.getItem('token'), () =>
-        fetch('https://obscure-oasis-95161.herokuapp.com/api/v1/auth/profile', {
+        fetch(BASEURL.URL+'auth/profile', {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 
@@ -25,7 +26,7 @@ export default function DashboardScreen() {
     )   
 
     const AddToChatGroup =async(item: any)=> { 
-        const request = await fetch(`https://obscure-oasis-95161.herokuapp.com/api/v1/group/${item}`, {
+        const request = await fetch(`${BASEURL.URL}group/${item}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -55,7 +56,7 @@ export default function DashboardScreen() {
 
     // React.useEffect(() => {
 
-    //     fetch(`https://obscure-oasis-95161.herokuapp.com/api/v1/group/62ade34f15f3fa53457b1c2c/members`, {
+    //     fetch(`${BASEURL.URL}group/62ade34f15f3fa53457b1c2c/members`, {
     //         method: 'GET', // or 'PUT'
     //         headers: {
     //             'Content-Type': 'application/json',

@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import React from 'react'
 import * as yup from 'yup'
 import ButtonLoader from '../../ButtonLoader' 
+import { BASEURL } from '../../../assets/BasicUrl/Url'
 
 export default function AddProduct(props: any) { 
 
@@ -51,7 +52,7 @@ export default function AddProduct(props: any) {
           return;
         }
         else {
-            const request = await fetch(`https://obscure-oasis-95161.herokuapp.com/api/v1/requisition`, {
+            const request = await fetch(`${BASEURL.URL}requisition`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

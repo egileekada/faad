@@ -8,6 +8,7 @@ import { useFormik } from 'formik';
 import ButtonLoader from '../ButtonLoader'
 import PageLoader from '../PageLoader'
 import { useQuery } from 'react-query'
+import { BASEURL } from '../../assets/BasicUrl/Url'
 
 export default function ClienteleProfile() { 
 
@@ -52,7 +53,7 @@ export default function ClienteleProfile() {
           return;
         }
         else {
-            const request = await fetch(`https://obscure-oasis-95161.herokuapp.com/api/v1/client`, {
+            const request = await fetch(`${BASEURL.URL}client`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -95,7 +96,7 @@ export default function ClienteleProfile() {
 
 
     const { isLoading, data } = useQuery('EditClientsByID'+localStorage.getItem('editClientID'), () =>
-        fetch(`https://obscure-oasis-95161.herokuapp.com/api/v1/client/${localStorage.getItem('editClientID')}`, {
+        fetch(`${BASEURL.URL}client/${localStorage.getItem('editClientID')}`, {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 
@@ -121,7 +122,7 @@ export default function ClienteleProfile() {
           return;
         }
         else {
-            const request = await fetch(`https://obscure-oasis-95161.herokuapp.com/api/v1/client/${data.data.client._id}`, {
+            const request = await fetch(`${BASEURL.URL}client/${data.data.client._id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

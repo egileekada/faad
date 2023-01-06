@@ -7,11 +7,12 @@ import DateFormat from '../DateFormat'
 import PageLoader from '../PageLoader'
 import ReactPaginate from 'react-paginate'; 
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io'
+import { BASEURL } from '../../assets/BasicUrl/Url'
 
 export default function DealsTable(props:any) {
    
     const { isLoading, error, data } = useQuery('AllDelivery', () =>
-        fetch('https://obscure-oasis-95161.herokuapp.com/api/v1/delivery', {
+        fetch(BASEURL.URL+'delivery', {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 

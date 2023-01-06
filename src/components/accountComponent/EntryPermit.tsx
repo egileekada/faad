@@ -11,6 +11,7 @@ import SearchForTrucks from './components/SearchForTrucks'
 import SearchForProduct from './components/SearchForProduct'
 import { useQuery } from 'react-query'
 import PrintSubmitButton from './components/PrintSubmitButton'
+import { BASEURL } from '../../assets/BasicUrl/Url'
 
 export default function EntryPermit() { 
 
@@ -61,7 +62,7 @@ export default function EntryPermit() {
 
 
     const { isLoading, data, refetch } = useQuery('Permit', () =>
-        fetch('https://obscure-oasis-95161.herokuapp.com/api/v1/permit', {
+        fetch(BASEURL.URL+'permit', {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 

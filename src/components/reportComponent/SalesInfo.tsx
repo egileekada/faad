@@ -4,86 +4,12 @@ import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io'
 import { useQuery } from 'react-query'
 import DateFormat from '../DateFormat'
 import Requisition from './component/Requisition'
+import { BASEURL } from '../../assets/BasicUrl/Url'
 
-export default function SalesInfo(props: any) {
-
-    // const data = [
-    //     {
-    //         client: 'Banji and Sons',
-    //         id: 'FD123456',
-    //         product: 'AGO',
-    //         value: '400,000,000',
-    //         requisitions: '10,000,000',
-    //         cummilative: '380,000,000',
-    //         date: '12-11-2019', 
-    //     },
-    //     {
-    //         client: 'Banji and Sons',
-    //         id: 'FD123456',
-    //         product: 'AGO',
-    //         value: '400,000,000',
-    //         requisitions: '10,000,000',
-    //         cummilative: '380,000,000',
-    //         date: '12-11-2019', 
-    //     },
-    //     {
-    //         client: 'Banji and Sons',
-    //         id: 'FD123456',
-    //         product: 'AGO',
-    //         value: '400,000,000',
-    //         requisitions: '10,000,000',
-    //         cummilative: '380,000,000',
-    //         date: '12-11-2019', 
-    //     },
-    //     {
-    //         client: 'Banji and Sons',
-    //         id: 'FD123456',
-    //         product: 'AGO',
-    //         value: '400,000,000',
-    //         requisitions: '10,000,000',
-    //         cummilative: '380,000,000',
-    //         date: '12-11-2019', 
-    //     },
-    //     {
-    //         client: 'Banji and Sons',
-    //         id: 'FD123456',
-    //         product: 'AGO',
-    //         value: '400,000,000',
-    //         requisitions: '10,000,000',
-    //         cummilative: '380,000,000',
-    //         date: '12-11-2019', 
-    //     },
-    //     {
-    //         client: 'Banji and Sons',
-    //         id: 'FD123456',
-    //         product: 'AGO',
-    //         value: '400,000,000',
-    //         requisitions: '10,000,000',
-    //         cummilative: '380,000,000',
-    //         date: '12-11-2019', 
-    //     },
-    //     {
-    //         client: 'Banji and Sons',
-    //         id: 'FD123456',
-    //         product: 'AGO',
-    //         value: '400,000,000',
-    //         requisitions: '10,000,000',
-    //         cummilative: '380,000,000',
-    //         date: '12-11-2019', 
-    //     },
-    //     {
-    //         client: 'Banji and Sons',
-    //         id: 'FD123456',
-    //         product: 'AGO',
-    //         value: '400,000,000',
-    //         requisitions: '10,000,000',
-    //         cummilative: '380,000,000',
-    //         date: '12-11-2019', 
-    //     },
-    // ]
-
+export default function SalesInfo(props: any) { 
+    
     const { isLoading, data } = useQuery('AllDelivery', () =>
-        fetch('https://obscure-oasis-95161.herokuapp.com/api/v1/delivery', {
+        fetch(BASEURL.URL+'delivery', {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 

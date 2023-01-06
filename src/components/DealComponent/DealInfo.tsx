@@ -7,6 +7,7 @@ import DateFormat from '../DateFormat'
 import PageLoader from '../PageLoader'
 import Requisition from './component/Requisition'
 import AddRequisition from './Modal/AddRequisition'
+import { BASEURL } from '../../assets/BasicUrl/Url'
 
 export default function DealInfo() {
 
@@ -17,7 +18,7 @@ export default function DealInfo() {
     const current = window.location.pathname 
     localStorage.setItem("current", current)
     const { isLoading, data } = useQuery('DeliveryById'+localStorage.getItem('dealID'), () =>
-        fetch(`https://obscure-oasis-95161.herokuapp.com/api/v1/delivery/${localStorage.getItem('dealID')}`, {
+        fetch(`${BASEURL.URL}delivery/${localStorage.getItem('dealID')}`, {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 

@@ -9,6 +9,7 @@ import { useFormik } from 'formik';
 import { IUser, UserContext } from '../context/UserContext'
 import ButtonLoader from '../ButtonLoader'
 import SearchProduct from '../barginComponent/components/SearchProduct'
+import { BASEURL } from '../../assets/BasicUrl/Url'
 
 export default function CreateDeal() {
 
@@ -68,7 +69,7 @@ export default function CreateDeal() {
           return;
         }
         else {
-            const request = await fetch(`https://obscure-oasis-95161.herokuapp.com/api/v1/deals`, {
+            const request = await fetch(`${BASEURL.URL}deals`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

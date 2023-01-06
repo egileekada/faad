@@ -3,13 +3,14 @@ import { useQuery } from 'react-query'
 import Truck from '../../assets/images/tanker.png'
 import PageLoader from '../PageLoader'
 import AddTruck from './Modal/AddTruck'
+import { BASEURL } from '../../assets/BasicUrl/Url'
 
 export default function Trucks() {
 
     const [deleteModal, setDeleteModal] = React.useState(false)  
     const [deleteId, setDeleteId] = React.useState(''); 
     const DeleteHandler =async(index: any)=> {
-        await fetch(`https://obscure-oasis-95161.herokuapp.com/api/v1/truck/${index}`, {
+        await fetch(`${BASEURL.URL}truck/${index}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
@@ -23,7 +24,7 @@ export default function Trucks() {
     }
 
     const { isLoading, data, refetch } = useQuery('AllTruck', () =>
-        fetch('https://obscure-oasis-95161.herokuapp.com/api/v1/truck', {
+        fetch(BASEURL.URL+'truck', {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 
