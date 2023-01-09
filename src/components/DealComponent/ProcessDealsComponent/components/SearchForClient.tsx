@@ -37,7 +37,7 @@ export default function SearchForClient(props: any) {
                                     {data.data.users.map((item: any, index: any ) => {
                                         if(item.department === props.role){
                                             return(
-                                                <>
+                                                < >
                                                     <option key={props.id} >{props.show ? ''+props.default : 'Search'}</option>
                                                     <option className='' key={index} value={item._id} >{item.name}</option>
                                                 </>

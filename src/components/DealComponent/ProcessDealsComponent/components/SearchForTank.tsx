@@ -50,9 +50,9 @@ export default function SearchForTank(props: any) {
                                 <p className='font-Inter-Regular text-sm w-28 ' >Dispatch tank</p> 
                                 <div className='w-96 flex items-center relative' >
                                     <div className='w-full' >
-                                        <Select disabled={props.show ? true : false} onChange={(e)=> OnChangeHandle(e.target.value, index)} fontSize='sm' >
+                                        <Select disabled={props?.show ? true : false} onChange={(e)=> OnChangeHandle(e.target.value, index)} fontSize='sm' >
                                             <option key='' >{props.show ? ''+props.tankName[index] : 'Search'}</option>
-                                            {data.data.tanks.filter((item: any)=> item.level >= props.quantity &&(item.product.productCode === props.fuelType || item.product.productName === props.fuelType)).map((item: any, index: any ) => { 
+                                            {data.data.tanks.filter((item: any)=> item.level >= props.quantity &&(item?.product?.productCode === props?.fuelType || item?.product?.productName === props?.fuelType)).map((item: any, index: any ) => { 
                                                 // console.log(item);
                                                 
                                                 return(

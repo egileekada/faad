@@ -177,7 +177,7 @@ export default function SideBar() {
                             </>
                         )}
 
-                        {userContext.userData.department.toLowerCase() === 'Operations'.toLowerCase() && (
+                        {/* {userContext.userData.department.toLowerCase() === 'Operations'.toLowerCase() && (
                             <>
                                 {OperationmessageArray.map((item: any)=> {
                                     return(
@@ -190,7 +190,7 @@ export default function SideBar() {
                                     )
                                 })}
                             </>
-                        )} 
+                        )}  */}
 
                         {userContext.userData.department.toLowerCase() === 'Operations'.toLowerCase() && (
                             <>
