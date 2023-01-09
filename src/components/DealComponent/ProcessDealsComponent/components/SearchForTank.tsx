@@ -40,6 +40,9 @@ export default function SearchForTank(props: any) {
 
     }    
 
+    console.log(data);
+    
+
     return (
         <div className='w-full  ' > 
             {!isLoading && ( 
