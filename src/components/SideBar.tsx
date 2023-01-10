@@ -13,11 +13,11 @@ export default function SideBar() {
     const CustomerCareAdmin = ['Dashboard', 'Bargains', 'Deals', 'Clientele', 'Our people']
     const CustomerCare = ['Dashboard', 'Bargains', 'Deals', 'Clientele', 'Our people']
     const Account = ['Dashboard', 'Accounts', 'Deals', 'Our people']
-    const Operation = ['Dashboard', 'Bargains', 'Deals', 'Our people']
+    const Operation = ['Dashboard', 'Accounts', 'Bargains', 'Deals', 'Our people']
     const messageArray = [ 'General', 'Account','Customer Service', 'Operations', 'My Notes', 'Lock', 'Log out']
     const CustomerCaremessageArray = ['General', 'Customer Service', 'My Notes', 'Lock', 'Log out']
     const OperationmessageArray = ['General', 'Operations', 'My Notes', 'Lock', 'Log out']
-    const AccountmessageArray = ['General', 'Account', 'My Notes', 'Lock', 'Log out']
+    const AccountmessageArray = ['General', 'Account', 'Operations', 'My Notes', 'Lock', 'Log out']
     // const messageArray = ['Customer Service', 'Operations', 'General', 'My Notes', 'Lock', 'Log out']
 
     const [active, setActive] = React.useState('Dashboard') 

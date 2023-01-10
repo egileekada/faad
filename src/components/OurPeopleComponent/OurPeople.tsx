@@ -88,6 +88,9 @@ export default function OurPeople() {
         } else {
             navigate('profile')
         } 
+        if(userContext.userData.department.toLowerCase() === 'Managing Director'.toLowerCase()){
+            navigate('profile')
+        }
         userContext.setProfileData(item)
     }   
 

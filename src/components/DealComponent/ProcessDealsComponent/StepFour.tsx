@@ -32,6 +32,15 @@ export default function StepFour(props: any) {
                             <p className='font-Inter-Regular mt-1 text-[#ACB5BD] text-sm ' >Ensure you have double checked</p>
                         </div>
                     </div>
+                    <div className='flex mt-4 items-center' >
+                        <Checkbox onChange={(e) =>  props.delivery({...props.deliveryDefault,
+                            receivedWaterNote: e.target.checked
+                        })} colorScheme='orange' />
+                        <div className='ml-3' > 
+                            <p className='font-Inter-Medium text-[#000] text-sm ' >Received waybill</p>
+                            <p className='font-Inter-Regular mt-1 text-[#ACB5BD] text-sm ' >Ensure you have double checked</p>
+                        </div>
+                    </div>
                     <Textarea className='mt-4' width='300px' height='150px' fontSize='sm' placeholder='Comment' />
                 </div>
                     

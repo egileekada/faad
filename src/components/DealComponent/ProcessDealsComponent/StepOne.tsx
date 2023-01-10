@@ -11,11 +11,12 @@ export default function StepOne(props: any) {
     
 
     const OnChangeHandler=(item: any)=> {
-            if(item > props.values.quantity ){
+            // if(item > props.values.quantity ){
 
-            } else {
-                props.dispatchquatity(item)
-            }
+            // } else {
+            //     props.dispatchquatity(item)
+            // }
+            props.dispatchquatity(item)
     }
 
     React.useEffect(() => {
