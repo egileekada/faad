@@ -65,9 +65,7 @@ export default function ProcessDeal(props: any) {
             }
             {data.data.delivery.map((item: any)=> {
                 if(userContext.dealValue._id === item.deal._id){
-                    setTab(3)
-                    // setLoadingPage(false)
-                    console.log(item)
+                    setTab(3) 
                     setDeliveryId(item._id)
                     // setTab(2)
                     setShowDetail(true)
@@ -96,6 +94,8 @@ export default function ProcessDeal(props: any) {
             console.error('Error:', error); 
         },);     
     },[] ) 
+
+    console.log(dispatchQuatity);
  
     const submit = async () => { 
         
@@ -119,7 +119,7 @@ export default function ProcessDeal(props: any) {
                         waterCheck: inspectInfo.waterCheck,
                         truckSealed: inspectInfo.truckSealed
                     },
-                    level: dispatchQuatity,
+                    level: Number(dispatchQuatity),
                     agentId: agentInfo,
                     driverId: driverInfo,
                     confirmedDelivery: {
@@ -128,7 +128,7 @@ export default function ProcessDeal(props: any) {
                     }
                 }),
             })
-
+            
             const json = await request.json(); 
 
             if (request.status === 200) {     
@@ -161,13 +161,11 @@ export default function ProcessDeal(props: any) {
                             setModal(true)
 
                         }else {
-                            alert(json.message);
-                            console.log(json)
+                            alert(json.message); 
                             setLoading(false);
                         } 
                     }else {
-                        alert(json.message);
-                        console.log(json)
+                        alert(json.message); 
                         setLoading(false);
                     }  
 
@@ -176,8 +174,7 @@ export default function ProcessDeal(props: any) {
                     clearTimeout(t1);
                 }, 2000); 
             }else {
-                alert(json.message);
-                console.log(json)
+                alert(json.message); 
                 setLoading(false);
             } 
         } else {
@@ -238,20 +235,17 @@ export default function ProcessDeal(props: any) {
                         if (request.status === 200) { 
                             // alert('Truck Update')
                         }else {
-                            alert(json.message);
-                            console.log(json)
+                            alert(json.message); 
                             setLoading(false);
                         } 
                     }else {
-                        alert(json.message);
-                        console.log(json)
+                        alert(json.message); 
                         setLoading(false);
                     } 
                 }  
                 setTab(4)  
             }else {
-                alert(json.message);
-                console.log(json)
+                alert(json.message); 
                 setLoading(false);
             } 
         }
@@ -274,13 +268,11 @@ export default function ProcessDeal(props: any) {
         <div className='w-full h-auto flex mt-2 justify-center  ' > 
             <PageLoader />
         </div>
-    )     
-     
-    console.log(tankInfo);
+    )      
         
     return (
         <div className='w-full h-full py-8' > 
-            <SuccessModal close={modal} message='Deal Processed Successfull' />
+            <SuccessModal close={modal} message='Deal Processed Successful' />
             <svg onClick={()=> userContext.setDealTab(1)} className='cursor-pointer fixed z-50 top-14  ' width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M20.3287 11.0001V13.0001L7.50042 13.0001L10.7429 16.2426L9.32873 17.6568L3.67188 12L9.32873 6.34314L10.7429 7.75735L7.50019 11.0001L20.3287 11.0001Z" fill="#495057"/>
             </svg>

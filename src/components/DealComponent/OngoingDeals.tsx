@@ -38,10 +38,7 @@ export default function OngoingDeals(props: any) {
         userContext.setDealTab(2)
         userContext.setDealValue(item)
         // props.values(item)
-    } 
-
-    console.log(data.data.deals)
-
+    }  
     return (
         <div className='w-full py-6' >
             {[...data.data.deals].reverse().map((item: any, index: any)=> {

@@ -38,10 +38,7 @@ export default function SearchForTank(props: any) {
             console.error('Error:', error); 
         },); 
 
-    }    
-
-    console.log(data);
-    
+    }     
 
     return (
         <div className='w-full  ' > 
