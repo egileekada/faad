@@ -1,5 +1,5 @@
-const liveUrl = "https://obscure-oasis-95161.herokuapp.com/api/v1/"
-const domain = "https://obscure-oasis-95161.herokuapp.com"
+const liveUrl = "https://faadoil.herokuapp.com/api/v1/"
+const domain = "https://faadoil.herokuapp.com"
 
 export const BASEURL = {
     URL: liveUrl, 
