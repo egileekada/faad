@@ -17,7 +17,7 @@ export default function DashboardTab() {
         userContext.setTab('Dashboard')
     },[]); 
 
-    const socket : any= io("https://obscure-oasis-95161.herokuapp.com");
+    const socket : any= io(BASEURL.SNG);
     
     const { isLoading, data } = useQuery('AllBargains', () =>
         fetch(BASEURL.URL+'bargain', {

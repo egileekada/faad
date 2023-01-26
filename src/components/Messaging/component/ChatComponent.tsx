@@ -8,6 +8,7 @@ import DateFormat from '../../DateFormat';
 import ScrollToBottom from 'react-scroll-to-bottom';
 import PageLoader from '../../PageLoader'; 
 import Avatar from '../../../assets/images/avatar.png' 
+import { BASEURL } from '../../../assets/BasicUrl/Url';
 
 export default function ChatComponent(props: any) {
 
@@ -116,7 +117,7 @@ export default function ChatComponent(props: any) {
                                                     <img src={Avatar} alt='avatar' className='rounded-full bg-white object-cover' />
                                                 )} 
                                                 {item.avatar !== 'avatar.png' && (
-                                                    <img src={`https://obscure-oasis-95161.herokuapp.com/uploads/images/${item.avatar}`} alt='' className='w-full h-full object-cover rounded-full' /> 
+                                                    <img src={`${BASEURL.SNG}/uploads/images/${item.avatar}`} alt='' className='w-full h-full object-cover rounded-full' /> 
                                                 )} 
                                             </div>
                                             {/* <div className='bg-yellow-400 w-10 h-10 rounded-full' /> */}
@@ -150,7 +151,7 @@ export default function ChatComponent(props: any) {
                                                     <img src={Avatar} alt='avatar' className='rounded-full bg-white object-cover' />
                                                 )} 
                                                 {item.avatar !== 'avatar.png' && (
-                                                    <img src={`https://obscure-oasis-95161.herokuapp.com/uploads/images/${item.avatar}`} alt='' className='w-full h-full object-cover rounded-full' /> 
+                                                    <img src={`${BASEURL.SNG}/uploads/images/${item.avatar}`} alt='' className='w-full h-full object-cover rounded-full' /> 
                                                 )} 
                                             </div>
                                             {/* <div className='bg-yellow-400 w-10 h-10 rounded-full ml-3' /> */}

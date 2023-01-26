@@ -22,8 +22,7 @@ export default function CustomerService() {
         }).then(res =>
             res.json()
         )
-    )     
-    console.log(data);
+    )      
     const current = window.location.pathname 
     localStorage.setItem("current", current)
      

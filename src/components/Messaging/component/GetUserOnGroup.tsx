@@ -31,7 +31,7 @@ export default function GetUserOnGroup(props: any) {
                                                 <img src={Avatar} alt='avatar' className='rounded-full bg-white object-cover' />
                                             )} 
                                             {item.avatar !== 'avatar.png' && (
-                                                <img src={`https://obscure-oasis-95161.herokuapp.com/uploads/images/${item.avatar}`} alt='' className='w-full h-full object-cover rounded-full' /> 
+                                                <img src={`${BASEURL.SNG}/uploads/images/${item.avatar}`} alt='' className='w-full h-full object-cover rounded-full' /> 
                                             )} 
                                         </div>
                                         {/* <div className='bg-yellow-400 w-10 h-10 rounded-full mr-3' /> */}
@@ -50,7 +50,7 @@ export default function GetUserOnGroup(props: any) {
                                                 <img src={Avatar} alt='avatar' className='rounded-full bg-white object-cover' />
                                             )} 
                                             {item.avatar !== 'avatar.png' && (
-                                                <img src={`https://obscure-oasis-95161.herokuapp.com/uploads/images/${item.avatar}`} alt='' className='w-full h-full object-cover rounded-full' /> 
+                                                <img src={`${BASEURL.SNG}/uploads/images/${item.avatar}`} alt='' className='w-full h-full object-cover rounded-full' /> 
                                             )} 
                                         </div>
                                         {/* <div className='bg-yellow-400 w-10 h-10 rounded-full mr-3' /> */}

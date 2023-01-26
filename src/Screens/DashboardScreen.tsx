@@ -124,7 +124,7 @@ export default function DashboardScreen() {
                                     <img src={Avatar} alt='avatar' className='rounded-full bg-white object-cover' />
                                 )}
                                 {userContext.userData.avatar !== 'avatar.png' && ( 
-                                    <img src={`https://obscure-oasis-95161.herokuapp.com/uploads/images/${userContext.userData.avatar}`} alt='avatar' className='w-full h-full object-cover rounded-full' />
+                                    <img src={`${BASEURL.SNG}/uploads/images/${userContext.userData.avatar}`} alt='avatar' className='w-full h-full object-cover rounded-full' />
                                 )}
                             </div>
                             <div className='ml-3' >
