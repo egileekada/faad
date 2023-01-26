@@ -55,11 +55,6 @@ export default function TopUpHistory(props: any) {
         setFrom((limit * item) - (limit - 1))
         setTo(limit * item)
     }
-    // console.log(data);
-    // const t1 = setTimeout(() => { 
-    //     clearTimeout(t1);
-    // }, 1000); 
-     
 
     return ( 
         <div className=' w-full px-10 py-12 ' >
@@ -75,7 +70,7 @@ export default function TopUpHistory(props: any) {
                             <Th>Quantity</Th>  
                             {/* <Th>Price received (N)</Th>  
                             <Th>Landing costs</Th>   */}
-                            <Th>Vendor</Th> 
+                            <Th>Staff</Th> 
                             <Th>Date</Th>  
                         </Tr>
                     </Thead>

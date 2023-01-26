@@ -62,7 +62,7 @@ export default function StorageTanks() {
             <div className='w-full grid grid-cols-2 gap-x-4 pb-12 border-[#E0E0E0] border-b  gap-y-14 px-10 mt-8' >
                 {!isLoading && (
                     <>
-                        {data.data.tanks.map((item: any, index: any ) => { 
+                        {data?.data?.tanks.filter((item: any)=> item.product).map((item: any, index: any ) => { 
                             return(
                                 <div key={index} className='w-full flex items-center' >
                                     <svg width="234" height="349" viewBox="0 0 234 349" fill="none" xmlns="http://www.w3.org/2000/svg">

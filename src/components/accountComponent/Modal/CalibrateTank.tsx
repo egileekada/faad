@@ -36,10 +36,10 @@ export default function CalibrateTank(props: any) {
 
     React.useEffect(() => {
         formik.setValues({
-            dirt: props.values.dirt,
+            dirt: props.values?.dirt,
             level: '',
-            userId: userContext.userData._id,
-            productId: props.values.product._id
+            userId: userContext?.userData?._id,
+            productId: props.values?.product?._id
         })
     }, []) 
 
@@ -126,7 +126,7 @@ export default function CalibrateTank(props: any) {
     }   
 
     const OnChangeHandler =(item: any)=> { 
-        let ReLevel = Number(props.values.capacity) - Number(formik.values.dirt)
+        let ReLevel = Number(props?.values?.capacity) - Number(formik?.values?.dirt)
         // console.log(ReLevel)
         if(Number(item) > ReLevel) {
 
@@ -137,12 +137,12 @@ export default function CalibrateTank(props: any) {
 
 
     const OnTopUpHandler =(item: any)=> { 
-        let ReLevel = Number(props.values.capacity) - Number(formik.values.dirt) 
-        let NewLevel = Number(item) + Number(formik.values.level)
+        let ReLevel = Number(props.values?.capacity) - Number(formik.values?.dirt) 
+        let NewLevel = Number(item) + Number(formik.values?.level)
         if(NewLevel > ReLevel) {
 
         } else {
-            setNewLevel(Number(item) + Number(props.values.level)+'')
+            setNewLevel(Number(item) + Number(props.values?.level)+'')
             formik.setFieldValue('level', item)
         }
     }
@@ -161,7 +161,7 @@ export default function CalibrateTank(props: any) {
             
             <SuccessModal close={modal} message='Tank Updated Successfully' />
             <div className='flex items-center mb-8' >
-                <p className=' font-Inter-Bold text-lg ' >{props.name} Tank</p>
+                <p className=' font-Inter-Bold text-lg ' >{props?.name} Tank</p>
                 <svg onClick={()=> CloseHandler()} className='ml-auto cursor-pointer' xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
                     <g id="Iconly_Light_Close_Square" data-name="Iconly/Light/Close Square" transform="translate(0.75 0.75)">
                         <g id="Close_Square" data-name="Close Square">
@@ -172,7 +172,7 @@ export default function CalibrateTank(props: any) {
                     </g>
                 </svg>
             </div> 
-            {!props.fill && ( 
+            {!props?.fill && ( 
                 <div className=' w-full mr-2 ' >
                     <p className='text-sm mb-2 font-Inter-Medium' >Tank Dirt</p>
                     <Input  
