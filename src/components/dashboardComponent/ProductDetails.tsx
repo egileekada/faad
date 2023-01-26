@@ -21,7 +21,7 @@ export default function ProductDetails() {
     const [end, setEnd] = React.useState(3)
 
     React.useEffect(() => { 
-        if(data?.data?.products.length === end){ 
+        if(data?.data?.products.length-1 === end){ 
             const t1 = setTimeout(() => {  
                     if(data?.data?.products.length -1 !== end){ 
                         setStart(start+1)
@@ -43,7 +43,7 @@ export default function ProductDetails() {
 
 
     const NextButton =()=>{
-        if(data?.data?.products.length-1 !== end){
+        if(data?.data?.products.length-1 === end){
             setStart(start+1)
             setEnd(end+1)
         }
